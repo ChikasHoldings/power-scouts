@@ -52,23 +52,22 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
             </div>
 
             {/* Enhanced ZIP Code Input */}
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
-              <div className="relative flex items-stretch bg-white border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-white">
-                  <MapPin className="w-5 h-5 text-gray-400" />
+            <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-2 hover:shadow-xl transition-all duration-300">
+              <div className="flex items-center gap-2">
+                <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-lg">
+                  <MapPin className="w-5 h-5 text-gray-400 flex-shrink-0" />
                   <Input
                     type="text"
-                    placeholder="Enter ZIP code"
+                    placeholder="Enter your ZIP code"
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-400"
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-500 font-medium"
                     maxLength={5}
                   />
                 </div>
                 <Button
                   onClick={onCompare}
-                  className="px-8 py-3 text-base font-semibold rounded-none border-0 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="px-8 h-12 text-base font-semibold rounded-lg bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0"
                 >
                   Compare Rates
                 </Button>
