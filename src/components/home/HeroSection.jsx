@@ -7,7 +7,7 @@ import { createPageUrl } from "@/utils";
 
 export default function HeroSection({ zipCode, setZipCode, onCompare }) {
   return (
-    <section className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden py-20 lg:py-28">
+    <section className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden py-16 lg:py-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -16,22 +16,22 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in-up">
+          <div className="space-y-6 animate-fade-in-up">
             {/* Star Rating with Badge */}
-            <div className="inline-flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-lg border border-gray-100">
+            <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 py-1.5 shadow-lg border border-gray-100">
               <img 
                 src="https://www.powerwizard.com/wp-content/uploads/2025/04/star-rating.svg"
                 alt="4.8 star rating"
-                className="h-5"
+                className="h-4"
                 onError={(e) => {
                   e.target.outerHTML = '<div class="flex gap-0.5">' + 
-                    Array(5).fill('<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>').join('') + 
+                    Array(5).fill('<svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>').join('') + 
                     '</div>';
                 }}
               />
-              <span className="text-gray-900 font-bold text-lg">4.8</span>
+              <span className="text-gray-900 font-semibold text-sm">4.8</span>
               <span className="text-gray-400">•</span>
               <Link to={createPageUrl("Home")} className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
                 1,200+ Reviews
@@ -40,35 +40,35 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
 
             {/* Main Headline with Gradient */}
             <div>
-              <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6 tracking-tight">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4 tracking-tight">
                 Compare the Best{" "}
                 <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
                   Electricity Rates
                 </span>
               </h1>
-              <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed font-light">
+              <p className="text-lg text-gray-600 leading-relaxed">
                 Finding the right electricity plan that fits your lifestyle has never been easier.
               </p>
             </div>
 
             {/* Enhanced ZIP Code Input */}
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
-              <div className="relative flex items-stretch bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
-                <div className="flex-1 flex items-center gap-3 px-6 py-5 bg-white">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
+              <div className="relative flex items-stretch bg-white border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-white">
                   <MapPin className="w-5 h-5 text-gray-400" />
                   <Input
                     type="text"
                     placeholder="Enter ZIP code"
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg p-0 h-auto placeholder:text-gray-400 font-medium"
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-400"
                     maxLength={5}
                   />
                 </div>
                 <Button
                   onClick={onCompare}
-                  className="px-12 py-5 text-lg font-bold rounded-none border-0 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="px-8 py-3 text-base font-semibold rounded-none border-0 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Compare Rates
                 </Button>
@@ -76,38 +76,38 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
             </div>
 
             {/* Secondary CTA with Icon */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <Link
                 to={createPageUrl("BusinessRates")}
-                className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-lg transition-all"
+                className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-base transition-all"
               >
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                 Shop Business Electricity Rates
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center gap-6 pt-4">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <div className="flex items-center gap-2">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-md">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900">100% Free</p>
+                  <p className="text-sm font-semibold text-gray-900">100% Free</p>
                   <p className="text-xs text-gray-500">No hidden fees</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center shadow-md">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900">Instant Results</p>
+                  <p className="text-sm font-semibold text-gray-900">Instant Results</p>
                   <p className="text-xs text-gray-500">Compare in seconds</p>
                 </div>
               </div>
@@ -124,14 +124,14 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                 className="w-full h-auto drop-shadow-2xl"
               />
               {/* Floating Stats Card */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-2xl border border-gray-100 animate-float">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white">$</span>
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-xl border border-gray-100 animate-float">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
+                    <span className="text-lg font-bold text-white">$</span>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">Avg. Savings</p>
-                    <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">$475</p>
+                    <p className="text-xs text-gray-500 font-medium">Avg. Savings</p>
+                    <p className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">$475</p>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
         }
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
+          50% { transform: translateY(-10px); }
         }
         .animate-blob {
           animation: blob 7s infinite;

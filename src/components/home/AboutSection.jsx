@@ -27,7 +27,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
+    <section className="py-16 lg:py-20 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -36,10 +36,10 @@ export default function AboutSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image with Overlay */}
           <div className="order-2 lg:order-1 group">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
               <img
                 src="https://www.powerwizard.com/wp-content/uploads/2025/04/about-us-power.jpg"
@@ -47,69 +47,69 @@ export default function AboutSection() {
                 className="w-full h-auto"
               />
               {/* Floating Badge */}
-              <div className="absolute bottom-6 right-6 bg-white rounded-2xl px-6 py-4 shadow-xl z-20 transform group-hover:translate-y-[-8px] transition-transform duration-300">
-                <div className="flex items-center gap-3">
+              <div className="absolute bottom-4 right-4 bg-white rounded-xl px-4 py-3 shadow-xl z-20 transform group-hover:translate-y-[-6px] transition-transform duration-300">
+                <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                      <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                       </svg>
                     ))}
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">4.8</span>
+                  <span className="text-xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">4.8</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Content */}
-          <div className="order-1 lg:order-2 space-y-8">
+          <div className="order-1 lg:order-2 space-y-6">
             <div className="inline-block">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full px-4 py-2 border border-blue-100">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-semibold text-blue-600">TRUSTED BY THOUSANDS</span>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full px-3 py-1.5 border border-blue-100">
+                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Trusted by Thousands</span>
               </div>
             </div>
 
-            <h2 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
               The Power Wizard{" "}
               <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 Way
               </span>
             </h2>
             
-            <p className="text-xl text-gray-600 leading-relaxed font-light">
+            <p className="text-base text-gray-600 leading-relaxed">
               Our goal is simple. To empower you by simplifying your search for electricity 
               companies and plans. Whether you're looking for the cheapest electricity rate 
               or a plan that fits your needs, we're here to help you make the best choice.
             </p>
 
             {/* Stats Cards */}
-            <div className="grid gap-6 pt-4">
+            <div className="grid gap-4 pt-2">
               {stats.map((stat, index) => (
                 <div 
                   key={index}
-                  className="group flex items-center gap-6 p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-transparent cursor-pointer"
+                  className="group flex items-center gap-4 p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-transparent cursor-pointer"
                 >
-                  <div className={`w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <stat.icon className="w-8 h-8 text-white" />
+                  <div className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                    <stat.icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="text-3xl font-bold text-gray-900">{stat.number}</p>
-                    <p className="text-gray-600 font-medium">{stat.label}</p>
+                    <p className="text-2xl font-bold text-gray-900">{stat.number}</p>
+                    <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2">
               <Link to={createPageUrl("AboutUs")}>
                 <Button 
                   size="lg"
-                  className="group bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold px-10 py-7 text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="group bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold px-8 py-5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Learn More About Us
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
