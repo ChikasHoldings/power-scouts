@@ -52,27 +52,38 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
             </div>
 
             {/* Enhanced ZIP Code Input */}
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
-              <div className="relative flex items-stretch bg-white border-2 border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-white">
-                  <MapPin className="w-5 h-5 text-gray-400" />
+            <div className="relative max-w-2xl">
+              <div className="relative flex items-stretch bg-white border-2 border-gray-300 rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-blue-500 transition-all duration-300 focus-within:border-blue-500 focus-within:shadow-xl">
+                <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-white">
+                  <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />
                   <Input
                     type="text"
-                    placeholder="Enter ZIP code"
+                    placeholder="Enter your ZIP code"
                     value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value)}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-400"
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '');
+                      setZipCode(value);
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && zipCode.length === 5) {
+                        onCompare();
+                      }
+                    }}
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-400 font-medium"
                     maxLength={5}
                   />
                 </div>
                 <Button
                   onClick={onCompare}
-                  className="px-8 py-3 text-base font-semibold rounded-none border-0 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  disabled={zipCode.length !== 5}
+                  className="px-10 py-4 text-base font-semibold rounded-none border-0 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
                 >
                   Compare Rates
                 </Button>
               </div>
+              {zipCode.length > 0 && zipCode.length < 5 && (
+                <p className="text-xs text-red-500 mt-2 ml-1">Please enter a valid 5-digit ZIP code</p>
+              )}
             </div>
 
             {/* Secondary CTA with Icon */}
