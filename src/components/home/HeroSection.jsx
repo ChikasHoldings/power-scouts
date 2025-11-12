@@ -96,9 +96,9 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
           </div>
 
           {/* Right Illustration with Enhanced Effects */}
-          <div className="relative animate-fade-in-right">
+          <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-200 via-cyan-200 to-teal-200 rounded-3xl opacity-20 blur-2xl"></div>
-            <div className="relative transform hover:scale-105 transition-transform duration-500">
+            <div className="relative">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25aa21e12_Screenshot47.png"
                 alt="Electricity services illustration"
