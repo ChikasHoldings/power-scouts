@@ -25,7 +25,7 @@ const providerLogos = [
 
 export default function ProvidersSection() {
   return (
-    /* Trusted Electricity Providers Section */
+    {/* Trusted Electricity Providers Section */}
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -59,6 +59,32 @@ export default function ProvidersSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               className="flex items-center justify-center h-16"
+            >
+              <img 
+                src={logo.src}
+                alt={logo.alt}
+                className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Row 2 - Centered */}
+        <div className="flex flex-wrap justify-center gap-8 mt-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+          {[
+            { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/05c459c06_idy542OFcd_logos.png", alt: "Express Energy" },
+            { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/9cb91c2f7_Screenshot46.png", alt: "Discount Power" },
+            { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/c916d021e_idcT-olPyu_1762886748078.png", alt: "Gexa Energy" },
+            { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/ff1558170_id6k09mhoA_1762886791027.png", alt: "Rhythm" },
+            { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/2c7ef2a13_id7UEhjySO_1762886832466.png", alt: "TXU Energy" }
+          ].map((logo, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: (index + 7) * 0.05 }}
+              className="flex items-center justify-center h-16 w-32"
             >
               <img 
                 src={logo.src}
