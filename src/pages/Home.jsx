@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Star, ArrowRight, Users, Award, TrendingUp } from "lucide-react";
 import HeroSection from "../components/home/HeroSection";
+import AnnouncementBanner from "../components/home/AnnouncementBanner";
 import AboutSection from "../components/home/AboutSection";
 import ProvidersSection from "../components/home/ProvidersSection";
 import HowItWorksSection from "../components/home/HowItWorksSection";
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection zipCode={zipCode} setZipCode={setZipCode} onCompare={handleCompareRates} />
+      <AnnouncementBanner />
       <AboutSection />
       <ProvidersSection />
       <HowItWorksSection />
