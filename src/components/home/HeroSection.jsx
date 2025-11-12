@@ -105,7 +105,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                 className="w-full h-auto drop-shadow-2xl"
               />
               {/* Floating Stats Card */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-xl border border-gray-100 animate-float">
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-xl border border-gray-100">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
                     <span className="text-lg font-bold text-white">$</span>
