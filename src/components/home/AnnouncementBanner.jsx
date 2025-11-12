@@ -46,53 +46,42 @@ export default function AnnouncementBanner() {
   const Icon = current.icon;
 
   return (
-    <div className="bg-white border-y border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden">
-          <div
-            key={currentIndex}
-            className={`flex items-center justify-center gap-3 py-3 animate-fade-in bg-gradient-to-r ${current.bgColor} rounded-lg my-2 px-4`}
-          >
-            <div className={`w-8 h-8 ${current.bgColor} rounded-full flex items-center justify-center shadow-sm border border-white/50`}>
-              <Icon className={`w-4 h-4 ${current.iconColor}`} />
-            </div>
-            <p className={`text-sm sm:text-base font-semibold ${current.textColor} text-center`}>
-              {current.text}
-            </p>
-            <CheckCircle className={`w-4 h-4 ${current.iconColor} flex-shrink-0`} />
-          </div>
-        </div>
-
-        {/* Progress Indicators */}
-        <div className="flex justify-center gap-1.5 pb-3">
-          {announcements.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'w-8 bg-blue-600' : 'w-1.5 bg-gray-300'
-              }`}
-              aria-label={`Go to announcement ${index + 1}`}
-            />
-          ))}
+    <>
+      {/* Announcement Bar - Moved from header */}
+      <div className="bg-[#6FEDD6] text-[#003049] py-2.5 md:py-3 px-4 overflow-hidden relative">
+        <div className="animate-scroll whitespace-nowrap inline-block">
+          <span className="text-xs md:text-[15px] font-semibold">
+            Compare electricity, internet & mobile plans in your area — enter your ZIP below! 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            Save hundreds per year with the best utility deals 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            100% free comparison — no spam, no obligations 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            Get instant results in deregulated states 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            Compare electricity, internet & mobile plans in your area — enter your ZIP below! 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            Save hundreds per year with the best utility deals 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+            100% free comparison — no spam, no obligations 
+            &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
         </div>
       </div>
 
       <style>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          100% {
+            transform: translateX(-50%);
           }
         }
-        .animate-fade-in {
-          animation: fade-in 0.5s ease-out;
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
         }
       `}</style>
-    </div>
+    </>
   );
 }
