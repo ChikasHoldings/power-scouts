@@ -74,17 +74,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
               </div>
             </div>
 
-            {/* Secondary CTA with Icon */}
-            <div className="flex items-center gap-3">
-              <Link
-                to={createPageUrl("BusinessRates")}
-                className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-base transition-all"
-              >
-                <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                Shop Business Electricity Rates
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </Link>
-            </div>
+
 
             {/* Trust Indicators */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
