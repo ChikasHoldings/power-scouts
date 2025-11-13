@@ -66,7 +66,7 @@ export default function Layout({ children, currentPageName }) {
                 to={createPageUrl("AllCities")}
                 className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
               >
-                Cities
+                Service Areas
               </Link>
 
               <Link
@@ -76,12 +76,22 @@ export default function Layout({ children, currentPageName }) {
                 About Us
               </Link>
 
-              <Link
-                to={createPageUrl("FAQ")}
-                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
-              >
-                FAQs
-              </Link>
+              <div className="relative group">
+                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
+                  Resources
+                  <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
+                </button>
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 border border-gray-100">
+                  <div className="space-y-1.5">
+                    <Link to={createPageUrl("FAQ")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
+                      FAQs
+                    </Link>
+                    <Link to={createPageUrl("LearningCenter")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
+                      Learning Center
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </nav>
 
             {/* Compare Rates Button */}
@@ -114,13 +124,16 @@ export default function Layout({ children, currentPageName }) {
                 Providers
               </Link>
               <Link to={createPageUrl("AllCities")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Cities
+                Service Areas
               </Link>
               <Link to={createPageUrl("AboutUs")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 About Us
               </Link>
               <Link to={createPageUrl("FAQ")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 FAQs
+              </Link>
+              <Link to={createPageUrl("LearningCenter")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Learning Center
               </Link>
               <a href="tel:855-475-8315" className="flex items-center gap-2 text-gray-900 font-semibold text-sm">
                 <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center">
@@ -174,7 +187,7 @@ export default function Layout({ children, currentPageName }) {
                   Providers
                 </Link>
                 <Link to={createPageUrl("AllCities")} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Cities
+                  Service Areas
                 </Link>
               </div>
             </div>
@@ -187,6 +200,9 @@ export default function Layout({ children, currentPageName }) {
                 </Link>
                 <Link to={createPageUrl("FAQ")} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   FAQs
+                </Link>
+                <Link to={createPageUrl("LearningCenter")} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Learning Center
                 </Link>
               </div>
             </div>
