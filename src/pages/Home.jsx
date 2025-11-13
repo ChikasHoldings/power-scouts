@@ -5,7 +5,8 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Star, ArrowRight, Users, Award, TrendingUp } from "lucide-react";
+import { MapPin, Star, ArrowRight, Users, Award, TrendingUp, CheckCircle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import HeroSection from "../components/home/HeroSection";
 import AnnouncementBanner from "../components/home/AnnouncementBanner";
 import AboutSection from "../components/home/AboutSection";
@@ -25,6 +26,12 @@ export default function Home() {
     }
   };
 
+  const handleZipSearch = () => {
+    if (zipCode && zipCode.length === 5) {
+      navigate(createPageUrl("CompareRates") + `?zip=${zipCode}`);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <HeroSection zipCode={zipCode} setZipCode={setZipCode} onCompare={handleCompareRates} />
@@ -33,6 +40,68 @@ export default function Home() {
       <AboutSection />
       <HowItWorksSection />
       <TestimonialsSection />
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-green-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="border-none shadow-2xl overflow-hidden">
+            <CardContent className="p-0">
+              <div className="grid md:grid-cols-2">
+                <div className="bg-gradient-to-br from-[#DC2626] to-[#B91C1C] p-10 text-white flex flex-col justify-center">
+                  <h2 className="text-3xl font-bold mb-4">
+                    Ready to Find the Best Utility Deals?
+                  </h2>
+                  <p className="text-lg opacity-90 mb-6">
+                    Compare electricity, internet, and mobile plans in your area
+                  </p>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                      <span>See all available deals instantly</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                      <span>Save hundreds per year</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                      <span>100% free with no spam</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-white p-10 flex flex-col justify-center">
+                  <h3 className="text-xl font-bold text-[#003049] mb-6">
+                    Enter Your ZIP Code
+                  </h3>
+                  <div className="space-y-4">
+                    <Input
+                      type="text"
+                      placeholder="Enter ZIP code"
+                      maxLength={5}
+                      value={zipCode}
+                      onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
+                      className="h-14 text-base border-2"
+                      aria-label="ZIP code to find utility deals"
+                    />
+                    <Button 
+                      onClick={handleZipSearch}
+                      className="w-full bg-[#22C55E] hover:bg-[#16A34A] text-white h-14 text-base font-semibold"
+                      disabled={zipCode.length !== 5}
+                    >
+                      Compare Plans Now
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                    <p className="text-xs text-gray-500 text-center">
+                      No credit card required • Takes 1 minute • Secure comparison
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </div>
   );
 }
