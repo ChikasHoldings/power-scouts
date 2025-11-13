@@ -24,9 +24,10 @@ export default function Layout({ children, currentPageName }) {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [serviceAreaOpen, setServiceAreaOpen] = useState(false);
 
-  // Scroll to top on route change
+  // Scroll to top on route change and close mobile menu
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+    setMobileMenuOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -37,6 +38,18 @@ export default function Layout({ children, currentPageName }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
