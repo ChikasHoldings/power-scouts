@@ -94,65 +94,92 @@ export default function AllStates() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredStates.map((state, index) => (
-            <Card key={index} className="hover:shadow-xl transition-all duration-300 border-2 hover:border-[#FF6B35] group">
-              <CardContent className="p-6">
-                {/* State Header */}
-                <div className="mb-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-2xl font-bold text-gray-900">{state.fullName}</h3>
-                    <div className="bg-green-100 px-3 py-1 rounded-full">
-                      <span className="text-xs font-semibold text-green-700">Deregulated</span>
+          {filteredStates.map((state, index) => {
+            // Map state codes to their URL slugs
+            const stateUrlMap = {
+              'TX': 'TexasElectricity',
+              'IL': 'IllinoisElectricity',
+              'OH': 'OhioElectricity',
+              'PA': 'PennsylvaniaElectricity',
+              'NY': 'NewYorkElectricity',
+              'NJ': 'NewJerseyElectricity',
+              'MD': 'MarylandElectricity',
+              'MA': 'MassachusettsElectricity',
+              'ME': 'MaineElectricity',
+              'NH': 'NewHampshireElectricity',
+              'RI': 'RhodeIslandElectricity',
+              'CT': 'ConnecticutElectricity'
+            };
+
+            return (
+              <Card key={index} className="hover:shadow-xl transition-all duration-300 border-2 hover:border-[#FF6B35] group">
+                <CardContent className="p-6">
+                  {/* State Header */}
+                  <div className="mb-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <Link to={createPageUrl(stateUrlMap[state.code])}>
+                        <h3 className="text-2xl font-bold text-gray-900 hover:text-[#0A5C8C] transition-colors cursor-pointer">{state.fullName}</h3>
+                      </Link>
+                      <div className="bg-green-100 px-3 py-1 rounded-full">
+                        <span className="text-xs font-semibold text-green-700">Deregulated</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">{state.marketType}</p>
+                  </div>
+
+                  {/* State Stats */}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-3">
+                      <div className="text-xs text-gray-600 mb-1">Providers</div>
+                      <div className="text-xl font-bold text-[#0A5C8C] flex items-center gap-1">
+                        <Zap className="w-4 h-4" />
+                        {state.providerCount}+
+                      </div>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-lg p-3">
+                      <div className="text-xs text-gray-600 mb-1">Avg. Savings</div>
+                      <div className="text-xl font-bold text-green-600 flex items-center gap-1">
+                        <TrendingDown className="w-4 h-4" />
+                        ${state.avgSavings}/yr
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">{state.marketType}</p>
-                </div>
 
-                {/* State Stats */}
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-3">
-                    <div className="text-xs text-gray-600 mb-1">Providers</div>
-                    <div className="text-xl font-bold text-[#0A5C8C] flex items-center gap-1">
-                      <Zap className="w-4 h-4" />
-                      {state.providerCount}+
+                  {/* Major Cities */}
+                  <div className="mb-4">
+                    <p className="text-xs text-gray-600 mb-2 font-semibold">Major Cities:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {state.cities.slice(0, 4).map((city, i) => (
+                        <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                          {city}
+                        </span>
+                      ))}
+                      {state.cities.length > 4 && (
+                        <span className="text-xs bg-gray-100 px-2 py-1 rounded">
+                          +{state.cities.length - 4} more
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-lg p-3">
-                    <div className="text-xs text-gray-600 mb-1">Avg. Savings</div>
-                    <div className="text-xl font-bold text-green-600 flex items-center gap-1">
-                      <TrendingDown className="w-4 h-4" />
-                      ${state.avgSavings}/yr
-                    </div>
-                  </div>
-                </div>
 
-                {/* Major Cities */}
-                <div className="mb-4">
-                  <p className="text-xs text-gray-600 mb-2 font-semibold">Major Cities:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {state.cities.slice(0, 4).map((city, i) => (
-                      <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        {city}
-                      </span>
-                    ))}
-                    {state.cities.length > 4 && (
-                      <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        +{state.cities.length - 4} more
-                      </span>
-                    )}
+                  {/* CTA Buttons */}
+                  <div className="space-y-2">
+                    <Link to={createPageUrl(stateUrlMap[state.code])}>
+                      <Button variant="outline" className="w-full border-2 group-hover:border-[#0A5C8C] group-hover:text-[#0A5C8C] transition-all">
+                        Learn About {state.name}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
+                    <Link to={createPageUrl("CompareRates")}>
+                      <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white group-hover:shadow-lg transition-all">
+                        Compare Rates
+                      </Button>
+                    </Link>
                   </div>
-                </div>
-
-                {/* CTA Button */}
-                <Link to={createPageUrl("CompareRates")}>
-                  <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white group-hover:shadow-lg transition-all">
-                    Compare Rates in {state.name}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
 
