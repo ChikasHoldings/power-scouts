@@ -57,15 +57,15 @@ export default function Layout({ children, currentPageName }) {
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
                 alt="Power Scouts - Compare Electricity Rates"
-                className="h-16"
+                className="h-12 sm:h-14 lg:h-16"
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
               <Link
                 to={createPageUrl("AllProviders")}
-                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
+                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-base xl:text-lg font-medium"
               >
                 Providers
               </Link>
@@ -75,7 +75,7 @@ export default function Layout({ children, currentPageName }) {
                 onMouseEnter={() => setServiceAreaOpen(true)}
                 onMouseLeave={() => setServiceAreaOpen(false)}
               >
-                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
+                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-base xl:text-lg font-medium">
                   Service Areas
                   <ChevronDown className={`w-4 h-4 transition-transform ${serviceAreaOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -144,13 +144,13 @@ export default function Layout({ children, currentPageName }) {
 
               <Link
                 to={createPageUrl("BillAnalyzer")}
-                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
+                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-base xl:text-lg font-medium"
               >
                 Bill Analyzer
               </Link>
 
               <div className="relative group">
-                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
+                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-base xl:text-lg font-medium">
                   Resources
                   <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
                 </button>
@@ -179,7 +179,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Compare Rates Button */}
             <div className="hidden lg:block">
               <Link to={createPageUrl("CompareRates")}>
-                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-6 py-2 text-lg rounded-lg transition-all duration-300">
+                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-5 xl:px-6 py-2 text-base xl:text-lg rounded-lg transition-all duration-300 touch-manipulation">
                   Compare Rates
                 </Button>
               </Link>

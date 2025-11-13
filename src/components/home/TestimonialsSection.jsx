@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 // Review Card Component
 function ReviewCard({ review }) {
   return (
-    <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 group hover:-translate-y-1 relative overflow-hidden">
+    <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 group hover:-translate-y-1 relative overflow-hidden touch-manipulation">
       {/* Decorative gradient bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
       
@@ -140,28 +140,28 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-16 lg:py-20">
+    <section className="bg-slate-50 py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-md border border-gray-200 mb-4">
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 sm:px-4 py-2 shadow-md border border-gray-200 mb-4">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                <Star key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <span className="text-sm font-bold text-gray-900">4.8</span>
             <span className="text-gray-400">•</span>
             <span className="text-xs text-gray-600 font-medium">2,500+ Reviews</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2 px-4">
             What Our Customers Say
           </h2>
-          <p className="text-sm text-gray-600">Real reviews from real people across 12 states</p>
+          <p className="text-sm text-gray-600 px-4">Real reviews from real people across 12 states</p>
         </div>
 
-        {/* Reviews Grid - Consistent 4 Column Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Reviews Grid - Mobile optimized */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4 mb-6 sm:mb-8">
           {visibleTestimonials.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
@@ -173,7 +173,7 @@ export default function TestimonialsSection() {
             <Button
               onClick={loadMore}
               variant="outline"
-              className="px-8 py-2 text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors touch-manipulation"
             >
               Load More Reviews
             </Button>

@@ -49,13 +49,13 @@ export default function AllStates() {
         structuredData={breadcrumbData}
       />
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12">
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-8 sm:py-10 lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-3xl font-bold mb-3">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">
               Electricity Choice States
             </h1>
-            <p className="text-base text-blue-100 mb-6">
+            <p className="text-sm sm:text-base text-blue-100 mb-5 sm:mb-6">
               Compare electricity providers in 12 states where you have the power to choose. Find your state to unlock savings.
             </p>
             
@@ -67,7 +67,7 @@ export default function AllStates() {
                 placeholder="Search by state name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-11 pr-4 h-11 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20"
+                className="pl-11 pr-4 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20 touch-manipulation"
               />
             </div>
           </div>
@@ -75,23 +75,23 @@ export default function AllStates() {
       </div>
 
       {/* Stats Bar */}
-      <div className="bg-white border-b border-gray-200 py-5">
+      <div className="bg-white border-b border-gray-200 py-4 sm:py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">12</div>
+              <div className="text-xl sm:text-2xl font-bold text-[#0A5C8C] mb-1">12</div>
               <div className="text-xs text-gray-600">Choice States</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">100M+</div>
+              <div className="text-xl sm:text-2xl font-bold text-[#0A5C8C] mb-1">100M+</div>
               <div className="text-xs text-gray-600">Residents Served</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">40+</div>
+              <div className="text-xl sm:text-2xl font-bold text-[#0A5C8C] mb-1">40+</div>
               <div className="text-xs text-gray-600">Providers Available</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">$700</div>
+              <div className="text-xl sm:text-2xl font-bold text-[#0A5C8C] mb-1">$700</div>
               <div className="text-xs text-gray-600">Avg. Annual Savings</div>
             </div>
           </div>
@@ -99,9 +99,9 @@ export default function AllStates() {
       </div>
 
       {/* States Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-1">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="mb-5 sm:mb-6">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">
             Available Markets
           </h2>
           <p className="text-sm text-gray-600">
@@ -110,7 +110,7 @@ export default function AllStates() {
         </div>
 
         {filteredStates.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {filteredStates.map((state, index) => {
               // Map state codes to their URL slugs
               const stateUrlMap = {

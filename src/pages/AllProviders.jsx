@@ -141,25 +141,25 @@ export default function AllProviders() {
         structuredData={breadcrumbData}
       />
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-10 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
               Compare Top Electricity Providers
             </h1>
-            <p className="text-lg text-blue-100 mb-8">
+            <p className="text-base sm:text-lg text-blue-100 mb-6 sm:mb-8">
               Explore plans from 40+ trusted electricity providers across 12 states. Find the best rates and switch in minutes.
             </p>
             
             {/* Search Bar */}
             <div className="relative max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
               <Input
                 type="text"
                 placeholder="Search providers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-12 bg-white border-0 shadow-lg"
+                className="pl-11 sm:pl-12 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm sm:text-base touch-manipulation"
               />
             </div>
           </div>
@@ -167,41 +167,41 @@ export default function AllProviders() {
       </div>
 
       {/* Stats Bar */}
-      <div className="bg-white border-b border-gray-200 py-6">
+      <div className="bg-white border-b border-gray-200 py-4 sm:py-5 lg:py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">40+</div>
-              <div className="text-sm text-gray-600">Providers</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#0A5C8C] mb-1">40+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Providers</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">15,000+</div>
-              <div className="text-sm text-gray-600">Plans Available</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#0A5C8C] mb-1">15,000+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Plans Available</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">$800</div>
-              <div className="text-sm text-gray-600">Avg. Annual Savings</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#0A5C8C] mb-1">$800</div>
+              <div className="text-xs sm:text-sm text-gray-600">Avg. Annual Savings</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">100%</div>
-              <div className="text-sm text-gray-600">Free Service</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#0A5C8C] mb-1">100%</div>
+              <div className="text-xs sm:text-sm text-gray-600">Free Service</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Providers Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
             Featured Providers
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             {filteredProviders.length} provider{filteredProviders.length !== 1 ? 's' : ''} found
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {filteredProviders.map((provider, index) => (
             <Card key={index} className="hover:shadow-xl transition-all duration-300 border-2 hover:border-[#FF6B35] group">
               <CardContent className="p-6">
