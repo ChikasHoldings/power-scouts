@@ -291,8 +291,51 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
 
-          {/* SEO Text */}
+          {/* State Links */}
           <div className="border-t border-gray-800 pt-8 pb-6">
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider">Electricity Rates by State</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+              <Link to={createPageUrl("TexasElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Texas
+              </Link>
+              <Link to={createPageUrl("IllinoisElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Illinois
+              </Link>
+              <Link to={createPageUrl("OhioElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Ohio
+              </Link>
+              <Link to={createPageUrl("PennsylvaniaElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Pennsylvania
+              </Link>
+              <Link to={createPageUrl("NewYorkElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                New York
+              </Link>
+              <Link to={createPageUrl("NewJerseyElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                New Jersey
+              </Link>
+              <Link to={createPageUrl("MarylandElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Maryland
+              </Link>
+              <Link to={createPageUrl("MassachusettsElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Massachusetts
+              </Link>
+              <Link to={createPageUrl("MaineElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Maine
+              </Link>
+              <Link to={createPageUrl("NewHampshireElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                New Hampshire
+              </Link>
+              <Link to={createPageUrl("RhodeIslandElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Rhode Island
+              </Link>
+              <Link to={createPageUrl("ConnecticutElectricity")} className="text-gray-400 hover:text-white text-sm transition-colors">
+                Connecticut
+              </Link>
+            </div>
+          </div>
+
+          {/* SEO Text */}
+          <div className="border-t border-gray-800 pt-6 pb-6">
             <p className="text-gray-500 text-xs leading-relaxed max-w-5xl">
               Power Scouts is America's leading electricity comparison platform, helping residents and businesses across 12 deregulated states find the best electricity rates. Serving Texas (Houston, Dallas, Austin), Illinois (Chicago), Ohio (Cleveland, Columbus), Pennsylvania (Philadelphia, Pittsburgh), New York (NYC, Buffalo), New Jersey (Newark, Jersey City), Maryland (Baltimore), Massachusetts (Boston), Maine (Portland), New Hampshire (Manchester), Rhode Island (Providence), and Connecticut (Hartford). Compare plans from top providers including TXU Energy, Reliant, Gexa, Direct Energy, Constellation, and 40+ others. Whether you're looking for fixed rate plans, renewable energy options, or the cheapest electricity rates in your state, we make it easy to switch and save. Our free service gives you instant access to rates from multiple electricity providers, personalized to your ZIP code and usage. Start comparing today and join thousands nationwide who have saved on their electricity bills with Power Scouts.
             </p>
