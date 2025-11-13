@@ -48,7 +48,7 @@ export default function HowItWorksSection() {
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
             How It Works
           </h2>
-          <p className="text-lg bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent font-semibold">
+          <p className="text-lg text-[#FF6B35] font-semibold">
             Your Quest to Magical Savings
           </p>
         </div>
@@ -63,16 +63,16 @@ export default function HowItWorksSection() {
             <div key={index} className="relative group">
                 {/* Step Card */}
                 <div className="relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-teal-600 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-[#0A5C8C] rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
                   <div className="relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1">
                     {/* Number Badge */}
-                    <div className={`absolute -top-4 left-6 w-12 h-12 bg-gradient-to-br ${step.gradient} rounded-xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="absolute -top-4 left-6 w-12 h-12 bg-[#FF6B35] rounded-xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
                       <span className="text-lg font-bold text-white">{step.number}</span>
                     </div>
 
                     {/* Icon */}
                     <div className="mt-6 mb-4">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${step.gradient} rounded-xl flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:rotate-6`}>
+                      <div className="w-14 h-14 bg-[#0A5C8C] rounded-xl flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:rotate-6">
                         <step.icon className="w-7 h-7 text-white" />
                       </div>
                     </div>
@@ -92,14 +92,14 @@ export default function HowItWorksSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center space-y-4 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-10 shadow-xl">
+        <div className="text-center space-y-4 bg-gray-900 rounded-2xl p-10 shadow-xl">
           <h3 className="text-2xl font-bold text-white mb-2">Ready to Start Saving?</h3>
           <p className="text-base text-gray-300 mb-6">Compare rates and switch in minutes</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to={createPageUrl("CompareRates")}>
               <Button
                 size="lg"
-                className="group bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-semibold px-10 py-5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                className="group bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-10 py-5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
 
                 Compare Rates Now
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -107,7 +107,7 @@ export default function HowItWorksSection() {
             </Link>
             <div className="flex items-center gap-2 text-white">
               <span className="text-sm text-gray-400">or call</span>
-              <a href="tel:855-475-8315" className="text-base font-bold hover:text-orange-400 transition-colors underline">
+              <a href="tel:855-475-8315" className="text-base font-bold hover:text-[#FF6B35] transition-colors underline">
                 855-475-8315
               </a>
             </div>

@@ -40,7 +40,7 @@ export default function AboutSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
             What Sets Us{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            <span className="text-[#FF6B35]">
               Apart
             </span>
           </h2>
@@ -110,7 +110,7 @@ export default function AboutSection() {
               <Link to={createPageUrl("AboutUs")}>
                 <Button
                   size="lg"
-                  className="group bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold px-8 py-5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                  className="group bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold px-8 py-5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
 
                   Learn More About Us
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

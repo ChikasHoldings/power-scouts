@@ -5,7 +5,7 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white py-20">
+      <div className="bg-[#0A5C8C] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-bold mb-6">
             About Power Wizard

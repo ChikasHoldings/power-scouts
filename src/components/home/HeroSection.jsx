@@ -42,7 +42,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
             <div>
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4 tracking-tight">
                 Compare the Best{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+                <span className="text-[#FF6B35]">
                   Electricity Deals
                 </span>
               </h1>
@@ -67,7 +67,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                 </div>
                 <Button
                   onClick={onCompare}
-                  className="px-8 h-12 text-base font-semibold rounded-lg bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
+                  className="px-8 h-12 text-base font-semibold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
 
                   Compare Rates
                 </Button>
@@ -112,7 +112,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 font-medium">Save Up To</p>
-                    <p className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">$800</p>
+                    <p className="text-xl font-bold text-[#0A5C8C]">$800</p>
                   </div>
                 </div>
               </div>
