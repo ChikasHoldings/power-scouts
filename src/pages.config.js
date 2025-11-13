@@ -8,6 +8,9 @@ import AllProviders from './pages/AllProviders';
 import AllCities from './pages/AllCities';
 import CityRates from './pages/CityRates';
 import ProviderDetails from './pages/ProviderDetails';
+import LearningCenter from './pages/LearningCenter';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import Layout from './Layout.jsx';
 
 
@@ -22,6 +25,9 @@ export const PAGES = {
     "AllCities": AllCities,
     "CityRates": CityRates,
     "ProviderDetails": ProviderDetails,
+    "LearningCenter": LearningCenter,
+    "PrivacyPolicy": PrivacyPolicy,
+    "TermsOfService": TermsOfService,
 }
 
 export const pagesConfig = {
