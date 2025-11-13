@@ -4,8 +4,24 @@ import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Home, Building2, Zap, Leaf, Clock, CheckCircle } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MapPin, Home, Building2, Zap, Leaf, Clock, CheckCircle, Filter } from "lucide-react";
 import { validateZipCode } from "../components/compare/stateData";
+
+// Provider logos mapping
+const providerLogos = {
+  "TXU Energy": "https://www.txu.com/-/media/txu/images/logos/txu-logo.svg",
+  "Gexa Energy": "https://www.gexaenergy.com/wp-content/uploads/2021/01/gexa-energy-logo.svg",
+  "Reliant": "https://www.reliant.com/content/dam/reliant/images/logo/reliant-logo.svg",
+  "Reliant Energy": "https://www.reliant.com/content/dam/reliant/images/logo/reliant-logo.svg",
+  "Frontier Utilities": "https://www.frontierutilities.com/wp-content/uploads/2020/01/frontier-logo.png",
+  "Direct Energy": "https://www.directenergy.com/sites/retail/themes/custom/de_theme/logo.svg",
+  "Pulse Power": "https://www.pulsepower.com/wp-content/uploads/2021/01/pulse-power-logo.svg",
+  "Champion Energy": "https://championenergyservices.com/wp-content/uploads/2020/07/champion-energy-logo.svg",
+  "Green Mountain Energy": "https://www.greenmountainenergy.com/wp-content/themes/gme/images/logo.svg",
+  "4Change Energy": "https://www.4changeenergy.com/wp-content/themes/4change/images/logo.svg",
+  "Constellation": "https://www.constellation.com/content/dam/constellationenergy/images/logo/constellation-logo.svg",
+};
 
 export default function CompareRates() {
   const [step, setStep] = useState(1);
@@ -20,6 +36,10 @@ export default function CompareRates() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [filterRate, setFilterRate] = useState("all");
+  const [filterTerm, setFilterTerm] = useState("all");
+  const [filterProvider, setFilterProvider] = useState("all");
+  const [filterPlanType, setFilterPlanType] = useState("all");
 
   // Load ZIP code from URL or localStorage on mount
   useEffect(() => {
@@ -102,6 +122,49 @@ export default function CompareRates() {
     return ((plan.rate_per_kwh / 100) * 1000 + (plan.monthly_base_charge || 0)).toFixed(2);
   };
 
+  // Get provider logo or fallback
+  const getProviderLogo = (providerName) => {
+    return providerLogos[providerName] || null;
+  };
+
+  // Apply filters to other plans
+  const getFilteredOtherPlans = () => {
+    let filtered = [...otherPlans];
+
+    if (filterRate !== "all") {
+      if (filterRate === "low") {
+        filtered = filtered.filter(p => p.rate_per_kwh < 10);
+      } else if (filterRate === "medium") {
+        filtered = filtered.filter(p => p.rate_per_kwh >= 10 && p.rate_per_kwh < 12);
+      } else if (filterRate === "high") {
+        filtered = filtered.filter(p => p.rate_per_kwh >= 12);
+      }
+    }
+
+    if (filterTerm !== "all") {
+      if (filterTerm === "short") {
+        filtered = filtered.filter(p => p.contract_length && p.contract_length <= 6);
+      } else if (filterTerm === "medium") {
+        filtered = filtered.filter(p => p.contract_length && p.contract_length > 6 && p.contract_length <= 12);
+      } else if (filterTerm === "long") {
+        filtered = filtered.filter(p => p.contract_length && p.contract_length > 12);
+      }
+    }
+
+    if (filterProvider !== "all") {
+      filtered = filtered.filter(p => p.provider_name === filterProvider);
+    }
+
+    if (filterPlanType !== "all") {
+      filtered = filtered.filter(p => p.plan_type === filterPlanType);
+    }
+
+    return filtered;
+  };
+
+  // Get unique providers for filter
+  const uniqueProviders = [...new Set(plans.map(p => p.provider_name))].sort();
+
   // Loading Animation
   if (isLoading) {
     return (
@@ -151,64 +214,78 @@ export default function CompareRates() {
               </div>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-5">
               {topPlans.map((plan, index) => (
-                <Card key={plan.id} className="relative overflow-hidden border-2 border-orange-200 hover:border-orange-400 transition-all hover:shadow-2xl group">
+                <Card key={plan.id} className="relative overflow-hidden border-2 border-orange-200 hover:border-orange-400 transition-all hover:shadow-xl group">
                   {/* Best Deal Badge */}
                   <div className="absolute top-0 right-0">
-                    <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2b] text-white text-xs font-bold px-4 py-2 rounded-bl-xl shadow-lg">
-                      #{index + 1} BEST DEAL
+                    <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2b] text-white text-xs font-bold px-3 py-1.5 rounded-bl-lg shadow-md">
+                      #{index + 1} BEST
                     </div>
                   </div>
                   
                   {/* Accent Border */}
-                  <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-[#FF6B35] to-[#e55a2b]"></div>
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#FF6B35] to-[#e55a2b]"></div>
                   
-                  <CardContent className="p-6 pl-8">
-                    {/* Provider Logo/Icon */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <span className="text-sm font-bold text-white">
-                          {plan.provider_name.substring(0, 3).toUpperCase()}
-                        </span>
+                  <CardContent className="p-4 pl-6">
+                    {/* Provider Logo */}
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="h-10 flex items-center">
+                        {getProviderLogo(plan.provider_name) ? (
+                          <img 
+                            src={getProviderLogo(plan.provider_name)} 
+                            alt={plan.provider_name}
+                            className="h-8 w-auto object-contain"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div className={`w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
+                          <span className="text-xs font-bold text-white">
+                            {plan.provider_name.substring(0, 3).toUpperCase()}
+                          </span>
+                        </div>
                       </div>
                       {plan.renewable_percentage >= 50 && (
-                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
                           <Leaf className="w-3 h-3" />
-                          {plan.renewable_percentage}% Green
+                          {plan.renewable_percentage}%
                         </div>
                       )}
                     </div>
                     
-                    {/* Provider & Plan Name */}
-                    <h3 className="font-bold text-gray-900 text-lg mb-1">{plan.provider_name}</h3>
-                    <p className="text-sm text-gray-600 mb-4">{plan.plan_name}</p>
+                    {/* Plan Name */}
+                    <h3 className="font-bold text-gray-900 text-sm mb-1">{plan.provider_name}</h3>
+                    <p className="text-xs text-gray-600 mb-3 line-clamp-1">{plan.plan_name}</p>
                     
                     {/* Rate Highlight */}
-                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-4 mb-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-3 mb-3">
                       <div className="text-center">
-                        <div className="text-xs text-gray-600 mb-1">Energy Rate</div>
-                        <div className="text-4xl font-bold text-[#0A5C8C] mb-1">{plan.rate_per_kwh}¢</div>
+                        <div className="text-3xl font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         <div className="text-xs text-gray-500">per kWh</div>
                       </div>
                     </div>
                     
                     {/* Details Grid */}
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
-                        <div className="text-xs text-gray-600 mb-1">Est. Monthly</div>
-                        <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="text-center p-2 bg-gray-50 rounded">
+                        <div className="text-xs text-gray-600">Est. Monthly</div>
+                        <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
                       </div>
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
-                        <div className="text-xs text-gray-600 mb-1">Contract</div>
-                        <div className="text-lg font-bold text-gray-900">{plan.contract_length || 'Variable'} mo</div>
+                      <div className="text-center p-2 bg-gray-50 rounded">
+                        <div className="text-xs text-gray-600">Contract</div>
+                        <div className="text-base font-bold text-gray-900">{plan.contract_length || 'Var'} mo</div>
                       </div>
                     </div>
 
                     {/* CTA Button */}
-                    <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white font-bold shadow-lg group-hover:shadow-xl transition-all">
-                      Select This Plan
-                    </Button>
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white text-sm font-semibold shadow-md group-hover:shadow-lg transition-all rounded-lg h-9">
+                        Get Plan
+                      </Button>
+                    </a>
                   </CardContent>
                 </Card>
               ))}
@@ -218,68 +295,139 @@ export default function CompareRates() {
           {/* All Other Plans - Table View */}
           {otherPlans.length > 0 && (
             <div>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">More Available Plans</h2>
-                <p className="text-sm text-gray-600">Additional options in your area</p>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">More Available Plans</h2>
+                  <p className="text-sm text-gray-600">Additional options in your area</p>
+                </div>
+              </div>
+
+              {/* Filters */}
+              <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Filter className="w-4 h-4 text-gray-600" />
+                  <span className="text-sm font-semibold text-gray-700">Filter Plans</span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <Select value={filterRate} onValueChange={setFilterRate}>
+                    <SelectTrigger className="text-sm h-9">
+                      <SelectValue placeholder="Rate" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Rates</SelectItem>
+                      <SelectItem value="low">Low (&lt;10¢)</SelectItem>
+                      <SelectItem value="medium">Medium (10-12¢)</SelectItem>
+                      <SelectItem value="high">High (&gt;12¢)</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={filterTerm} onValueChange={setFilterTerm}>
+                    <SelectTrigger className="text-sm h-9">
+                      <SelectValue placeholder="Term" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Terms</SelectItem>
+                      <SelectItem value="short">Short (≤6 mo)</SelectItem>
+                      <SelectItem value="medium">Medium (7-12 mo)</SelectItem>
+                      <SelectItem value="long">Long (&gt;12 mo)</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={filterProvider} onValueChange={setFilterProvider}>
+                    <SelectTrigger className="text-sm h-9">
+                      <SelectValue placeholder="Provider" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Providers</SelectItem>
+                      {uniqueProviders.map(provider => (
+                        <SelectItem key={provider} value={provider}>{provider}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={filterPlanType} onValueChange={setFilterPlanType}>
+                    <SelectTrigger className="text-sm h-9">
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Types</SelectItem>
+                      <SelectItem value="fixed">Fixed Rate</SelectItem>
+                      <SelectItem value="variable">Variable Rate</SelectItem>
+                      <SelectItem value="prepaid">Prepaid</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               
               {/* Desktop Table */}
-              <div className="hidden lg:block bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+              <div className="hidden lg:block bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Provider & Plan</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Rate</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Est. Monthly</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Contract</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Type</th>
-                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Provider</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Rate</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Monthly</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Term</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Type</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {otherPlans.map((plan) => (
-                      <tr key={plan.id} className="hover:bg-blue-50/50 transition-colors">
-                        <td className="px-6 py-4">
+                  <tbody>
+                    {getFilteredOtherPlans().map((plan, index) => (
+                      <tr key={plan.id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} hover:bg-blue-50/30 transition-colors border-b border-gray-100`}>
+                        <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="text-xs font-bold text-[#0A5C8C]">
-                                {plan.provider_name.substring(0, 3).toUpperCase()}
-                              </span>
+                            <div className="h-8 w-20 flex items-center justify-center">
+                              {getProviderLogo(plan.provider_name) ? (
+                                <img 
+                                  src={getProviderLogo(plan.provider_name)} 
+                                  alt={plan.provider_name}
+                                  className="h-6 w-auto object-contain"
+                                  onError={(e) => {
+                                    e.target.style.display = 'none';
+                                    e.target.nextSibling.style.display = 'flex';
+                                  }}
+                                />
+                              ) : null}
+                              <div className={`w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
+                                <span className="text-xs font-bold text-[#0A5C8C]">
+                                  {plan.provider_name.substring(0, 2).toUpperCase()}
+                                </span>
+                              </div>
                             </div>
-                            <div>
-                              <div className="font-semibold text-gray-900 text-sm">{plan.provider_name}</div>
-                              <div className="text-xs text-gray-500">{plan.plan_name}</div>
+                            <div className="min-w-0">
+                              <div className="font-semibold text-gray-900 text-sm truncate">{plan.provider_name}</div>
+                              <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <div className="text-xl font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
-                          <div className="text-xs text-gray-500">per kWh</div>
+                        <td className="px-4 py-3 text-center">
+                          <div className="text-lg font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
-                          <div className="text-xs text-gray-500">@ 1000 kWh</div>
+                        <td className="px-4 py-3 text-center">
+                          <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className="text-sm font-semibold text-gray-900">{plan.contract_length || 'Variable'} months</span>
+                        <td className="px-4 py-3 text-center">
+                          <span className="text-sm font-medium text-gray-900">{plan.contract_length || 'Variable'} mo</span>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
+                        <td className="px-4 py-3 text-center">
+                          <div className="flex items-center justify-center gap-1.5">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 capitalize">
                               {plan.plan_type}
                             </span>
                             {plan.renewable_percentage >= 50 && (
-                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                                <Leaf className="w-3 h-3 mr-1" />
-                                Green
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">
+                                <Leaf className="w-3 h-3" />
                               </span>
                             )}
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-center">
-                          <Button size="sm" variant="outline" className="hover:bg-[#0A5C8C] hover:text-white transition-colors">
-                            View Plan
-                          </Button>
+                        <td className="px-4 py-3 text-center">
+                          <a href="#" target="_blank" rel="noopener noreferrer">
+                            <Button size="sm" className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-xs h-8 px-4 rounded-md font-medium">
+                              Get Plan
+                            </Button>
+                          </a>
                         </td>
                       </tr>
                     ))}
@@ -288,58 +436,79 @@ export default function CompareRates() {
               </div>
 
               {/* Mobile Cards */}
-              <div className="lg:hidden space-y-4">
-                {otherPlans.map((plan) => (
-                  <Card key={plan.id} className="border-2 hover:border-[#0A5C8C] transition-all">
-                    <CardContent className="p-5">
+              <div className="lg:hidden space-y-3">
+                {getFilteredOtherPlans().map((plan) => (
+                  <Card key={plan.id} className="border hover:border-[#0A5C8C] transition-all">
+                    <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
-                            <span className="text-xs font-bold text-[#0A5C8C]">
-                              {plan.provider_name.substring(0, 3).toUpperCase()}
-                            </span>
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <div className="h-10 w-16 flex items-center justify-center flex-shrink-0">
+                            {getProviderLogo(plan.provider_name) ? (
+                              <img 
+                                src={getProviderLogo(plan.provider_name)} 
+                                alt={plan.provider_name}
+                                className="h-7 w-auto object-contain"
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  e.target.nextSibling.style.display = 'flex';
+                                }}
+                              />
+                            ) : null}
+                            <div className={`w-10 h-10 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
+                              <span className="text-xs font-bold text-[#0A5C8C]">
+                                {plan.provider_name.substring(0, 2).toUpperCase()}
+                              </span>
+                            </div>
                           </div>
-                          <div>
-                            <div className="font-bold text-gray-900 text-sm">{plan.provider_name}</div>
-                            <div className="text-xs text-gray-500">{plan.plan_name}</div>
+                          <div className="min-w-0">
+                            <div className="font-bold text-gray-900 text-sm truncate">{plan.provider_name}</div>
+                            <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="flex gap-2 mb-4">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
+                      <div className="flex gap-2 mb-3">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 capitalize">
                           {plan.plan_type}
                         </span>
                         {plan.renewable_percentage >= 50 && (
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
                             <Leaf className="w-3 h-3 mr-1" />
                             Green
                           </span>
                         )}
                       </div>
 
-                      <div className="grid grid-cols-3 gap-3 mb-4 bg-gray-50 rounded-lg p-3">
+                      <div className="grid grid-cols-3 gap-2 mb-3 bg-gray-50 rounded-lg p-3">
                         <div className="text-center">
-                          <div className="text-xs text-gray-600 mb-1">Rate</div>
+                          <div className="text-xs text-gray-600">Rate</div>
                           <div className="text-base font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xs text-gray-600 mb-1">Monthly</div>
+                          <div className="text-xs text-gray-600">Monthly</div>
                           <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xs text-gray-600 mb-1">Term</div>
-                          <div className="text-sm font-semibold text-gray-900">{plan.contract_length || 'Var'} mo</div>
+                          <div className="text-xs text-gray-600">Term</div>
+                          <div className="text-sm font-medium text-gray-900">{plan.contract_length || 'Var'} mo</div>
                         </div>
                       </div>
 
-                      <Button variant="outline" className="w-full hover:bg-[#0A5C8C] hover:text-white transition-colors">
-                        View Plan
-                      </Button>
+                      <a href="#" target="_blank" rel="noopener noreferrer" className="block">
+                        <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm h-9 rounded-md font-medium">
+                          Get Plan
+                        </Button>
+                      </a>
                     </CardContent>
                   </Card>
                 ))}
               </div>
+
+              {getFilteredOtherPlans().length === 0 && (
+                <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
+                  <p className="text-gray-600">No plans match the selected filters.</p>
+                </div>
+              )}
             </div>
           )}
 
