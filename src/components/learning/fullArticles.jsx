@@ -771,6 +771,215 @@ export const fullArticles = {
 </div>
 <h2>The Bottom Line</h2>
 <p>Cranston's competitive market offers safe savings. Shop PUC-licensed suppliers and save $220+ yearly.</p>`
+  },
+
+  61: {
+    title: "Syracuse NY Electricity Rates 2024: Central NY Power Guide",
+    metaTitle: "Syracuse NY Electricity Rates 2024: Compare National Grid ESCOs | Save $360+ | Power Scouts",
+    metaDescription: "Compare Syracuse NY electricity rates from 16+ ESCO suppliers. Find cheapest power in Syracuse, Onondaga County. Save $320-440 yearly on National Grid.",
+    tags: ["Syracuse Electricity", "National Grid Syracuse", "Onondaga County Power", "Syracuse NY ESCO"],
+    content: `<h2>Syracuse's ESCO Market</h2>
+<p>Syracuse and Onondaga County (National Grid territory) have access to 16+ DPS-licensed ESCOs serving Central New York.</p>
+<p><strong>ESCO Rates:</strong> 8.9¢ to 12.6¢ per kWh<br>
+<strong>National Grid Default:</strong> 11.5¢+ per kWh</p>
+<p>Average Syracuse household using 720 kWh monthly saves <strong>$300-420 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Syracuse ESCOs</h3>
+<p>See DPS-licensed ESCOs serving National Grid Syracuse territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Syracuse Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Syracuse's ESCO market with DPS oversight offers moderate savings. Check complaint data and save $300+ yearly.</p>`
+  },
+
+  62: {
+    title: "Albany NY Electricity Rates 2024: Capital Region Power Guide",
+    metaTitle: "Albany NY Electricity Rates 2024: Compare National Grid ESCOs | Save $350+ | Power Scouts",
+    metaDescription: "Compare Albany NY electricity rates from 16+ ESCO suppliers. Find cheapest power in Albany, Albany County. Save $310-430 yearly on National Grid.",
+    tags: ["Albany Electricity", "National Grid Albany", "Capital Region NY Power", "Albany ESCO"],
+    content: `<h2>Albany's ESCO Market</h2>
+<p>Albany and Albany County (National Grid territory) have access to 16+ DPS-licensed ESCOs serving New York's Capital Region.</p>
+<p><strong>ESCO Rates:</strong> 9.0¢ to 12.7¢ per kWh<br>
+<strong>National Grid Default:</strong> 11.6¢+ per kWh</p>
+<p>Average Albany household using 690 kWh monthly saves <strong>$290-410 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Albany ESCOs</h3>
+<p>See DPS-licensed ESCOs serving National Grid Albany Capital Region.</p>
+<a href="/compare-rates" class="cta-button">Compare Albany Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Albany's ESCO market with DPS regulation offers safe shopping. Compare carefully and save $300+ yearly.</p>`
+  },
+
+  63: {
+    title: "Rockford IL Electricity Rates 2024: Northern Illinois Power Guide",
+    metaTitle: "Rockford IL Electricity Rates 2024: Compare ComEd Suppliers | Save $370+ | Power Scouts",
+    metaDescription: "Compare Rockford IL electricity rates from 18+ suppliers. Find cheapest power in Rockford, Winnebago County. Save $330-450 yearly on ComEd.",
+    tags: ["Rockford Electricity", "ComEd Rockford", "Winnebago County Power", "Rockford IL Energy"],
+    content: `<h2>Rockford's Competitive Market</h2>
+<p>Rockford and Winnebago County (ComEd territory) have access to 18+ ICC-licensed suppliers serving Northern Illinois.</p>
+<p><strong>Competitive Rates:</strong> 8.0¢ to 11.6¢ per kWh<br>
+<strong>ComEd Default:</strong> 11.3¢+ per kWh</p>
+<p>Average Rockford household using 760 kWh monthly saves <strong>$310-430 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Rockford Suppliers</h3>
+<p>See ICC-licensed suppliers serving ComEd Rockford territory via pluginillinois.org.</p>
+<a href="/compare-rates" class="cta-button">Compare Rockford Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Rockford's ICC-regulated market offers solid savings. Shop through pluginillinois.org and save $330+ yearly.</p>`
+  },
+
+  64: {
+    title: "Joliet IL Electricity Rates 2024: Will County Power Guide",
+    metaTitle: "Joliet IL Electricity Rates 2024: Compare ComEd Suppliers | Save $380+ | Power Scouts",
+    metaDescription: "Compare Joliet IL electricity rates from 18+ suppliers. Find cheapest power in Joliet, Will County. Save $340-460 yearly on ComEd.",
+    tags: ["Joliet Electricity", "ComEd Joliet", "Will County Power", "Joliet IL Energy"],
+    content: `<h2>Joliet's Competitive Market</h2>
+<p>Joliet and Will County (ComEd territory) have access to 18+ ICC-licensed suppliers serving Chicago's southwest suburbs.</p>
+<p><strong>Competitive Rates:</strong> 8.1¢ to 11.7¢ per kWh<br>
+<strong>ComEd Default:</strong> 11.4¢+ per kWh</p>
+<p>Average Joliet household using 770 kWh monthly saves <strong>$320-440 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Joliet Suppliers</h3>
+<p>See ICC-licensed suppliers serving ComEd Will County territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Joliet Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Joliet's competitive market offers excellent savings. Use pluginillinois.org and save $340+ yearly.</p>`
+  },
+
+  65: {
+    title: "Paterson NJ Electricity Rates 2024: Passaic County Power Guide",
+    metaTitle: "Paterson NJ Electricity Rates 2024: Compare PSE&G Suppliers | Save $350+ | Power Scouts",
+    metaDescription: "Compare Paterson NJ electricity rates from 15+ suppliers. Find cheapest power in Paterson, Passaic County. Save $310-430 yearly on PSE&G.",
+    tags: ["Paterson Electricity", "PSE&G Paterson", "Passaic County Power", "Paterson NJ Energy"],
+    content: `<h2>Paterson's Competitive Market</h2>
+<p>Paterson and Passaic County (PSE&G territory) have access to 15+ BPU-licensed suppliers serving North Jersey's third-largest city.</p>
+<p><strong>Competitive Rates:</strong> 8.7¢ to 12.3¢ per kWh<br>
+<strong>PSE&G Default:</strong> 11.5¢+ per kWh</p>
+<p>Average Paterson household using 690 kWh monthly saves <strong>$290-410 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Paterson Suppliers</h3>
+<p>See BPU-licensed suppliers serving PSE&G Passaic County territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Paterson Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Paterson's BPU-regulated market offers safe shopping. Compare through nj.gov/bpu and save $290+ yearly.</p>`
+  },
+
+  66: {
+    title: "Elizabeth NJ Electricity Rates 2024: Union County Power Guide",
+    metaTitle: "Elizabeth NJ Electricity Rates 2024: Compare PSE&G Suppliers | Save $340+ | Power Scouts",
+    metaDescription: "Compare Elizabeth NJ electricity rates from 15+ suppliers. Find cheapest power in Elizabeth, Union County. Save $300-420 yearly on PSE&G.",
+    tags: ["Elizabeth Electricity", "PSE&G Elizabeth", "Union County Power", "Elizabeth NJ Energy"],
+    content: `<h2>Elizabeth's Competitive Market</h2>
+<p>Elizabeth and Union County (PSE&G territory) have access to 15+ BPU-licensed suppliers serving this NYC-adjacent market.</p>
+<p><strong>Competitive Rates:</strong> 8.8¢ to 12.4¢ per kWh<br>
+<strong>PSE&G Default:</strong> 11.6¢+ per kWh</p>
+<p>Average Elizabeth household using 680 kWh monthly saves <strong>$280-400 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Elizabeth Suppliers</h3>
+<p>See BPU-licensed suppliers serving PSE&G Union County territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Elizabeth Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Elizabeth's competitive market with BPU oversight offers solid savings. Save $280+ yearly through verified suppliers.</p>`
+  },
+
+  67: {
+    title: "Frederick MD Electricity Rates 2024: Western Maryland Power Guide",
+    metaTitle: "Frederick MD Electricity Rates 2024: Compare Potomac Edison Suppliers | Save $360+ | Power Scouts",
+    metaDescription: "Compare Frederick MD electricity rates from 14+ suppliers. Find cheapest power in Frederick, Frederick County. Save $320-440 yearly on Potomac Edison.",
+    tags: ["Frederick Electricity", "Potomac Edison", "Frederick County Power", "Frederick MD Energy"],
+    content: `<h2>Frederick's Competitive Market</h2>
+<p>Frederick and Frederick County (Potomac Edison territory) have access to 14+ PSC-licensed suppliers serving Western Maryland.</p>
+<p><strong>Competitive Rates:</strong> 8.2¢ to 11.8¢ per kWh<br>
+<strong>Potomac Edison Default:</strong> 11.0¢+ per kWh</p>
+<p>Average Frederick household using 910 kWh monthly saves <strong>$310-420 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Frederick Suppliers</h3>
+<p>See PSC-licensed suppliers serving Potomac Edison Frederick territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Frederick Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Frederick's PSC-regulated market offers genuine savings. Use mdelectricchoice.com and save $320+ yearly.</p>`
+  },
+
+  68: {
+    title: "Rockville MD Electricity Rates 2024: Montgomery County Power Guide",
+    metaTitle: "Rockville MD Electricity Rates 2024: Compare Pepco Suppliers | Save $370+ | Power Scouts",
+    metaDescription: "Compare Rockville MD electricity rates from 15+ suppliers. Find cheapest power in Rockville, Montgomery County. Save $330-450 yearly on Pepco.",
+    tags: ["Rockville Electricity", "Pepco Rockville", "Montgomery County MD Power", "Rockville Energy"],
+    content: `<h2>Rockville's Competitive Market</h2>
+<p>Rockville and Montgomery County (Pepco territory) have access to 15+ PSC-licensed suppliers serving this affluent DC-adjacent Maryland market.</p>
+<p><strong>Competitive Rates:</strong> 8.5¢ to 12.1¢ per kWh<br>
+<strong>Pepco Default:</strong> 11.3¢+ per kWh</p>
+<p>Average Rockville household using 920 kWh monthly saves <strong>$320-430 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Rockville Suppliers</h3>
+<p>See PSC-licensed suppliers serving Pepco Montgomery County territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Rockville Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Rockville's competitive market with MD PSC oversight offers safe, solid savings. Save $330+ yearly.</p>`
+  },
+
+  69: {
+    title: "Gaithersburg MD Electricity Rates 2024: Montgomery County Power Guide",
+    metaTitle: "Gaithersburg MD Electricity Rates 2024: Compare Pepco Suppliers | Save $360+ | Power Scouts",
+    metaDescription: "Compare Gaithersburg MD electricity rates from 15+ suppliers. Find cheapest power in Gaithersburg. Save $320-440 yearly on Pepco.",
+    tags: ["Gaithersburg Electricity", "Pepco Gaithersburg", "Montgomery County Pepco", "Gaithersburg MD Energy"],
+    content: `<h2>Gaithersburg's Competitive Market</h2>
+<p>Gaithersburg (Pepco territory in Montgomery County) has access to 15+ PSC-licensed suppliers serving this Maryland I-270 corridor market.</p>
+<p><strong>Competitive Rates:</strong> 8.5¢ to 12.1¢ per kWh<br>
+<strong>Pepco Default:</strong> 11.4¢+ per kWh</p>
+<p>Average Gaithersburg household using 900 kWh monthly saves <strong>$310-420 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Gaithersburg Suppliers</h3>
+<p>See PSC-licensed suppliers serving Pepco Gaithersburg territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Gaithersburg Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Gaithersburg's competitive market offers solid savings. Use mdelectricchoice.com and save $310+ yearly.</p>`
+  },
+
+  70: {
+    title: "Lewiston ME Electricity Rates 2024: Androscoggin County Power Guide",
+    metaTitle: "Lewiston ME Electricity Rates 2024: Compare CMP Suppliers | Save $300+ | Power Scouts",
+    metaDescription: "Compare Lewiston ME electricity rates from 8+ suppliers. Find cheapest power in Lewiston, Androscoggin County. Save $250-360 yearly on CMP.",
+    tags: ["Lewiston Electricity", "Central Maine Power Lewiston", "Androscoggin County Power", "Lewiston ME Energy"],
+    content: `<h2>Lewiston's Competitive Market</h2>
+<p>Lewiston and Androscoggin County (Central Maine Power territory) have access to 8+ PUC-licensed suppliers serving Maine's second-largest city.</p>
+<p><strong>Competitive Rates:</strong> 8.3¢ to 12.0¢ per kWh<br>
+<strong>CMP Default:</strong> 11.1¢+ per kWh</p>
+<p>Average Lewiston household using 550 kWh monthly saves <strong>$230-340 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Lewiston Suppliers</h3>
+<p>See PUC-licensed suppliers serving CMP Lewiston territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Lewiston Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Lewiston's competitive market offers genuine savings. Shop PUC-licensed suppliers and save $230+ yearly.</p>`
+  },
+
+  71: {
+    title: "Concord NH Electricity Rates 2024: Capital Region NH Power Guide",
+    metaTitle: "Concord NH Electricity Rates 2024: Compare Eversource Suppliers | Save $310+ | Power Scouts",
+    metaDescription: "Compare Concord NH electricity rates from 8+ suppliers. Find cheapest power in Concord, Merrimack County. Save $260-370 yearly on Eversource.",
+    tags: ["Concord NH Electricity", "Eversource Concord", "Merrimack County Power", "Concord New Hampshire Energy"],
+    content: `<h2>Concord's Competitive Market</h2>
+<p>Concord and Merrimack County (Eversource New Hampshire territory) have access to 8+ PUC-licensed suppliers serving NH's capital region.</p>
+<p><strong>Competitive Rates:</strong> 8.8¢ to 12.4¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.7¢+ per kWh</p>
+<p>Average Concord household using 590 kWh monthly saves <strong>$250-350 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Concord Suppliers</h3>
+<p>See PUC-licensed suppliers serving Eversource Concord NH territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Concord Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Concord's competitive market with NH PUC oversight offers safe shopping. Save $250+ yearly.</p>`
   }
 };
 
