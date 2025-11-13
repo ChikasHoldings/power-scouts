@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown, Phone, Mail, MessageCircle, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import SEOHead, { getFAQSchema, getBreadcrumbSchema } from "../components/SEOHead";
 
 const faqCategories = [
   {
@@ -157,8 +158,23 @@ export default function FAQ() {
     )
   })).filter(category => category.questions.length > 0);
 
+  // Flatten all FAQs for schema
+  const allFaqsFlat = faqCategories.flatMap(cat => cat.questions);
+  const faqSchema = getFAQSchema(allFaqsFlat);
+  const breadcrumbData = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "FAQs", url: "/faq" }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <SEOHead
+        title="Electricity FAQ - Common Questions About Energy Plans | Power Scouts"
+        description="Get answers to frequently asked questions about electricity deregulation, switching providers, plan types, rates, and saving money on your energy bill."
+        keywords="electricity FAQ, energy questions, electricity rates FAQ, switching providers, electricity deregulation questions"
+        canonical="/faq"
+        structuredData={[faqSchema, breadcrumbData]}
+      />
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
