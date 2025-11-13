@@ -2,6 +2,50 @@ import React, { useState } from "react";
 import { Star, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Review Card Component
+function ReviewCard({ review }) {
+  return (
+    <div className="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all border border-gray-200 group">
+      {/* Header with Profile */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-sm">
+          {review.name.charAt(0)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-gray-900">{review.name}</p>
+          <p className="text-xs text-gray-500">{review.location}</p>
+        </div>
+      </div>
+
+      {/* Star Rating */}
+      <div className="flex gap-0.5 mb-3">
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+        ))}
+      </div>
+
+      {/* Review Text */}
+      <p className="text-xs text-gray-700 leading-relaxed mb-3 line-clamp-4">
+        {review.text}
+      </p>
+
+      {/* Footer with Google-style timestamp */}
+      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+        <div className="flex items-center gap-1">
+          <svg className="w-3 h-3 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span className="text-xs text-gray-500 font-medium">Google</span>
+        </div>
+        <span className="text-xs text-gray-400">{review.date}</span>
+      </div>
+    </div>
+  );
+}
+
 const testimonials = [
   { name: "Sarah M.", location: "Houston, TX", rating: 5, text: "Switching was so easy! Found a plan that saved me $80/month. The comparison tool made it simple to see all my options.", date: "2 days ago" },
   { name: "Michael R.", location: "Dallas, TX", rating: 5, text: "Best decision I made this year. Customer service was helpful and the rates are unbeatable.", date: "1 week ago" },
@@ -61,40 +105,68 @@ export default function TestimonialsSection() {
           <p className="text-sm text-gray-600">Real reviews from real people across Texas</p>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          {visibleTestimonials.map((review, index) => (
-            <div 
-              key={index} 
-              className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
-            >
-              {/* Profile & Rating */}
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 bg-[#0A5C8C] rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
-                  <User className="w-5 h-5" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-900 truncate">{review.name}</p>
-                  <div className="flex gap-0.5 my-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Review Text */}
-              <p className="text-xs text-gray-700 leading-relaxed mb-3">
-                {review.text}
-              </p>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between text-xs text-gray-500 pt-2 border-t border-gray-100">
-                <span className="truncate">{review.location}</span>
-                <span className="text-gray-400">{review.date}</span>
-              </div>
+        {/* Reviews Grid - Mixed Layout */}
+        <div className="space-y-4 mb-8">
+          {/* First Row - 5 cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            {visibleTestimonials.slice(0, 5).map((review, index) => (
+              <ReviewCard key={index} review={review} />
+            ))}
+          </div>
+          
+          {/* Second Row - 5 cards */}
+          {visibleTestimonials.length > 5 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {visibleTestimonials.slice(5, 10).map((review, index) => (
+                <ReviewCard key={index + 5} review={review} />
+              ))}
             </div>
-          ))}
+          )}
+          
+          {/* Third Row - 4 cards (if showing all) */}
+          {visibleTestimonials.length > 10 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {visibleTestimonials.slice(10, 14).map((review, index) => (
+                <ReviewCard key={index + 10} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Fourth Row - 5 cards */}
+          {visibleTestimonials.length > 14 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {visibleTestimonials.slice(14, 19).map((review, index) => (
+                <ReviewCard key={index + 14} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Fifth Row - 4 cards */}
+          {visibleTestimonials.length > 19 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {visibleTestimonials.slice(19, 23).map((review, index) => (
+                <ReviewCard key={index + 19} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Sixth Row - 5 cards */}
+          {visibleTestimonials.length > 23 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              {visibleTestimonials.slice(23, 28).map((review, index) => (
+                <ReviewCard key={index + 23} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Seventh Row - 2 cards */}
+          {visibleTestimonials.length > 28 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
+              {visibleTestimonials.slice(28, 30).map((review, index) => (
+                <ReviewCard key={index + 28} review={review} />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Load More Button */}
