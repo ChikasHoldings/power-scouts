@@ -412,8 +412,15 @@ export default function Layout({ children, currentPageName }) {
             </p>
           </div>
 
-          <div className="border-t border-gray-700 pt-6 text-center">
-            <p className="text-gray-400 text-xs">
+          <div className="border-t border-gray-700 pt-6">
+            <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-5xl mx-auto">
+              <strong>Disclaimer:</strong> Power Scouts is an independent electricity comparison service. Rates, plan details, and provider availability 
+              displayed are for informational and comparison purposes based on publicly available data and may not reflect current offerings. 
+              Actual electricity rates vary by ZIP code, usage level, credit score, and are subject to change without notice. We recommend 
+              verifying all plan details, terms, and pricing directly with electricity providers before enrollment. Power Scouts does not 
+              guarantee rate accuracy or plan availability. Savings estimates are based on average market conditions and typical usage patterns.
+            </p>
+            <p className="text-gray-400 text-xs text-center">
               © {new Date().getFullYear()} Power Scouts. All rights reserved. | 
               <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white transition-colors ml-1">Privacy Policy</Link> | 
               <Link to={createPageUrl("TermsOfService")} className="hover:text-white transition-colors ml-1">Terms of Service</Link>

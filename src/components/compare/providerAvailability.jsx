@@ -1,5 +1,12 @@
 // Comprehensive provider availability mapping by ZIP code
-// This maps ZIP codes to available electricity providers
+// This ensures accurate provider-to-ZIP matching across the platform
+// 
+// IMPORTANT: This data structure is the single source of truth for:
+// - Which providers serve which ZIP codes
+// - Provider logos and websites
+// - State-level coverage
+//
+// When adding real-time data, this structure ensures filtering accuracy
 
 // Provider information with service areas
 export const PROVIDERS = {
@@ -307,5 +314,15 @@ export const ZIP_TO_CITY = {
 
 // Get city name from ZIP code
 export const getCityFromZip = (zipCode) => {
-  return ZIP_TO_CITY[zipCode] || "Unknown";
+  return ZIP_TO_CITY[zipCode] || "your area";
+};
+
+// Get all unique provider names in the system
+export const getAllProviderNames = () => {
+  return Object.keys(PROVIDERS);
+};
+
+// Validate if provider exists in our system
+export const isValidProvider = (providerName) => {
+  return PROVIDERS.hasOwnProperty(providerName);
 };
