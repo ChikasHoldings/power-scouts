@@ -42,7 +42,7 @@ export default function Home() {
       <TestimonialsSection />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-green-50">
+      <section className="bg-lime-50 py-20 from-blue-50 to-green-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="border-none shadow-2xl overflow-hidden">
             <CardContent className="p-0">
@@ -82,13 +82,13 @@ export default function Home() {
                       value={zipCode}
                       onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
                       className="h-14 text-base border-2"
-                      aria-label="ZIP code to compare electricity plans"
-                    />
-                    <Button 
+                      aria-label="ZIP code to compare electricity plans" />
+
+                    <Button
                       onClick={handleZipSearch}
                       className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-base font-semibold"
-                      disabled={zipCode.length !== 5}
-                    >
+                      disabled={zipCode.length !== 5}>
+
                       Compare Rates Now
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
@@ -102,6 +102,6 @@ export default function Home() {
           </Card>
         </div>
       </section>
-    </div>
-  );
+    </div>);
+
 }
