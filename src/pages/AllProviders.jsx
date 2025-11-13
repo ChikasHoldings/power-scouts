@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const providers = [
   {
     name: "TXU Energy",
-    logo: "https://via.placeholder.com/120x60/0A5C8C/FFFFFF?text=TXU",
+    logo: "https://ui-avatars.com/api/?name=TXU+Energy&size=120&background=0A5C8C&color=fff&bold=true&format=svg",
     rating: 4.5,
     reviews: 2340,
     description: "Texas' largest electricity provider with a wide range of plan options and competitive rates.",
@@ -18,7 +18,7 @@ const providers = [
   },
   {
     name: "Reliant Energy",
-    logo: "https://via.placeholder.com/120x60/FF6B35/FFFFFF?text=Reliant",
+    logo: "https://ui-avatars.com/api/?name=Reliant+Energy&size=120&background=FF6B35&color=fff&bold=true&format=svg",
     rating: 4.3,
     reviews: 1890,
     description: "Trusted provider offering flexible plans and excellent customer service since 2000.",
@@ -27,7 +27,7 @@ const providers = [
   },
   {
     name: "Gexa Energy",
-    logo: "https://via.placeholder.com/120x60/10B981/FFFFFF?text=Gexa",
+    logo: "https://ui-avatars.com/api/?name=Gexa+Energy&size=120&background=10B981&color=fff&bold=true&format=svg",
     rating: 4.4,
     reviews: 1560,
     description: "100% renewable energy plans with transparent pricing and no hidden fees.",
@@ -36,7 +36,7 @@ const providers = [
   },
   {
     name: "Direct Energy",
-    logo: "https://via.placeholder.com/120x60/6366F1/FFFFFF?text=Direct",
+    logo: "https://ui-avatars.com/api/?name=Direct+Energy&size=120&background=6366F1&color=fff&bold=true&format=svg",
     rating: 4.2,
     reviews: 1420,
     description: "Nationwide provider with competitive rates and various plan lengths to fit your needs.",
@@ -45,7 +45,7 @@ const providers = [
   },
   {
     name: "Green Mountain Energy",
-    logo: "https://via.placeholder.com/120x60/059669/FFFFFF?text=Green+Mtn",
+    logo: "https://ui-avatars.com/api/?name=Green+Mountain&size=120&background=059669&color=fff&bold=true&format=svg",
     rating: 4.6,
     reviews: 1780,
     description: "Leading renewable energy provider committed to sustainability and clean power.",
@@ -54,7 +54,7 @@ const providers = [
   },
   {
     name: "4Change Energy",
-    logo: "https://via.placeholder.com/120x60/8B5CF6/FFFFFF?text=4Change",
+    logo: "https://ui-avatars.com/api/?name=4Change+Energy&size=120&background=8B5CF6&color=fff&bold=true&format=svg",
     rating: 4.3,
     reviews: 980,
     description: "Affordable electricity plans with straightforward pricing and no surprises.",
@@ -63,7 +63,7 @@ const providers = [
   },
   {
     name: "Frontier Utilities",
-    logo: "https://via.placeholder.com/120x60/DC2626/FFFFFF?text=Frontier",
+    logo: "https://ui-avatars.com/api/?name=Frontier+Utilities&size=120&background=DC2626&color=fff&bold=true&format=svg",
     rating: 4.1,
     reviews: 850,
     description: "Customer-focused provider with competitive rates for residential and business.",
@@ -72,7 +72,7 @@ const providers = [
   },
   {
     name: "Rhythm Energy",
-    logo: "https://via.placeholder.com/120x60/F59E0B/FFFFFF?text=Rhythm",
+    logo: "https://ui-avatars.com/api/?name=Rhythm+Energy&size=120&background=F59E0B&color=fff&bold=true&format=svg",
     rating: 4.5,
     reviews: 1240,
     description: "Modern energy provider with innovative plans and smart home technology support.",
@@ -81,7 +81,7 @@ const providers = [
   },
   {
     name: "Veteran Energy",
-    logo: "https://via.placeholder.com/120x60/1E40AF/FFFFFF?text=Veteran",
+    logo: "https://ui-avatars.com/api/?name=Veteran+Energy&size=120&background=1E40AF&color=fff&bold=true&format=svg",
     rating: 4.4,
     reviews: 670,
     description: "Veteran-owned company offering special rates and benefits for military families.",
@@ -90,7 +90,7 @@ const providers = [
   },
   {
     name: "Express Energy",
-    logo: "https://via.placeholder.com/120x60/DB2777/FFFFFF?text=Express",
+    logo: "https://ui-avatars.com/api/?name=Express+Energy&size=120&background=DB2777&color=fff&bold=true&format=svg",
     rating: 4.2,
     reviews: 920,
     description: "Fast setup and competitive plans designed for today's busy lifestyle.",
@@ -99,7 +99,7 @@ const providers = [
   },
   {
     name: "Payless Power",
-    logo: "https://via.placeholder.com/120x60/0891B2/FFFFFF?text=Payless",
+    logo: "https://ui-avatars.com/api/?name=Payless+Power&size=120&background=0891B2&color=fff&bold=true&format=svg",
     rating: 4.0,
     reviews: 1120,
     description: "Prepaid electricity with no deposit required and flexible payment options.",
@@ -108,7 +108,7 @@ const providers = [
   },
   {
     name: "CleanSky Energy",
-    logo: "https://via.placeholder.com/120x60/16A34A/FFFFFF?text=CleanSky",
+    logo: "https://ui-avatars.com/api/?name=CleanSky+Energy&size=120&background=16A34A&color=fff&bold=true&format=svg",
     rating: 4.3,
     reviews: 780,
     description: "Committed to clean energy with competitive rates and eco-friendly initiatives.",
@@ -193,11 +193,14 @@ export default function AllProviders() {
               <CardContent className="p-6">
                 {/* Provider Logo */}
                 <div className="flex items-center justify-between mb-4">
-                  <img 
-                    src={provider.logo} 
-                    alt={`${provider.name} logo`}
-                    className="h-10 object-contain"
-                  />
+                  <div className="bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                    <img 
+                      src={provider.logo} 
+                      alt={`${provider.name} logo`}
+                      className="h-8 w-auto object-contain"
+                      loading="lazy"
+                    />
+                  </div>
                   {provider.features.some(f => f.includes("Green") || f.includes("Renewable")) && (
                     <div className="bg-green-100 p-2 rounded-full">
                       <Leaf className="w-4 h-4 text-green-600" />
