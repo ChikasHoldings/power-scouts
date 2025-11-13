@@ -31,12 +31,12 @@ export default function TexasElectricity() {
     topCities: [
       { name: "Houston", population: "2.3M" },
       { name: "Dallas", population: "1.3M" },
-      { name: "Austin", population: "978K" },
+      { name: "Austin", population: "974K" },
       { name: "San Antonio", population: "1.5M" },
-      { name: "Fort Worth", population: "935K" },
-      { name: "El Paso", population: "679K" },
+      { name: "Fort Worth", population: "942K" },
+      { name: "El Paso", population: "678K" },
       { name: "Arlington", population: "398K" },
-      { name: "Plano", population: "287K" }
+      { name: "Plano", population: "288K" }
     ],
     topProviders: ["TXU Energy", "Reliant Energy", "Gexa Energy", "Direct Energy", "Green Mountain Energy", "Frontier Utilities"],
     faqs: [
