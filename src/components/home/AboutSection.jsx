@@ -53,10 +53,10 @@ export default function AboutSection() {
           {/* Content */}
           <div className="order-1 lg:order-2 space-y-6">
             <p className="text-lg text-gray-600 leading-relaxed">
-              We've cracked the code on electricity shopping in competitive energy markets. While other comparison sites 
+              We've cracked the code on electricity shopping in deregulated energy markets across America. While other comparison sites 
               overwhelm you with options, we cut through the noise to surface only the plans that 
-              truly save you money. No gimmicks, no hidden fees—just transparent rates from 
-              trusted providers, backed by our team of energy experts who monitor markets across 12 states daily.
+              truly save you money in your specific state and ZIP code. No gimmicks, no hidden fees—just transparent rates from 
+              trusted providers, backed by our team of energy experts who monitor markets in TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, and CT daily.
             </p>
 
             {/* Stats List */}

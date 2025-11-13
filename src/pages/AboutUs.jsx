@@ -6,8 +6,20 @@ import { Button } from "@/components/ui/button";
 import SEOHead, { getBreadcrumbSchema, getOrganizationSchema } from "../components/SEOHead";
 
 export default function AboutUs() {
+  const breadcrumbData = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about-us" }
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <SEOHead
+        title="About Power Scouts - America's Electricity Comparison Platform | Our Story"
+        description="Learn about Power Scouts, the leading electricity rate comparison platform serving 12 states. Our mission: simplify energy shopping and help millions save on electricity. Founded to bring transparency to deregulated energy markets. Compare 40+ providers, save up to $800/year. Trusted by thousands nationwide."
+        keywords="about power scouts, electricity comparison platform, energy comparison service, who we are, our mission, electricity shopping help, trusted energy comparison"
+        canonical="/about-us"
+        structuredData={[breadcrumbData, getOrganizationSchema()]}
+      />
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
