@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function RhodeIslandElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function RhodeIslandElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Rhode Island Electricity Rates - Compare RI Energy Providers"
-        description="Compare electricity rates from 26+ competitive suppliers in Rhode Island. Find the best plans in Providence, Warwick, and all RI areas. Save $660/year."
-        keywords="Rhode Island electricity rates, Providence electricity, National Grid alternatives, RI energy providers, competitive suppliers RI"
+        title="Rhode Island Electricity Rates - Compare 26+ Suppliers & Save $660/Year | Power Scouts RI"
+        description="Compare Rhode Island electricity rates from Constellation, Direct Energy, Verde Energy & 24+ competitive suppliers. Serving Providence, Warwick, Cranston, Pawtucket, East Providence. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Rhode Island Energy, National Grid & save up to $660 annually. Free RI electricity comparison."
+        keywords="Rhode Island electricity rates, Providence electricity providers, Warwick energy rates, Rhode Island Energy alternatives, National Grid RI alternatives, compare electricity Rhode Island, cheap electricity RI, Rhode Island energy suppliers, best electricity rates RI, competitive electricity Rhode Island, deregulated electricity RI, fixed rate electricity Rhode Island, renewable energy RI, green energy plans Rhode Island"
         canonical="/rhode-island-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "Rhode Island Electricity", url: "/rhode-island-electricity" }
-        ]), getServiceSchema("Rhode Island")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "Rhode Island Electricity", url: "/rhode-island-electricity" }
+          ]), 
+          getServiceSchema("Rhode Island"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

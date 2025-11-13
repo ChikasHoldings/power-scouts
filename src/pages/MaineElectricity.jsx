@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function MaineElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function MaineElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Maine Electricity Rates - Compare Competitive Energy Providers"
-        description="Compare electricity rates from 22+ competitive suppliers in Maine. Find the best plans in Portland, Bangor, and all ME areas. Save $620/year on average."
-        keywords="Maine electricity rates, Portland electricity, CMP alternatives, Maine energy providers, competitive suppliers ME"
+        title="Maine Electricity Rates - Compare 22+ Competitive Suppliers & Save $620/Year | Power Scouts ME"
+        description="Compare Maine electricity rates from Constellation, Direct Energy, Verde Energy & 20+ competitive suppliers. Serving Portland, Lewiston, Bangor, Auburn, South Portland. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from CMP, Versant Power & save up to $620 annually. Free Maine electricity comparison tool."
+        keywords="Maine electricity rates, Portland electricity providers, CMP alternatives, Central Maine Power alternatives, Versant Power alternatives, compare electricity Maine, cheap electricity ME, Maine energy suppliers, best electricity rates Maine, competitive electricity suppliers Maine, deregulated electricity ME, fixed rate electricity Maine, renewable energy Maine, green energy plans ME, Maine power companies"
         canonical="/maine-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "Maine Electricity", url: "/maine-electricity" }
-        ]), getServiceSchema("Maine")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "Maine Electricity", url: "/maine-electricity" }
+          ]), 
+          getServiceSchema("Maine"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

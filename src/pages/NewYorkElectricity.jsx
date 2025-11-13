@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function NewYorkElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function NewYorkElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="New York Electricity Rates - Compare ESCOs & Energy Providers"
-        description="Compare electricity rates from 42+ ESCOs in New York. Find the best plans in NYC, Buffalo, Rochester. Save $740/year on average."
-        keywords="New York electricity rates, NYC electricity, ESCO comparison, Con Edison alternatives, New York energy providers"
+        title="New York Electricity Rates - Compare 42+ ESCOs & Save $740/Year | Power Scouts NY"
+        description="Compare New York electricity rates from Constellation, Direct Energy, Verde Energy & 40+ ESCOs. Serving NYC, Buffalo, Rochester, Albany, Syracuse. Find competitive electricity plans for your home or business. Fixed & variable rates. 100% renewable energy options. Switch from Con Edison, National Grid & save up to $740 annually. Free NY ESCO comparison."
+        keywords="New York electricity rates, NYC electricity providers, ESCO comparison New York, Con Edison alternatives, National Grid alternatives, New York energy service companies, cheap electricity New York, compare electricity rates NY, best ESCOs New York, Buffalo electricity rates, Rochester energy providers, Albany electricity, fixed rate electricity New York, renewable energy New York, green energy plans NY, deregulated electricity New York, New York power suppliers"
         canonical="/new-york-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "New York Electricity", url: "/new-york-electricity" }
-        ]), getServiceSchema("New York")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "New York Electricity", url: "/new-york-electricity" }
+          ]), 
+          getServiceSchema("New York"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

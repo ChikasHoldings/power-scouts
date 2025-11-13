@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function NewHampshireElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function NewHampshireElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="New Hampshire Electricity Rates - Compare NH Energy Providers"
-        description="Compare electricity rates from 25+ competitive suppliers in New Hampshire. Find the best plans in Manchester, Nashua, and all NH areas. Save $640/year."
-        keywords="New Hampshire electricity rates, Manchester electricity, Eversource alternatives, NH energy providers, competitive suppliers NH"
+        title="New Hampshire Electricity Rates - Compare 25+ Suppliers & Save $640/Year | Power Scouts NH"
+        description="Compare New Hampshire electricity rates from Constellation, Direct Energy, Verde Energy & 23+ competitive suppliers. Serving Manchester, Nashua, Concord, Derry, Rochester, Salem. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, Liberty Utilities & save up to $640 annually. Free NH electricity comparison."
+        keywords="New Hampshire electricity rates, Manchester electricity providers, Nashua energy rates, Eversource NH alternatives, Liberty Utilities alternatives, compare electricity New Hampshire, cheap electricity NH, New Hampshire energy suppliers, best electricity rates NH, competitive electricity New Hampshire, deregulated electricity NH, fixed rate electricity New Hampshire, renewable energy NH, green energy plans New Hampshire"
         canonical="/new-hampshire-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "New Hampshire Electricity", url: "/new-hampshire-electricity" }
-        ]), getServiceSchema("New Hampshire")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "New Hampshire Electricity", url: "/new-hampshire-electricity" }
+          ]), 
+          getServiceSchema("New Hampshire"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

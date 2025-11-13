@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function MarylandElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function MarylandElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Maryland Electricity Rates - Compare Energy Providers in MD"
-        description="Compare electricity rates from 32+ providers in Maryland. Find the best plans in Baltimore, Columbia, and all MD areas. Save $680/year on average."
-        keywords="Maryland electricity rates, Baltimore electricity, BGE alternatives, Maryland energy providers, Pepco alternatives"
+        title="Maryland Electricity Rates - Compare 32+ Suppliers & Save $680/Year | Power Scouts MD"
+        description="Compare Maryland electricity rates from Constellation, Direct Energy, WGL Energy & 30+ suppliers. Serving Baltimore, Columbia, Germantown, Silver Spring, Annapolis. Find competitive electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from BGE, Pepco, Delmarva Power & save up to $680 annually. Free MD electricity comparison."
+        keywords="Maryland electricity rates, Baltimore electricity providers, BGE alternatives, Pepco alternatives, Delmarva Power alternatives, compare electricity Maryland, cheap electricity MD, Maryland energy suppliers, best electricity rates Maryland, competitive electricity Maryland, deregulated electricity Maryland, fixed rate electricity MD, renewable energy Maryland, green energy plans Maryland, Maryland power companies"
         canonical="/maryland-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "Maryland Electricity", url: "/maryland-electricity" }
-        ]), getServiceSchema("Maryland")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "Maryland Electricity", url: "/maryland-electricity" }
+          ]), 
+          getServiceSchema("Maryland"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

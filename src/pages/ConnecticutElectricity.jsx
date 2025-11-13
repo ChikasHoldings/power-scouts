@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function ConnecticutElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function ConnecticutElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Connecticut Electricity Rates - Compare CT Energy Providers"
-        description="Compare electricity rates from 30+ competitive suppliers in Connecticut. Find the best plans in Hartford, New Haven, and all CT areas. Save $690/year."
-        keywords="Connecticut electricity rates, Hartford electricity, Eversource alternatives, CT energy providers, competitive suppliers CT"
+        title="Connecticut Electricity Rates - Compare 30+ Suppliers & Save $690/Year | Power Scouts CT"
+        description="Compare Connecticut electricity rates from Constellation, Direct Energy, Verde Energy & 28+ competitive suppliers. Serving Hartford, New Haven, Bridgeport, Stamford, Waterbury, Norwalk. Find competitive electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, United Illuminating & save up to $690 annually. Free CT electricity comparison."
+        keywords="Connecticut electricity rates, Hartford electricity providers, Bridgeport energy rates, Eversource CT alternatives, United Illuminating alternatives, compare electricity Connecticut, cheap electricity CT, Connecticut energy suppliers, best electricity rates Connecticut, competitive electricity CT, deregulated electricity Connecticut, fixed rate electricity CT, renewable energy Connecticut, green energy plans CT, Connecticut power companies"
         canonical="/connecticut-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "Connecticut Electricity", url: "/connecticut-electricity" }
-        ]), getServiceSchema("Connecticut")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "Connecticut Electricity", url: "/connecticut-electricity" }
+          ]), 
+          getServiceSchema("Connecticut"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

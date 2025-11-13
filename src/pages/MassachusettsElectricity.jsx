@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function MassachusettsElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function MassachusettsElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Massachusetts Electricity Rates - Compare MA Energy Providers"
-        description="Compare electricity rates from 34+ competitive suppliers in Massachusetts. Find the best plans in Boston, Worcester, and all MA areas. Save $710/year."
-        keywords="Massachusetts electricity rates, Boston electricity, Eversource alternatives, Massachusetts energy providers, competitive suppliers MA"
+        title="Massachusetts Electricity Rates - Compare 34+ Suppliers & Save $710/Year | Power Scouts MA"
+        description="Compare Massachusetts electricity rates from Constellation, Direct Energy, Verde Energy & 32+ competitive suppliers. Serving Boston, Worcester, Springfield, Cambridge, Lowell. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, National Grid & save up to $710 annually. Free MA electricity comparison."
+        keywords="Massachusetts electricity rates, Boston electricity providers, Eversource alternatives, National Grid MA alternatives, compare electricity Massachusetts, cheap electricity MA, Massachusetts energy suppliers, best electricity rates Boston, competitive electricity Massachusetts, deregulated electricity MA, fixed rate electricity Massachusetts, renewable energy Massachusetts, green energy plans MA, Massachusetts power companies, competitive suppliers Massachusetts"
         canonical="/massachusetts-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "Massachusetts Electricity", url: "/massachusetts-electricity" }
-        ]), getServiceSchema("Massachusetts")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "Massachusetts Electricity", url: "/massachusetts-electricity" }
+          ]), 
+          getServiceSchema("Massachusetts"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">

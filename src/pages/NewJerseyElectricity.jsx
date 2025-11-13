@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, ChevronDown, ArrowRight } from "lucide-react";
-import SEOHead, { getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 export default function NewJerseyElectricity() {
   const [zipCode, setZipCode] = useState("");
@@ -46,15 +46,19 @@ export default function NewJerseyElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="New Jersey Electricity Rates - Compare Third Party Suppliers"
-        description="Compare electricity rates from 35+ Third Party Suppliers in New Jersey. Find the best plans in Newark, Jersey City, and all NJ areas. Save $720/year."
-        keywords="New Jersey electricity rates, Newark electricity, PSE&G alternatives, New Jersey energy providers, NJ Third Party Suppliers"
+        title="New Jersey Electricity Rates - Compare 35+ Third Party Suppliers & Save $720/Year | NJ"
+        description="Compare New Jersey electricity rates from Constellation, Direct Energy, Starion Energy & 33+ Third Party Suppliers. Serving Newark, Jersey City, Paterson, Elizabeth, Trenton. Find competitive electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from PSE&G, JCP&L & save up to $720 annually. Free NJ electricity comparison."
+        keywords="New Jersey electricity rates, Newark electricity providers, Jersey City energy rates, NJ Third Party Suppliers, PSE&G alternatives, JCP&L alternatives, Atlantic City Electric alternatives, compare electricity New Jersey, cheap electricity NJ, best electricity rates New Jersey, New Jersey power companies, deregulated electricity NJ, fixed rate electricity New Jersey, renewable energy NJ, green energy plans New Jersey, competitive electricity suppliers NJ"
         canonical="/new-jersey-electricity"
-        structuredData={[getBreadcrumbSchema([
-          { name: "Home", url: "/" },
-          { name: "States", url: "/all-states" },
-          { name: "New Jersey Electricity", url: "/new-jersey-electricity" }
-        ]), getServiceSchema("New Jersey")]}
+        structuredData={[
+          getBreadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "States", url: "/all-states" },
+            { name: "New Jersey Electricity", url: "/new-jersey-electricity" }
+          ]), 
+          getServiceSchema("New Jersey"),
+          getFAQSchema(stateData.faqs)
+        ]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">
