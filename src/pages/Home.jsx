@@ -35,7 +35,6 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection zipCode={zipCode} setZipCode={setZipCode} onCompare={handleCompareRates} />
-      <AnnouncementBanner />
       <ProvidersSection />
       <AboutSection />
       <HowItWorksSection />
