@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Award, Users, Heart, CheckCircle, ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SEOHead, { getBreadcrumbSchema, getOrganizationSchema } from "../components/SEOHead";
 
 export default function AboutUs() {
   return (

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Star, Zap, ArrowRight, CheckCircle, Leaf, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
 
 const providers = [
   {
