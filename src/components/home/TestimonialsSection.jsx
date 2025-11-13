@@ -4,51 +4,37 @@ import { Button } from "@/components/ui/button";
 
 // Review Card Component
 function ReviewCard({ review }) {
-  const getGradient = (index) => {
-    const gradients = [
-      "from-blue-500 to-blue-600",
-      "from-purple-500 to-purple-600",
-      "from-teal-500 to-teal-600",
-      "from-orange-500 to-orange-600",
-      "from-pink-500 to-pink-600",
-      "from-indigo-500 to-indigo-600",
-      "from-green-500 to-green-600",
-      "from-red-500 to-red-600"
-    ];
-    return gradients[index % gradients.length];
-  };
-
   return (
-    <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all border border-gray-200 group hover:-translate-y-1">
+    <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2 h-full flex flex-col">
       {/* Header with Profile */}
       <div className="flex items-center gap-3 mb-4">
-        <div className={`w-12 h-12 bg-gradient-to-br ${review.gradient} rounded-full flex items-center justify-center text-white text-base font-bold flex-shrink-0 shadow-md`}>
+        <div className={`w-11 h-11 bg-gradient-to-br ${review.gradient} rounded-full flex items-center justify-center text-white text-base font-bold flex-shrink-0 shadow-lg`}>
           {review.name.charAt(0)}
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-bold text-gray-900">{review.name}</p>
           <p className="text-xs text-gray-500 flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3 text-blue-500" />
-            Verified Customer
+            <CheckCircle2 className="w-3 h-3 text-green-500" />
+            Verified
           </p>
         </div>
       </div>
 
       {/* Star Rating */}
-      <div className="flex gap-1 mb-3">
+      <div className="flex gap-0.5 mb-3">
         {[...Array(5)].map((_, i) => (
           <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
         ))}
       </div>
 
       {/* Review Text */}
-      <p className="text-sm text-gray-700 leading-relaxed mb-4 line-clamp-4">
-        {review.text}
+      <p className="text-sm text-gray-700 leading-relaxed mb-auto">
+        "{review.text}"
       </p>
 
       {/* Footer with location and timestamp */}
-      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-        <p className="text-xs text-gray-500 font-medium">{review.location}</p>
+      <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
+        <p className="text-xs text-gray-600 font-medium">{review.location}</p>
         <span className="text-xs text-gray-400">{review.date}</span>
       </div>
     </div>
@@ -116,65 +102,83 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        {/* Reviews Grid - Mixed Layout */}
-        <div className="space-y-4 mb-8">
-          {/* First Row - 5 cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            {visibleTestimonials.slice(0, 5).map((review, index) => (
+        {/* Reviews Grid - Balanced Layout */}
+        <div className="space-y-5 mb-10">
+          {/* First Row - 4 cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {visibleTestimonials.slice(0, 4).map((review, index) => (
               <ReviewCard key={index} review={review} />
             ))}
           </div>
           
-          {/* Second Row - 5 cards */}
-          {visibleTestimonials.length > 5 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {visibleTestimonials.slice(5, 10).map((review, index) => (
-                <ReviewCard key={index + 5} review={review} />
+          {/* Second Row - 3 cards */}
+          {visibleTestimonials.length > 4 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(4, 7).map((review, index) => (
+                <ReviewCard key={index + 4} review={review} />
               ))}
             </div>
           )}
           
-          {/* Third Row - 4 cards (if showing all) */}
+          {/* Third Row - 3 cards */}
+          {visibleTestimonials.length > 7 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(7, 10).map((review, index) => (
+                <ReviewCard key={index + 7} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Fourth Row - 4 cards (if showing all) */}
           {visibleTestimonials.length > 10 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {visibleTestimonials.slice(10, 14).map((review, index) => (
                 <ReviewCard key={index + 10} review={review} />
               ))}
             </div>
           )}
           
-          {/* Fourth Row - 5 cards */}
+          {/* Fifth Row - 4 cards */}
           {visibleTestimonials.length > 14 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {visibleTestimonials.slice(14, 19).map((review, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {visibleTestimonials.slice(14, 18).map((review, index) => (
                 <ReviewCard key={index + 14} review={review} />
               ))}
             </div>
           )}
           
-          {/* Fifth Row - 4 cards */}
-          {visibleTestimonials.length > 19 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-              {visibleTestimonials.slice(19, 23).map((review, index) => (
-                <ReviewCard key={index + 19} review={review} />
+          {/* Sixth Row - 3 cards */}
+          {visibleTestimonials.length > 18 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(18, 21).map((review, index) => (
+                <ReviewCard key={index + 18} review={review} />
               ))}
             </div>
           )}
           
-          {/* Sixth Row - 5 cards */}
-          {visibleTestimonials.length > 23 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {visibleTestimonials.slice(23, 28).map((review, index) => (
-                <ReviewCard key={index + 23} review={review} />
+          {/* Seventh Row - 3 cards */}
+          {visibleTestimonials.length > 21 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(21, 24).map((review, index) => (
+                <ReviewCard key={index + 21} review={review} />
               ))}
             </div>
           )}
           
-          {/* Seventh Row - 2 cards */}
-          {visibleTestimonials.length > 28 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
-              {visibleTestimonials.slice(28, 30).map((review, index) => (
-                <ReviewCard key={index + 28} review={review} />
+          {/* Eighth Row - 3 cards */}
+          {visibleTestimonials.length > 24 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(24, 27).map((review, index) => (
+                <ReviewCard key={index + 24} review={review} />
+              ))}
+            </div>
+          )}
+          
+          {/* Ninth Row - 3 cards */}
+          {visibleTestimonials.length > 27 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visibleTestimonials.slice(27, 30).map((review, index) => (
+                <ReviewCard key={index + 27} review={review} />
               ))}
             </div>
           )}
