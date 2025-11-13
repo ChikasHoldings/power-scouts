@@ -7,44 +7,44 @@ export default function PlanCard({ plan, usage, isSaved, onToggleSave }) {
   const estimatedCost = (plan.rate_per_kwh * usage / 100 + (plan.monthly_base_charge || 0)).toFixed(2);
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 relative">
+    <div className="bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#0A5C8C] relative group">
       {/* Save Button */}
       <button
         onClick={onToggleSave}
-        className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+        className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-gray-100 transition-colors"
         aria-label={isSaved ? "Remove from saved plans" : "Save plan"}
       >
         <Heart 
-          className={`w-5 h-5 transition-colors ${
+          className={`w-4 h-4 transition-colors ${
             isSaved ? 'fill-red-500 text-red-500' : 'text-gray-400 hover:text-red-500'
           }`}
         />
       </button>
 
-      <div className="grid md:grid-cols-4 gap-6 items-center">
+      <div className="grid md:grid-cols-4 gap-5 items-center">
         {/* Provider & Plan Info */}
         <div className="md:col-span-2">
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-teal-50 to-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-sm font-bold text-teal-600">
+          <div className="flex items-start gap-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-green-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-green-100 transition-colors">
+              <span className="text-xs font-bold text-[#0A5C8C]">
                 {plan.provider_name.substring(0, 3).toUpperCase()}
               </span>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">
+            <div className="min-w-0 flex-1">
+              <h3 className="text-sm font-bold text-gray-900 mb-0.5 truncate">
                 {plan.plan_name}
               </h3>
-              <p className="text-sm text-gray-600 mb-2">{plan.provider_name}</p>
-              <div className="flex flex-wrap gap-2">
+              <p className="text-xs text-gray-600 mb-2">{plan.provider_name}</p>
+              <div className="flex flex-wrap gap-1.5">
                 {plan.plan_type && (
-                  <Badge variant="secondary" className="bg-gray-100 text-gray-700">
+                  <Badge variant="secondary" className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 capitalize">
                     {plan.plan_type}
                   </Badge>
                 )}
                 {plan.renewable_percentage >= 50 && (
-                  <Badge variant="secondary" className="bg-green-100 text-green-700">
-                    <Leaf className="w-3 h-3 mr-1" />
-                    {plan.renewable_percentage}% Renewable
+                  <Badge variant="secondary" className="bg-green-100 text-green-700 text-xs px-2 py-0.5">
+                    <Leaf className="w-3 h-3 mr-0.5" />
+                    {plan.renewable_percentage}% Green
                   </Badge>
                 )}
               </div>
@@ -54,40 +54,40 @@ export default function PlanCard({ plan, usage, isSaved, onToggleSave }) {
 
         {/* Rate Info */}
         <div className="text-center md:text-left">
-          <div className="mb-2">
-            <div className="text-3xl font-bold text-teal-600">
+          <div className="mb-1.5">
+            <div className="text-2xl font-bold text-[#0A5C8C]">
               {plan.rate_per_kwh.toFixed(1)}¢
             </div>
-            <div className="text-sm text-gray-600">per kWh</div>
+            <div className="text-xs text-gray-500">per kWh</div>
           </div>
-          <div className="text-sm text-gray-600">
-            <Clock className="w-4 h-4 inline mr-1" />
+          <div className="text-xs text-gray-600 flex items-center justify-center md:justify-start gap-1">
+            <Clock className="w-3 h-3" />
             {plan.contract_length} months
           </div>
         </div>
 
         {/* Estimated Cost & CTA */}
         <div className="text-center md:text-right">
-          <div className="mb-3">
-            <div className="text-2xl font-bold text-gray-900">
+          <div className="mb-2.5">
+            <div className="text-xl font-bold text-gray-900">
               ${estimatedCost}
             </div>
-            <div className="text-sm text-gray-600">est. monthly at {usage} kWh</div>
+            <div className="text-xs text-gray-500">est. @ {usage} kWh/mo</div>
           </div>
-          <Button className="w-full md:w-auto bg-teal-500 hover:bg-teal-600 text-white">
+          <Button size="sm" className="w-full md:w-auto bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-xs px-4">
             View Details
-            <ExternalLink className="w-4 h-4 ml-2" />
+            <ExternalLink className="w-3 h-3 ml-1.5" />
           </Button>
         </div>
       </div>
 
       {/* Additional Info */}
       {plan.features && plan.features.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="mt-3 pt-3 border-t border-gray-100">
           <div className="flex flex-wrap gap-2">
             {plan.features.slice(0, 3).map((feature, index) => (
-              <span key={index} className="text-sm text-gray-600 flex items-center gap-1">
-                <Zap className="w-3 h-3 text-teal-500" />
+              <span key={index} className="text-xs text-gray-600 flex items-center gap-1">
+                <Zap className="w-3 h-3 text-[#0A5C8C]" />
                 {feature}
               </span>
             ))}

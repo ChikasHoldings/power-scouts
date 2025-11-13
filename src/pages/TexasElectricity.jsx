@@ -327,32 +327,38 @@ export default function TexasElectricity() {
               {/* More Plans Table */}
               {morePlans.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">More Available Plans</h3>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">More Available Plans</h3>
                   <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm">
-                      <thead className="bg-gray-50">
+                    <table className="w-full border-collapse bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                      <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                         <tr>
-                          <th className="text-left p-3 text-xs font-semibold text-gray-700 border-b">Provider</th>
-                          <th className="text-left p-3 text-xs font-semibold text-gray-700 border-b">Plan Name</th>
-                          <th className="text-left p-3 text-xs font-semibold text-gray-700 border-b">Rate</th>
-                          <th className="text-left p-3 text-xs font-semibold text-gray-700 border-b">Est. Bill</th>
-                          <th className="text-left p-3 text-xs font-semibold text-gray-700 border-b">Term</th>
-                          <th className="text-center p-3 text-xs font-semibold text-gray-700 border-b">Action</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Provider</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Plan Name</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Rate</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Est. Bill</th>
+                          <th className="text-left px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Term</th>
+                          <th className="text-center px-4 py-2.5 text-xs font-bold text-gray-700 border-b uppercase">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {morePlans.map((plan, index) => (
-                          <tr key={index} className="border-b hover:bg-gray-50 transition-colors">
-                            <td className="p-3 text-sm font-semibold text-gray-900">{plan.provider_name}</td>
-                            <td className="p-3 text-sm text-gray-700">{plan.plan_name}</td>
-                            <td className="p-3 text-sm font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢/kWh</td>
-                            <td className="p-3 text-sm text-gray-700">
-                              ${plan.average_monthly_cost_1000 || Math.round(plan.rate_per_kwh * 10 + (plan.monthly_base_charge || 0))}/mo
+                          <tr key={index} className="border-b last:border-b-0 hover:bg-blue-50/50 transition-colors group">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-900">{plan.provider_name}</td>
+                            <td className="px-4 py-3 text-sm text-gray-700">{plan.plan_name}</td>
+                            <td className="px-4 py-3">
+                              <div className="text-base font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                              <div className="text-xs text-gray-500">per kWh</div>
                             </td>
-                            <td className="p-3 text-sm text-gray-700">{plan.contract_length || 'Variable'} mo</td>
-                            <td className="p-3 text-center">
+                            <td className="px-4 py-3">
+                              <div className="text-sm font-bold text-gray-900">
+                                ${plan.average_monthly_cost_1000 || Math.round(plan.rate_per_kwh * 10 + (plan.monthly_base_charge || 0))}
+                              </div>
+                              <div className="text-xs text-gray-500">@ 1000 kWh</div>
+                            </td>
+                            <td className="px-4 py-3 text-sm text-gray-700 font-semibold">{plan.contract_length || 'Variable'} mo</td>
+                            <td className="px-4 py-3 text-center">
                               <Link to={createPageUrl("CompareRates")}>
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs hover:border-[#0A5C8C] hover:text-[#0A5C8C]">
                                   View
                                 </Button>
                               </Link>
