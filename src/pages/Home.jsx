@@ -29,8 +29,8 @@ export default function Home() {
     <div className="min-h-screen">
       <HeroSection zipCode={zipCode} setZipCode={setZipCode} onCompare={handleCompareRates} />
       <AnnouncementBanner />
-      <AboutSection />
       <ProvidersSection />
+      <AboutSection />
       <HowItWorksSection />
       <TestimonialsSection />
     </div>
