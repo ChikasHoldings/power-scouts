@@ -36,6 +36,16 @@ export default function AboutSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+            The Power Wizard{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+              Way
+            </span>
+          </h2>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image with Overlay */}
           <div className="order-2 lg:order-1 group">
@@ -63,21 +73,7 @@ export default function AboutSection() {
           </div>
 
           {/* Content */}
-          <div className="order-1 lg:order-2 space-y-4 text-center lg:text-left">
-            <div className="inline-block">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full px-3 py-1.5 border border-blue-100">
-                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Trusted by Thousands</span>
-              </div>
-            </div>
-
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-              The Power Wizard{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                Way
-              </span>
-            </h2>
-            
+          <div className="order-1 lg:order-2 space-y-4">
             <p className="text-base text-gray-600 leading-relaxed">
               Our goal is simple. To empower you by simplifying your search for electricity 
               companies and plans. Whether you're looking for the cheapest electricity rate 
