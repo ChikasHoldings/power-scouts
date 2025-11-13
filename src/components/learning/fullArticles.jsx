@@ -524,6 +524,253 @@ export const fullArticles = {
 </div>
 <h2>The Bottom Line</h2>
 <p>Worcester's competitive market with DPU oversight offers safe shopping. Save $300+ yearly with certified suppliers.</p>`
+  },
+
+  48: {
+    title: "Springfield MA Electricity Rates 2024: Western MA Power Guide",
+    metaTitle: "Springfield MA Electricity Rates 2024: Compare Eversource Suppliers | Save $320+ | Power Scouts",
+    metaDescription: "Compare Springfield MA electricity rates from 12+ suppliers. Find cheapest power in Springfield, Hampden County. Save $280-400 yearly on Eversource.",
+    tags: ["Springfield MA Electricity", "Eversource Springfield", "Hampden County Power", "Western MA Energy"],
+    content: `<h2>Springfield's Competitive Market</h2>
+<p>Springfield and Hampden County (Eversource territory) have access to 12+ DPU-licensed suppliers serving Western Massachusetts.</p>
+<p><strong>Competitive Rates:</strong> 8.6¢ to 12.3¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.3¢+ per kWh</p>
+<p>Average Springfield household using 590 kWh monthly saves <strong>$270-380 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Springfield Suppliers</h3>
+<p>See DPU-licensed suppliers serving Eversource Western MA territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Springfield Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Springfield's DPU-regulated market offers safe supplier shopping. Save $280+ yearly through mass.gov/dpu comparison.</p>`
+  },
+
+  49: {
+    title: "Cambridge MA Electricity Rates 2024: Metro Boston Power Guide",
+    metaTitle: "Cambridge MA Electricity Rates 2024: Compare Eversource Suppliers | Save $340+ | Power Scouts",
+    metaDescription: "Compare Cambridge MA electricity rates from 12+ suppliers. Find cheapest power in Cambridge, Middlesex County. Save $300-420 yearly on Eversource.",
+    tags: ["Cambridge Electricity", "Eversource Cambridge", "Middlesex County Power", "Cambridge MA Energy"],
+    content: `<h2>Cambridge's Competitive Market</h2>
+<p>Cambridge and Middlesex County (Eversource territory) have access to 12+ DPU-licensed suppliers serving this Boston-adjacent market.</p>
+<p><strong>Competitive Rates:</strong> 8.9¢ to 12.6¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.8¢+ per kWh</p>
+<p>Average Cambridge household using 610 kWh monthly saves <strong>$290-400 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Cambridge Suppliers</h3>
+<p>See DPU-licensed suppliers serving Eversource Cambridge territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Cambridge Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Cambridge's competitive market offers solid savings. Compare DPU-licensed suppliers and save $300+ yearly.</p>`
+  },
+
+  50: {
+    title: "Hartford Electricity Rates 2024: Central CT Power Guide",
+    metaTitle: "Hartford Electricity Rates 2024: Compare Eversource CT Suppliers | Save $340+ | Power Scouts",
+    metaDescription: "Compare Hartford CT electricity rates from 12+ suppliers. Find cheapest power in Hartford, Hartford County. Save $300-420 yearly on Eversource.",
+    tags: ["Hartford Electricity", "Eversource Hartford", "Hartford County Power", "Hartford CT Energy"],
+    content: `<h2>Hartford's Competitive Market</h2>
+<p>Hartford and Hartford County (Eversource Connecticut territory) have access to 12+ PURA-licensed suppliers serving Connecticut's capital region.</p>
+<p><strong>Competitive Rates:</strong> 9.0¢ to 12.7¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.9¢+ per kWh</p>
+<p>Average Hartford household using 710 kWh monthly saves <strong>$290-400 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Hartford Suppliers</h3>
+<p>See PURA-licensed suppliers serving Eversource Hartford territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Hartford Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Hartford's PURA-regulated market with energizect.com resources makes shopping safe. Save $300+ yearly.</p>`
+  },
+
+  51: {
+    title: "New Haven Electricity Rates 2024: South Central CT Power Guide",
+    metaTitle: "New Haven Electricity Rates 2024: Compare UI Suppliers | Save $330+ | Power Scouts",
+    metaDescription: "Compare New Haven CT electricity rates from 12+ suppliers. Find cheapest power in New Haven County. Save $280-410 yearly on United Illuminating.",
+    tags: ["New Haven Electricity", "United Illuminating", "New Haven County Power", "New Haven CT Energy"],
+    content: `<h2>New Haven's Competitive Market</h2>
+<p>New Haven and New Haven County (United Illuminating territory) have access to 12+ PURA-licensed suppliers serving South Central Connecticut.</p>
+<p><strong>Competitive Rates:</strong> 9.1¢ to 12.8¢ per kWh<br>
+<strong>United Illuminating Default:</strong> 12.0¢+ per kWh</p>
+<p>Average New Haven household using 690 kWh monthly saves <strong>$270-390 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare New Haven Suppliers</h3>
+<p>See PURA-licensed suppliers serving United Illuminating territory.</p>
+<a href="/compare-rates" class="cta-button">Compare New Haven Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>New Haven's PURA-regulated market offers moderate savings. Shop through energizect.com and save $280+ yearly.</p>`
+  },
+
+  52: {
+    title: "Bridgeport Electricity Rates 2024: Fairfield County CT Power Guide",
+    metaTitle: "Bridgeport Electricity Rates 2024: Compare UI Suppliers | Save $310+ | Power Scouts",
+    metaDescription: "Compare Bridgeport CT electricity rates from 12+ suppliers. Find cheapest power in Bridgeport, Fairfield County. Save $260-390 yearly on UI.",
+    tags: ["Bridgeport Electricity", "United Illuminating Bridgeport", "Fairfield County Power", "Bridgeport CT Energy"],
+    content: `<h2>Bridgeport's Competitive Market</h2>
+<p>Bridgeport and Fairfield County (United Illuminating territory) have access to 12+ PURA-licensed suppliers serving Connecticut's coastal region.</p>
+<p><strong>Competitive Rates:</strong> 9.1¢ to 12.8¢ per kWh<br>
+<strong>UI Default:</strong> 12.0¢+ per kWh</p>
+<p>Average Bridgeport household using 670 kWh monthly saves <strong>$250-370 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Bridgeport Suppliers</h3>
+<p>See PURA-licensed suppliers serving UI Fairfield County territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Bridgeport Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Bridgeport's competitive market offers savings through PURA-licensed suppliers. Save $260+ yearly.</p>`
+  },
+
+  53: {
+    title: "Stamford Electricity Rates 2024: SW Connecticut Power Guide",
+    metaTitle: "Stamford Electricity Rates 2024: Compare Eversource Suppliers | Save $350+ | Power Scouts",
+    metaDescription: "Compare Stamford CT electricity rates from 12+ suppliers. Find cheapest power in Stamford, Fairfield County. Save $300-420 yearly on Eversource.",
+    tags: ["Stamford Electricity", "Eversource Stamford", "Fairfield County Eversource", "Stamford CT Energy"],
+    content: `<h2>Stamford's Competitive Market</h2>
+<p>Stamford (Eversource territory) has access to 12+ PURA-licensed suppliers serving this affluent Connecticut market near NYC.</p>
+<p><strong>Competitive Rates:</strong> 9.2¢ to 12.9¢ per kWh<br>
+<strong>Eversource Default:</strong> 12.1¢+ per kWh</p>
+<p>Average Stamford household using 730 kWh monthly saves <strong>$290-400 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Stamford Suppliers</h3>
+<p>See PURA-licensed suppliers serving Eversource Stamford territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Stamford Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Stamford's competitive market offers solid savings. Use energizect.com and save $300+ yearly.</p>`
+  },
+
+  54: {
+    title: "Portland ME Electricity Rates 2024: Southern Maine Power Guide",
+    metaTitle: "Portland ME Electricity Rates 2024: Compare CMP Suppliers | Save $320+ | Power Scouts",
+    metaDescription: "Compare Portland ME electricity rates from 8+ suppliers. Find cheapest power in Portland, Cumberland County. Save $280-380 yearly on CMP.",
+    tags: ["Portland ME Electricity", "Central Maine Power", "Cumberland County Power", "Portland Maine Energy"],
+    content: `<h2>Portland's Competitive Market</h2>
+<p>Portland and Cumberland County (Central Maine Power territory) have access to 8+ PUC-licensed suppliers serving Southern Maine.</p>
+<p><strong>Competitive Rates:</strong> 8.4¢ to 12.0¢ per kWh<br>
+<strong>CMP Default:</strong> 11.2¢+ per kWh</p>
+<p>Average Portland household using 570 kWh monthly saves <strong>$260-360 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Portland Suppliers</h3>
+<p>See PUC-licensed suppliers serving CMP Portland territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Portland Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Portland's limited but genuine competitive market offers real savings. Shop PUC-licensed suppliers and save $260+ yearly.</p>`
+  },
+
+  55: {
+    title: "Bangor ME Electricity Rates 2024: Northern Maine Power Guide",
+    metaTitle: "Bangor ME Electricity Rates 2024: Compare Emera Maine Suppliers | Save $300+ | Power Scouts",
+    metaDescription: "Compare Bangor ME electricity rates from 8+ suppliers. Find cheapest power in Bangor, Penobscot County. Save $250-360 yearly on Emera Maine.",
+    tags: ["Bangor Electricity", "Emera Maine", "Penobscot County Power", "Bangor ME Energy"],
+    content: `<h2>Bangor's Competitive Market</h2>
+<p>Bangor and Penobscot County (Emera Maine territory) have access to 8+ PUC-licensed suppliers serving Northern Maine.</p>
+<p><strong>Competitive Rates:</strong> 8.5¢ to 12.1¢ per kWh<br>
+<strong>Emera Maine Default:</strong> 11.3¢+ per kWh</p>
+<p>Average Bangor household using 560 kWh monthly saves <strong>$240-340 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Bangor Suppliers</h3>
+<p>See PUC-licensed suppliers serving Emera Maine territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Bangor Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Bangor's competitive market offers moderate savings. Shop PUC-licensed suppliers and save $240+ yearly.</p>`
+  },
+
+  56: {
+    title: "Manchester NH Electricity Rates 2024: Southern NH Power Guide",
+    metaTitle: "Manchester NH Electricity Rates 2024: Compare Eversource Suppliers | Save $330+ | Power Scouts",
+    metaDescription: "Compare Manchester NH electricity rates from 8+ suppliers. Find cheapest power in Manchester, Hillsborough County. Save $280-390 yearly on Eversource.",
+    tags: ["Manchester NH Electricity", "Eversource Manchester", "Hillsborough County Power", "Manchester New Hampshire Energy"],
+    content: `<h2>Manchester's Competitive Market</h2>
+<p>Manchester and Hillsborough County (Eversource New Hampshire territory) have access to 8+ PUC-licensed suppliers serving Southern New Hampshire.</p>
+<p><strong>Competitive Rates:</strong> 8.7¢ to 12.3¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.6¢+ per kWh</p>
+<p>Average Manchester household using 610 kWh monthly saves <strong>$270-370 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Manchester Suppliers</h3>
+<p>See PUC-licensed suppliers serving Eversource Manchester NH territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Manchester Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Manchester's competitive market with NH PUC oversight offers safe shopping. Save $270+ yearly.</p>`
+  },
+
+  57: {
+    title: "Nashua NH Electricity Rates 2024: Greater Nashua Power Guide",
+    metaTitle: "Nashua NH Electricity Rates 2024: Compare Eversource Suppliers | Save $320+ | Power Scouts",
+    metaDescription: "Compare Nashua NH electricity rates from 8+ suppliers. Find cheapest power in Nashua, Hillsborough County. Save $270-380 yearly on Eversource.",
+    tags: ["Nashua NH Electricity", "Eversource Nashua", "Greater Nashua Power", "Nashua New Hampshire Energy"],
+    content: `<h2>Nashua's Competitive Market</h2>
+<p>Nashua (Eversource New Hampshire territory) has access to 8+ PUC-licensed suppliers serving this NH-MA border market.</p>
+<p><strong>Competitive Rates:</strong> 8.6¢ to 12.2¢ per kWh<br>
+<strong>Eversource Default:</strong> 11.5¢+ per kWh</p>
+<p>Average Nashua household using 600 kWh monthly saves <strong>$260-360 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Nashua Suppliers</h3>
+<p>See PUC-licensed suppliers serving Eversource Nashua territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Nashua Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Nashua's competitive market offers moderate savings. Shop PUC-licensed suppliers and save $260+ yearly.</p>`
+  },
+
+  58: {
+    title: "Providence RI Electricity Rates 2024: Complete RI Metro Power Guide",
+    metaTitle: "Providence RI Electricity Rates 2024: Compare National Grid Suppliers | Save $300+ | Power Scouts",
+    metaDescription: "Compare Providence RI electricity rates from 8+ suppliers. Find cheapest power in Providence, Providence County. Save $260-360 yearly on National Grid.",
+    tags: ["Providence Electricity", "National Grid Providence", "Providence County Power", "Providence RI Energy"],
+    content: `<h2>Providence's Competitive Market</h2>
+<p>Providence and Providence County (National Grid Rhode Island territory) have access to 8+ PUC-licensed suppliers serving Rhode Island's capital.</p>
+<p><strong>Competitive Rates:</strong> 8.9¢ to 12.5¢ per kWh<br>
+<strong>National Grid Default:</strong> 11.8¢+ per kWh</p>
+<p>Average Providence household using 560 kWh monthly saves <strong>$240-340 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Providence Suppliers</h3>
+<p>See PUC-licensed suppliers serving National Grid Providence territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Providence Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Providence's competitive market with RI PUC licensing offers safe shopping. Save $240+ yearly.</p>`
+  },
+
+  59: {
+    title: "Warwick RI Electricity Rates 2024: Kent County Power Guide",
+    metaTitle: "Warwick RI Electricity Rates 2024: Compare National Grid Suppliers | Save $290+ | Power Scouts",
+    metaDescription: "Compare Warwick RI electricity rates from 8+ suppliers. Find cheapest power in Warwick, Kent County. Save $250-350 yearly on National Grid.",
+    tags: ["Warwick Electricity", "National Grid Warwick", "Kent County Power", "Warwick RI Energy"],
+    content: `<h2>Warwick's Competitive Market</h2>
+<p>Warwick and Kent County (National Grid Rhode Island territory) have access to 8+ PUC-licensed suppliers serving RI's second-largest city.</p>
+<p><strong>Competitive Rates:</strong> 8.8¢ to 12.4¢ per kWh<br>
+<strong>National Grid Default:</strong> 11.7¢+ per kWh</p>
+<p>Average Warwick household using 550 kWh monthly saves <strong>$230-330 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Warwick Suppliers</h3>
+<p>See PUC-licensed suppliers serving National Grid Warwick territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Warwick Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Warwick's competitive market offers genuine savings. Shop PUC-licensed suppliers and save $230+ yearly.</p>`
+  },
+
+  60: {
+    title: "Cranston RI Electricity Rates 2024: Providence County Power Guide",
+    metaTitle: "Cranston RI Electricity Rates 2024: Compare National Grid Suppliers | Save $280+ | Power Scouts",
+    metaDescription: "Compare Cranston RI electricity rates from 8+ suppliers. Find cheapest power in Cranston, Providence County. Save $240-340 yearly on National Grid.",
+    tags: ["Cranston Electricity", "National Grid Cranston", "Cranston RI Power", "Cranston Energy"],
+    content: `<h2>Cranston's Competitive Market</h2>
+<p>Cranston (National Grid Rhode Island territory) has access to 8+ PUC-licensed suppliers serving this Providence-adjacent market.</p>
+<p><strong>Competitive Rates:</strong> 8.9¢ to 12.5¢ per kWh<br>
+<strong>National Grid Default:</strong> 11.8¢+ per kWh</p>
+<p>Average Cranston household using 540 kWh monthly saves <strong>$220-320 annually</strong>.</p>
+<div class="cta-box">
+<h3>Compare Cranston Suppliers</h3>
+<p>See PUC-licensed suppliers serving National Grid Cranston territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Cranston Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Cranston's competitive market offers safe savings. Shop PUC-licensed suppliers and save $220+ yearly.</p>`
   }
 };
 
