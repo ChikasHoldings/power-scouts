@@ -52,11 +52,11 @@ export default function PennsylvaniaElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Pennsylvania Electricity Rates - Compare PA Energy Providers"
-        description="Compare electricity rates from 38+ providers in Pennsylvania. Find the best plans in Philadelphia, Pittsburgh, and all PA areas. Save $750/year on average."
-        keywords="Pennsylvania electricity rates, Philadelphia electricity, Pittsburgh electricity, PA energy providers, PECO alternatives"
+        title="Pennsylvania Electricity Rates - Compare 38+ Suppliers & Save $750/Year | Power Scouts PA"
+        description="Compare Pennsylvania electricity rates from Constellation, Direct Energy, Champion Energy & 36+ suppliers. Serving Philadelphia, Pittsburgh, Allentown, Harrisburg. Find competitive electricity plans for your home. Fixed & variable rates. 100% green energy options. Switch easily & save up to $750 annually. Free PA electricity comparison."
+        keywords="Pennsylvania electricity rates, Philadelphia electricity providers, Pittsburgh energy rates, PA power companies, compare electricity Pennsylvania, PECO alternatives, Duquesne Light alternatives, cheap electricity Pennsylvania, best electricity rates PA, Pennsylvania electricity suppliers, deregulated electricity Pennsylvania, fixed rate electricity PA, renewable energy Pennsylvania, green electricity plans PA, competitive electricity suppliers Pennsylvania"
         canonical="/pennsylvania-electricity"
-        structuredData={[breadcrumbData, getServiceSchema("Pennsylvania")]}
+        structuredData={[breadcrumbData, getServiceSchema("Pennsylvania"), getFAQSchema(stateData.faqs)]}
       />
 
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">
