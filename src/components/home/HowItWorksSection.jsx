@@ -12,12 +12,12 @@ const steps = [
   {
     number: "2",
     title: "Compare & Choose",
-    description: "Review side-by-side comparisons of electricity plans based on your usage. Filter by price, contract length, renewable energy, and more to find the perfect fit for your needs."
+    description: "Compare plans based on your usage. Filter by price, contract length, renewable energy, and more to find your perfect fit."
   },
   {
     number: "3",
     title: "Sign Up & Save",
-    description: "Once you've found your ideal plan, sign up directly online in just minutes. Start saving on your electricity bill immediately with no hidden fees or surprises."
+    description: "Sign up directly online in just minutes. Start saving immediately with no hidden fees or surprises."
   }
 ];
 
