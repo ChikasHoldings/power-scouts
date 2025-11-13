@@ -157,46 +157,83 @@ export default function Layout({ children, currentPageName }) {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-10"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            <div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-10">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-3 lg:col-span-1">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
-                alt="Power Scouts"
+                alt="Power Scouts - Compare Texas Electricity Rates"
                 className="h-9 mb-4 brightness-0 invert"
               />
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                Empowering Texans to find the best electricity rates since 2019.
+                Your trusted electricity comparison platform for Texas. Compare rates from 40+ providers and save up to $800 per year.
               </p>
               <div className="flex gap-2">
-                <a href="#" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+                <a href="#" aria-label="Follow us on Facebook" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
                 </a>
-                <a href="#" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+                <a href="#" aria-label="Follow us on Twitter" className="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg>
                 </a>
               </div>
             </div>
 
+            {/* Popular Cities */}
             <div>
-              <h3 className="font-semibold mb-3 text-sm">Quick Links</h3>
+              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Popular Cities</h3>
               <div className="space-y-2">
-                <Link to={createPageUrl("CompareRates")} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Compare Rates
+                <Link to={createPageUrl("CityRates") + "?city=Houston"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Houston
                 </Link>
-                <Link to={createPageUrl("AllProviders")} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Providers
+                <Link to={createPageUrl("CityRates") + "?city=Dallas"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Dallas
                 </Link>
-                <Link to={createPageUrl("AllCities")} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Service Areas
+                <Link to={createPageUrl("CityRates") + "?city=Austin"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Austin
+                </Link>
+                <Link to={createPageUrl("CityRates") + "?city=San Antonio"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  San Antonio
+                </Link>
+                <Link to={createPageUrl("CityRates") + "?city=Fort Worth"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Fort Worth
+                </Link>
+                <Link to={createPageUrl("AllCities")} className="block text-[#FF6B35] hover:text-[#FF8C5A] text-sm transition-colors font-medium">
+                  View All Cities →
                 </Link>
               </div>
             </div>
 
+            {/* Top Providers */}
             <div>
-              <h3 className="font-semibold mb-3 text-sm">Company</h3>
+              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Top Providers</h3>
               <div className="space-y-2">
-                <Link to={createPageUrl("AboutUs")} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  About Us
+                <Link to={createPageUrl("ProviderDetails") + "?provider=TXU Energy"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  TXU Energy
+                </Link>
+                <Link to={createPageUrl("ProviderDetails") + "?provider=Reliant Energy"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Reliant Energy
+                </Link>
+                <Link to={createPageUrl("ProviderDetails") + "?provider=Gexa Energy"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Gexa Energy
+                </Link>
+                <Link to={createPageUrl("ProviderDetails") + "?provider=Direct Energy"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Direct Energy
+                </Link>
+                <Link to={createPageUrl("ProviderDetails") + "?provider=Green Mountain Energy"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Green Mountain
+                </Link>
+                <Link to={createPageUrl("AllProviders")} className="block text-[#FF6B35] hover:text-[#FF8C5A] text-sm transition-colors font-medium">
+                  View All Providers →
+                </Link>
+              </div>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Resources</h3>
+              <div className="space-y-2">
+                <Link to={createPageUrl("CompareRates")} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Compare Rates
                 </Link>
                 <Link to={createPageUrl("FAQ")} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   FAQs
@@ -204,23 +241,47 @@ export default function Layout({ children, currentPageName }) {
                 <Link to={createPageUrl("LearningCenter")} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Learning Center
                 </Link>
+                <Link to={createPageUrl("AboutUs")} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  About Us
+                </Link>
               </div>
             </div>
 
+            {/* Plan Types */}
             <div>
-              <h3 className="font-semibold mb-3 text-sm">Contact</h3>
-              <a href="tel:855-475-8315" className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors group">
-                <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-base font-semibold">855-475-8315</span>
-              </a>
+              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Plan Types</h3>
+              <div className="space-y-2">
+                <Link to={createPageUrl("CompareRates") + "?planType=fixed"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Fixed Rate Plans
+                </Link>
+                <Link to={createPageUrl("CompareRates") + "?planType=variable"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Variable Rate Plans
+                </Link>
+                <Link to={createPageUrl("CompareRates") + "?renewable=true"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Renewable Energy
+                </Link>
+                <Link to={createPageUrl("CompareRates") + "?contract=12"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  12 Month Plans
+                </Link>
+                <Link to={createPageUrl("CompareRates") + "?contract=24"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  24 Month Plans
+                </Link>
+              </div>
             </div>
+          </div>
+
+          {/* SEO Text */}
+          <div className="border-t border-gray-800 pt-8 pb-6">
+            <p className="text-gray-500 text-xs leading-relaxed max-w-5xl">
+              Power Scouts is Texas' leading electricity comparison platform, helping residents and businesses across Houston, Dallas, Austin, San Antonio, Fort Worth, and all deregulated areas find the best electricity rates. Compare plans from top providers including TXU Energy, Reliant, Gexa, Direct Energy, and more. Whether you're looking for fixed rate plans, renewable energy options, or the cheapest electricity rates in Texas, we make it easy to switch and save. Our free service gives you instant access to rates from 40+ electricity providers, personalized to your ZIP code and usage. Start comparing today and join thousands of Texans who have saved on their electricity bills with Power Scouts.
+            </p>
           </div>
 
           <div className="border-t border-gray-700 pt-6 text-center">
             <p className="text-gray-400 text-xs">
-              © {new Date().getFullYear()} Power Scouts. All rights reserved.
+              © {new Date().getFullYear()} Power Scouts. All rights reserved. | 
+              <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white transition-colors ml-1">Privacy Policy</Link> | 
+              <Link to={createPageUrl("TermsOfService")} className="hover:text-white transition-colors ml-1">Terms of Service</Link>
             </p>
           </div>
         </div>
