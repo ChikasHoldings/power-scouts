@@ -1670,6 +1670,7 @@ Solution: Read the ESCO disclosure form carefully. Check contract length, early 
 
 <p>Rhode Island offers limited but genuine supplier competition. Shop annually in fall, choose 12-month fixed rates, and save $170-290 yearly compared to National Grid standard rates.</p>
 `
+  }
 };
 
 export const getFullArticle = (articleId) => {
