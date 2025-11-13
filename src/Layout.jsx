@@ -4,15 +4,15 @@ import { createPageUrl } from "@/utils";
 import { Phone, ChevronDown, Menu, X, ArrowUp } from "lucide-react";
 
 const texasCities = [
-  "Houston", "Dallas", "Fort Worth", "Corpus Christi", "Arlington",
-  "Plano", "Grand Prairie", "Irving", "Laredo", "Lubbock"
-];
+"Houston", "Dallas", "Fort Worth", "Corpus Christi", "Arlington",
+"Plano", "Grand Prairie", "Irving", "Laredo", "Lubbock"];
+
 
 const providers = [
-  "4Change Energy", "Frontier Utilities", "APG&E", "Gexa Energy",
-  "Payless Power", "Rhythm Energy", "Veteran Energy", "TXU Energy",
-  "Express Energy", "CleanSky Energy"
-];
+"4Change Energy", "Frontier Utilities", "APG&E", "Gexa Energy",
+"Payless Power", "Rhythm Energy", "Veteran Energy", "TXU Energy",
+"Express Energy", "CleanSky Energy"];
+
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
@@ -37,22 +37,22 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-100' 
-          : 'bg-white border-b border-gray-200'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      scrolled ?
+      'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-100' :
+      'bg-white border-b border-gray-200'}`
+      }>
+        <div className="bg-slate-50 mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center transform hover:scale-105 transition-transform">
-              <img 
+              <img
                 src="https://www.powerwizard.com/wp-content/uploads/2022/05/powerwizard-logo.svg"
                 alt="Power Wizard"
                 className="h-7"
                 onError={(e) => {
                   e.target.outerHTML = '<div class="flex items-center gap-0"><span class="text-xl text-gray-900">power</span><span class="text-xl" style="color: #00A9CE;">wizard</span></div>';
-                }}
-              />
+                }} />
+
             </Link>
 
             {/* Desktop Navigation */}
@@ -67,15 +67,15 @@ export default function Layout({ children, currentPageName }) {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2 text-xs uppercase tracking-wide">Cities</h3>
                       <div className="space-y-1.5">
-                        {texasCities.slice(0, 5).map(city => (
-                          <Link
-                            key={city}
-                            to={createPageUrl("CityRates") + `?city=${city}`}
-                            className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all"
-                          >
+                        {texasCities.slice(0, 5).map((city) =>
+                        <Link
+                          key={city}
+                          to={createPageUrl("CityRates") + `?city=${city}`}
+                          className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all">
+
                             {city}
                           </Link>
-                        ))}
+                        )}
                         <Link to={createPageUrl("AllCities")} className="text-sm text-blue-600 font-medium hover:translate-x-1 transition-all inline-block mt-1">
                           Browse all →
                         </Link>
@@ -84,15 +84,15 @@ export default function Layout({ children, currentPageName }) {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2 text-xs uppercase tracking-wide">Providers</h3>
                       <div className="space-y-1.5">
-                        {providers.slice(0, 5).map(provider => (
-                          <Link
-                            key={provider}
-                            to={createPageUrl("ProviderDetails") + `?provider=${provider}`}
-                            className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all"
-                          >
+                        {providers.slice(0, 5).map((provider) =>
+                        <Link
+                          key={provider}
+                          to={createPageUrl("ProviderDetails") + `?provider=${provider}`}
+                          className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all">
+
                             {provider}
                           </Link>
-                        ))}
+                        )}
                         <Link to={createPageUrl("AllProviders")} className="text-sm text-blue-600 font-medium hover:translate-x-1 transition-all inline-block mt-1">
                           Browse all →
                         </Link>
@@ -104,15 +104,15 @@ export default function Layout({ children, currentPageName }) {
 
               <Link
                 to={createPageUrl("BusinessRates")}
-                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
-              >
+                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium">
+
                 Business Rates
               </Link>
 
               <Link
                 to={createPageUrl("HomeConcierge")}
-                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
-              >
+                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium">
+
                 Home Concierge
               </Link>
 
@@ -150,16 +150,16 @@ export default function Layout({ children, currentPageName }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            >
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+        {mobileMenuOpen &&
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-3">
               <Link to={createPageUrl("CompareRates")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Compare Rates
@@ -184,7 +184,7 @@ export default function Layout({ children, currentPageName }) {
               </a>
             </div>
           </div>
-        )}
+        }
       </header>
 
       {/* Main Content */}
@@ -200,11 +200,11 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
             <div>
-              <img 
+              <img
                 src="https://www.powerwizard.com/wp-content/uploads/2022/05/powerwizard-logo.svg"
                 alt="Power Wizard"
-                className="h-7 mb-4 brightness-0 invert"
-              />
+                className="h-7 mb-4 brightness-0 invert" />
+
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 Empowering Texans to find the best electricity rates since 2019.
               </p>
@@ -268,14 +268,14 @@ export default function Layout({ children, currentPageName }) {
       </footer>
 
       {/* Back to Top Button */}
-      {showBackToTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 w-11 h-11 bg-gradient-to-br from-blue-600 to-cyan-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all z-50 flex items-center justify-center hover:scale-110 transform group"
-        >
+      {showBackToTop &&
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 w-11 h-11 bg-gradient-to-br from-blue-600 to-cyan-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all z-50 flex items-center justify-center hover:scale-110 transform group">
+
           <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
         </button>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 }
