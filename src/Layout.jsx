@@ -42,13 +42,13 @@ export default function Layout({ children, currentPageName }) {
           : 'bg-white border-b border-gray-200'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center transform hover:scale-105 transition-transform">
               <img 
                 src="https://www.powerwizard.com/wp-content/uploads/2022/05/powerwizard-logo.svg"
                 alt="Power Wizard"
-                className="h-7"
+                className="h-8"
                 onError={(e) => {
                   e.target.outerHTML = '<div class="flex items-center gap-0"><span class="text-xl text-gray-900">power</span><span class="text-xl" style="color: #00A9CE;">wizard</span></div>';
                 }}
@@ -56,9 +56,9 @@ export default function Layout({ children, currentPageName }) {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-8">
               <div className="relative group">
-                <button className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium">
+                <button className="flex items-center gap-1 text-gray-700 hover:text-[#0A5C8C] transition-colors text-base font-medium">
                   Residential
                   <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform" />
                 </button>
@@ -104,20 +104,20 @@ export default function Layout({ children, currentPageName }) {
 
               <Link
                 to={createPageUrl("BusinessRates")}
-                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
+                className="text-gray-700 hover:text-[#0A5C8C] transition-colors text-base font-medium"
               >
                 Business Rates
               </Link>
 
               <Link
                 to={createPageUrl("HomeConcierge")}
-                className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
+                className="text-gray-700 hover:text-[#0A5C8C] transition-colors text-base font-medium"
               >
                 Home Concierge
               </Link>
 
               <div className="relative group">
-                <button className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium">
+                <button className="flex items-center gap-1 text-gray-700 hover:text-[#0A5C8C] transition-colors text-base font-medium">
                   Resources
                   <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform" />
                 </button>
@@ -137,14 +137,13 @@ export default function Layout({ children, currentPageName }) {
               </div>
             </nav>
 
-            {/* Phone Number with Icon */}
-            <div className="hidden lg:flex items-center gap-2">
-              <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center shadow-md">
-                <Phone className="w-4 h-4 text-white" />
-              </div>
-              <a href="tel:855-475-8315" className="font-semibold text-gray-900 hover:text-[#0A5C8C] transition-colors text-sm">
-                855-475-8315
-              </a>
+            {/* Compare Rates Button */}
+            <div className="hidden lg:block">
+              <Link to={createPageUrl("CompareRates")}>
+                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-6 py-2 text-base rounded-lg transition-all duration-300">
+                  Compare Rates
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
