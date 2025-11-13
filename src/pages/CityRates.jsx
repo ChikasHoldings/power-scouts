@@ -239,23 +239,31 @@ export default function CityRates() {
               Average rates starting at {city.avgRate} with potential savings up to $800/year.
             </p>
 
-            {/* Quick Stats */}
+            {/* Quick Stats - Dynamic Data */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">{city.avgRate}</div>
-                <div className="text-xs text-blue-100">Avg. Rate</div>
+                <div className="text-xl font-bold mb-1">
+                  {dynamicStats ? dynamicStats.lowestRate : city.avgRate}
+                </div>
+                <div className="text-xs text-blue-100">Lowest Rate</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">{city.providers}+</div>
+                <div className="text-xl font-bold mb-1">
+                  {dynamicStats ? dynamicStats.uniqueProviders : city.providers}+
+                </div>
                 <div className="text-xs text-blue-100">Providers</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">{city.avgMonthlyBill}</div>
-                <div className="text-xs text-blue-100">Avg. Bill</div>
+                <div className="text-xl font-bold mb-1">
+                  {dynamicStats ? dynamicStats.totalPlans : '100+'}
+                </div>
+                <div className="text-xs text-blue-100">Plans Available</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">{city.population}</div>
-                <div className="text-xs text-blue-100">Population</div>
+                <div className="text-xl font-bold mb-1">
+                  {dynamicStats ? dynamicStats.avgMonthlyBill : city.avgMonthlyBill}
+                </div>
+                <div className="text-xs text-blue-100">Avg. Bill @ 1000kWh</div>
               </div>
             </div>
 
