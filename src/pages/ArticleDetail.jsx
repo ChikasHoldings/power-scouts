@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import SEOHead, { getArticleSchema, getBreadcrumbSchema } from "../components/SEOHead";
 import { getFullArticle } from "../components/learning/fullArticles";
+import ArticleRecommendations from "../components/learning/ArticleRecommendations";
+import ReadingAnalytics, { trackDailyReading } from "../components/learning/ReadingAnalytics";
 
 // Complete articles data - all 22 articles
 const articles = [
@@ -276,9 +278,10 @@ export default function ArticleDetail() {
   const articleId = parseInt(urlParams.get('id'));
   const article = articles.find(a => a.id === articleId);
 
-  // Scroll to top on mount
+  // Scroll to top on mount and track reading
   useEffect(() => {
     window.scrollTo(0, 0);
+    trackDailyReading();
   }, [articleId]);
 
   if (!article) {
