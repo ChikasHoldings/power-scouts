@@ -19,18 +19,6 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-7 animate-fade-in-up">
-            {/* Star Rating with Badge */}
-            <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-md border border-gray-200">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="text-gray-900 font-bold text-sm">4.8</span>
-              <span className="text-gray-300">•</span>
-              <span className="text-gray-600 text-sm font-medium">1,200+ Reviews</span>
-            </div>
-
             {/* Main Headline with Gradient */}
             <div>
               <h1 className="text-5xl lg:text-6xl font-bold text-[#084a6f] leading-tight mb-5 tracking-tight">
