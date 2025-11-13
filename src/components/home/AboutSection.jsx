@@ -39,9 +39,9 @@ export default function AboutSection() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-            The Power Wizard{" "}
+            Why Thousands of Texans{" "}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              Way
+              Trust Us
             </span>
           </h2>
         </div>
