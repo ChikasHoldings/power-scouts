@@ -9,8 +9,11 @@ import { MapPin, SlidersHorizontal, Zap, Heart, Star } from "lucide-react";
 import PlanCard from "../components/compare/PlanCard";
 import FiltersPanel from "../components/compare/FiltersPanel";
 import SavedPlansModal from "../components/compare/SavedPlansModal";
+import ComparisonWizard from "../components/compare/ComparisonWizard";
 
 export default function CompareRates() {
+  const [showWizard, setShowWizard] = useState(true);
+  const [wizardCompleted, setWizardCompleted] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [usage, setUsage] = useState(1000);
   const [filters, setFilters] = useState({
@@ -30,14 +33,33 @@ export default function CompareRates() {
   const [showFilters, setShowFilters] = useState(false);
   const [showSavedPlans, setShowSavedPlans] = useState(false);
 
-  // Get ZIP from URL
+  // Get ZIP from URL and check if wizard should be shown
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const zipFromUrl = urlParams.get('zip');
+    const skipWizard = urlParams.get('skipWizard');
+    
     if (zipFromUrl) {
       setZipCode(zipFromUrl);
+      setWizardCompleted(true);
+      setShowWizard(false);
+    } else if (skipWizard === 'true') {
+      setShowWizard(false);
+      setWizardCompleted(true);
     }
   }, []);
+
+  const handleWizardComplete = (formData) => {
+    setZipCode(formData.zipCode);
+    setUsage(formData.usage);
+    setWizardCompleted(true);
+    setShowWizard(false);
+    
+    // Update URL without reload
+    const url = new URL(window.location);
+    url.searchParams.set('zip', formData.zipCode);
+    window.history.pushState({}, '', url);
+  };
 
   const { data: plans, isLoading } = useQuery({
     queryKey: ['plans'],
@@ -94,12 +116,43 @@ export default function CompareRates() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header Section */}
-      <div className="bg-[#0A5C8C] text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-            Compare Electricity Rates
-          </h1>
+      {/* Show Wizard or Results */}
+      {showWizard && !wizardCompleted ? (
+        <div className="bg-gradient-to-b from-gray-50 to-white py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                Find Your Perfect Electricity Plan
+              </h1>
+              <p className="text-xl text-gray-600">
+                Answer 4 quick questions to see personalized rates
+              </p>
+            </div>
+            <ComparisonWizard onComplete={handleWizardComplete} />
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Header Section */}
+          <div className="bg-[#0A5C8C] text-white py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="text-4xl lg:text-5xl font-bold">
+                  Compare Electricity Rates
+                </h1>
+                {wizardCompleted && (
+                  <Button
+                    onClick={() => {
+                      setShowWizard(true);
+                      setWizardCompleted(false);
+                    }}
+                    variant="outline"
+                    className="bg-white/10 hover:bg-white/20 text-white border-white/30"
+                  >
+                    Start Over
+                  </Button>
+                )}
+              </div>
           
           {/* Search Bar */}
           <div className="bg-white rounded-lg shadow-xl p-3 max-w-4xl">
@@ -202,15 +255,17 @@ export default function CompareRates() {
         </div>
       </div>
 
-      {/* Saved Plans Modal */}
-      <SavedPlansModal
-        isOpen={showSavedPlans}
-        onClose={() => setShowSavedPlans(false)}
-        savedPlans={savedPlans}
-        usage={usage}
-        onToggleSave={toggleSavePlan}
-        isPlanSaved={isPlanSaved}
-      />
+          {/* Saved Plans Modal */}
+          <SavedPlansModal
+            isOpen={showSavedPlans}
+            onClose={() => setShowSavedPlans(false)}
+            savedPlans={savedPlans}
+            usage={usage}
+            onToggleSave={toggleSavePlan}
+            isPlanSaved={isPlanSaved}
+          />
+        </>
+      )}
     </div>
   );
 }
