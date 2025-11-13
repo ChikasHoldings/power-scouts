@@ -7,8 +7,8 @@ const faqs = [
     answer: "In Texas, you can choose your electricity provider, unlike many other states. This creates competition among providers, potentially leading to better rates and services for customers."
   },
   {
-    question: "Is Power Wizard really free?",
-    answer: "Yes! Power Wizard is free for consumers. We receive a commission from electricity providers when you sign up through our service, but this doesn't affect the rate you pay."
+    question: "Is Power Scouts really free?",
+    answer: "Yes! Power Scouts is free for consumers. We receive a commission from electricity providers when you sign up through our service, but this doesn't affect the rate you pay."
   },
   {
     question: "How do I switch electricity providers?",

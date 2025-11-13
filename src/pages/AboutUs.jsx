@@ -8,7 +8,7 @@ export default function AboutUs() {
       <div className="bg-[#0A5C8C] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-            About Power Wizard
+            About Power Scouts
           </h1>
           <p className="text-2xl opacity-90">
             Empowering Texans to make smarter energy choices since 2019
@@ -56,7 +56,7 @@ export default function AboutUs() {
           <h2 className="text-4xl font-bold text-gray-900">Our Story</h2>
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 leading-relaxed">
-              Founded in 2019, Power Wizard was created to solve a simple problem: finding the 
+              Founded in 2019, Power Scouts was created to solve a simple problem: finding the 
               right electricity plan in Texas's deregulated market shouldn't be complicated or 
               time-consuming.
             </p>
