@@ -548,7 +548,7 @@ export default function CityRates() {
 
               {/* Mobile Card View */}
               <div className="lg:hidden space-y-4">
-                {cityPlans.map((plan) => {
+                {topPlans.map((plan) => {
                   const monthlyBill = ((plan.rate_per_kwh / 100) * usage) + (plan.monthly_base_charge || 0);
                   return (
                     <Card key={plan.id} className="border-2 hover:border-[#FF6B35] transition-all">
