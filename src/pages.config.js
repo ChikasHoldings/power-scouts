@@ -29,6 +29,7 @@ import CompareRates from './pages/CompareRates';
 import BillAnalyzer from './pages/BillAnalyzer';
 import Sitemap from './pages/Sitemap';
 import Robots from './pages/Robots';
+import ArticleDetail from './pages/ArticleDetail';
 import Layout from './Layout.jsx';
 
 
@@ -64,6 +65,7 @@ export const PAGES = {
     "BillAnalyzer": BillAnalyzer,
     "Sitemap": Sitemap,
     "Robots": Robots,
+    "ArticleDetail": ArticleDetail,
 }
 
 export const pagesConfig = {

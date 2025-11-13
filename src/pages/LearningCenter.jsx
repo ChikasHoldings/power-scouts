@@ -154,7 +154,6 @@ const colorClasses = {
 };
 
 export default function LearningCenter() {
-  const [selectedArticle, setSelectedArticle] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -183,38 +182,38 @@ export default function LearningCenter() {
         structuredData={breadcrumbData}
       />
 
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      {/* Hero Section - Reduced Height */}
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-8 sm:py-10 lg:py-12 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-blue-400 rounded-full filter blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-400 rounded-full filter blur-3xl"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm mb-6">
-              <BookOpen className="w-4 h-4" />
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs sm:text-sm mb-4">
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Free Expert Guides</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
               Master Electricity Shopping & Save $500+ Annually
             </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-blue-100 mb-8">
-              Expert guides with real examples to help you find the lowest rates and avoid common mistakes
+            <p className="text-sm sm:text-base lg:text-lg text-blue-100 mb-5">
+              Expert guides with real examples to help you find the lowest rates
             </p>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl sm:text-3xl font-bold mb-1">{articles.length}+</div>
-                <div className="text-xs sm:text-sm text-blue-100">Expert Guides</div>
+            <div className="grid grid-cols-3 gap-3 max-w-xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <div className="text-xl sm:text-2xl font-bold mb-0.5">{articles.length}+</div>
+                <div className="text-xs text-blue-100">Guides</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl sm:text-3xl font-bold mb-1">$500+</div>
-                <div className="text-xs sm:text-sm text-blue-100">Avg. Savings</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <div className="text-xl sm:text-2xl font-bold mb-0.5">$500+</div>
+                <div className="text-xs text-blue-100">Avg. Savings</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl sm:text-3xl font-bold mb-1">12</div>
-                <div className="text-xs sm:text-sm text-blue-100">States Covered</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                <div className="text-xl sm:text-2xl font-bold mb-0.5">12</div>
+                <div className="text-xs text-blue-100">States</div>
               </div>
             </div>
           </div>
@@ -223,8 +222,6 @@ export default function LearningCenter() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        {!selectedArticle ? (
-          <>
             {/* Search Bar */}
             <div className="mb-8 sm:mb-10">
               <div className="relative max-w-2xl mx-auto">
@@ -273,39 +270,40 @@ export default function LearningCenter() {
                   const Icon = featured.icon;
                   const colors = colorClasses[featured.color];
                   return (
-                    <Card 
-                      className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group"
-                      onClick={() => setSelectedArticle(featured)}
-                    >
-                      <div className="grid md:grid-cols-2 gap-0">
-                        <div className="relative h-64 md:h-full overflow-hidden">
-                          <img 
-                            src={featured.image} 
-                            alt={featured.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                          <div className={`absolute top-4 left-4 px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase`}>
-                            {featured.category}
+                    <Link to={createPageUrl("ArticleDetail") + `?id=${featured.id}`}>
+                      <Card 
+                        className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group"
+                      >
+                        <div className="grid md:grid-cols-2 gap-0">
+                          <div className="relative h-64 md:h-full overflow-hidden">
+                            <img 
+                              src={featured.image} 
+                              alt={featured.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div className={`absolute top-4 left-4 px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase`}>
+                              {featured.category}
+                            </div>
+                          </div>
+                          <div className="p-6 sm:p-8 flex flex-col justify-center">
+                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 group-hover:text-[#0A5C8C] transition-colors">
+                              {featured.title}
+                            </h3>
+                            <p className="text-base text-gray-600 mb-4 leading-relaxed">
+                              {featured.excerpt}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm text-gray-500 flex items-center gap-2">
+                                <Clock className="w-4 h-4" />
+                                {featured.readTime} read
+                              </span>
+                              <ArrowRight className="w-6 h-6 text-[#FF6B35] group-hover:translate-x-2 transition-transform" />
+                            </div>
                           </div>
                         </div>
-                        <div className="p-6 sm:p-8 flex flex-col justify-center">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 group-hover:text-[#0A5C8C] transition-colors">
-                            {featured.title}
-                          </h3>
-                          <p className="text-base text-gray-600 mb-4 leading-relaxed">
-                            {featured.excerpt}
-                          </p>
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-500 flex items-center gap-2">
-                              <Clock className="w-4 h-4" />
-                              {featured.readTime} read
-                            </span>
-                            <ArrowRight className="w-6 h-6 text-[#FF6B35] group-hover:translate-x-2 transition-transform" />
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
+                      </Card>
+                    </Link>
                   );
                 })()}
               </div>
@@ -322,11 +320,10 @@ export default function LearningCenter() {
                     const Icon = article.icon;
                     const colors = colorClasses[article.color];
                     return (
-                      <Card 
-                        key={article.id} 
-                        className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group h-full flex flex-col"
-                        onClick={() => setSelectedArticle(article)}
-                      >
+                      <Link key={article.id} to={createPageUrl("ArticleDetail") + `?id=${article.id}`}>
+                        <Card 
+                          className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group h-full flex flex-col"
+                        >
                         <div className="relative h-48 overflow-hidden flex-shrink-0">
                           <img 
                             src={article.image} 
@@ -357,6 +354,7 @@ export default function LearningCenter() {
                           </div>
                         </CardContent>
                       </Card>
+                    </Link>
                     );
                   })}
                 </div>
@@ -402,141 +400,6 @@ export default function LearningCenter() {
                 </CardContent>
               </Card>
             </section>
-          </>
-        ) : (
-          /* Article Detail View */
-          <div className="max-w-4xl mx-auto">
-            <Button
-              variant="outline"
-              onClick={() => setSelectedArticle(null)}
-              className="mb-6 rounded-xl"
-            >
-              ← Back to All Guides
-            </Button>
-
-            {/* Article Content */}
-            <article className="bg-white rounded-2xl shadow-xl border-2 overflow-hidden">
-              {/* Hero Image */}
-              <div className="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
-                <img 
-                  src={selectedArticle.image} 
-                  alt={selectedArticle.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  {(() => {
-                    const colors = colorClasses[selectedArticle.color];
-                    return (
-                      <div className={`inline-flex px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase mb-3`}>
-                        {selectedArticle.category}
-                      </div>
-                    );
-                  })()}
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
-                    {selectedArticle.title}
-                  </h1>
-                  <div className="flex items-center gap-4 text-white/80 text-sm">
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4" />
-                      {selectedArticle.readTime} read
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Article Body */}
-              <div className="p-6 sm:p-10 lg:p-12">
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-xl text-gray-700 leading-relaxed mb-8 border-l-4 border-[#FF6B35] pl-6 py-2 bg-gray-50 rounded-r-lg">
-                    {selectedArticle.description}
-                  </p>
-                  
-                  <p className="text-base text-gray-600 leading-relaxed mb-6">
-                    {selectedArticle.excerpt}
-                  </p>
-
-                  {/* CTA within article */}
-                  <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 my-8 text-center border-2 border-blue-100">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Start Saving Today</h3>
-                    <p className="text-sm text-gray-600 mb-4">Compare electricity rates in your area now</p>
-                    <Link to={createPageUrl("CompareRates")}>
-                      <Button className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white rounded-xl">
-                        Compare Rates
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </Link>
-                  </div>
-
-                  <p className="text-base text-gray-600 leading-relaxed">
-                    For more personalized guidance, explore our state-specific and city-specific guides or use our free comparison tool to find the best rates in your area.
-                  </p>
-                </div>
-
-                {/* Related Links */}
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Related Resources</h3>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <Link to={createPageUrl("CompareRates")} className="flex items-center gap-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors">
-                      <Zap className="w-5 h-5 text-[#FF6B35]" />
-                      <span className="font-medium text-gray-900">Compare Rates</span>
-                    </Link>
-                    <Link to={createPageUrl("AllStates")} className="flex items-center gap-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors">
-                      <MapPin className="w-5 h-5 text-[#FF6B35]" />
-                      <span className="font-medium text-gray-900">View All States</span>
-                    </Link>
-                    <Link to={createPageUrl("AllProviders")} className="flex items-center gap-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors">
-                      <Building2 className="w-5 h-5 text-[#FF6B35]" />
-                      <span className="font-medium text-gray-900">All Providers</span>
-                    </Link>
-                    <Link to={createPageUrl("FAQ")} className="flex items-center gap-3 p-4 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors">
-                      <FileText className="w-5 h-5 text-[#FF6B35]" />
-                      <span className="font-medium text-gray-900">FAQs</span>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            {/* Related Articles */}
-            {selectedArticle.relatedArticles && selectedArticle.relatedArticles.length > 0 && (
-              <div className="mt-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Guides</h2>
-                <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
-                  {selectedArticle.relatedArticles.map(relatedId => {
-                    const related = articles.find(a => a.id === relatedId);
-                    if (!related) return null;
-                    const Icon = related.icon;
-                    const colors = colorClasses[related.color];
-                    return (
-                      <Card 
-                        key={related.id} 
-                        className="hover:shadow-lg transition-all cursor-pointer border-2 hover:border-[#0A5C8C]"
-                        onClick={() => {
-                          setSelectedArticle(related);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        <CardContent className="p-5">
-                          <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center mb-3`}>
-                            <Icon className={`w-6 h-6 ${colors.text}`} />
-                          </div>
-                          <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2">
-                            {related.title}
-                          </h3>
-                          <span className="text-xs text-gray-500 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {related.readTime}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
