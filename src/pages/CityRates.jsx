@@ -172,46 +172,8 @@ export default function CityRates() {
     initialData: [],
   });
 
-  // Filter plans by city ZIP codes and calculate dynamic statistics
-  const cityPlans = plans.filter(plan => 
-    plan.zip_codes?.some(zip => city.zipCodes.includes(zip)) || 
-    plan.cities?.includes(cityName)
-  );
-
-  // Calculate dynamic city statistics from actual plan data
-  const calculateCityStats = () => {
-    if (cityPlans.length === 0) return null;
-
-    const rates = cityPlans.map(p => p.rate_per_kwh).filter(r => r);
-    const avgRate = rates.length > 0 ? (rates.reduce((a, b) => a + b, 0) / rates.length).toFixed(1) : city.avgRate;
-    
-    const fixedPlans = cityPlans.filter(p => p.plan_type === 'fixed').length;
-    const variablePlans = cityPlans.filter(p => p.plan_type === 'variable').length;
-    const renewablePlans = cityPlans.filter(p => p.renewable_percentage >= 50).length;
-    
-    const uniqueProviders = [...new Set(cityPlans.map(p => p.provider_name))];
-    const topProviders = uniqueProviders.slice(0, 5);
-    
-    const lowestRate = Math.min(...rates);
-    const avgMonthlyBill = ((avgRate / 100) * 1000).toFixed(0);
-    
-    return {
-      avgRate: `${avgRate}¢/kWh`,
-      lowestRate: `${lowestRate}¢/kWh`,
-      avgMonthlyBill: `$${avgMonthlyBill}`,
-      totalPlans: cityPlans.length,
-      fixedPlans,
-      variablePlans,
-      renewablePlans,
-      uniqueProviders: uniqueProviders.length,
-      topProviders
-    };
-  };
-
-  const dynamicStats = calculateCityStats();
-  
-  // Get top 6 plans sorted by rate for display
-  const topPlans = [...cityPlans].sort((a, b) => a.rate_per_kwh - b.rate_per_kwh).slice(0, 6);
+  // Filter plans by city (in real app, would filter by ZIP codes)
+  const cityPlans = plans.slice(0, 6);
 
   return (
     <div className="min-h-screen bg-white">
@@ -235,35 +197,27 @@ export default function CityRates() {
               Cheap Electricity Rates in {cityName}, Texas
             </h1>
             <p className="text-lg text-blue-100 mb-5">
-              Compare {dynamicStats ? dynamicStats.totalPlans : '100+'} electricity plans from {dynamicStats ? dynamicStats.uniqueProviders : city.providers}+ providers serving {city.county}. 
-              Rates starting at {dynamicStats ? dynamicStats.lowestRate : city.avgRate} with potential savings up to $800/year.
+              Compare electricity plans from {city.providers}+ providers serving {city.county}. 
+              Average rates starting at {city.avgRate} with potential savings up to $800/year.
             </p>
 
-            {/* Quick Stats - Dynamic Data */}
+            {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">
-                  {dynamicStats ? dynamicStats.lowestRate : city.avgRate}
-                </div>
-                <div className="text-xs text-blue-100">Lowest Rate</div>
+                <div className="text-xl font-bold mb-1">{city.avgRate}</div>
+                <div className="text-xs text-blue-100">Avg. Rate</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">
-                  {dynamicStats ? dynamicStats.uniqueProviders : city.providers}+
-                </div>
+                <div className="text-xl font-bold mb-1">{city.providers}+</div>
                 <div className="text-xs text-blue-100">Providers</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">
-                  {dynamicStats ? dynamicStats.totalPlans : '100+'}
-                </div>
-                <div className="text-xs text-blue-100">Plans Available</div>
+                <div className="text-xl font-bold mb-1">{city.avgMonthlyBill}</div>
+                <div className="text-xs text-blue-100">Avg. Bill</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="text-xl font-bold mb-1">
-                  {dynamicStats ? dynamicStats.avgMonthlyBill : city.avgMonthlyBill}
-                </div>
-                <div className="text-xs text-blue-100">Avg. Bill @ 1000kWh</div>
+                <div className="text-xl font-bold mb-1">{city.population}</div>
+                <div className="text-xs text-blue-100">Population</div>
               </div>
             </div>
 
@@ -313,133 +267,44 @@ export default function CityRates() {
           </div>
         </section>
 
-        {/* Plan Types Breakdown - Dynamic Data */}
+        {/* Benefits Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Plan Types Available in {cityName}
-          </h2>
-          {dynamicStats && (
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-              <Card className="border-2 hover:border-blue-500 transition-all">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Clock className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">{dynamicStats.fixedPlans}</div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">Fixed Rate Plans</h3>
-                  <p className="text-sm text-gray-600">
-                    Lock in your rate for predictable monthly bills
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-purple-500 transition-all">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <TrendingDown className="w-8 h-8 text-purple-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">{dynamicStats.variablePlans}</div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">Variable Rate Plans</h3>
-                  <p className="text-sm text-gray-600">
-                    Flexible rates that change with market conditions
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-green-500 transition-all">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Leaf className="w-8 h-8 text-green-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-green-600 mb-2">{dynamicStats.renewablePlans}</div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">Renewable Energy</h3>
-                  <p className="text-sm text-gray-600">
-                    50%+ green energy from Texas wind & solar
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Top Providers in {cityName}
-          </h2>
-          {dynamicStats && dynamicStats.topProviders.length > 0 && (
-            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-8 mb-12">
-              <div className="grid md:grid-cols-5 gap-4">
-                {dynamicStats.topProviders.map((provider, index) => (
-                  <Link 
-                    key={index}
-                    to={createPageUrl("ProviderDetails") + `?provider=${provider}`}
-                    className="bg-white rounded-lg p-4 text-center hover:shadow-lg transition-all border-2 border-transparent hover:border-[#FF6B35]"
-                  >
-                    <div className="font-semibold text-gray-900 text-sm mb-1">{provider}</div>
-                    <div className="text-xs text-gray-600">View Plans →</div>
-                  </Link>
-                ))}
-              </div>
-              <div className="text-center mt-6">
-                <Link to={createPageUrl("AllProviders")}>
-                  <Button variant="outline" className="text-[#0A5C8C] border-[#0A5C8C]">
-                    View All {dynamicStats.uniqueProviders} Providers
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          )}
-
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Local Energy Insights
+            Why Compare Electricity Plans in {cityName}?
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="border-2">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Users className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">{city.population}</div>
-                    <div className="text-sm text-gray-600">Residents</div>
-                  </div>
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <DollarSign className="w-8 h-8 text-green-600" />
                 </div>
-                <p className="text-sm text-gray-600">
-                  {cityName} is one of Texas's major energy markets with diverse electricity needs
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Save Money</h3>
+                <p className="text-gray-600">
+                  {cityName} residents can save up to $800 per year by switching to a better electricity plan
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">1,000 kWh</div>
-                    <div className="text-sm text-gray-600">Avg. Monthly Usage</div>
-                  </div>
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-blue-600" />
                 </div>
-                <p className="text-sm text-gray-600">
-                  Typical household consumption in {city.county} varies by season
+                <h3 className="text-xl font-bold text-gray-900 mb-3">More Options</h3>
+                <p className="text-gray-600">
+                  Access {city.providers}+ providers with fixed, variable, and renewable energy plans
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">Deregulated</div>
-                    <div className="text-sm text-gray-600">Market Status</div>
-                  </div>
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-purple-600" />
                 </div>
-                <p className="text-sm text-gray-600">
-                  {cityName} residents can choose from multiple competitive providers
+                <h3 className="text-xl font-bold text-gray-900 mb-3">No Risk</h3>
+                <p className="text-gray-600">
+                  Free comparison service with no credit checks, hidden fees, or obligations
                 </p>
               </CardContent>
             </Card>
@@ -454,7 +319,7 @@ export default function CityRates() {
                 Top Electricity Plans in {cityName}
               </h2>
               <p className="text-gray-600">
-                {dynamicStats ? `${topPlans.length} lowest rates` : 'Featured plans'} available in {city.county}
+                Current rates available in {city.county}
               </p>
             </div>
             <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
@@ -474,19 +339,6 @@ export default function CityRates() {
                 </div>
               ))}
             </div>
-          ) : topPlans.length === 0 ? (
-            <Card className="border-2 border-dashed border-gray-300 p-12 text-center">
-              <Zap className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Plans Coming Soon</h3>
-              <p className="text-gray-600 mb-6">
-                We're currently loading plans for {cityName}. Check back shortly or enter your ZIP code to see all available plans.
-              </p>
-              <Link to={createPageUrl("CompareRates")}>
-                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b]">
-                  View All Plans
-                </Button>
-              </Link>
-            </Card>
           ) : (
             <>
               {/* Desktop Table View */}
@@ -505,7 +357,7 @@ export default function CityRates() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                      {topPlans.map((plan) => {
+                      {cityPlans.map((plan) => {
                         const monthlyBill = ((plan.rate_per_kwh / 100) * usage) + (plan.monthly_base_charge || 0);
                         return (
                           <tr key={plan.id} className="hover:bg-gray-50 transition-colors">
@@ -561,7 +413,7 @@ export default function CityRates() {
 
               {/* Mobile Card View */}
               <div className="lg:hidden space-y-4">
-                {topPlans.map((plan) => {
+                {cityPlans.map((plan) => {
                   const monthlyBill = ((plan.rate_per_kwh / 100) * usage) + (plan.monthly_base_charge || 0);
                   return (
                     <Card key={plan.id} className="border-2 hover:border-[#FF6B35] transition-all">
