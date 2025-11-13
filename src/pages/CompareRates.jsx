@@ -5,11 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { MapPin, SlidersHorizontal, Zap, Heart, Star } from "lucide-react";
+import { MapPin, SlidersHorizontal, Zap, Heart, Star, Settings, Info } from "lucide-react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import PlanCard from "../components/compare/PlanCard";
 import FiltersPanel from "../components/compare/FiltersPanel";
 import SavedPlansModal from "../components/compare/SavedPlansModal";
 import ComparisonWizard from "../components/compare/ComparisonWizard";
+import PersonalizedRecommendations from "../components/compare/PersonalizedRecommendations";
 import SEOHead, { getServiceSchema, getBreadcrumbSchema } from "../components/SEOHead";
 
 export default function CompareRates() {
@@ -17,6 +20,8 @@ export default function CompareRates() {
   const [wizardCompleted, setWizardCompleted] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [usage, setUsage] = useState(1000);
+  const [user, setUser] = useState(null);
+  const [usageData, setUsageData] = useState(null);
   const [filters, setFilters] = useState({
     planType: "all",
     contractLength: "all",
@@ -33,6 +38,27 @@ export default function CompareRates() {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [showSavedPlans, setShowSavedPlans] = useState(false);
+
+  // Load user data and preferences
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      const currentUser = await base44.auth.me();
+      setUser(currentUser);
+      
+      // Load saved usage data if exists
+      if (currentUser.usageData) {
+        setUsageData(currentUser.usageData);
+        setUsage(currentUser.usageData.avgMonthlyKwh || 1000);
+      }
+    } catch (error) {
+      // User not logged in or error - that's okay
+      console.log('No user data available');
+    }
+  };
 
   // Get ZIP from URL and check if wizard should be shown
   useEffect(() => {
@@ -233,10 +259,28 @@ export default function CompareRates() {
 
           {/* Plans Grid */}
           <div className="lg:col-span-3">
+            {/* Personalized Recommendations */}
+            {usageData && filteredPlans.length > 0 && (
+              <PersonalizedRecommendations 
+                plans={filteredPlans} 
+                usageData={usageData}
+                usage={usage}
+              />
+            )}
+
             <div className="mb-6 flex justify-between items-center">
               <p className="text-gray-600">
                 Showing <span className="font-semibold text-gray-900">{filteredPlans.length}</span> plans
+                {usageData && <span className="text-sm text-blue-600 ml-2">(Personalized for you)</span>}
               </p>
+              {user && (
+                <Link to={createPageUrl("UserSettings")}>
+                  <Button size="sm" variant="ghost" className="text-gray-600 hover:text-[#0A5C8C]">
+                    <Settings className="w-4 h-4 mr-1" />
+                    Usage Settings
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {isLoading ? (
