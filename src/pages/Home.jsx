@@ -18,14 +18,6 @@ export default function Home() {
   const navigate = useNavigate();
   const [zipCode, setZipCode] = useState("");
 
-  const handleCompareRates = () => {
-    if (zipCode) {
-      navigate(createPageUrl("CompareRates") + `?zip=${zipCode}`);
-    } else {
-      navigate(createPageUrl("CompareRates"));
-    }
-  };
-
   const handleZipSearch = () => {
     if (zipCode && zipCode.length === 5) {
       navigate(createPageUrl("CompareRates") + `?zip=${zipCode}`);
@@ -34,7 +26,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <HeroSection zipCode={zipCode} setZipCode={setZipCode} onCompare={handleCompareRates} />
+      <HeroSection zipCode={zipCode} setZipCode={setZipCode} />
       <ProvidersSection />
       <AboutSection />
       <HowItWorksSection />
@@ -83,14 +75,14 @@ export default function Home() {
                       className="h-14 text-base border-2"
                       aria-label="ZIP code to compare electricity plans" />
 
-                    <Button
-                      onClick={handleZipSearch}
-                      className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-base font-semibold"
-                      disabled={zipCode.length !== 5}>
-
-                      Compare Rates Now
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
+                    <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                      <Button
+                        className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-base font-semibold"
+                        disabled={zipCode.length !== 5}>
+                        Compare Rates Now
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
+                    </Link>
                     <p className="text-xs text-gray-500 text-center">
                       Free comparison • No credit card required
                     </p>

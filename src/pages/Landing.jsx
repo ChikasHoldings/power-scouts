@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,9 +10,7 @@ import {
 } from "lucide-react";
 
 export default function Landing() {
-  const navigate = useNavigate();
   const [zipCode, setZipCode] = useState("");
-  const [error, setError] = useState("");
 
   const handleCompare = () => {
     if (zipCode.length !== 5) {
