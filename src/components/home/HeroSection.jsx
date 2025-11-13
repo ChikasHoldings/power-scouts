@@ -104,18 +104,7 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                 alt="Electricity services illustration"
                 className="w-full h-auto drop-shadow-2xl" />
 
-              {/* Floating Stats Card */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-xl border border-gray-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
-                    <span className="text-lg font-bold text-white">$</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-medium">Save Up To</p>
-                    <p className="text-xl font-bold text-[#0A5C8C]">$800</p>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
