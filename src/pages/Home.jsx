@@ -47,7 +47,7 @@ export default function Home() {
             <CardContent className="p-0">
               <div className="grid md:grid-cols-2">
                 <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] p-10 text-white flex flex-col justify-center">
-                  <h2 className="text-3xl font-bold mb-4">
+                  <h2 className="text-3xl font-bold text-white mb-4">
                     Start Saving on Electricity Today
                   </h2>
                   <p className="text-lg opacity-90 mb-6">

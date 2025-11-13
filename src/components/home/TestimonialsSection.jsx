@@ -98,7 +98,7 @@ export default function TestimonialsSection() {
             <span className="text-gray-400">•</span>
             <span className="text-xs text-gray-600 font-medium">1,200+ Reviews</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+          <h2 className="text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2">
             What Our Customers Say
           </h2>
           <p className="text-sm text-gray-600">Real reviews from real people across Texas</p>

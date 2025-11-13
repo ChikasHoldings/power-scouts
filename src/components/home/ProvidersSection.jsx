@@ -33,7 +33,7 @@ export default function ProvidersSection() {
           viewport={{ once: true }}
           className="text-center mb-12">
 
-          <h2 className="text-3xl font-bold text-[#0A5C8C] mb-3">
+          <h2 className="text-3xl font-bold text-[#084a6f] mb-3">
             Exclusive Provider Discounts
           </h2>
           <p className="text-gray-600 text-lg">
