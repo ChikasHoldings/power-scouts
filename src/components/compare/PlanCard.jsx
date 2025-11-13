@@ -1,13 +1,26 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Zap, Clock, Leaf, DollarSign, ExternalLink } from "lucide-react";
+import { Zap, Clock, Leaf, DollarSign, ExternalLink, Heart } from "lucide-react";
 
-export default function PlanCard({ plan, usage }) {
+export default function PlanCard({ plan, usage, isSaved, onToggleSave }) {
   const estimatedCost = (plan.rate_per_kwh * usage / 100 + (plan.monthly_base_charge || 0)).toFixed(2);
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 relative">
+      {/* Save Button */}
+      <button
+        onClick={onToggleSave}
+        className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+        aria-label={isSaved ? "Remove from saved plans" : "Save plan"}
+      >
+        <Heart 
+          className={`w-5 h-5 transition-colors ${
+            isSaved ? 'fill-red-500 text-red-500' : 'text-gray-400 hover:text-red-500'
+          }`}
+        />
+      </button>
+
       <div className="grid md:grid-cols-4 gap-6 items-center">
         {/* Provider & Plan Info */}
         <div className="md:col-span-2">

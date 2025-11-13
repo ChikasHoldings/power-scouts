@@ -5,9 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { MapPin, SlidersHorizontal, Zap } from "lucide-react";
+import { MapPin, SlidersHorizontal, Zap, Heart, Star } from "lucide-react";
 import PlanCard from "../components/compare/PlanCard";
 import FiltersPanel from "../components/compare/FiltersPanel";
+import SavedPlansModal from "../components/compare/SavedPlansModal";
 
 export default function CompareRates() {
   const [zipCode, setZipCode] = useState("");
@@ -15,10 +16,19 @@ export default function CompareRates() {
   const [filters, setFilters] = useState({
     planType: "all",
     contractLength: "all",
+    contractLengthMin: null,
+    contractLengthMax: null,
     renewable: false,
+    renewableMin: 0,
+    noEarlyTerminationFee: false,
     sortBy: "rate"
   });
+  const [savedPlans, setSavedPlans] = useState(() => {
+    const saved = localStorage.getItem('savedPlans');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showFilters, setShowFilters] = useState(false);
+  const [showSavedPlans, setShowSavedPlans] = useState(false);
 
   // Get ZIP from URL
   useEffect(() => {
@@ -35,20 +45,50 @@ export default function CompareRates() {
     initialData: [],
   });
 
+  // Save/unsave plan handlers
+  const toggleSavePlan = (plan) => {
+    const isSaved = savedPlans.some(p => p.id === plan.id);
+    let newSaved;
+    if (isSaved) {
+      newSaved = savedPlans.filter(p => p.id !== plan.id);
+    } else {
+      newSaved = [...savedPlans, plan];
+    }
+    setSavedPlans(newSaved);
+    localStorage.setItem('savedPlans', JSON.stringify(newSaved));
+  };
+
+  const isPlanSaved = (planId) => savedPlans.some(p => p.id === planId);
+
   // Filter and sort plans
   const filteredPlans = plans
     .filter(plan => {
+      // Plan type filter
       if (filters.planType !== "all" && plan.plan_type !== filters.planType) return false;
+      
+      // Exact contract length filter
       if (filters.contractLength !== "all") {
         const length = parseInt(filters.contractLength);
         if (plan.contract_length !== length) return false;
       }
+      
+      // Contract length range filter
+      if (filters.contractLengthMin !== null && (plan.contract_length || 0) < filters.contractLengthMin) return false;
+      if (filters.contractLengthMax !== null && (plan.contract_length || 0) > filters.contractLengthMax) return false;
+      
+      // Renewable energy filters
       if (filters.renewable && (!plan.renewable_percentage || plan.renewable_percentage < 50)) return false;
+      if (filters.renewableMin > 0 && (plan.renewable_percentage || 0) < filters.renewableMin) return false;
+      
+      // No early termination fee filter
+      if (filters.noEarlyTerminationFee && plan.early_termination_fee > 0) return false;
+      
       return true;
     })
     .sort((a, b) => {
       if (filters.sortBy === "rate") return a.rate_per_kwh - b.rate_per_kwh;
       if (filters.sortBy === "contract") return (a.contract_length || 0) - (b.contract_length || 0);
+      if (filters.sortBy === "renewable") return (b.renewable_percentage || 0) - (a.renewable_percentage || 0);
       return 0;
     });
 
@@ -91,14 +131,24 @@ export default function CompareRates() {
                 </div>
               </div>
 
-              <Button
-                onClick={() => setShowFilters(!showFilters)}
-                variant="outline"
-                className="bg-white hover:bg-gray-50 text-gray-900 border-2"
-              >
-                <SlidersHorizontal className="w-5 h-5 mr-2" />
-                Filters
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setShowFilters(!showFilters)}
+                  variant="outline"
+                  className="bg-white hover:bg-gray-50 text-gray-900 border-2"
+                >
+                  <SlidersHorizontal className="w-5 h-5 mr-2" />
+                  Filters
+                </Button>
+                <Button
+                  onClick={() => setShowSavedPlans(true)}
+                  variant="outline"
+                  className="bg-white hover:bg-gray-50 text-gray-900 border-2 relative"
+                >
+                  <Heart className="w-5 h-5 mr-2" />
+                  Saved ({savedPlans.length})
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -132,7 +182,13 @@ export default function CompareRates() {
             ) : filteredPlans.length > 0 ? (
               <div className="space-y-4">
                 {filteredPlans.map((plan) => (
-                  <PlanCard key={plan.id} plan={plan} usage={usage} />
+                  <PlanCard 
+                    key={plan.id} 
+                    plan={plan} 
+                    usage={usage}
+                    isSaved={isPlanSaved(plan.id)}
+                    onToggleSave={() => toggleSavePlan(plan)}
+                  />
                 ))}
               </div>
             ) : (
@@ -145,6 +201,16 @@ export default function CompareRates() {
           </div>
         </div>
       </div>
+
+      {/* Saved Plans Modal */}
+      <SavedPlansModal
+        isOpen={showSavedPlans}
+        onClose={() => setShowSavedPlans(false)}
+        savedPlans={savedPlans}
+        usage={usage}
+        onToggleSave={toggleSavePlan}
+        isPlanSaved={isPlanSaved}
+      />
     </div>
   );
 }
