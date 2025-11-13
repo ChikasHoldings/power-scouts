@@ -91,15 +91,12 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
             </div>
           </div>
 
-          {/* Right Illustration with Enhanced Effects */}
+          {/* Right Illustration */}
           <div className="relative hidden lg:block">
-            <div className="absolute -inset-6 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-3xl opacity-30 blur-3xl animate-pulse"></div>
-            <div className="relative">
-              <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25aa21e12_Screenshot47.png"
-                alt="Electricity comparison dashboard"
-                className="w-full h-auto" />
-            </div>
+            <img
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25aa21e12_Screenshot47.png"
+              alt="Electricity comparison dashboard"
+              className="w-full h-auto" />
           </div>
         </div>
       </div>
