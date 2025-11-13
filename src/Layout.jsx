@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
-import { Phone, ChevronDown, Menu, X, ArrowUp } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Phone, ChevronDown, Menu, X, ArrowUp, MapPin, Building } from "lucide-react";
 
-const texasCities = [
-  "Houston", "Dallas", "Fort Worth", "Corpus Christi", "Arlington",
-  "Plano", "Grand Prairie", "Irving", "Laredo", "Lubbock"
+const topStates = [
+  { name: "Texas", code: "TX", page: "TexasElectricity" },
+  { name: "Illinois", code: "IL", page: "IllinoisElectricity" },
+  { name: "Ohio", code: "OH", page: "OhioElectricity" },
+  { name: "Pennsylvania", code: "PA", page: "PennsylvaniaElectricity" },
+  { name: "New York", code: "NY", page: "NewYorkElectricity" },
+  { name: "New Jersey", code: "NJ", page: "NewJerseyElectricity" }
 ];
 
-const providers = [
-  "4Change Energy", "Frontier Utilities", "APG&E", "Gexa Energy",
-  "Payless Power", "Rhythm Energy", "Veteran Energy", "TXU Energy",
-  "Express Energy", "CleanSky Energy"
+const topCities = [
+  "Houston", "Dallas", "Chicago", "Columbus", "Philadelphia", "New York City"
 ];
 
 export default function Layout({ children, currentPageName }) {
@@ -20,6 +23,7 @@ export default function Layout({ children, currentPageName }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [serviceAreaOpen, setServiceAreaOpen] = useState(false);
 
   // Scroll to top on route change
   useEffect(() => {
@@ -73,20 +77,79 @@ export default function Layout({ children, currentPageName }) {
                 Providers
               </Link>
 
-              <div className="relative group">
+              <div 
+                className="relative group"
+                onMouseEnter={() => setServiceAreaOpen(true)}
+                onMouseLeave={() => setServiceAreaOpen(false)}
+              >
                 <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
                   Service Areas
-                  <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${serviceAreaOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 border border-gray-100">
-                  <div className="space-y-1.5">
-                    <Link to={createPageUrl("AllStates")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
-                      All States
-                    </Link>
-                    <Link to={createPageUrl("AllCities")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
-                      Texas Cities
-                    </Link>
-                  </div>
+                <div className={`absolute top-full right-0 mt-2 w-[420px] bg-white rounded-xl shadow-2xl transition-all duration-300 z-50 border border-gray-100 ${
+                  serviceAreaOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}>
+                  <Tabs defaultValue="states" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 rounded-t-xl rounded-b-none h-12 bg-gray-50">
+                      <TabsTrigger value="states" className="rounded-tl-xl data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                        <Building className="w-4 h-4 mr-2" />
+                        States
+                      </TabsTrigger>
+                      <TabsTrigger value="cities" className="rounded-tr-xl data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        Cities
+                      </TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="states" className="p-4 m-0">
+                      <div className="space-y-1">
+                        {topStates.map((state, index) => (
+                          <Link 
+                            key={index}
+                            to={createPageUrl(state.page)} 
+                            className="block px-3 py-2.5 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 hover:text-[#0A5C8C] rounded-lg transition-all font-medium group"
+                            onClick={() => setServiceAreaOpen(false)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span>{state.name}</span>
+                              <span className="text-xs text-gray-400 group-hover:text-[#0A5C8C] transition-colors">
+                                {state.code}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                      <Link 
+                        to={createPageUrl("AllStates")} 
+                        className="block mt-3 pt-3 border-t border-gray-100 text-sm text-[#FF6B35] hover:text-[#e55a2b] font-semibold transition-colors"
+                        onClick={() => setServiceAreaOpen(false)}
+                      >
+                        View All States →
+                      </Link>
+                    </TabsContent>
+
+                    <TabsContent value="cities" className="p-4 m-0">
+                      <div className="space-y-1">
+                        {topCities.map((city, index) => (
+                          <Link 
+                            key={index}
+                            to={createPageUrl("CityRates") + `?city=${city}`} 
+                            className="block px-3 py-2.5 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 hover:text-[#0A5C8C] rounded-lg transition-all font-medium"
+                            onClick={() => setServiceAreaOpen(false)}
+                          >
+                            {city}
+                          </Link>
+                        ))}
+                      </div>
+                      <Link 
+                        to={createPageUrl("AllCities")} 
+                        className="block mt-3 pt-3 border-t border-gray-100 text-sm text-[#FF6B35] hover:text-[#e55a2b] font-semibold transition-colors"
+                        onClick={() => setServiceAreaOpen(false)}
+                      >
+                        View All Cities →
+                      </Link>
+                    </TabsContent>
+                  </Tabs>
                 </div>
               </div>
 
