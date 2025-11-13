@@ -172,8 +172,46 @@ export default function CityRates() {
     initialData: [],
   });
 
-  // Filter plans by city (in real app, would filter by ZIP codes)
-  const cityPlans = plans.slice(0, 6);
+  // Filter plans by city ZIP codes and calculate dynamic statistics
+  const cityPlans = plans.filter(plan => 
+    plan.zip_codes?.some(zip => city.zipCodes.includes(zip)) || 
+    plan.cities?.includes(cityName)
+  );
+
+  // Calculate dynamic city statistics from actual plan data
+  const calculateCityStats = () => {
+    if (cityPlans.length === 0) return null;
+
+    const rates = cityPlans.map(p => p.rate_per_kwh).filter(r => r);
+    const avgRate = rates.length > 0 ? (rates.reduce((a, b) => a + b, 0) / rates.length).toFixed(1) : city.avgRate;
+    
+    const fixedPlans = cityPlans.filter(p => p.plan_type === 'fixed').length;
+    const variablePlans = cityPlans.filter(p => p.plan_type === 'variable').length;
+    const renewablePlans = cityPlans.filter(p => p.renewable_percentage >= 50).length;
+    
+    const uniqueProviders = [...new Set(cityPlans.map(p => p.provider_name))];
+    const topProviders = uniqueProviders.slice(0, 5);
+    
+    const lowestRate = Math.min(...rates);
+    const avgMonthlyBill = ((avgRate / 100) * 1000).toFixed(0);
+    
+    return {
+      avgRate: `${avgRate}¢/kWh`,
+      lowestRate: `${lowestRate}¢/kWh`,
+      avgMonthlyBill: `$${avgMonthlyBill}`,
+      totalPlans: cityPlans.length,
+      fixedPlans,
+      variablePlans,
+      renewablePlans,
+      uniqueProviders: uniqueProviders.length,
+      topProviders
+    };
+  };
+
+  const dynamicStats = calculateCityStats();
+  
+  // Get top 6 plans sorted by rate for display
+  const topPlans = [...cityPlans].sort((a, b) => a.rate_per_kwh - b.rate_per_kwh).slice(0, 6);
 
   return (
     <div className="min-h-screen bg-white">
