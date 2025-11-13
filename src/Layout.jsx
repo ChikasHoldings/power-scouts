@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
-import { Phone, ChevronDown, Menu, X, ArrowUp, MapPin, Building } from "lucide-react";
+import { Phone, ChevronDown, Menu, X, ArrowUp, MapPin, Building, Home as HomeIcon, FileText, Lightbulb, HelpCircle, Leaf } from "lucide-react";
 
 const topStates = [
   { name: "Texas", code: "TX", page: "TexasElectricity" },
@@ -188,44 +188,194 @@ export default function Layout({ children, currentPageName }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-2.5 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <Menu className="w-6 h-6 text-gray-700" />
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Slide-in Menu Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
-            <div className="max-w-7xl mx-auto px-4 py-4 space-y-3">
-              <Link to={createPageUrl("CompareRates")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Compare Rates
-              </Link>
-              <Link to={createPageUrl("AllProviders")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Providers
-              </Link>
-              <Link to={createPageUrl("AllCities")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Service Areas
-              </Link>
-              <Link to={createPageUrl("BillAnalyzer")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Bill Analyzer
-              </Link>
-              <Link to={createPageUrl("LearningCenter")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Learning Center
-              </Link>
-              <Link to={createPageUrl("FAQ")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                FAQs
-              </Link>
-              <a href="tel:855-475-8315" className="flex items-center gap-2 text-gray-900 font-semibold text-sm">
-                <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-white" />
+          <>
+            {/* Backdrop with blur */}
+            <div 
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ animation: 'fadeIn 0.3s ease-out' }}
+            />
+            
+            {/* Slide-in Menu Panel */}
+            <div 
+              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
+              style={{ animation: 'slideInRight 0.3s ease-out' }}
+            >
+              {/* Menu Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
+                <img 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
+                  alt="Power Scouts"
+                  className="h-12"
+                />
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6 text-white" />
+                </button>
+              </div>
+
+              {/* Menu Content */}
+              <div className="p-6 space-y-2">
+                {/* Primary CTA */}
+                <Link 
+                  to={createPageUrl("CompareRates")} 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block"
+                >
+                  <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-4 text-base rounded-lg mb-4">
+                    Compare Rates Now
+                  </Button>
+                </Link>
+
+                {/* Navigation Links */}
+                <Link 
+                  to={createPageUrl("Home")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                    <HomeIcon className="w-5 h-5 text-[#0A5C8C]" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Home</span>
+                </Link>
+
+                <div className="border-t border-gray-200 my-3"></div>
+
+                <Link 
+                  to={createPageUrl("AllProviders")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                    <Building className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Providers</span>
+                </Link>
+
+                <Link 
+                  to={createPageUrl("AllStates")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                    <MapPin className="w-5 h-5 text-green-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Service Areas</span>
+                </Link>
+
+                <Link 
+                  to={createPageUrl("BillAnalyzer")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-orange-50 rounded-lg flex items-center justify-center group-hover:bg-orange-100 transition-colors">
+                    <FileText className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Bill Analyzer</span>
+                </Link>
+
+                <div className="border-t border-gray-200 my-3"></div>
+
+                <Link 
+                  to={createPageUrl("LearningCenter")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-indigo-50 rounded-lg flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+                    <Lightbulb className="w-5 h-5 text-indigo-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Learning Center</span>
+                </Link>
+
+                <Link 
+                  to={createPageUrl("FAQ")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-teal-50 rounded-lg flex items-center justify-center group-hover:bg-teal-100 transition-colors">
+                    <HelpCircle className="w-5 h-5 text-teal-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">FAQs</span>
+                </Link>
+
+                <Link 
+                  to={createPageUrl("RenewableEnergy")} 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="w-9 h-9 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
+                    <Leaf className="w-5 h-5 text-green-600" />
+                  </div>
+                  <span className="text-gray-900 font-medium text-base">Renewable Energy</span>
+                </Link>
+
+                <div className="border-t border-gray-200 my-3"></div>
+
+                {/* Contact Button */}
+                <a 
+                  href="tel:855-475-8315" 
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg bg-gradient-to-r from-blue-50 to-green-50 hover:from-blue-100 hover:to-green-100 transition-all border border-blue-200"
+                >
+                  <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-600 font-medium">Call Us Now</div>
+                    <div className="text-base font-bold text-gray-900">855-475-8315</div>
+                  </div>
+                </a>
+              </div>
+
+              {/* Menu Footer */}
+              <div className="p-6 border-t border-gray-200 bg-gray-50">
+                <p className="text-xs text-gray-600 text-center mb-2">
+                  © {new Date().getFullYear()} Power Scouts
+                </p>
+                <div className="flex items-center justify-center gap-3 text-xs">
+                  <Link 
+                    to={createPageUrl("PrivacyPolicy")} 
+                    className="text-gray-600 hover:text-[#0A5C8C]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Privacy
+                  </Link>
+                  <span className="text-gray-400">•</span>
+                  <Link 
+                    to={createPageUrl("TermsOfService")} 
+                    className="text-gray-600 hover:text-[#0A5C8C]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Terms
+                  </Link>
                 </div>
-                855-475-8315
-              </a>
+              </div>
             </div>
-          </div>
+          </>
         )}
+        
+        <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+          }
+        `}</style>
       </header>
 
       {/* Main Content */}
@@ -441,7 +591,8 @@ export default function Layout({ children, currentPageName }) {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 w-11 h-11 bg-[#FF6B35] text-white rounded-full shadow-xl hover:shadow-2xl transition-all z-50 flex items-center justify-center hover:scale-110 transform group"
+          className="fixed bottom-6 right-6 w-12 h-12 bg-[#FF6B35] text-white rounded-full shadow-xl hover:shadow-2xl transition-all z-40 flex items-center justify-center hover:scale-110 transform group touch-manipulation"
+          aria-label="Back to top"
         >
           <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
         </button>

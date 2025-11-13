@@ -7,7 +7,7 @@ import { createPageUrl } from "@/utils";
 
 export default function HeroSection({ zipCode, setZipCode }) {
   return (
-    <section className="bg-slate-50 pt-24 pb-16 relative overflow-hidden lg:pt-32 lg:pb-20">
+    <section className="bg-slate-50 pt-20 pb-12 relative overflow-hidden sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -16,40 +16,42 @@ export default function HeroSection({ zipCode, setZipCode }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className="space-y-7 animate-fade-in-up">
+          <div className="space-y-5 sm:space-y-6 lg:space-y-7 animate-fade-in-up">
             {/* Main Headline with Gradient */}
             <div>
-              <h1 className="text-5xl lg:text-6xl font-bold text-[#084a6f] leading-tight mb-5 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#084a6f] leading-tight mb-4 sm:mb-5 tracking-tight">
                 Find the Perfect{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]">
                   Electricity Plan
                 </span>
                 {" "}for Your Home
               </h1>
-              <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
                 Compare electricity rates from 40+ providers in TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT. Switch easily and save an average of $800 per year.
               </p>
             </div>
 
             {/* Enhanced ZIP Code Input */}
-            <div className="bg-white rounded-2xl shadow-xl border-2 border-gray-200 p-1.5 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border-2 border-gray-200 p-1.5 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
               <div className="flex flex-col sm:flex-row items-stretch gap-2">
-                <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-gray-50 rounded-xl">
+                <div className="flex-1 flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-3.5 sm:py-4 bg-gray-50 rounded-lg sm:rounded-xl">
                   <MapPin className="w-5 h-5 text-[#FF6B35] flex-shrink-0" />
                   <Input
                     type="text"
                     placeholder="Enter ZIP code"
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg p-0 h-auto placeholder:text-gray-400 font-semibold"
-                    maxLength={5} />
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base sm:text-lg p-0 h-auto placeholder:text-gray-400 font-semibold touch-manipulation"
+                    maxLength={5}
+                    inputMode="numeric"
+                  />
                 </div>
-                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')} className="w-full sm:w-auto">
                   <Button
                     disabled={zipCode.length !== 5}
-                    className="px-10 py-6 text-lg font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 flex-shrink-0 disabled:opacity-50">
+                    className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold rounded-lg sm:rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 touch-manipulation">
                     Compare Now
                   </Button>
                 </Link>
@@ -57,24 +59,24 @@ export default function HeroSection({ zipCode, setZipCode }) {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex items-center justify-center lg:justify-start gap-4 flex-wrap text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
+            <div className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 flex-wrap text-xs sm:text-sm text-gray-600">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600" />
                 </div>
                 <span className="font-semibold">Instant Results</span>
               </div>
-              <span className="text-gray-300">•</span>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Shield className="w-4 h-4 text-blue-600" />
+              <span className="text-gray-300 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600" />
                 </div>
                 <span className="font-semibold">100% Free</span>
               </div>
-              <span className="text-gray-300">•</span>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-purple-600" />
+              <span className="text-gray-300 hidden sm:inline">•</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-600" />
                 </div>
                 <span className="font-semibold">No Hidden Fees</span>
               </div>

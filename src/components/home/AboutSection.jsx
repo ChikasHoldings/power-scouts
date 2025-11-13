@@ -27,11 +27,11 @@ export default function AboutSection() {
 
 
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#084a6f] leading-tight">
+        <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] leading-tight">
             What Sets Us{" "}
             <span className="text-[#FF6B35]">
               Apart
@@ -39,7 +39,7 @@ export default function AboutSection() {
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Image */}
           <div className="order-2 lg:order-1">
             <div className="relative rounded-xl overflow-hidden shadow-lg h-full">
