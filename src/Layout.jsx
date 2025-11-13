@@ -36,13 +36,13 @@ export default function Layout({ children, currentPageName }) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled ?
-      'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-100' :
-      'bg-white border-b border-gray-200'}`
-      }>
-        <div className="bg-slate-50 mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      <header className="bg-slate-50 sticky top-0 z-50 transition-all duration-300 border-b border-gray-200">
+
+
+
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-transparent flex justify-between items-center h-16">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center transform hover:scale-105 transition-transform">
               <img
