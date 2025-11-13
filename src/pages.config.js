@@ -28,6 +28,7 @@ import MaineElectricity from './pages/MaineElectricity';
 import NewHampshireElectricity from './pages/NewHampshireElectricity';
 import RhodeIslandElectricity from './pages/RhodeIslandElectricity';
 import ConnecticutElectricity from './pages/ConnecticutElectricity';
+import Search from './pages/Search';
 import Layout from './Layout.jsx';
 
 
@@ -62,6 +63,7 @@ export const PAGES = {
     "NewHampshireElectricity": NewHampshireElectricity,
     "RhodeIslandElectricity": RhodeIslandElectricity,
     "ConnecticutElectricity": ConnecticutElectricity,
+    "Search": Search,
 }
 
 export const pagesConfig = {
