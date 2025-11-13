@@ -14,7 +14,7 @@ const cities = [
     avgRate: "8.9¢/kWh",
     providers: 45,
     savings: "$850/yr",
-    image: "https://images.unsplash.com/photo-1559076115-cd4ec90df85f?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=400&h=300&fit=crop"
   },
   {
     name: "Dallas",
@@ -23,7 +23,7 @@ const cities = [
     avgRate: "9.1¢/kWh",
     providers: 42,
     savings: "$820/yr",
-    image: "https://images.unsplash.com/photo-1583351207976-0b8e06028b8f?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1552083974-186346191183?w=400&h=300&fit=crop"
   },
   {
     name: "Austin",
@@ -32,7 +32,7 @@ const cities = [
     avgRate: "9.3¢/kWh",
     providers: 38,
     savings: "$780/yr",
-    image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1587166287897-57569859d3fe?w=400&h=300&fit=crop"
   },
   {
     name: "San Antonio",
@@ -41,7 +41,7 @@ const cities = [
     avgRate: "8.8¢/kWh",
     providers: 40,
     savings: "$830/yr",
-    image: "https://images.unsplash.com/photo-1583003785146-ca9447cba344?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1583582183923-4cf85c286e8f?w=400&h=300&fit=crop"
   },
   {
     name: "Fort Worth",
@@ -50,7 +50,7 @@ const cities = [
     avgRate: "9.0¢/kWh",
     providers: 41,
     savings: "$810/yr",
-    image: "https://images.unsplash.com/photo-1580874801417-67d82c8e6114?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1580853039160-f0376b92f928?w=400&h=300&fit=crop"
   },
   {
     name: "El Paso",
@@ -59,7 +59,7 @@ const cities = [
     avgRate: "9.4¢/kWh",
     providers: 35,
     savings: "$760/yr",
-    image: "https://images.unsplash.com/photo-1565173997668-5e33490d1c87?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=400&h=300&fit=crop"
   },
   {
     name: "Arlington",
@@ -68,7 +68,7 @@ const cities = [
     avgRate: "9.1¢/kWh",
     providers: 40,
     savings: "$800/yr",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=300&fit=crop"
   },
   {
     name: "Corpus Christi",
@@ -77,7 +77,7 @@ const cities = [
     avgRate: "8.7¢/kWh",
     providers: 37,
     savings: "$840/yr",
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1580071413131-47c7f6760f6a?w=400&h=300&fit=crop"
   },
   {
     name: "Plano",
@@ -86,7 +86,7 @@ const cities = [
     avgRate: "9.2¢/kWh",
     providers: 43,
     savings: "$790/yr",
-    image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
   },
   {
     name: "Laredo",
@@ -113,7 +113,7 @@ const cities = [
     avgRate: "9.0¢/kWh",
     providers: 42,
     savings: "$810/yr",
-    image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1605648916361-9bc12352f964?w=400&h=300&fit=crop"
   },
   {
     name: "Garland",

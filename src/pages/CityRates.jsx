@@ -17,57 +17,134 @@ const cityData = {
   "Houston": {
     county: "Harris County",
     population: "2.3 million",
-    zipCodes: ["77001", "77002", "77003", "77004", "77005"],
+    zipCodes: ["77002", "77019", "77024", "77027", "77056", "77063", "77098"],
     avgRate: "8.9¢/kWh",
     avgMonthlyBill: "$128",
     providers: 45,
-    neighborhoods: ["Downtown", "The Heights", "Montrose", "Memorial", "Midtown"],
+    neighborhoods: ["Downtown Houston", "The Heights", "Montrose", "River Oaks", "Midtown", "Galleria", "Memorial"],
     description: "Houston, the largest city in Texas and the energy capital of the world, offers residents access to over 45 electricity providers in the deregulated market.",
-    image: "https://images.unsplash.com/photo-1559076115-cd4ec90df85f?w=1200&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=1200&h=600&fit=crop"
   },
   "Dallas": {
     county: "Dallas County",
     population: "1.3 million",
-    zipCodes: ["75201", "75202", "75203", "75204", "75205"],
+    zipCodes: ["75201", "75202", "75204", "75205", "75214", "75219", "75230"],
     avgRate: "9.1¢/kWh",
     avgMonthlyBill: "$132",
     providers: 42,
-    neighborhoods: ["Downtown", "Uptown", "Deep Ellum", "Highland Park", "Oak Lawn"],
+    neighborhoods: ["Downtown Dallas", "Uptown", "Deep Ellum", "Highland Park", "Oak Lawn", "Lake Highlands", "North Dallas"],
     description: "Dallas residents benefit from competitive electricity rates with access to over 42 providers offering a wide range of fixed and variable rate plans.",
-    image: "https://images.unsplash.com/photo-1583351207976-0b8e06028b8f?w=1200&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1552083974-186346191183?w=1200&h=600&fit=crop"
   },
   "Austin": {
     county: "Travis County",
     population: "978 thousand",
-    zipCodes: ["78701", "78702", "78703", "78704", "78705"],
+    zipCodes: ["78701", "78702", "78703", "78704", "78731", "78745", "78757"],
     avgRate: "9.3¢/kWh",
     avgMonthlyBill: "$135",
     providers: 38,
-    neighborhoods: ["Downtown", "South Congress", "East Austin", "West Lake Hills", "Hyde Park"],
+    neighborhoods: ["Downtown Austin", "South Congress", "East Austin", "West Lake Hills", "Hyde Park", "Zilker", "Mueller"],
     description: "Austin, the state capital and tech hub, provides residents with competitive electricity rates and numerous green energy options from 38+ providers.",
-    image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?w=1200&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1587166287897-57569859d3fe?w=1200&h=600&fit=crop"
   },
   "San Antonio": {
     county: "Bexar County",
     population: "1.5 million",
-    zipCodes: ["78201", "78202", "78203", "78204", "78205"],
+    zipCodes: ["78201", "78209", "78212", "78216", "78232", "78249", "78258"],
     avgRate: "8.8¢/kWh",
     avgMonthlyBill: "$127",
     providers: 40,
-    neighborhoods: ["Downtown", "Alamo Heights", "Stone Oak", "The Dominion", "Southtown"],
+    neighborhoods: ["Downtown San Antonio", "Alamo Heights", "Stone Oak", "The Dominion", "Southtown", "King William", "Medical Center"],
     description: "San Antonio offers some of the most competitive electricity rates in Texas, with 40+ providers serving the area's residential and commercial customers.",
-    image: "https://images.unsplash.com/photo-1583003785146-ca9447cba344?w=1200&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1583582183923-4cf85c286e8f?w=1200&h=600&fit=crop"
   },
   "Fort Worth": {
     county: "Tarrant County",
     population: "927 thousand",
-    zipCodes: ["76101", "76102", "76103", "76104", "76105"],
+    zipCodes: ["76102", "76104", "76107", "76109", "76116", "76132", "76244"],
     avgRate: "9.0¢/kWh",
     avgMonthlyBill: "$130",
     providers: 41,
-    neighborhoods: ["Downtown", "Cultural District", "Sundance Square", "West 7th", "Ridglea"],
+    neighborhoods: ["Downtown Fort Worth", "Cultural District", "Sundance Square", "West 7th", "Ridglea", "Tanglewood", "Alliance"],
     description: "Fort Worth residents enjoy access to competitive electricity rates from 41+ providers in the deregulated Texas energy market.",
-    image: "https://images.unsplash.com/photo-1580874801417-67d82c8e6114?w=1200&h=600&fit=crop"
+    image: "https://images.unsplash.com/photo-1580853039160-f0376b92f928?w=1200&h=600&fit=crop"
+  },
+  "Plano": {
+    county: "Collin County",
+    population: "286 thousand",
+    zipCodes: ["75023", "75024", "75025", "75074", "75075", "75093", "75094"],
+    avgRate: "9.2¢/kWh",
+    avgMonthlyBill: "$133",
+    providers: 43,
+    neighborhoods: ["West Plano", "East Plano", "Legacy West", "Willow Bend", "Parker Road Corridor", "Downtown Plano", "Haggard Park"],
+    description: "Plano residents enjoy access to competitive electricity rates from 43+ providers in the Collin County deregulated market.",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop"
+  },
+  "Arlington": {
+    county: "Tarrant County",
+    population: "398 thousand",
+    zipCodes: ["76001", "76010", "76011", "76012", "76013", "76015", "76016"],
+    avgRate: "9.1¢/kWh",
+    avgMonthlyBill: "$131",
+    providers: 40,
+    neighborhoods: ["Downtown Arlington", "Pantego", "Dalworthington Gardens", "Entertainment District", "North Arlington", "South Arlington", "West Arlington"],
+    description: "Arlington offers residents competitive electricity rates with 40+ providers serving the area between Dallas and Fort Worth.",
+    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1200&h=600&fit=crop"
+  },
+  "Corpus Christi": {
+    county: "Nueces County",
+    population: "326 thousand",
+    zipCodes: ["78401", "78404", "78405", "78411", "78412", "78413", "78414"],
+    avgRate: "8.7¢/kWh",
+    avgMonthlyBill: "$125",
+    providers: 37,
+    neighborhoods: ["Downtown Corpus Christi", "Ocean Drive", "Flour Bluff", "Padre Island", "Southside", "Calallen", "Bay Area"],
+    description: "Corpus Christi coastal residents benefit from competitive electricity rates with 37+ providers in the Gulf Coast region.",
+    image: "https://images.unsplash.com/photo-1580071413131-47c7f6760f6a?w=1200&h=600&fit=crop"
+  },
+  "El Paso": {
+    county: "El Paso County",
+    population: "679 thousand",
+    zipCodes: ["79901", "79902", "79903", "79904", "79912", "79924", "79936"],
+    avgRate: "9.4¢/kWh",
+    avgMonthlyBill: "$136",
+    providers: 35,
+    neighborhoods: ["Downtown El Paso", "West Side", "East Side", "Northeast", "Central", "Mission Valley", "Cielo Vista"],
+    description: "El Paso residents have access to competitive electricity rates from 35+ providers serving the westernmost Texas market.",
+    image: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=1200&h=600&fit=crop"
+  },
+  "Irving": {
+    county: "Dallas County",
+    population: "239 thousand",
+    zipCodes: ["75038", "75039", "75060", "75061", "75062", "75063", "75039"],
+    avgRate: "9.0¢/kWh",
+    avgMonthlyBill: "$130",
+    providers: 42,
+    neighborhoods: ["Las Colinas", "Valley Ranch", "Downtown Irving", "North Irving", "South Irving", "Heritage District", "Lake Carolyn"],
+    description: "Irving residents benefit from competitive electricity rates with 42+ providers in the Dallas-Fort Worth metroplex.",
+    image: "https://images.unsplash.com/photo-1605648916361-9bc12352f964?w=1200&h=600&fit=crop"
+  },
+  "Frisco": {
+    county: "Collin County",
+    population: "200 thousand",
+    zipCodes: ["75033", "75034", "75035", "75068"],
+    avgRate: "9.2¢/kWh",
+    avgMonthlyBill: "$133",
+    providers: 43,
+    neighborhoods: ["Downtown Frisco", "Frisco Square", "The Star", "Stonebriar", "West Frisco", "East Frisco", "Phillips Creek Ranch"],
+    description: "Frisco, one of the fastest-growing cities in Texas, offers residents competitive electricity rates from 43+ providers.",
+    image: "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1200&h=600&fit=crop"
+  },
+  "McKinney": {
+    county: "Collin County",
+    population: "195 thousand",
+    zipCodes: ["75069", "75070", "75071", "75072"],
+    avgRate: "9.1¢/kWh",
+    avgMonthlyBill: "$131",
+    providers: 42,
+    neighborhoods: ["Historic Downtown McKinney", "Craig Ranch", "Stonebridge Ranch", "Eldorado", "Tucker Hill", "Adriatica Village"],
+    description: "McKinney residents enjoy competitive electricity rates with 42+ providers in the rapidly growing Collin County area.",
+    image: "https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=1200&h=600&fit=crop"
   }
 };
 
