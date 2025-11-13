@@ -25,23 +25,23 @@ const providerLogos = [
 
 export default function ProvidersSection() {
   return (
-    <section className="bg-slate-50 py-10 sm:py-12 lg:py-16">
+    <section className="bg-slate-50 py-8 sm:py-12 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-10 lg:mb-12">
+          className="text-center mb-6 sm:mb-10 lg:mb-12">
 
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#084a6f] mb-2 sm:mb-3 px-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2 sm:mb-3 px-4">
             Exclusive Provider Discounts
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg px-4">
+          <p className="text-gray-600 text-sm sm:text-lg px-4 max-w-2xl mx-auto">
             Compare discounted rates from America's most trusted electricity companies
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 sm:gap-8 items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 sm:gap-8 items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
           {[
           { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/8818da2fa_id3-OId0b2_1762848198226.png", alt: "4Change Energy" },
           { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/b8f3a8167_idy5Qy7KTo_1762848313421.png", alt: "APG&E" },
@@ -57,19 +57,19 @@ export default function ProvidersSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.05 }}
-            className="flex items-center justify-center h-12 sm:h-14 lg:h-16">
+            className="flex items-center justify-center h-14 sm:h-16 lg:h-20 px-2">
 
               <img
               src={logo.src}
               alt={logo.alt}
-              className="h-10 sm:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+              className="h-8 sm:h-10 lg:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
 
             </motion.div>
           )}
         </div>
         
         {/* Row 2 - Centered */}
-        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mt-6 sm:mt-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-4 sm:mt-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
           {[
           { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/05c459c06_idy542OFcd_logos.png", alt: "Express Energy" },
           { src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6912db884ed8189895990617/9cb91c2f7_Screenshot46.png", alt: "Discount Power" },
@@ -83,12 +83,12 @@ export default function ProvidersSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: (index + 7) * 0.05 }}
-            className="flex items-center justify-center h-12 sm:h-14 lg:h-16 w-24 sm:w-32">
+            className="flex items-center justify-center h-14 sm:h-16 lg:h-20 w-20 sm:w-28 lg:w-32 px-2">
 
               <img
               src={logo.src}
               alt={logo.alt}
-              className="h-10 sm:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+              className="h-8 sm:h-10 lg:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300" />
 
             </motion.div>
           )}
