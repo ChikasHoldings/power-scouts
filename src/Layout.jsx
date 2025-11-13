@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
-import { Phone, ChevronDown, Menu, X, ArrowUp, MapPin, Building, Home as HomeIcon, FileText, Lightbulb, HelpCircle, Leaf } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowUp, MapPin, Building, Home as HomeIcon, FileText, Lightbulb, HelpCircle, Leaf } from "lucide-react";
 
 const topStates = [
   { name: "Texas", code: "TX", page: "TexasElectricity" },
@@ -208,188 +208,158 @@ export default function Layout({ children, currentPageName }) {
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Slide-in Menu Overlay */}
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop with blur */}
-            <div 
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[999] lg:hidden transition-opacity duration-300"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ animation: 'fadeIn 0.3s ease-out' }}
-            />
-            
-            {/* Slide-in Menu Panel */}
-            <div 
-              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white shadow-2xl z-[1000] lg:hidden overflow-y-auto"
-              style={{ animation: 'slideInRight 0.3s ease-out' }}
-            >
-              {/* Menu Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
-                <img 
-                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
-                  alt="Power Scouts"
-                  className="h-12"
-                />
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6 text-white" />
-                </button>
-              </div>
+      {/* Mobile Slide-in Menu Overlay - Outside header for proper z-index */}
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop with blur */}
+          <div 
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[999] lg:hidden transition-opacity duration-300"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ animation: 'fadeIn 0.3s ease-out' }}
+          />
+          
+          {/* Slide-in Menu Panel */}
+          <div 
+            className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white shadow-2xl z-[1000] lg:hidden overflow-y-auto"
+            style={{ animation: 'slideInRight 0.3s ease-out' }}
+          >
+            {/* Menu Header */}
+            <div className="flex items-center justify-between p-5 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
+                alt="Power Scouts"
+                className="h-10"
+              />
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+            </div>
 
-              {/* Menu Content */}
-              <div className="p-6 space-y-2">
-                {/* Primary CTA */}
+            {/* Menu Content */}
+            <div className="p-4">
+              {/* Primary CTA */}
+              <Link 
+                to={createPageUrl("CompareRates")} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mb-3"
+              >
+                <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-3.5 text-base rounded-lg">
+                  Compare Rates Now
+                </Button>
+              </Link>
+
+              {/* Navigation Links - Removed icon containers, reduced spacing */}
+              <Link 
+                to={createPageUrl("Home")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <HomeIcon className="w-5 h-5 text-[#0A5C8C] flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Home</span>
+              </Link>
+
+              <div className="border-t border-gray-200 my-2"></div>
+
+              <Link 
+                to={createPageUrl("AllProviders")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Building className="w-5 h-5 text-purple-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Providers</span>
+              </Link>
+
+              <Link 
+                to={createPageUrl("AllStates")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <MapPin className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Service Areas</span>
+              </Link>
+
+              <Link 
+                to={createPageUrl("BillAnalyzer")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <FileText className="w-5 h-5 text-orange-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Bill Analyzer</span>
+              </Link>
+
+              <div className="border-t border-gray-200 my-2"></div>
+
+              <Link 
+                to={createPageUrl("LearningCenter")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Lightbulb className="w-5 h-5 text-indigo-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Learning Center</span>
+              </Link>
+
+              <Link 
+                to={createPageUrl("FAQ")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <HelpCircle className="w-5 h-5 text-teal-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">FAQs</span>
+              </Link>
+
+              <Link 
+                to={createPageUrl("RenewableEnergy")} 
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Leaf className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <span className="text-gray-900 font-medium text-base">Renewable Energy</span>
+              </Link>
+            </div>
+
+            {/* Menu Footer */}
+            <div className="p-4 mt-auto border-t border-gray-200 bg-gray-50">
+              <p className="text-xs text-gray-600 text-center mb-2">
+                © {new Date().getFullYear()} Power Scouts
+              </p>
+              <div className="flex items-center justify-center gap-3 text-xs">
                 <Link 
-                  to={createPageUrl("CompareRates")} 
+                  to={createPageUrl("PrivacyPolicy")} 
+                  className="text-gray-600 hover:text-[#0A5C8C]"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block"
                 >
-                  <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-4 text-base rounded-lg mb-4">
-                    Compare Rates Now
-                  </Button>
+                  Privacy
                 </Link>
-
-                {/* Navigation Links */}
+                <span className="text-gray-400">•</span>
                 <Link 
-                  to={createPageUrl("Home")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
+                  to={createPageUrl("TermsOfService")} 
+                  className="text-gray-600 hover:text-[#0A5C8C]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                    <HomeIcon className="w-5 h-5 text-[#0A5C8C]" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Home</span>
+                  Terms
                 </Link>
-
-                <div className="border-t border-gray-200 my-3"></div>
-
-                <Link 
-                  to={createPageUrl("AllProviders")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-purple-50 rounded-lg flex items-center justify-center group-hover:bg-purple-100 transition-colors">
-                    <Building className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Providers</span>
-                </Link>
-
-                <Link 
-                  to={createPageUrl("AllStates")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                    <MapPin className="w-5 h-5 text-green-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Service Areas</span>
-                </Link>
-
-                <Link 
-                  to={createPageUrl("BillAnalyzer")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-orange-50 rounded-lg flex items-center justify-center group-hover:bg-orange-100 transition-colors">
-                    <FileText className="w-5 h-5 text-orange-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Bill Analyzer</span>
-                </Link>
-
-                <div className="border-t border-gray-200 my-3"></div>
-
-                <Link 
-                  to={createPageUrl("LearningCenter")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-indigo-50 rounded-lg flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
-                    <Lightbulb className="w-5 h-5 text-indigo-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Learning Center</span>
-                </Link>
-
-                <Link 
-                  to={createPageUrl("FAQ")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-teal-50 rounded-lg flex items-center justify-center group-hover:bg-teal-100 transition-colors">
-                    <HelpCircle className="w-5 h-5 text-teal-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">FAQs</span>
-                </Link>
-
-                <Link 
-                  to={createPageUrl("RenewableEnergy")} 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg hover:bg-gray-50 transition-all group"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="w-9 h-9 bg-green-50 rounded-lg flex items-center justify-center group-hover:bg-green-100 transition-colors">
-                    <Leaf className="w-5 h-5 text-green-600" />
-                  </div>
-                  <span className="text-gray-900 font-medium text-base">Renewable Energy</span>
-                </Link>
-
-                <div className="border-t border-gray-200 my-3"></div>
-
-                {/* Contact Button */}
-                <a 
-                  href="tel:855-475-8315" 
-                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg bg-gradient-to-r from-blue-50 to-green-50 hover:from-blue-100 hover:to-green-100 transition-all border border-blue-200"
-                >
-                  <div className="w-9 h-9 bg-[#FF6B35] rounded-full flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-600 font-medium">Call Us Now</div>
-                    <div className="text-base font-bold text-gray-900">855-475-8315</div>
-                  </div>
-                </a>
-              </div>
-
-              {/* Menu Footer */}
-              <div className="p-6 border-t border-gray-200 bg-gray-50">
-                <p className="text-xs text-gray-600 text-center mb-2">
-                  © {new Date().getFullYear()} Power Scouts
-                </p>
-                <div className="flex items-center justify-center gap-3 text-xs">
-                  <Link 
-                    to={createPageUrl("PrivacyPolicy")} 
-                    className="text-gray-600 hover:text-[#0A5C8C]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Privacy
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link 
-                    to={createPageUrl("TermsOfService")} 
-                    className="text-gray-600 hover:text-[#0A5C8C]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Terms
-                  </Link>
-                </div>
               </div>
             </div>
-          </>
-        )}
-        
-        <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-          }
-        `}</style>
-      </header>
+          </div>
+        </>
+      )}
+      
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+      `}</style>
 
       {/* Main Content */}
       <main className="flex-1">
