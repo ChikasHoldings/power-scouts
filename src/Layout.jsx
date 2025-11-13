@@ -56,7 +56,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
               <div className="relative group">
-                <button className="flex items-center gap-1 text-gray-700 hover:text-[#0A5C8C] transition-colors text-lg font-medium">
+                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
                   Residential
                   <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
                 </button>
@@ -102,20 +102,20 @@ export default function Layout({ children, currentPageName }) {
 
               <Link
                 to={createPageUrl("BusinessRates")}
-                className="text-gray-700 hover:text-[#0A5C8C] transition-colors text-lg font-medium"
+                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
               >
                 Business Rates
               </Link>
 
               <Link
                 to={createPageUrl("HomeConcierge")}
-                className="text-gray-700 hover:text-[#0A5C8C] transition-colors text-lg font-medium"
+                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
               >
                 Home Concierge
               </Link>
 
               <div className="relative group">
-                <button className="flex items-center gap-1 text-gray-700 hover:text-[#0A5C8C] transition-colors text-lg font-medium">
+                <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
                   Resources
                   <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
                 </button>
