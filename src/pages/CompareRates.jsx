@@ -7,21 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Home, Building2, Zap, Leaf, Clock, CheckCircle, Filter } from "lucide-react";
 import { validateZipCode } from "../components/compare/stateData";
-
-// Provider logos mapping
-const providerLogos = {
-  "TXU Energy": "https://www.txu.com/-/media/txu/images/logos/txu-logo.svg",
-  "Gexa Energy": "https://www.gexaenergy.com/wp-content/uploads/2021/01/gexa-energy-logo.svg",
-  "Reliant": "https://www.reliant.com/content/dam/reliant/images/logo/reliant-logo.svg",
-  "Reliant Energy": "https://www.reliant.com/content/dam/reliant/images/logo/reliant-logo.svg",
-  "Frontier Utilities": "https://www.frontierutilities.com/wp-content/uploads/2020/01/frontier-logo.png",
-  "Direct Energy": "https://www.directenergy.com/sites/retail/themes/custom/de_theme/logo.svg",
-  "Pulse Power": "https://www.pulsepower.com/wp-content/uploads/2021/01/pulse-power-logo.svg",
-  "Champion Energy": "https://championenergyservices.com/wp-content/uploads/2020/07/champion-energy-logo.svg",
-  "Green Mountain Energy": "https://www.greenmountainenergy.com/wp-content/themes/gme/images/logo.svg",
-  "4Change Energy": "https://www.4changeenergy.com/wp-content/themes/4change/images/logo.svg",
-  "Constellation": "https://www.constellation.com/content/dam/constellationenergy/images/logo/constellation-logo.svg",
-};
+import { 
+  getProvidersForZipCode, 
+  getProviderDetails, 
+  getCityFromZip,
+  providerServesZip 
+} from "../components/compare/providerAvailability";
 
 export default function CompareRates() {
   const [step, setStep] = useState(1);
@@ -40,6 +31,8 @@ export default function CompareRates() {
   const [filterTerm, setFilterTerm] = useState("all");
   const [filterProvider, setFilterProvider] = useState("all");
   const [filterPlanType, setFilterPlanType] = useState("all");
+  const [cityName, setCityName] = useState("");
+  const [availableProviders, setAvailableProviders] = useState([]);
 
   // Load ZIP code from URL or localStorage on mount
   useEffect(() => {
@@ -80,6 +73,12 @@ export default function CompareRates() {
       return;
     }
 
+    // Get city and available providers for this ZIP
+    const city = getCityFromZip(zipCode);
+    const providers = getProvidersForZipCode(zipCode);
+    
+    setCityName(city);
+    setAvailableProviders(providers);
     localStorage.setItem('compareRatesZip', zipCode);
     setStep(2);
   };
@@ -103,8 +102,14 @@ export default function CompareRates() {
     setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  // Filter plans based on preferences
+  // Filter plans based on ZIP code availability and preferences
   const filteredPlans = plans.filter(plan => {
+    // First check if provider serves this ZIP code
+    if (zipCode && !providerServesZip(plan.provider_name, zipCode)) {
+      return false;
+    }
+    
+    // Then apply preference filters
     if (preferences.fixedRate && plan.plan_type !== 'fixed') return false;
     if (preferences.variableRate && plan.plan_type !== 'variable') return false;
     if (preferences.renewable && (!plan.renewable_percentage || plan.renewable_percentage < 50)) return false;
@@ -122,9 +127,16 @@ export default function CompareRates() {
     return ((plan.rate_per_kwh / 100) * 1000 + (plan.monthly_base_charge || 0)).toFixed(2);
   };
 
-  // Get provider logo or fallback
+  // Get provider logo from provider details
   const getProviderLogo = (providerName) => {
-    return providerLogos[providerName] || null;
+    const provider = getProviderDetails(providerName);
+    return provider ? provider.logo : null;
+  };
+
+  // Get provider website
+  const getProviderWebsite = (providerName) => {
+    const provider = getProviderDetails(providerName);
+    return provider ? provider.website : "#";
   };
 
   // Apply filters to other plans
@@ -162,8 +174,10 @@ export default function CompareRates() {
     return filtered;
   };
 
-  // Get unique providers for filter
-  const uniqueProviders = [...new Set(plans.map(p => p.provider_name))].sort();
+  // Get unique providers for filter (only those available in this ZIP)
+  const uniqueProviders = zipCode 
+    ? availableProviders.map(p => p.name).sort()
+    : [...new Set(plans.map(p => p.provider_name))].sort();
 
   // Loading Animation
   if (isLoading) {
@@ -193,10 +207,10 @@ export default function CompareRates() {
               <h1 className="text-3xl lg:text-4xl font-bold">We Found Your Best Deals!</h1>
             </div>
             <p className="text-lg text-blue-100 mb-2">
-              Comparing {filteredPlans.length} plans from 40+ providers in your area
+              Comparing {filteredPlans.length} plans from {availableProviders.length} providers in {cityName}
             </p>
             <p className="text-sm text-blue-200">
-              ZIP Code: {zipCode} • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)} • Based on 1,000 kWh usage
+              ZIP Code: {zipCode} • {cityName} • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)} • Based on 1,000 kWh usage
             </p>
           </div>
         </div>
@@ -281,7 +295,7 @@ export default function CompareRates() {
                     </div>
 
                     {/* CTA Button */}
-                    <a href="#" target="_blank" rel="noopener noreferrer" className="block">
+                    <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
                       <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white text-sm font-semibold shadow-md group-hover:shadow-lg transition-all rounded-lg h-9">
                         Get Plan
                       </Button>
@@ -423,7 +437,7 @@ export default function CompareRates() {
                           </div>
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <a href="#" target="_blank" rel="noopener noreferrer">
+                          <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer">
                             <Button size="sm" className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-xs h-8 px-4 rounded-md font-medium">
                               Get Plan
                             </Button>
@@ -494,7 +508,7 @@ export default function CompareRates() {
                         </div>
                       </div>
 
-                      <a href="#" target="_blank" rel="noopener noreferrer" className="block">
+                      <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
                         <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm h-9 rounded-md font-medium">
                           Get Plan
                         </Button>
