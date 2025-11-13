@@ -6,6 +6,7 @@ import BusinessRates from './pages/BusinessRates';
 import HomeConcierge from './pages/HomeConcierge';
 import AllProviders from './pages/AllProviders';
 import AllCities from './pages/AllCities';
+import CityRates from './pages/CityRates';
 import Layout from './Layout.jsx';
 
 
@@ -18,6 +19,7 @@ export const PAGES = {
     "HomeConcierge": HomeConcierge,
     "AllProviders": AllProviders,
     "AllCities": AllCities,
+    "CityRates": CityRates,
 }
 
 export const pagesConfig = {

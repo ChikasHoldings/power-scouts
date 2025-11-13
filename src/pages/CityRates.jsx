@@ -1,0 +1,439 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
+import { createPageUrl } from "@/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { 
+  MapPin, Zap, Users, Building2, TrendingDown, CheckCircle, 
+  ArrowRight, DollarSign, Clock, Shield, Star, Leaf 
+} from "lucide-react";
+import PlanCard from "../components/compare/PlanCard";
+
+// City-specific data for SEO
+const cityData = {
+  "Houston": {
+    county: "Harris County",
+    population: "2.3 million",
+    zipCodes: ["77001", "77002", "77003", "77004", "77005"],
+    avgRate: "8.9¢/kWh",
+    avgMonthlyBill: "$128",
+    providers: 45,
+    neighborhoods: ["Downtown", "The Heights", "Montrose", "Memorial", "Midtown"],
+    description: "Houston, the largest city in Texas and the energy capital of the world, offers residents access to over 45 electricity providers in the deregulated market.",
+    image: "https://images.unsplash.com/photo-1559076115-cd4ec90df85f?w=1200&h=600&fit=crop"
+  },
+  "Dallas": {
+    county: "Dallas County",
+    population: "1.3 million",
+    zipCodes: ["75201", "75202", "75203", "75204", "75205"],
+    avgRate: "9.1¢/kWh",
+    avgMonthlyBill: "$132",
+    providers: 42,
+    neighborhoods: ["Downtown", "Uptown", "Deep Ellum", "Highland Park", "Oak Lawn"],
+    description: "Dallas residents benefit from competitive electricity rates with access to over 42 providers offering a wide range of fixed and variable rate plans.",
+    image: "https://images.unsplash.com/photo-1583351207976-0b8e06028b8f?w=1200&h=600&fit=crop"
+  },
+  "Austin": {
+    county: "Travis County",
+    population: "978 thousand",
+    zipCodes: ["78701", "78702", "78703", "78704", "78705"],
+    avgRate: "9.3¢/kWh",
+    avgMonthlyBill: "$135",
+    providers: 38,
+    neighborhoods: ["Downtown", "South Congress", "East Austin", "West Lake Hills", "Hyde Park"],
+    description: "Austin, the state capital and tech hub, provides residents with competitive electricity rates and numerous green energy options from 38+ providers.",
+    image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?w=1200&h=600&fit=crop"
+  },
+  "San Antonio": {
+    county: "Bexar County",
+    population: "1.5 million",
+    zipCodes: ["78201", "78202", "78203", "78204", "78205"],
+    avgRate: "8.8¢/kWh",
+    avgMonthlyBill: "$127",
+    providers: 40,
+    neighborhoods: ["Downtown", "Alamo Heights", "Stone Oak", "The Dominion", "Southtown"],
+    description: "San Antonio offers some of the most competitive electricity rates in Texas, with 40+ providers serving the area's residential and commercial customers.",
+    image: "https://images.unsplash.com/photo-1583003785146-ca9447cba344?w=1200&h=600&fit=crop"
+  },
+  "Fort Worth": {
+    county: "Tarrant County",
+    population: "927 thousand",
+    zipCodes: ["76101", "76102", "76103", "76104", "76105"],
+    avgRate: "9.0¢/kWh",
+    avgMonthlyBill: "$130",
+    providers: 41,
+    neighborhoods: ["Downtown", "Cultural District", "Sundance Square", "West 7th", "Ridglea"],
+    description: "Fort Worth residents enjoy access to competitive electricity rates from 41+ providers in the deregulated Texas energy market.",
+    image: "https://images.unsplash.com/photo-1580874801417-67d82c8e6114?w=1200&h=600&fit=crop"
+  }
+};
+
+export default function CityRates() {
+  const [zipCode, setZipCode] = useState("");
+  const [usage, setUsage] = useState(1000);
+  const [cityName, setCityName] = useState("");
+
+  // Get city from URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const city = urlParams.get('city') || 'Houston';
+    setCityName(city);
+    
+    // Set page title for SEO
+    document.title = `Cheap Electricity Rates in ${city}, TX | Compare ${city} Energy Plans`;
+  }, []);
+
+  const city = cityData[cityName] || cityData["Houston"];
+
+  const { data: plans, isLoading } = useQuery({
+    queryKey: ['plans'],
+    queryFn: () => base44.entities.ElectricityPlan.list(),
+    initialData: [],
+  });
+
+  // Filter plans by city (in real app, would filter by ZIP codes)
+  const cityPlans = plans.slice(0, 6);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section - SEO Optimized */}
+      <div className="relative bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <img src={city.image} alt={`${cityName} skyline`} className="w-full h-full object-cover" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="max-w-3xl">
+            {/* Breadcrumb for SEO */}
+            <nav className="mb-6 text-sm">
+              <Link to={createPageUrl("Home")} className="text-blue-200 hover:text-white">Home</Link>
+              <span className="mx-2 text-blue-300">/</span>
+              <Link to={createPageUrl("AllCities")} className="text-blue-200 hover:text-white">Service Areas</Link>
+              <span className="mx-2 text-blue-300">/</span>
+              <span className="text-white">{cityName}</span>
+            </nav>
+
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">
+              Cheap Electricity Rates in {cityName}, Texas
+            </h1>
+            <p className="text-xl text-blue-100 mb-6">
+              Compare electricity plans from {city.providers}+ providers serving {city.county}. 
+              Average rates starting at {city.avgRate} with potential savings up to $800/year.
+            </p>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <div className="text-2xl font-bold mb-1">{city.avgRate}</div>
+                <div className="text-sm text-blue-100">Avg. Rate</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <div className="text-2xl font-bold mb-1">{city.providers}+</div>
+                <div className="text-sm text-blue-100">Providers</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <div className="text-2xl font-bold mb-1">{city.avgMonthlyBill}</div>
+                <div className="text-sm text-blue-100">Avg. Bill</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <div className="text-2xl font-bold mb-1">{city.population}</div>
+                <div className="text-sm text-blue-100">Population</div>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="bg-white rounded-xl p-1.5 shadow-2xl max-w-2xl">
+              <div className="flex flex-col sm:flex-row items-stretch gap-2">
+                <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-gray-50 rounded-lg">
+                  <MapPin className="w-5 h-5 text-[#0A5C8C] flex-shrink-0" />
+                  <Input
+                    type="text"
+                    placeholder={`Enter ${cityName} ZIP code`}
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
+                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-900 text-lg p-0 h-auto font-semibold"
+                    maxLength={5}
+                  />
+                </div>
+                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                  <Button className="w-full sm:w-auto px-8 py-6 text-lg font-bold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-full">
+                    Compare Rates
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* About Section - SEO Content */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Electricity Providers in {cityName}, TX
+          </h2>
+          <div className="prose prose-lg max-w-none text-gray-600">
+            <p className="text-lg leading-relaxed mb-4">
+              {city.description} Finding the best electricity plan in {cityName} is easier than ever 
+              with Power Scouts' free comparison tool.
+            </p>
+            <p className="text-lg leading-relaxed">
+              Whether you're moving to {cityName}, looking to switch providers, or simply want to reduce your 
+              monthly electricity bill, our platform helps you compare plans from top-rated providers including 
+              TXU Energy, Reliant, Gexa Energy, and many more. We serve all neighborhoods in {city.county} 
+              including {city.neighborhoods.slice(0, 3).join(", ")}, and beyond.
+            </p>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            Why Compare Electricity Plans in {cityName}?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <DollarSign className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Save Money</h3>
+                <p className="text-gray-600">
+                  {cityName} residents can save up to $800 per year by switching to a better electricity plan
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">More Options</h3>
+                <p className="text-gray-600">
+                  Access {city.providers}+ providers with fixed, variable, and renewable energy plans
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:border-[#FF6B35] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">No Risk</h3>
+                <p className="text-gray-600">
+                  Free comparison service with no credit checks, hidden fees, or obligations
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Featured Plans */}
+        <section className="mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Top Electricity Plans in {cityName}
+              </h2>
+              <p className="text-gray-600">
+                Current rates available in {city.county}
+              </p>
+            </div>
+            <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+              <Button variant="outline" className="hidden md:flex">
+                View All Plans
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+
+          {isLoading ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 animate-pulse">
+                  <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {cityPlans.map((plan) => (
+                <PlanCard key={plan.id} plan={plan} usage={usage} />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-6 text-center md:hidden">
+            <Link to={createPageUrl("CompareRates")}>
+              <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b]">
+                View All Plans
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </section>
+
+        {/* Neighborhoods Section - SEO Content */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            {cityName} Neighborhoods We Serve
+          </h2>
+          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-8">
+            <p className="text-gray-700 mb-4">
+              Power Scouts helps residents across all {cityName} neighborhoods find the best electricity rates:
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {city.neighborhoods.map((neighborhood, index) => (
+                <div key={index} className="flex items-center gap-2 text-gray-700">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <span className="font-medium">{neighborhood}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-gray-600 mt-6 text-sm">
+              Common ZIP codes: {city.zipCodes.join(", ")}, and more
+            </p>
+          </div>
+        </section>
+
+        {/* FAQ Section - SEO Rich Content */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            {cityName} Electricity FAQs
+          </h2>
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  What is the average electricity rate in {cityName}, TX?
+                </h3>
+                <p className="text-gray-600">
+                  The average electricity rate in {cityName} is approximately {city.avgRate}, though rates 
+                  vary by provider, plan type, and usage level. With Power Scouts, you can compare rates 
+                  from all {city.providers}+ providers serving {city.county} to find the best deal for your home.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  How do I switch electricity providers in {cityName}?
+                </h3>
+                <p className="text-gray-600">
+                  Switching electricity providers in {cityName} is easy. Simply compare plans on Power Scouts, 
+                  select your preferred plan, and sign up online or by phone. Your new provider will handle 
+                  the switch with your current provider, and your power will never be interrupted during the transition.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Are there renewable energy options in {cityName}?
+                </h3>
+                <p className="text-gray-600">
+                  Yes! Many electricity providers in {cityName} offer 100% renewable energy plans sourced from 
+                  Texas wind and solar farms. Green energy plans are often competitively priced and help reduce 
+                  your carbon footprint while supporting clean energy development in Texas.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  What's the best electricity plan for {cityName} residents?
+                </h3>
+                <p className="text-gray-600">
+                  The best electricity plan depends on your usage, budget, and preferences. Fixed-rate plans 
+                  offer price stability, while variable-rate plans may have lower rates but fluctuate monthly. 
+                  For most {cityName} residents, a 12 or 24-month fixed-rate plan provides the best balance 
+                  of savings and predictability.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-3xl p-12 text-center text-white">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            Ready to Save on Electricity in {cityName}?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of {cityName} residents who have saved money by comparing electricity rates
+          </p>
+          
+          <div className="bg-white rounded-2xl p-1.5 shadow-2xl max-w-2xl mx-auto mb-6">
+            <div className="flex flex-col sm:flex-row items-stretch gap-2">
+              <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-gray-50 rounded-xl">
+                <MapPin className="w-5 h-5 text-[#0A5C8C] flex-shrink-0" />
+                <Input
+                  type="text"
+                  placeholder={`Enter your ${cityName} ZIP code`}
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
+                  className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-900 text-lg p-0 h-auto font-semibold"
+                  maxLength={5}
+                />
+              </div>
+              <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                <Button className="w-full sm:w-auto px-10 py-6 text-lg font-bold rounded-xl bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-full">
+                  Compare Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-6 flex-wrap text-sm">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span>100% Free Service</span>
+            </div>
+            <span className="text-blue-300">•</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span>No Credit Check</span>
+            </div>
+            <span className="text-blue-300">•</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span>Instant Comparison</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* SEO Footer Content */}
+      <div className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="prose prose-sm max-w-none text-gray-600">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              About Electricity Service in {cityName}, Texas
+            </h2>
+            <p>
+              As a resident of {cityName}, {city.county}, you have the power to choose your electricity provider 
+              thanks to Texas's deregulated energy market. This means you're not stuck with one utility company – 
+              you can shop around and find the electricity plan that best fits your needs and budget. Power Scouts 
+              makes this process simple by allowing you to compare rates from {city.providers}+ providers in minutes.
+            </p>
+            <p>
+              Whether you live in {city.neighborhoods[0]}, {city.neighborhoods[1]}, or any other {cityName} neighborhood, 
+              you can access competitive rates, renewable energy options, and flexible contract terms. From short-term 
+              month-to-month plans to long-term fixed-rate contracts, there's an electricity plan for every {cityName} 
+              household. Start comparing today and see how much you could save on your electricity bill.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
