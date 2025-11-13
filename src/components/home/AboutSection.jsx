@@ -83,18 +83,27 @@ export default function AboutSection() {
 
             {/* Stats List */}
             <div className="space-y-2">
-              {stats.map((stat, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-3"
-                >
-                  <div className="w-1.5 h-1.5 bg-blue-600 rounded-full flex-shrink-0"></div>
-                  <div>
-                    <span className="text-lg font-bold text-gray-900">{stat.number}</span>
-                    <span className="text-sm text-gray-600 ml-2">{stat.label}</span>
-                  </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full flex-shrink-0"></div>
+                <div>
+                  <span className="text-lg font-bold text-gray-900">50,000+</span>
+                  <span className="text-sm text-gray-600 ml-2">Texans switched and saved</span>
                 </div>
-              ))}
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full flex-shrink-0"></div>
+                <div>
+                  <span className="text-lg font-bold text-gray-900">125+</span>
+                  <span className="text-sm text-gray-600 ml-2">Years of combined energy industry expertise</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full flex-shrink-0"></div>
+                <div>
+                  <span className="text-lg font-bold text-gray-900">$600+</span>
+                  <span className="text-sm text-gray-600 ml-2">Average annual savings per household</span>
+                </div>
+              </div>
             </div>
 
             <div className="pt-2">
