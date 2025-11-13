@@ -5,7 +5,7 @@ import { MapPin, Star, Sparkles, CheckCircle, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
-export default function HeroSection({ zipCode, setZipCode, onCompare }) {
+export default function HeroSection({ zipCode, setZipCode }) {
   return (
     <section className="bg-slate-50 pt-24 pb-16 relative overflow-hidden lg:pt-32 lg:pb-20">
       {/* Animated Background Elements */}
@@ -46,11 +46,13 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                     className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg p-0 h-auto placeholder:text-gray-400 font-semibold"
                     maxLength={5} />
                 </div>
-                <Button
-                  onClick={onCompare}
-                  className="px-10 py-6 text-lg font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 flex-shrink-0">
-                  Compare Now
-                </Button>
+                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                  <Button
+                    disabled={zipCode.length !== 5}
+                    className="px-10 py-6 text-lg font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 flex-shrink-0 disabled:opacity-50">
+                    Compare Now
+                  </Button>
+                </Link>
               </div>
             </div>
 

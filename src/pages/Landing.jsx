@@ -12,21 +12,6 @@ import {
 export default function Landing() {
   const [zipCode, setZipCode] = useState("");
 
-  const handleCompare = () => {
-    if (zipCode.length !== 5) {
-      setError("Please enter a valid 5-digit ZIP code");
-      return;
-    }
-    setError("");
-    navigate(createPageUrl("CompareRates") + `?zip=${zipCode}`);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleCompare();
-    }
-  };
-
   const benefits = [
     { icon: DollarSign, text: "Save up to $800/year", color: "green" },
     { icon: Clock, text: "Compare in under 2 minutes", color: "blue" },
@@ -78,26 +63,22 @@ export default function Landing() {
                     type="text"
                     placeholder="Enter your ZIP code"
                     value={zipCode}
-                    onChange={(e) => {
-                      setZipCode(e.target.value.replace(/\D/g, ''));
-                      setError("");
-                    }}
-                    onKeyPress={handleKeyPress}
-                    className={`pl-14 h-16 text-xl font-semibold border-2 ${error ? 'border-red-500' : 'border-gray-200'} focus:border-[#0A5C8C]`}
+                    onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
+                    className="pl-14 h-16 text-xl font-semibold border-2 border-gray-200 focus:border-[#0A5C8C]"
                     maxLength={5}
                   />
                 </div>
-                <Button 
-                  onClick={handleCompare}
-                  className="h-16 px-12 text-xl font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white rounded-xl shadow-lg hover:shadow-xl transition-all"
-                >
-                  Compare Rates
-                  <ArrowRight className="w-6 h-6 ml-2" />
-                </Button>
+                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                  <Button 
+                    disabled={zipCode.length !== 5}
+                    className="h-16 px-12 text-xl font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+                  >
+                    Compare Rates
+                    <ArrowRight className="w-6 h-6 ml-2" />
+                  </Button>
+                </Link>
               </div>
-              {error && (
-                <p className="text-red-600 text-sm mt-2 ml-2">{error}</p>
-              )}
+
             </div>
 
             {/* Trust Indicators */}
@@ -330,22 +311,20 @@ export default function Landing() {
                     type="text"
                     placeholder="Enter ZIP code"
                     value={zipCode}
-                    onChange={(e) => {
-                      setZipCode(e.target.value.replace(/\D/g, ''));
-                      setError("");
-                    }}
-                    onKeyPress={handleKeyPress}
+                    onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
                     className="pl-12 h-14 text-lg font-semibold border-0"
                     maxLength={5}
                   />
                 </div>
-                <Button 
-                  onClick={handleCompare}
-                  className="h-14 px-8 text-lg font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white rounded-lg shadow-lg"
-                >
-                  Compare Now
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                  <Button 
+                    disabled={zipCode.length !== 5}
+                    className="h-14 px-8 text-lg font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white rounded-lg shadow-lg disabled:opacity-50"
+                  >
+                    Compare Now
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -387,22 +366,20 @@ export default function Landing() {
                       type="text"
                       placeholder="ZIP code"
                       value={zipCode}
-                      onChange={(e) => {
-                        setZipCode(e.target.value.replace(/\D/g, ''));
-                        setError("");
-                      }}
-                      onKeyPress={handleKeyPress}
+                      onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
                       className="pl-12 h-14 text-lg font-semibold border-2 border-gray-200"
                       maxLength={5}
                     />
                   </div>
-                  <Button 
-                    onClick={handleCompare}
-                    className="h-14 text-xl font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white"
-                  >
-                    Compare Rates Free
-                    <ArrowRight className="w-6 h-6 ml-2" />
-                  </Button>
+                  <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                    <Button 
+                      disabled={zipCode.length !== 5}
+                      className="h-14 text-xl font-bold bg-[#FF6B35] hover:bg-[#e55a2b] text-white w-full disabled:opacity-50"
+                    >
+                      Compare Rates Free
+                      <ArrowRight className="w-6 h-6 ml-2" />
+                    </Button>
+                  </Link>
                 </div>
                 <p className="text-gray-600 text-sm text-center mt-4">
                   ✓ Free • ✓ No credit card • ✓ Takes 60 seconds
