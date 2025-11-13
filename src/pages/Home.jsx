@@ -42,7 +42,7 @@ export default function Home() {
       <TestimonialsSection />
 
       {/* CTA Section */}
-      <section className="bg-lime-50 py-20 from-blue-50 to-green-50">
+      <section className="bg-slate-50 py-20 from-blue-50 to-green-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="border-none shadow-2xl overflow-hidden">
             <CardContent className="p-0">
