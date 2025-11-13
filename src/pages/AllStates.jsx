@@ -18,40 +18,56 @@ export default function AllStates() {
     state.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // State images map
+  const stateImages = {
+    'TX': 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?w=800&q=80', // Texas Capitol
+    'IL': 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80', // Chicago skyline
+    'OH': 'https://images.unsplash.com/photo-1604246851544-2b2d471f671a?w=800&q=80', // Cleveland
+    'PA': 'https://images.unsplash.com/photo-1590086782792-42dd2350140d?w=800&q=80', // Philadelphia
+    'NY': 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80', // NYC skyline
+    'NJ': 'https://images.unsplash.com/photo-1589756823695-278bc8eac975?w=800&q=80', // New Jersey
+    'MD': 'https://images.unsplash.com/photo-1590932722660-b2e3c71b1379?w=800&q=80', // Baltimore
+    'MA': 'https://images.unsplash.com/photo-1572636661577-f6d05cbb7682?w=800&q=80', // Boston
+    'ME': 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&q=80', // Maine coast
+    'NH': 'https://images.unsplash.com/photo-1606403726988-eb685c61c9b6?w=800&q=80', // New Hampshire
+    'RI': 'https://images.unsplash.com/photo-1602984891859-69d29e64b886?w=800&q=80', // Rhode Island
+    'CT': 'https://images.unsplash.com/photo-1569149646689-5e8bbdbbd944?w=800&q=80'  // Connecticut
+  };
+
   const breadcrumbData = getBreadcrumbSchema([
     { name: "Home", url: "/" },
-    { name: "Deregulated States", url: "/all-states" }
+    { name: "Available Markets", url: "/all-states" }
   ]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Deregulated Electricity States - 12 States Comparison | Power Scouts"
-        description="Discover which states have deregulated electricity markets. Compare rates across Texas, Illinois, Ohio, Pennsylvania, New York, New Jersey, Maryland, Massachusetts, Maine, New Hampshire, Rhode Island, and Connecticut. Find providers and savings in your area."
-        keywords="deregulated electricity states, energy deregulation, electricity choice states, competitive energy markets, deregulated power markets"
+        title="Electricity Choice States - Compare Rates in 12 Markets | Power Scouts"
+        description="Discover states where you can choose your electricity supplier. Compare rates across Texas, Illinois, Ohio, Pennsylvania, New York, New Jersey, Maryland, Massachusetts, Maine, New Hampshire, Rhode Island, and Connecticut. Find providers and savings in your area."
+        keywords="electricity choice states, energy comparison states, competitive energy markets, electricity providers by state, choose electricity supplier"
         canonical="/all-states"
         structuredData={breadcrumbData}
       />
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4">
-              Deregulated Electricity States
+            <h1 className="text-3xl font-bold mb-3">
+              Electricity Choice States
             </h1>
-            <p className="text-lg text-blue-100 mb-8">
-              We serve 12 states with deregulated electricity markets. Find your state to compare rates and save.
+            <p className="text-base text-blue-100 mb-6">
+              Compare electricity providers in 12 states where you have the power to choose. Find your state to unlock savings.
             </p>
             
             {/* Search Bar */}
-            <div className="relative max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="relative max-w-lg">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Search states..."
+                placeholder="Search by state name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-12 bg-white border-0 shadow-lg"
+                className="pl-11 pr-4 h-11 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20"
               />
             </div>
           </div>
@@ -59,201 +75,207 @@ export default function AllStates() {
       </div>
 
       {/* Stats Bar */}
-      <div className="bg-white border-b border-gray-200 py-6">
+      <div className="bg-white border-b border-gray-200 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">12</div>
-              <div className="text-sm text-gray-600">Deregulated States</div>
+              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">12</div>
+              <div className="text-xs text-gray-600">Choice States</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">100M+</div>
-              <div className="text-sm text-gray-600">Potential Customers</div>
+              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">100M+</div>
+              <div className="text-xs text-gray-600">Residents Served</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">40+</div>
-              <div className="text-sm text-gray-600">Providers Nationwide</div>
+              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">40+</div>
+              <div className="text-xs text-gray-600">Providers Available</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">$700</div>
-              <div className="text-sm text-gray-600">Avg. Annual Savings</div>
+              <div className="text-2xl font-bold text-[#0A5C8C] mb-1">$700</div>
+              <div className="text-xs text-gray-600">Avg. Annual Savings</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* States Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Service Areas by State
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-1">
+            Available Markets
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm text-gray-600">
             {filteredStates.length} state{filteredStates.length !== 1 ? 's' : ''} found
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredStates.map((state, index) => {
-            // Map state codes to their URL slugs
-            const stateUrlMap = {
-              'TX': 'TexasElectricity',
-              'IL': 'IllinoisElectricity',
-              'OH': 'OhioElectricity',
-              'PA': 'PennsylvaniaElectricity',
-              'NY': 'NewYorkElectricity',
-              'NJ': 'NewJerseyElectricity',
-              'MD': 'MarylandElectricity',
-              'MA': 'MassachusettsElectricity',
-              'ME': 'MaineElectricity',
-              'NH': 'NewHampshireElectricity',
-              'RI': 'RhodeIslandElectricity',
-              'CT': 'ConnecticutElectricity'
-            };
+        {filteredStates.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredStates.map((state, index) => {
+              // Map state codes to their URL slugs
+              const stateUrlMap = {
+                'TX': 'TexasElectricity',
+                'IL': 'IllinoisElectricity',
+                'OH': 'OhioElectricity',
+                'PA': 'PennsylvaniaElectricity',
+                'NY': 'NewYorkElectricity',
+                'NJ': 'NewJerseyElectricity',
+                'MD': 'MarylandElectricity',
+                'MA': 'MassachusettsElectricity',
+                'ME': 'MaineElectricity',
+                'NH': 'NewHampshireElectricity',
+                'RI': 'RhodeIslandElectricity',
+                'CT': 'ConnecticutElectricity'
+              };
 
-            return (
-              <Card key={index} className="hover:shadow-xl transition-all duration-300 border-2 hover:border-[#FF6B35] group">
-                <CardContent className="p-6">
-                  {/* State Header */}
-                  <div className="mb-4">
-                    <div className="flex items-start justify-between mb-2">
+              return (
+                <Card key={index} className="overflow-hidden hover:shadow-xl transition-all duration-300 border hover:border-[#0A5C8C] group">
+                  {/* State Image */}
+                  <div className="relative h-36 overflow-hidden">
+                    <img 
+                      src={stateImages[state.code]} 
+                      alt={`${state.fullName} electricity rates`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3">
+                      <h3 className="text-lg font-bold text-white">{state.fullName}</h3>
+                    </div>
+                  </div>
+
+                  <CardContent className="p-4">
+                    {/* State Stats */}
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                      <div className="bg-blue-50 rounded-lg p-2.5">
+                        <div className="text-xs text-gray-600 mb-0.5">Providers</div>
+                        <div className="text-base font-bold text-[#0A5C8C] flex items-center gap-1">
+                          <Zap className="w-3.5 h-3.5" />
+                          {state.providerCount}+
+                        </div>
+                      </div>
+                      <div className="bg-green-50 rounded-lg p-2.5">
+                        <div className="text-xs text-gray-600 mb-0.5">Avg. Savings</div>
+                        <div className="text-base font-bold text-green-600 flex items-center gap-1">
+                          <TrendingDown className="w-3.5 h-3.5" />
+                          ${state.avgSavings}/yr
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Major Cities */}
+                    <div className="mb-3">
+                      <p className="text-xs text-gray-500 mb-1.5 font-medium">Major Cities:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {state.cities.slice(0, 3).map((city, i) => (
+                          <span key={i} className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">
+                            {city}
+                          </span>
+                        ))}
+                        {state.cities.length > 3 && (
+                          <span className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">
+                            +{state.cities.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* CTA Buttons */}
+                    <div className="grid grid-cols-2 gap-2">
                       <Link to={createPageUrl(stateUrlMap[state.code])}>
-                        <h3 className="text-2xl font-bold text-gray-900 hover:text-[#0A5C8C] transition-colors cursor-pointer">{state.fullName}</h3>
+                        <Button variant="outline" size="sm" className="w-full text-xs border-gray-300 hover:border-[#0A5C8C] hover:text-[#0A5C8C] transition-all">
+                          Learn More
+                        </Button>
                       </Link>
-                      <div className="bg-green-100 px-3 py-1 rounded-full">
-                        <span className="text-xs font-semibold text-green-700">Deregulated</span>
-                      </div>
+                      <Link to={createPageUrl("CompareRates")}>
+                        <Button size="sm" className="w-full text-xs bg-[#FF6B35] hover:bg-[#e55a2b] text-white transition-all">
+                          Compare Rates
+                        </Button>
+                      </Link>
                     </div>
-                    <p className="text-sm text-gray-600">{state.marketType}</p>
-                  </div>
-
-                  {/* State Stats */}
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-3">
-                      <div className="text-xs text-gray-600 mb-1">Providers</div>
-                      <div className="text-xl font-bold text-[#0A5C8C] flex items-center gap-1">
-                        <Zap className="w-4 h-4" />
-                        {state.providerCount}+
-                      </div>
-                    </div>
-                    <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-lg p-3">
-                      <div className="text-xs text-gray-600 mb-1">Avg. Savings</div>
-                      <div className="text-xl font-bold text-green-600 flex items-center gap-1">
-                        <TrendingDown className="w-4 h-4" />
-                        ${state.avgSavings}/yr
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Major Cities */}
-                  <div className="mb-4">
-                    <p className="text-xs text-gray-600 mb-2 font-semibold">Major Cities:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {state.cities.slice(0, 4).map((city, i) => (
-                        <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
-                          {city}
-                        </span>
-                      ))}
-                      {state.cities.length > 4 && (
-                        <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                          +{state.cities.length - 4} more
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* CTA Buttons */}
-                  <div className="space-y-2">
-                    <Link to={createPageUrl(stateUrlMap[state.code])}>
-                      <Button variant="outline" className="w-full border-2 group-hover:border-[#0A5C8C] group-hover:text-[#0A5C8C] transition-all">
-                        Learn About {state.name}
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </Link>
-                    <Link to={createPageUrl("CompareRates")}>
-                      <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white group-hover:shadow-lg transition-all">
-                        Compare Rates
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-600 mb-4">No states found matching "{searchTerm}"</p>
+            <Button variant="outline" onClick={() => setSearchTerm("")}>
+              Clear Search
+            </Button>
+          </div>
+        )}
       </div>
 
-      {/* What is Deregulation Section */}
-      <div className="py-16 bg-white">
+      {/* Why Choose Your Supplier Section */}
+      <div className="py-12 bg-white border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-            What is Electricity Deregulation?
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+            Why Electricity Choice Matters
           </h2>
-          <div className="prose prose-lg max-w-none text-gray-600">
-            <p className="mb-4">
-              Electricity deregulation allows consumers to choose their electricity supplier, creating competition 
-              among providers. This competition typically results in lower rates, better customer service, and more 
-              plan options compared to regulated markets.
+          <div className="text-center mb-8">
+            <p className="text-sm text-gray-600 mb-3">
+              In competitive electricity markets, you have the power to choose your supplier, creating competition 
+              among providers. This results in lower rates, better customer service, and more plan options.
             </p>
-            <p className="mb-6">
-              In deregulated states, your local utility still delivers the electricity and maintains the power lines, 
-              but you can choose which company supplies your power. This separation of services has led to significant 
-              savings for millions of Americans.
+            <p className="text-sm text-gray-600">
+              Your local utility still delivers the electricity and maintains the power lines, 
+              but you control which company supplies your power—leading to significant savings for millions.
             </p>
+          </div>
             
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Lower Rates",
-                  description: "Competition drives prices down, with average savings of $600-$800 per year"
-                },
-                {
-                  title: "More Choices",
-                  description: "Choose from fixed, variable, renewable energy, and prepaid plans"
-                },
-                {
-                  title: "Better Service",
-                  description: "Providers compete on customer service, not just price"
-                }
-              ].map((benefit, index) => (
-                <div key={index} className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-gray-600">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              {
+                title: "Lower Rates",
+                description: "Competition drives prices down, with average savings of $600-$800 per year"
+              },
+              {
+                title: "More Choices",
+                description: "Choose from fixed, variable, renewable energy, and prepaid plans"
+              },
+              {
+                title: "Better Service",
+                description: "Providers compete on customer service, not just price"
+              }
+            ].map((benefit, index) => (
+              <div key={index} className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-5">
+                <h3 className="text-base font-bold text-gray-900 mb-2">{benefit.title}</h3>
+                <p className="text-sm text-gray-600">{benefit.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Bottom CTA Section */}
-      <div className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <div className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] rounded-3xl shadow-2xl p-12 text-center overflow-hidden">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
-              Find the Best Rates in Your State
+          <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] rounded-2xl shadow-2xl p-10 text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+              Find the Best Rates in Your Area
             </h2>
-            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-              Enter your ZIP code to compare electricity plans available in your area.
+            <p className="text-base text-blue-100 mb-6 max-w-2xl mx-auto">
+              Enter your ZIP code to compare electricity plans available in your state.
             </p>
             
             {/* ZIP Code Input */}
-            <div className="max-w-lg mx-auto mb-6">
-              <div className="bg-white rounded-2xl shadow-xl p-1.5">
+            <div className="max-w-lg mx-auto mb-5">
+              <div className="bg-white rounded-xl shadow-xl p-1.5">
                 <div className="flex flex-col sm:flex-row items-stretch gap-2">
-                  <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-gray-50 rounded-xl">
-                    <MapPin className="w-5 h-5 text-[#0A5C8C] flex-shrink-0" />
+                  <div className="flex-1 flex items-center gap-2.5 px-4 py-3 bg-gray-50 rounded-lg">
+                    <MapPin className="w-4 h-4 text-[#0A5C8C] flex-shrink-0" />
                     <Input
                       type="text"
                       placeholder="Enter ZIP code"
                       value={zipCode}
                       onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-lg p-0 h-auto placeholder:text-gray-400 font-semibold"
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-400 font-semibold"
                       maxLength={5}
                     />
                   </div>
                   <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
-                    <Button className="w-full sm:w-auto px-10 py-6 text-lg font-bold rounded-xl bg-[#FF6B35] hover:bg-[#e55a2b] text-white shadow-lg hover:shadow-xl transition-all h-full">
+                    <Button className="w-full sm:w-auto px-8 py-3 text-base font-bold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white shadow-lg hover:shadow-xl transition-all h-full">
                       Compare Now
                     </Button>
                   </Link>
@@ -262,19 +284,19 @@ export default function AllStates() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex items-center justify-center gap-6 flex-wrap text-sm text-blue-100">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+            <div className="flex items-center justify-center gap-5 flex-wrap text-xs text-blue-100">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-green-400" />
                 <span>100% Free</span>
               </div>
               <span className="text-blue-300">•</span>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-green-400" />
                 <span>No Credit Card</span>
               </div>
               <span className="text-blue-300">•</span>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-green-400" />
                 <span>Instant Results</span>
               </div>
             </div>
