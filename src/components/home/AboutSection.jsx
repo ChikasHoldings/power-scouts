@@ -44,7 +44,7 @@ export default function AboutSection() {
           <div className="order-2 lg:order-1">
             <div className="relative rounded-xl overflow-hidden shadow-lg h-full">
               <img
-                src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80"
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/86a6bbb00_portrait-happy-multi-ethnic-family-embracing-adopted-kids-bonding-together.jpg"
                 alt="Happy family enjoying their home"
                 className="w-full h-full object-cover" />
             </div>
