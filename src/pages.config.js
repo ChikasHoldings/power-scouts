@@ -5,6 +5,7 @@ import FAQ from './pages/FAQ';
 import BusinessRates from './pages/BusinessRates';
 import HomeConcierge from './pages/HomeConcierge';
 import AllProviders from './pages/AllProviders';
+import AllCities from './pages/AllCities';
 import Layout from './Layout.jsx';
 
 
@@ -16,6 +17,7 @@ export const PAGES = {
     "BusinessRates": BusinessRates,
     "HomeConcierge": HomeConcierge,
     "AllProviders": AllProviders,
+    "AllCities": AllCities,
 }
 
 export const pagesConfig = {
