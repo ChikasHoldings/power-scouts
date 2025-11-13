@@ -11,6 +11,7 @@ import ProviderDetails from './pages/ProviderDetails';
 import LearningCenter from './pages/LearningCenter';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import RenewableEnergy from './pages/RenewableEnergy';
 import Layout from './Layout.jsx';
 
 
@@ -28,6 +29,7 @@ export const PAGES = {
     "LearningCenter": LearningCenter,
     "PrivacyPolicy": PrivacyPolicy,
     "TermsOfService": TermsOfService,
+    "RenewableEnergy": RenewableEnergy,
 }
 
 export const pagesConfig = {
