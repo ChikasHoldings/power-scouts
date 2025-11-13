@@ -64,12 +64,6 @@ export default function Layout({ children, currentPageName }) {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
               <Link
-                to={createPageUrl("Search")}
-                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
-              >
-                Search
-              </Link>
-              <Link
                 to={createPageUrl("AllProviders")}
                 className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
               >
@@ -155,6 +149,13 @@ export default function Layout({ children, currentPageName }) {
                 About Us
               </Link>
 
+              <Link
+                to={createPageUrl("UserSettings")}
+                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
+              >
+                Settings
+              </Link>
+
               <div className="relative group">
                 <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
                   Resources
@@ -202,9 +203,6 @@ export default function Layout({ children, currentPageName }) {
               <Link to={createPageUrl("CompareRates")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Compare Rates
               </Link>
-              <Link to={createPageUrl("Search")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Search
-              </Link>
               <Link to={createPageUrl("AllProviders")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Providers
               </Link>
@@ -213,6 +211,9 @@ export default function Layout({ children, currentPageName }) {
               </Link>
               <Link to={createPageUrl("AboutUs")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 About Us
+              </Link>
+              <Link to={createPageUrl("UserSettings")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Settings
               </Link>
               <Link to={createPageUrl("Blog")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Blog
