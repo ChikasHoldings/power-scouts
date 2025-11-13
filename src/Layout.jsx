@@ -161,13 +161,22 @@ export default function Layout({ children, currentPageName }) {
                   Resources
                   <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
                 </button>
-                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 border border-gray-100">
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3 z-50 border border-gray-100">
                   <div className="space-y-1.5">
                     <Link to={createPageUrl("LearningCenter")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
                       Learning Center
                     </Link>
                     <Link to={createPageUrl("FAQ")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
                       FAQs
+                    </Link>
+                    <Link to={createPageUrl("RenewableEnergy")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
+                      Renewable Energy
+                    </Link>
+                    <Link to={createPageUrl("BusinessRates")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
+                      Business Rates
+                    </Link>
+                    <Link to={createPageUrl("HomeConcierge")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
+                      Home Concierge
                     </Link>
                   </div>
                 </div>
