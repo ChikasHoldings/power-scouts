@@ -7,7 +7,7 @@ import { createPageUrl } from "@/utils";
 
 export default function HeroSection({ zipCode, setZipCode, onCompare }) {
   return (
-    <section className="relative bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden py-16 lg:py-20">
+    <section className="bg-slate-50 py-16 relative from-gray-50 via-white to-gray-50 overflow-hidden lg:py-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -21,16 +21,16 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
           <div className="space-y-6 animate-fade-in-up">
             {/* Star Rating with Badge */}
             <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 py-1.5 shadow-lg border border-gray-100">
-              <img 
+              <img
                 src="https://www.powerwizard.com/wp-content/uploads/2025/04/star-rating.svg"
                 alt="4.8 star rating"
                 className="h-4"
                 onError={(e) => {
-                  e.target.outerHTML = '<div class="flex gap-0.5">' + 
-                    Array(5).fill('<svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>').join('') + 
-                    '</div>';
-                }}
-              />
+                  e.target.outerHTML = '<div class="flex gap-0.5">' +
+                  Array(5).fill('<svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>').join('') +
+                  '</div>';
+                }} />
+
               <span className="text-gray-900 font-semibold text-sm">4.8</span>
               <span className="text-gray-400">•</span>
               <Link to={createPageUrl("Home")} className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
@@ -62,13 +62,13 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
                     className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base p-0 h-auto placeholder:text-gray-500 font-medium"
-                    maxLength={5}
-                  />
+                    maxLength={5} />
+
                 </div>
                 <Button
                   onClick={onCompare}
-                  className="px-8 h-12 text-base font-semibold rounded-lg bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0"
-                >
+                  className="px-8 h-12 text-base font-semibold rounded-lg bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300 flex-shrink-0">
+
                   Compare Rates
                 </Button>
               </div>
@@ -99,11 +99,11 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-200 via-cyan-200 to-teal-200 rounded-3xl opacity-20 blur-2xl"></div>
             <div className="relative">
-              <img 
+              <img
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25aa21e12_Screenshot47.png"
                 alt="Electricity services illustration"
-                className="w-full h-auto drop-shadow-2xl"
-              />
+                className="w-full h-auto drop-shadow-2xl" />
+
               {/* Floating Stats Card */}
               <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-xl border border-gray-100">
                 <div className="flex items-center gap-3">
@@ -170,6 +170,6 @@ export default function HeroSection({ zipCode, setZipCode, onCompare }) {
           animation: float 3s ease-in-out infinite;
         }
       `}</style>
-    </section>
-  );
+    </section>);
+
 }
