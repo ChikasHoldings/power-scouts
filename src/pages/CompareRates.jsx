@@ -122,62 +122,92 @@ export default function CompareRates() {
   if (showResults) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-8">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-2xl font-bold mb-2">Your Electricity Rate Comparison</h1>
-            <p className="text-sm text-blue-100">ZIP Code: {zipCode} • {propertyType}</p>
+        {/* Header with Success Message */}
+        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <CheckCircle className="w-8 h-8 text-green-400" />
+              <h1 className="text-3xl lg:text-4xl font-bold">We Found Your Best Deals!</h1>
+            </div>
+            <p className="text-lg text-blue-100 mb-2">
+              Comparing {filteredPlans.length} plans from 40+ providers in your area
+            </p>
+            <p className="text-sm text-blue-200">
+              ZIP Code: {zipCode} • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)} • Based on 1,000 kWh usage
+            </p>
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Top 3 Recommended Plans */}
-          <div className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <Zap className="w-5 h-5 text-[#FF6B35]" />
-              <h2 className="text-lg font-bold text-gray-900">Top 3 Recommended Plans</h2>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Top 3 Recommended Plans - Sleek Cards */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Best Deals for You</h2>
+                <p className="text-sm text-gray-600">Lowest rates available in your area</p>
+              </div>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            
+            <div className="grid md:grid-cols-3 gap-6">
               {topPlans.map((plan, index) => (
-                <Card key={plan.id} className="border-2 border-[#FF6B35] bg-gradient-to-br from-orange-50 to-white relative overflow-hidden">
-                  <div className="absolute top-3 right-3">
-                    <div className="bg-[#FF6B35] text-white text-xs font-bold px-2 py-1 rounded">
-                      #{index + 1}
+                <Card key={plan.id} className="relative overflow-hidden border-2 border-orange-200 hover:border-orange-400 transition-all hover:shadow-2xl group">
+                  {/* Best Deal Badge */}
+                  <div className="absolute top-0 right-0">
+                    <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2b] text-white text-xs font-bold px-4 py-2 rounded-bl-xl shadow-lg">
+                      #{index + 1} BEST DEAL
                     </div>
                   </div>
-                  <CardContent className="p-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center mb-3">
-                      <span className="text-xs font-bold text-[#0A5C8C]">
-                        {plan.provider_name.substring(0, 3).toUpperCase()}
-                      </span>
+                  
+                  {/* Accent Border */}
+                  <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-[#FF6B35] to-[#e55a2b]"></div>
+                  
+                  <CardContent className="p-6 pl-8">
+                    {/* Provider Logo/Icon */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-sm font-bold text-white">
+                          {plan.provider_name.substring(0, 3).toUpperCase()}
+                        </span>
+                      </div>
+                      {plan.renewable_percentage >= 50 && (
+                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+                          <Leaf className="w-3 h-3" />
+                          {plan.renewable_percentage}% Green
+                        </div>
+                      )}
                     </div>
-                    <h3 className="font-bold text-gray-900 text-sm mb-1">{plan.provider_name}</h3>
-                    <p className="text-xs text-gray-600 mb-3">{plan.plan_name}</p>
                     
-                    <div className="space-y-2 mb-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-gray-600">Rate</span>
-                        <span className="text-lg font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢/kWh</span>
+                    {/* Provider & Plan Name */}
+                    <h3 className="font-bold text-gray-900 text-lg mb-1">{plan.provider_name}</h3>
+                    <p className="text-sm text-gray-600 mb-4">{plan.plan_name}</p>
+                    
+                    {/* Rate Highlight */}
+                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-4 mb-4">
+                      <div className="text-center">
+                        <div className="text-xs text-gray-600 mb-1">Energy Rate</div>
+                        <div className="text-4xl font-bold text-[#0A5C8C] mb-1">{plan.rate_per_kwh}¢</div>
+                        <div className="text-xs text-gray-500">per kWh</div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-gray-600">Est. Bill</span>
-                        <span className="text-sm font-bold text-gray-900">${calculateBill(plan)}/mo</span>
+                    </div>
+                    
+                    {/* Details Grid */}
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="text-xs text-gray-600 mb-1">Est. Monthly</div>
+                        <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-gray-600">Term</span>
-                        <span className="text-sm font-semibold text-gray-700">{plan.contract_length || 'Variable'} mo</span>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <div className="text-xs text-gray-600 mb-1">Contract</div>
+                        <div className="text-lg font-bold text-gray-900">{plan.contract_length || 'Variable'} mo</div>
                       </div>
                     </div>
 
-                    {plan.renewable_percentage >= 50 && (
-                      <div className="flex items-center gap-1 text-xs text-green-600 font-medium mb-3">
-                        <Leaf className="w-3 h-3" />
-                        {plan.renewable_percentage}% Renewable
-                      </div>
-                    )}
-
-                    <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
-                      Check Availability
+                    {/* CTA Button */}
+                    <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white font-bold shadow-lg group-hover:shadow-xl transition-all">
+                      Select This Plan
                     </Button>
                   </CardContent>
                 </Card>
@@ -185,46 +215,126 @@ export default function CompareRates() {
             </div>
           </div>
 
-          {/* All Other Plans */}
+          {/* All Other Plans - Table View */}
           {otherPlans.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-4">All Available Plans</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">More Available Plans</h2>
+                <p className="text-sm text-gray-600">Additional options in your area</p>
+              </div>
+              
+              {/* Desktop Table */}
+              <div className="hidden lg:block bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Provider & Plan</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Rate</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Est. Monthly</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Contract</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Type</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {otherPlans.map((plan) => (
+                      <tr key={plan.id} className="hover:bg-blue-50/50 transition-colors">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="text-xs font-bold text-[#0A5C8C]">
+                                {plan.provider_name.substring(0, 3).toUpperCase()}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="font-semibold text-gray-900 text-sm">{plan.provider_name}</div>
+                              <div className="text-xs text-gray-500">{plan.plan_name}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <div className="text-xl font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                          <div className="text-xs text-gray-500">per kWh</div>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
+                          <div className="text-xs text-gray-500">@ 1000 kWh</div>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="text-sm font-semibold text-gray-900">{plan.contract_length || 'Variable'} months</span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <div className="flex items-center justify-center gap-2">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
+                              {plan.plan_type}
+                            </span>
+                            {plan.renewable_percentage >= 50 && (
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                <Leaf className="w-3 h-3 mr-1" />
+                                Green
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <Button size="sm" variant="outline" className="hover:bg-[#0A5C8C] hover:text-white transition-colors">
+                            View Plan
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="lg:hidden space-y-4">
                 {otherPlans.map((plan) => (
-                  <Card key={plan.id} className="border hover:border-[#0A5C8C] hover:shadow-lg transition-all">
-                    <CardContent className="p-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-green-50 rounded-lg flex items-center justify-center mb-3">
-                        <span className="text-xs font-bold text-[#0A5C8C]">
-                          {plan.provider_name.substring(0, 3).toUpperCase()}
-                        </span>
+                  <Card key={plan.id} className="border-2 hover:border-[#0A5C8C] transition-all">
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+                            <span className="text-xs font-bold text-[#0A5C8C]">
+                              {plan.provider_name.substring(0, 3).toUpperCase()}
+                            </span>
+                          </div>
+                          <div>
+                            <div className="font-bold text-gray-900 text-sm">{plan.provider_name}</div>
+                            <div className="text-xs text-gray-500">{plan.plan_name}</div>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="font-bold text-gray-900 text-sm mb-1">{plan.provider_name}</h3>
-                      <p className="text-xs text-gray-600 mb-3">{plan.plan_name}</p>
                       
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600">Rate</span>
-                          <span className="text-lg font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢/kWh</span>
+                      <div className="flex gap-2 mb-4">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
+                          {plan.plan_type}
+                        </span>
+                        {plan.renewable_percentage >= 50 && (
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                            <Leaf className="w-3 h-3 mr-1" />
+                            Green
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-3 mb-4 bg-gray-50 rounded-lg p-3">
+                        <div className="text-center">
+                          <div className="text-xs text-gray-600 mb-1">Rate</div>
+                          <div className="text-base font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600">Est. Bill</span>
-                          <span className="text-sm font-bold text-gray-900">${calculateBill(plan)}/mo</span>
+                        <div className="text-center">
+                          <div className="text-xs text-gray-600 mb-1">Monthly</div>
+                          <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600">Term</span>
-                          <span className="text-sm font-semibold text-gray-700">{plan.contract_length || 'Variable'} mo</span>
+                        <div className="text-center">
+                          <div className="text-xs text-gray-600 mb-1">Term</div>
+                          <div className="text-sm font-semibold text-gray-900">{plan.contract_length || 'Var'} mo</div>
                         </div>
                       </div>
 
-                      {plan.renewable_percentage >= 50 && (
-                        <div className="flex items-center gap-1 text-xs text-green-600 font-medium mb-3">
-                          <Leaf className="w-3 h-3" />
-                          {plan.renewable_percentage}% Renewable
-                        </div>
-                      )}
-
-                      <Button variant="outline" className="w-full text-sm">
-                        Check Availability
+                      <Button variant="outline" className="w-full hover:bg-[#0A5C8C] hover:text-white transition-colors">
+                        View Plan
                       </Button>
                     </CardContent>
                   </Card>
