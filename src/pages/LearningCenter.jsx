@@ -299,6 +299,46 @@ const articles = [
     readTime: "7 min",
     keywords: ["Rhode Island electricity", "RI power", "National Grid RI"],
     relatedArticles: [1, 2, 11]
+  },
+  // MAJOR CITY GUIDES
+  {
+    id: 23,
+    category: "City Guides",
+    icon: Building2,
+    color: "orange",
+    title: "Houston Electricity Rates 2024: Complete Guide for Harris County",
+    description: "Compare Houston electricity from 45+ providers serving Harris County, Katy, Pearland, The Woodlands. Save $800+ yearly.",
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=1200&q=80",
+    excerpt: "Houston's massive competitive market gives 2.3M residents unmatched power to save. Find the cheapest rates.",
+    readTime: "12 min",
+    keywords: ["Houston electricity", "Harris County power", "Katy electricity", "Pearland power", "The Woodlands energy"],
+    relatedArticles: [11, 24, 2]
+  },
+  {
+    id: 24,
+    category: "City Guides",
+    icon: Building2,
+    color: "blue",
+    title: "Dallas Electricity Rates 2024: DFW Metroplex Shopping Guide",
+    description: "Compare Dallas-Fort Worth electricity from 40+ providers. Serving Dallas, Plano, Irving, Garland, Frisco. Save $700+ yearly.",
+    image: "https://images.unsplash.com/photo-1552083974-186346191183?w=1200&q=80",
+    excerpt: "DFW's 7.5M residents have access to 40+ competitive providers. Master the DFW electricity market.",
+    readTime: "11 min",
+    keywords: ["Dallas electricity", "DFW power rates", "Plano electricity", "Irving energy", "Frisco power", "Fort Worth electricity"],
+    relatedArticles: [11, 23, 2]
+  },
+  {
+    id: 25,
+    category: "City Guides",
+    icon: Building2,
+    color: "purple",
+    title: "Philadelphia Electricity Rates 2024: Complete Philly Metro Guide",
+    description: "Compare Philadelphia electricity from 25+ PECO suppliers. Serving Philly, Chester, Delaware, Montgomery counties. Save $500+ yearly.",
+    image: "https://images.unsplash.com/photo-1548913891-2f6c0feeae98?w=1200&q=80",
+    excerpt: "Philadelphia's competitive market with PA PUC oversight offers safe, effective savings for 1.5M households.",
+    readTime: "11 min",
+    keywords: ["Philadelphia electricity", "Philly power rates", "PECO suppliers", "PA electricity", "Philadelphia energy"],
+    relatedArticles: [12, 2, 1]
   }
 ];
 

@@ -1269,6 +1269,146 @@ Some providers auto-enroll you in a renewal contract unless you actively decline
   }
 };
 
+  23: {
+    title: "Houston Electricity Rates 2024: Complete Guide for Harris County Residents",
+    metaTitle: "Houston Electricity Rates 2024: Compare 45+ Providers | Save $800+ | Power Scouts",
+    metaDescription: "Compare Houston electricity rates from 45+ providers serving Harris County, Katy, Pearland, The Woodlands. Find cheapest power plans. Save up to $800 annually.",
+    tags: ["Houston Electricity", "Harris County Power", "Houston Energy Rates", "Katy Electricity", "Pearland Power", "The Woodlands Energy"],
+    content: `
+<h2>Houston's Massive Electricity Market</h2>
+
+<p>Houston is the largest city in Texas's deregulated electricity market, with over 2.3 million residents and 45+ competitive electricity providers. This intense competition creates the best opportunity for Houston-area residents to save hundreds annually on electricity.</p>
+
+<p>Average Houston household using 1,800 kWh monthly can save <strong>$600-900 per year</strong> by choosing competitive plans versus staying on default utility rates.</p>
+
+<h2>Current Houston Electricity Rate Ranges</h2>
+
+<p><strong>Lowest Available Rates (1,000 kWh usage):</strong> 8.4¢ to 9.2¢ per kWh<br>
+<strong>Mid-Range Rates:</strong> 9.5¢ to 11.2¢ per kWh<br>
+<strong>Premium/Renewable Rates:</strong> 9.8¢ to 12.5¢ per kWh<br>
+<strong>Default CenterPoint Rate:</strong> 12.8¢+ per kWh</p>
+
+<p>For a typical 2,000 kWh monthly Houston usage, the difference between the cheapest competitive plan (8.4¢) and default rate (12.8¢) is <strong>$88 per month or $1,056 annually</strong>.</p>
+
+<div class="cta-box">
+<h3>Compare All Houston Electricity Rates</h3>
+<p>Enter your Houston ZIP code to see all available plans and prices.</p>
+<a href="/compare-rates" class="cta-button">Compare Houston Rates</a>
+</div>
+
+<h2>Houston Suburbs and Surrounding Areas</h2>
+
+<p><strong>Katy, TX (77449, 77494):</strong> Same competitive market as Houston proper. 45+ providers available. Average savings potential $700-850 annually.</p>
+
+<p><strong>The Woodlands (77380, 77381):</strong> Full competitive market access. Slightly higher average usage due to larger homes. Savings potential $800-1,000 annually.</p>
+
+<p><strong>Pearland (77581, 77584):</strong> Served by all major Houston providers. Growing market with excellent competition. Savings potential $650-800 annually.</p>
+
+<p><strong>Sugar Land (77478, 77479):</strong> Premium electricity market with high-usage homes. Savings can exceed $1,000 annually for larger properties.</p>
+
+<h2>The Bottom Line for Houston Residents</h2>
+
+<p>Houston's massive competitive electricity market gives residents unmatched power to save money. The difference between smart shopping and staying on default rates can exceed $1,000 annually for typical homes.</p>
+
+<p>Best practices for Houston electricity shoppers:</p>
+<ul>
+<li>Compare plans every 12 months before contract expiration</li>
+<li>Shop in October/November when rates are typically lowest</li>
+<li>Consider 12 or 24-month fixed plans for budget certainty</li>
+<li>Look at estimated bills at YOUR usage level, not just advertised rates</li>
+<li>Choose 100% renewable if the price is competitive (often is)</li>
+</ul>
+`
+  },
+
+  24: {
+    title: "Dallas Electricity Rates 2024: DFW Metroplex Complete Shopping Guide",
+    metaTitle: "Dallas Electricity Rates 2024: Compare 40+ DFW Providers | Save $700+ | Power Scouts",
+    metaDescription: "Compare Dallas-Fort Worth electricity rates from 40+ providers. Serving Dallas, Plano, Irving, Garland, Frisco, McKinney. Find cheapest DFW power plans.",
+    tags: ["Dallas Electricity", "DFW Power Rates", "Plano Electricity", "Irving Energy", "Frisco Power", "Fort Worth Electricity"],
+    content: `
+<h2>DFW Metroplex Electricity Market Overview</h2>
+
+<p>The Dallas-Fort Worth Metroplex is Texas's second-largest electricity market, with 40+ competitive providers serving 7.5 million residents across 13 counties. This massive market creates exceptional competition and savings opportunities.</p>
+
+<p>Average DFW household using 1,600 kWh monthly saves <strong>$600-800 annually</strong> by choosing competitive electricity plans versus default utility rates.</p>
+
+<h2>Current Dallas Area Electricity Rates</h2>
+
+<p><strong>Lowest Available Rates (1,000 kWh usage):</strong> 8.6¢ to 9.5¢ per kWh<br>
+<strong>Mid-Range Competitive Rates:</strong> 9.8¢ to 11.5¢ per kWh<br>
+<strong>100% Renewable Plans:</strong> 9.4¢ to 12.2¢ per kWh<br>
+<strong>Default Oncor Rate:</strong> 12.5¢+ per kWh</p>
+
+<p>For typical Dallas 1,800 kWh monthly usage, choosing an 8.8¢ competitive plan versus 12.5¢ default rate saves <strong>$66.60 monthly or $799.20 annually</strong>.</p>
+
+<div class="cta-box">
+<h3>Compare Dallas Electricity Rates</h3>
+<p>Enter your DFW ZIP code to see all available plans instantly.</p>
+<a href="/compare-rates" class="cta-button">Compare DFW Rates</a>
+</div>
+
+<h2>Major DFW Cities and Electricity Markets</h2>
+
+<p><strong>Dallas (75201-75398):</strong> Full competitive market with 40+ providers. Average savings potential $650-850 annually.</p>
+
+<p><strong>Fort Worth (76101-76199):</strong> Same competitive access as Dallas. Average savings potential $600-800 annually.</p>
+
+<p><strong>Plano (75023-75094):</strong> Affluent market with higher average usage. Premium homes can save $900-1,200 annually.</p>
+
+<p><strong>Irving (75014-75063):</strong> Home to many electricity providers' headquarters. Excellent competition. Savings potential $650-850 annually.</p>
+
+<p><strong>Arlington (76001-76019):</strong> Between Dallas and Fort Worth. Full competitive access. Savings potential $600-800 annually.</p>
+
+<h2>The Bottom Line for DFW Residents</h2>
+
+<p>Dallas-Fort Worth's competitive electricity market offers residents excellent savings opportunities. Smart shopping takes 15-20 minutes and saves $600-900 annually for most households.</p>
+`
+  },
+
+  25: {
+    title: "Philadelphia Electricity Rates 2024: Complete Guide for Philly Metro Area",
+    metaTitle: "Philadelphia Electricity Rates 2024: Compare 25+ PA Providers | Save $500+ | Power Scouts",
+    metaDescription: "Compare Philadelphia electricity rates from 25+ PECO suppliers. Serving Philadelphia, Chester, Delaware, Montgomery counties. Find cheapest PA power.",
+    tags: ["Philadelphia Electricity", "Philly Power Rates", "PECO Suppliers", "PA Electricity", "Philadelphia Energy"],
+    content: `
+<h2>Philadelphia's Competitive Electricity Market</h2>
+
+<p>Philadelphia and surrounding Pennsylvania counties have access to 25+ competitive electricity suppliers through PA's deregulated market. PECO remains your utility for delivery, but you choose who supplies your electricity.</p>
+
+<p>Average Philadelphia household using 900 kWh monthly saves <strong>$400-600 annually</strong> by choosing competitive suppliers versus PECO's default Price to Compare rate.</p>
+
+<h2>Current Philadelphia Electricity Rates</h2>
+
+<p><strong>Lowest Competitive Supplier Rates (900 kWh usage):</strong> 7.8¢ to 8.9¢ per kWh<br>
+<strong>Mid-Range Supplier Rates:</strong> 9.2¢ to 10.8¢ per kWh<br>
+<strong>100% Renewable Plans:</strong> 8.5¢ to 11.2¢ per kWh<br>
+<strong>PECO Price to Compare (Default):</strong> 10.2¢+ per kWh (changes seasonally)</p>
+
+<p>For typical Philly 950 kWh monthly usage, choosing a 7.9¢ supplier versus 10.2¢ PECO default saves <strong>$21.85 monthly or $262 annually</strong>. Higher usage homes save even more.</p>
+
+<div class="cta-box">
+<h3>Compare Philadelphia Electricity Suppliers</h3>
+<p>See all licensed PA suppliers serving your Philadelphia ZIP code.</p>
+<a href="/compare-rates" class="cta-button">Compare Philly Rates</a>
+</div>
+
+<h2>Philadelphia Counties and Coverage</h2>
+
+<p><strong>Philadelphia County:</strong> Full competitive market access. 25+ suppliers available. Average savings $400-550 annually.</p>
+
+<p><strong>Delaware County:</strong> Served by PECO with same competitive options as Philadelphia proper. Savings potential $400-600 annually.</p>
+
+<p><strong>Chester County:</strong> Mix of PECO and West Penn Power territories. PECO areas have full competitive access. Savings potential $450-650 annually.</p>
+
+<p><strong>Montgomery County:</strong> PECO territory with excellent competitive supplier options. Savings potential $400-600 annually.</p>
+
+<h2>The Bottom Line for Philadelphia Residents</h2>
+
+<p>Philadelphia's competitive electricity market, regulated by the PA PUC, offers residents safe and effective ways to save on electricity. The combination of strong consumer protections and genuine competition creates real savings.</p>
+`
+  },
+
 export const getFullArticle = (articleId) => {
   return fullArticles[articleId] || null;
 };
