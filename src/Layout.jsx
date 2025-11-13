@@ -149,13 +149,6 @@ export default function Layout({ children, currentPageName }) {
                 Bill Analyzer
               </Link>
 
-              <Link
-                to={createPageUrl("AboutUs")}
-                className="text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium"
-              >
-                About Us
-              </Link>
-
               <div className="relative group">
                 <button className="flex items-center gap-1 text-[#084a6f] hover:text-[#0A5C8C] transition-colors text-lg font-medium">
                   Resources
@@ -217,9 +210,6 @@ export default function Layout({ children, currentPageName }) {
               </Link>
               <Link to={createPageUrl("BillAnalyzer")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Bill Analyzer
-              </Link>
-              <Link to={createPageUrl("AboutUs")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                About Us
               </Link>
               <Link to={createPageUrl("LearningCenter")} className="block text-gray-700 text-sm font-medium hover:text-blue-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Learning Center
