@@ -631,9 +631,6 @@ export default function CompareRates() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-6 pb-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] rounded-3xl mb-4 shadow-xl">
-              <MapPin className="w-10 h-10 text-white" />
-            </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
               Find Your Best Electricity Rate
             </h1>
