@@ -955,16 +955,18 @@ const colorClasses = {
 };
 
 export default function ArticleDetail() {
+  const location = window.location;
+  
   // Get article ID from URL
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(location.search);
   const articleId = parseInt(urlParams.get('id'));
   const article = articles.find(a => a.id === articleId);
 
-  // Scroll to top on mount and track reading
+  // Scroll to top on mount and track reading - depend on full location to detect changes
   useEffect(() => {
     window.scrollTo(0, 0);
     trackDailyReading();
-  }, [articleId]);
+  }, [location.search, articleId]);
 
   if (!article) {
     return (
