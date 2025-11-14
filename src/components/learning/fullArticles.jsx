@@ -1276,6 +1276,311 @@ Annual cost: $1,608<br>
   }
 };
 
+  81: {
+    title: "Month-to-Month Electricity Plans: Complete Flexibility Guide",
+    metaTitle: "Month-to-Month Electricity Plans: No Contract Power Guide | Power Scouts",
+    metaDescription: "No-contract electricity plans explained. Compare month-to-month vs long-term contracts, rates, and flexibility. Find best no-commitment options.",
+    tags: ["Month to Month", "No Contract Electricity", "Flexible Plans", "Short Term Electricity", "No Commitment"],
+    content: `<h2>What Are Month-to-Month Electricity Plans?</h2>
+<p>Month-to-month (no-contract) electricity plans let you pay for power without long-term commitments. Cancel anytime with 30 days notice and no early termination fees.</p>
+<h2>Month-to-Month vs Contract Plans</h2>
+<p><strong>Month-to-Month Pros:</strong></p>
+<ul>
+<li>No early termination fees</li>
+<li>Cancel anytime with notice</li>
+<li>Good for short-term residents</li>
+<li>Flexibility to switch when better rates appear</li>
+</ul>
+<p><strong>Month-to-Month Cons:</strong></p>
+<ul>
+<li>Rates 15-25% higher than contract plans</li>
+<li>Variable pricing (can increase monthly)</li>
+<li>Less price protection during demand spikes</li>
+</ul>
+<h2>Cost Comparison Example</h2>
+<p><strong>12-Month Fixed Contract:</strong> 9.2¢/kWh = $138/month (1,500 kWh)<br>
+<strong>Month-to-Month Variable:</strong> 11.7¢/kWh average = $176/month<br>
+<strong>Extra cost for flexibility:</strong> $456/year</p>
+<div class="cta-box">
+<h3>Compare Both Options</h3>
+<p>See contract and month-to-month rates in your area.</p>
+<a href="/compare-rates" class="cta-button">Compare All Plans</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Month-to-month plans cost $300-600 more yearly but offer total flexibility. Best for renters, temporary residents, or those expecting to move within 6-12 months.</p>`
+  },
+
+  82: {
+    title: "Electricity for Renters: Complete Guide to Saving on Apartment Power",
+    metaTitle: "Electricity for Renters: Apartment Power Setup Guide | Save $500+ | Power Scouts",
+    metaDescription: "Complete renter's guide to choosing electricity providers, setting up apartment power, splitting bills with roommates. Save $300-600 yearly.",
+    tags: ["Renter Electricity", "Apartment Power", "Renter Energy Guide", "Roommate Bills", "Apartment Setup"],
+    content: `<h2>Can Renters Choose Their Electricity Provider?</h2>
+<p><strong>Yes!</strong> In deregulated states, renters have the same right as homeowners to choose their electricity provider. Your landlord cannot force you to use a specific company.</p>
+<h2>Setting Up Electricity as a Renter</h2>
+<p><strong>Step 1:</strong> Get your service address and move-in date<br>
+<strong>Step 2:</strong> Check if electricity is included in rent (most apartments it's not)<br>
+<strong>Step 3:</strong> Compare rates for your address<br>
+<strong>Step 4:</strong> Choose plan length matching your lease (or shorter)<br>
+<strong>Step 5:</strong> Enroll 2-3 days before move-in<br>
+<strong>Step 6:</strong> Keep confirmation email for records</p>
+<h2>Best Plans for Renters</h2>
+<ul>
+<li><strong>12-month lease?</strong> Get 12-month fixed rate (best rates)</li>
+<li><strong>6-month lease?</strong> Get 6-month or month-to-month</li>
+<li><strong>Unsure how long staying?</strong> Month-to-month or plans with low ETF</li>
+<li><strong>Poor credit?</strong> Prepaid electricity (no deposit, no credit check)</li>
+</ul>
+<div class="cta-box">
+<h3>Find Renter-Friendly Plans</h3>
+<p>Compare plans perfect for renters - flexible terms and low deposits.</p>
+<a href="/compare-rates" class="cta-button">Compare Renter Plans</a>
+</div>
+<h2>Splitting Electricity Bills with Roommates</h2>
+<p>One person's name goes on the electricity account. Split options:</p>
+<ul>
+<li>Divide total bill equally</li>
+<li>Use apps like Splitwise to track</li>
+<li>Calculate by square footage of bedrooms</li>
+<li>Add buffer for common areas (10-15%)</li>
+</ul>
+<h2>The Bottom Line</h2>
+<p>Renters save $300-600 yearly by shopping electricity just like homeowners. Match your contract length to lease term or use flexible month-to-month plans.</p>`
+  },
+
+  83: {
+    title: "Electricity Bill Too High? 10 Reasons Why & How to Fix It",
+    metaTitle: "Why Is My Electricity Bill So High? 10 Causes & Solutions | Power Scouts",
+    metaDescription: "Diagnose abnormally high electricity bills. Learn 10 common causes of sudden bill spikes and get immediate solutions to reduce costs.",
+    tags: ["High Electricity Bill", "Bill Too High", "Electricity Spike", "Reduce High Bill", "Bill Troubleshooting"],
+    content: `<h2>Your Bill Doubled or Tripled? Here's Why</h2>
+<p>Sudden electricity bill increases of 50-200% have specific causes. This troubleshooting guide helps you identify and fix the problem.</p>
+<h2>Top 10 Reasons for High Electricity Bills</h2>
+<p><strong>1. Contract Expired - Now on Default Rates</strong><br>
+Impact: 30-80% bill increase<br>
+Solution: Compare and enroll in new fixed-rate plan immediately</p>
+<p><strong>2. Summer/Winter Peak Usage</strong><br>
+Impact: 50-150% seasonal increase<br>
+Solution: Adjust thermostat 2-4 degrees, use fans, improve insulation</p>
+<p><strong>3. Old or Failing HVAC System</strong><br>
+Impact: 40-100% increase vs efficient unit<br>
+Solution: Service AC annually, replace filter monthly, upgrade if 15+ years old</p>
+<p><strong>4. Air Leaks and Poor Insulation</strong><br>
+Impact: 20-40% wasted energy<br>
+Solution: Seal windows/doors, add attic insulation, weather-strip</p>
+<p><strong>5. Vampire Power (Standby Devices)</strong><br>
+Impact: $100-200/year<br>
+Solution: Unplug chargers, use smart power strips, turn off at source</p>
+<div class="cta-box">
+<h3>Biggest Quick Fix: Switch Providers</h3>
+<p>If your contract expired, you're likely overpaying $50-150/month right now.</p>
+<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>First, check if your contract expired - this causes 60% of bill spikes. Second, compare current month usage to same month last year. Third, inspect HVAC and insulation. These three checks identify 85% of high bill causes.</p>`
+  },
+
+  84: {
+    title: "100% Renewable Electricity Plans: Complete Green Energy Guide",
+    metaTitle: "100% Renewable Electricity Plans: Complete Green Energy Guide | Power Scouts",
+    metaDescription: "Everything about 100% renewable electricity plans. Cost comparison, environmental impact, wind and solar power. Go green without paying extra.",
+    tags: ["100% Renewable", "Green Energy Plans", "Wind Power", "Solar Electricity", "Eco-Friendly Power"],
+    content: `<h2>What Are 100% Renewable Electricity Plans?</h2>
+<p>100% renewable electricity plans power your home entirely with wind, solar, and other clean energy sources. Renewable Energy Credits (RECs) ensure that for every kWh you use, 1 kWh of renewable energy is added to the grid.</p>
+<h2>Do Renewable Plans Cost More?</h2>
+<p><strong>2024 Reality: Often No!</strong></p>
+<p>In competitive markets like Texas, 100% renewable plans frequently cost the same or even less than traditional fossil fuel electricity:</p>
+<ul>
+<li><strong>Texas:</strong> Renewable plans at 9.1-10.5¢/kWh vs traditional at 9.3-11.2¢/kWh</li>
+<li><strong>Pennsylvania:</strong> Renewable at 8.2-10.8¢/kWh vs traditional at 8.5-11.1¢/kWh</li>
+<li><strong>Ohio:</strong> Renewable at 8.0-10.6¢/kWh vs traditional at 8.3-10.9¢/kWh</li>
+</ul>
+<h2>Top Renewable Energy Providers</h2>
+<ul>
+<li><strong>Green Mountain Energy:</strong> 100% renewable since 1997, Texas-based</li>
+<li><strong>Constellation:</strong> 100% renewable options nationwide</li>
+<li><strong>Gexa Energy:</strong> Multiple 100% renewable Texas plans</li>
+<li><strong>Direct Energy:</strong> Green plans across multiple states</li>
+</ul>
+<div class="cta-box">
+<h3>Compare Renewable Plans</h3>
+<p>See 100% renewable electricity options that match or beat traditional rates.</p>
+<a href="/compare-rates" class="cta-button">Compare Green Plans</a>
+</div>
+<h2>Environmental Impact</h2>
+<p>Average home using 1,000 kWh/month with 100% renewable electricity prevents:</p>
+<ul>
+<li>12,000 lbs CO2 annually (equivalent to planting 140 trees)</li>
+<li>Emissions equal to driving 13,000 fewer miles</li>
+<li>Coal burning equivalent of 6,000 lbs</li>
+</ul>
+<h2>The Bottom Line</h2>
+<p>100% renewable electricity now costs the same as traditional power in most competitive markets. Go green, feel good, save money - it's possible to do all three.</p>`
+  },
+
+  85: {
+    title: "Winter Electricity Saving Tips: Lower Heating Bills by 40%",
+    metaTitle: "Winter Electricity Saving Tips: Cut Heating Bills 40% | Expert Guide | Power Scouts",
+    metaDescription: "Reduce winter electricity and heating costs by 30-40% without freezing. Expert strategies for staying warm while lowering power bills.",
+    tags: ["Winter Electricity Savings", "Reduce Heating Costs", "Winter Energy Tips", "Lower Heating Bill", "Cold Weather Savings"],
+    content: `<h2>Why Winter Bills Spike</h2>
+<p>Electric heating costs drive winter bills up 80-150% compared to spring/fall. Space heaters, furnace blowers, and heat pumps consume massive electricity during cold months.</p>
+<h2>15 Expert Winter Electricity Saving Strategies</h2>
+<p><strong>Thermostat Tactics (Save $40-80/month):</strong></p>
+<ul>
+<li>Lower to 68°F when home, 62°F when sleeping</li>
+<li>Program thermostat for auto-scheduling</li>
+<li>Each degree lower saves 3% on heating</li>
+</ul>
+<p><strong>Home Winterization (Save $30-60/month):</strong></p>
+<ul>
+<li>Seal air leaks around windows and doors</li>
+<li>Add weather stripping and door sweeps</li>
+<li>Use window insulation film</li>
+<li>Close fireplace damper when not in use</li>
+</ul>
+<p><strong>Smart Heating (Save $25-50/month):</strong></p>
+<ul>
+<li>Use space heaters only in occupied rooms</li>
+<li>Close vents in unused rooms</li>
+<li>Reverse ceiling fan direction (clockwise pushes warm air down)</li>
+<li>Keep curtains open during sunny days, closed at night</li>
+</ul>
+<div class="cta-box">
+<h3>Switch to Winter-Ready Rates</h3>
+<p>Lock in low fixed rates before winter demand spikes prices.</p>
+<a href="/compare-rates" class="cta-button">Compare Winter Rates</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>Combining thermostat management (saves $40-80/month), home sealing ($30-60/month), and smart heating strategies ($25-50/month) cuts winter bills $95-190/month without suffering in the cold.</p>`
+  },
+
+  86: {
+    title: "Electricity Provider vs Utility Company: What's the Difference?",
+    metaTitle: "Electricity Provider vs Utility: What's the Difference? | Deregulation Explained | Power Scouts",
+    metaDescription: "Understand the difference between electricity providers (REPs) and utility companies (TDUs). How deregulation separates supply from delivery.",
+    tags: ["Provider vs Utility", "REP vs TDU", "Electricity Deregulation", "Supply vs Delivery", "Market Structure"],
+    content: `<h2>The Two Parts of Your Electricity Service</h2>
+<p>In deregulated markets, your electricity service is split between two separate companies:</p>
+<p><strong>1. Electricity Provider (REP - Retail Electric Provider):</strong><br>
+Generates or purchases your electricity, sets your rate, sends you bills, handles customer service. <strong>YOU CHOOSE THIS COMPANY.</strong></p>
+<p><strong>2. Utility Company (TDU - Transmission & Distribution Utility):</strong><br>
+Owns and maintains power lines, poles, meters. Delivers electricity to your home regardless of your provider. <strong>YOU CANNOT CHOOSE THIS - IT'S BASED ON YOUR ADDRESS.</strong></p>
+<h2>Real Example: Texas</h2>
+<p>Maria lives in Houston. Her address is in <strong>CenterPoint Energy territory</strong> (the TDU/utility). She can choose from 40+ electricity providers like TXU Energy, Reliant, or Gexa (REPs) for her supply and billing.</p>
+<p>When Maria switches from TXU to Gexa:</p>
+<ul>
+<li>✓ Her electricity provider changes (now billed by Gexa)</li>
+<li>✓ Her rate changes (from 12.5¢ to 9.1¢/kWh)</li>
+<li>✗ Her utility stays the same (still CenterPoint lines/service)</li>
+<li>✗ Power never goes out during the switch</li>
+</ul>
+<h2>Common Names by State</h2>
+<p><strong>Texas Utilities (TDUs):</strong> Oncor, CenterPoint, AEP Texas, TNMP<br>
+<strong>Pennsylvania Utilities:</strong> PECO, Duquesne Light, PPL, Met-Ed<br>
+<strong>New York Utilities:</strong> Con Edison, National Grid, RG&E<br>
+<strong>Ohio Utilities:</strong> FirstEnergy, AEP Ohio, Duke Energy Ohio</p>
+<div class="cta-box">
+<h3>Choose Your Provider, Not Your Utility</h3>
+<p>Compare electricity providers serving your utility territory.</p>
+<a href="/compare-rates" class="cta-button">Compare Providers</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>You choose your electricity provider (who bills you), not your utility (who delivers power). The utility never changes when you switch - same wires, same reliability, just better rates.</p>`
+  },
+
+  87: {
+    title: "12-Month vs 24-Month Electricity Plans: Which Contract Length Saves More?",
+    metaTitle: "12-Month vs 24-Month Electricity: Best Contract Length Analysis | Power Scouts",
+    metaDescription: "Compare 12-month and 24-month electricity contract terms. Real data reveals which length offers best rates, flexibility, and total savings.",
+    tags: ["12 Month Plans", "24 Month Contracts", "Contract Length", "Best Term Length", "Electricity Contract"],
+    content: `<h2>The Contract Length Decision</h2>
+<p>Electricity providers offer contracts from 3 months to 36 months. The sweet spot for most consumers is 12 or 24 months. Here's the data.</p>
+<h2>12-Month Plans: Pros & Cons</h2>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Opportunity to shop again next year for even better rates</li>
+<li>Lower early termination fees ($100-150 vs $200-300)</li>
+<li>Often the absolute lowest advertised rates (9.1-9.5¢/kWh typical)</li>
+<li>Best rate-flexibility balance</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Must shop again in 12 months (takes 20 minutes)</li>
+<li>Risk of higher rates at renewal if market changes</li>
+</ul>
+<h2>24-Month Plans: Pros & Cons</h2>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Set-it-and-forget-it for 2 years</li>
+<li>Long-term price protection</li>
+<li>No need to shop again for 24 months</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Rates typically 0.3-0.8¢/kWh higher than 12-month</li>
+<li>Higher early termination fees if you move</li>
+<li>Locked in even if market rates drop significantly</li>
+</ul>
+<h2>Real Cost Comparison (1,000 kWh/month usage)</h2>
+<p><strong>12-Month Plan at 9.2¢/kWh:</strong><br>
+Annual cost: $1,104<br>
+2-year total (assuming re-shop at same rate): $2,208</p>
+<p><strong>24-Month Plan at 9.7¢/kWh:</strong><br>
+2-year total: $2,328<br>
+<strong>Extra cost for convenience: $120 over 2 years</strong></p>
+<div class="cta-box">
+<h3>Compare Both Term Lengths</h3>
+<p>See current 12-month and 24-month rates in your area.</p>
+<a href="/compare-rates" class="cta-button">Compare Contract Terms</a>
+</div>
+<h2>The Bottom Line</h2>
+<p>12-month plans offer the best rates and flexibility for 73% of customers. Choose 24-month only if you hate shopping and value convenience over $5-10/month in extra costs.</p>`
+  },
+
+  88: {
+    title: "Electricity Deposit Requirements: No Deposit Plans & Alternatives",
+    metaTitle: "Electricity Deposit Requirements: No Deposit Plans & How to Avoid | Power Scouts",
+    metaDescription: "Complete guide to electricity deposits: how much, when required, no-deposit providers, and refund info. Find plans with $0 deposit.",
+    tags: ["Electricity Deposit", "No Deposit Plans", "No Credit Check", "Deposit Requirements", "Bad Credit Electricity"],
+    content: `<h2>When Do You Need an Electricity Deposit?</h2>
+<p>Electricity providers check your credit score and payment history to determine deposit requirements:</p>
+<p><strong>No Deposit (Good Credit - 680+):</strong> Most providers waive deposits<br>
+<strong>$100-250 Deposit (Fair Credit - 600-679):</strong> Moderate risk category<br>
+<strong>$250-500 Deposit (Poor Credit - Below 600):</strong> Higher risk, larger deposits</p>
+<h2>How to Avoid Electricity Deposits</h2>
+<p><strong>Method 1: Choose No-Deposit Providers</strong><br>
+25+ providers offer $0 deposit plans even with poor credit:</p>
+<ul>
+<li>Pulse Power (Texas)</li>
+<li>Payless Power (Prepaid - Texas)</li>
+<li>TriEagle Energy (Texas)</li>
+<li>4Change Energy (Texas)</li>
+<li>Frontier Utilities (Texas)</li>
+</ul>
+<p><strong>Method 2: Choose Prepaid Electricity</strong><br>
+Prepaid plans NEVER require deposits because you pay before using power.</p>
+<p><strong>Method 3: Provide Previous Account History</strong><br>
+Show 12 months of on-time electricity payments to previous provider.</p>
+<p><strong>Method 4: Get a Letter of Guarantee</strong><br>
+Someone with good credit co-signs your electricity account.</p>
+<div class="cta-box">
+<h3>Find No-Deposit Plans</h3>
+<p>Compare electricity providers offering $0 deposit plans in your area.</p>
+<a href="/compare-rates" class="cta-button">See No-Deposit Options</a>
+</div>
+<h2>When Do You Get Your Deposit Back?</h2>
+<p>Deposits are typically refunded after:</p>
+<ul>
+<li>12 months of on-time payments (credited to your bill or check)</li>
+<li>When you close your account in good standing</li>
+<li>Some providers pay interest on deposits (1-3% annually)</li>
+</ul>
+<h2>The Bottom Line</h2>
+<p>Deposits range $0-500 based on credit. Over 25 providers offer no-deposit options, and prepaid electricity NEVER requires deposits. Shop specifically for "no deposit" plans if upfront costs are a barrier.</p>`
+  }
+};
+
 export const getFullArticle = (articleId) => {
   return fullArticles[articleId] || null;
 };
