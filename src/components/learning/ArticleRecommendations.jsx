@@ -159,21 +159,44 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
   };
 
   const fallbackToStaticRecommendations = () => {
-    // Fallback: Use static related articles or similar category articles
-    const relatedIds = currentArticle.relatedArticles || [];
-    let recommended = relatedIds
-      .map(id => allArticles.find(a => a.id === id))
-      .filter(a => a !== undefined);
-
-    // If not enough, add same category articles
-    if (recommended.length < 3) {
-      const sameCategoryArticles = allArticles
-        .filter(a => a.id !== currentArticle.id && a.category === currentArticle.category)
-        .slice(0, 6 - recommended.length);
-      recommended = [...recommended, ...sameCategoryArticles];
-    }
-
-    // If still not enough, add popular articles
+    // Dynamic tag-based recommendations instead of hardcoded relatedArticles
+    const currentTags = currentArticle.keywords || [];
+    const currentCategory = currentArticle.category;
+    
+    // Score articles by relevance
+    const scoredArticles = allArticles
+      .filter(a => a.id !== currentArticle.id)
+      .map(article => {
+        let score = 0;
+        
+        // Tag matching (highest weight)
+        const articleTags = article.keywords || [];
+        const matchingTags = currentTags.filter(tag => 
+          articleTags.some(aTag => 
+            aTag.toLowerCase().includes(tag.toLowerCase()) || 
+            tag.toLowerCase().includes(aTag.toLowerCase())
+          )
+        );
+        score += matchingTags.length * 10;
+        
+        // Same category (medium weight)
+        if (article.category === currentCategory) {
+          score += 5;
+        }
+        
+        // Popularity bonus (low weight)
+        const views = JSON.parse(localStorage.getItem('articleViews') || '{}');
+        score += Math.min((views[article.id] || 0) * 0.5, 3);
+        
+        return { article, score };
+      })
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score);
+    
+    // Get top 6 by relevance score
+    let recommended = scoredArticles.slice(0, 6).map(item => item.article);
+    
+    // If not enough tag/category matches, add popular articles
     if (recommended.length < 3) {
       const popularIds = getPopularArticles(allArticles, 6);
       const popularArticles = popularIds
@@ -181,10 +204,12 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
         .filter(a => a && a.id !== currentArticle.id && !recommended.find(r => r.id === a.id))
         .slice(0, 6 - recommended.length);
       recommended = [...recommended, ...popularArticles];
+      setRecommendationType('popular');
+    } else {
+      setRecommendationType('smart');
     }
 
     setRecommendations(recommended.slice(0, 6));
-    setRecommendationType('static');
   };
 
   const getRecommendationBadge = () => {
@@ -193,6 +218,13 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
         <div className="flex items-center gap-2 text-purple-600 bg-purple-50 px-3 py-1.5 rounded-full text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
           AI-Powered Recommendations
+        </div>
+      );
+    } else if (recommendationType === 'smart') {
+      return (
+        <div className="flex items-center gap-2 text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full text-xs font-semibold">
+          <Sparkles className="w-3.5 h-3.5" />
+          Smart Recommendations
         </div>
       );
     } else if (recommendationType === 'history') {
