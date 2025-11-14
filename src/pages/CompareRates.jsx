@@ -207,7 +207,7 @@ export default function CompareRates() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
         {/* Header with Success Message */}
-        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-8 sm:py-10 lg:py-12">
+        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6 sm:py-8 lg:py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-3">
               <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-green-400 flex-shrink-0" />
@@ -609,9 +609,9 @@ export default function CompareRates() {
   // Step 1: ZIP Code
   if (step === 1) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
         <div className="max-w-md w-full">
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">Enter Your ZIP Code</h1>
             <p className="text-sm text-gray-600 px-4">We'll find the best electricity rates in your area</p>
           </div>
@@ -660,9 +660,9 @@ export default function CompareRates() {
     ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
         <div className="max-w-2xl w-full">
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">What Type of Property?</h1>
             <p className="text-sm text-gray-600 px-4">This helps us show you the most relevant plans</p>
           </div>
@@ -711,9 +711,9 @@ export default function CompareRates() {
     ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
         <div className="max-w-2xl w-full">
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">What Are You Looking For?</h1>
             <p className="text-sm text-gray-600 px-4">Select all that apply (or skip to see all plans)</p>
           </div>
