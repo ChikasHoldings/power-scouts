@@ -71,7 +71,7 @@ export default function AboutSection() {
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#FF6B35] rounded-full flex-shrink-0 mt-2"></div>
                 <div className="flex-1">
-                  <span className="text-base sm:text-lg font-bold text-gray-900">125+</span>
+                  <span className="text-base sm:text-lg font-bold text-gray-900">5+</span>
                   <span className="text-sm sm:text-base text-gray-600 ml-2">Years of combined energy industry expertise</span>
                 </div>
               </div>
