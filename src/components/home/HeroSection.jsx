@@ -35,7 +35,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
 
             {/* Enhanced ZIP Code Input */}
             <div className="bg-white rounded-2xl shadow-xl border-2 border-gray-200 p-1.5 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
-              <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-2.5">
+              <div className="flex flex-col sm:flex-row items-stretch gap-4 sm:gap-2.5">
                 <div className="flex-1 flex items-center gap-3 px-5 py-3 bg-gray-50 rounded-xl">
                   <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF6B35] flex-shrink-0" />
                   <Input
