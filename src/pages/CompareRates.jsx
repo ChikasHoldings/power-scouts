@@ -688,9 +688,6 @@ export default function CompareRates() {
           <div className="grid sm:grid-cols-3 gap-4 mt-8">
             <Card className="border-2 bg-white hover:shadow-lg transition-shadow">
               <CardContent className="p-5 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <TrendingDown className="w-6 h-6 text-white" />
-                </div>
                 <h3 className="font-bold text-gray-900 mb-2">Save Up to $800/Year</h3>
                 <p className="text-xs text-gray-600">Average household savings by comparing electricity rates annually</p>
               </CardContent>
@@ -698,9 +695,6 @@ export default function CompareRates() {
 
             <Card className="border-2 bg-white hover:shadow-lg transition-shadow">
               <CardContent className="p-5 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
                 <h3 className="font-bold text-gray-900 mb-2">40+ Providers</h3>
                 <p className="text-xs text-gray-600">Compare rates from verified electricity companies in your area</p>
               </CardContent>
@@ -708,9 +702,6 @@ export default function CompareRates() {
 
             <Card className="border-2 bg-white hover:shadow-lg transition-shadow">
               <CardContent className="p-5 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Clock className="w-6 h-6 text-white" />
-                </div>
                 <h3 className="font-bold text-gray-900 mb-2">2 Minute Process</h3>
                 <p className="text-xs text-gray-600">Quick and easy comparison - no credit card or commitment needed</p>
               </CardContent>
