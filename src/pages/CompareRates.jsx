@@ -639,7 +639,7 @@ export default function CompareRates() {
 
           <Card className="shadow-2xl border-2 max-w-lg mx-auto mb-6">
             <CardContent className="p-8">
-              <div className="mb-6">
+              <div className="mb-7">
                 <Input
                   type="text"
                   placeholder="Enter ZIP Code"
@@ -650,7 +650,7 @@ export default function CompareRates() {
                   }}
                   maxLength={5}
                   inputMode="numeric"
-                  className="h-16 text-center text-2xl font-bold tracking-widest border-2 focus:border-[#0A5C8C] rounded-xl"
+                  className="h-16 text-center text-3xl font-bold tracking-widest border-2 focus:border-[#0A5C8C] rounded-xl"
                   onKeyPress={(e) => e.key === 'Enter' && handleZipSubmit()}
                 />
                 {zipError && (
