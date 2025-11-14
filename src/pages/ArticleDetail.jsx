@@ -12,8 +12,9 @@ import { getFullArticle } from "../components/learning/fullArticles";
 import ArticleRecommendations from "../components/learning/ArticleRecommendations";
 import ReadingAnalytics, { trackDailyReading } from "../components/learning/ReadingAnalytics";
 
-// Complete articles data - all 22 articles
+// Complete articles data - all 71 articles
 const articles = [
+  // Getting Started
   {
     id: 1,
     category: "Getting Started",
@@ -25,7 +26,7 @@ const articles = [
     excerpt: "Discover how choosing your electricity provider can save you $500-800 per year in competitive energy markets across 12 states.",
     readTime: "8 min",
     keywords: ["deregulated electricity", "energy deregulation", "choose electricity provider"],
-    relatedArticles: [2, 3, 11]
+    relatedArticles: [2, 3, 5]
   },
   {
     id: 2,
@@ -51,7 +52,7 @@ const articles = [
     excerpt: "See actual bills from families who chose fixed vs variable rates and discover which option is right for you.",
     readTime: "12 min",
     keywords: ["fixed rate electricity", "variable rate electricity", "best electricity plan type"],
-    relatedArticles: [1, 2, 11]
+    relatedArticles: [1, 2, 7]
   },
   {
     id: 4,
@@ -64,7 +65,46 @@ const articles = [
     excerpt: "Thousands of families power their homes with 100% renewable energy without paying extra. Here's how you can too.",
     readTime: "7 min",
     keywords: ["renewable energy plans", "green electricity", "100% renewable energy"],
+    relatedArticles: [1, 2, 8]
+  },
+  {
+    id: 5,
+    category: "Business Energy",
+    icon: Building2,
+    color: "blue",
+    title: "Business Electricity Rates: Complete Commercial Power Guide 2024",
+    description: "Compare business electricity rates and save thousands on commercial power bills. Expert guide for small business and enterprise.",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+    excerpt: "Small businesses save $2,000-10,000 annually by shopping commercial electricity rates. Here's your complete guide.",
+    readTime: "11 min",
+    keywords: ["business electricity rates", "commercial power", "small business energy"],
     relatedArticles: [1, 2, 11]
+  },
+  {
+    id: 6,
+    category: "Consumer Protection",
+    icon: Shield,
+    color: "purple",
+    title: "How to Avoid Electricity Scams and Find Legitimate Providers",
+    description: "Identify electricity scams, door-to-door fraud, and fake providers. Learn to verify legitimate licensed companies.",
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
+    excerpt: "Door-to-door electricity scams cost consumers millions annually. Learn the red flags and protect yourself.",
+    readTime: "9 min",
+    keywords: ["electricity scams", "provider fraud", "door-to-door sales", "legitimate providers"],
+    relatedArticles: [1, 10, 2]
+  },
+  {
+    id: 7,
+    category: "Money Saving",
+    icon: TrendingDown,
+    color: "green",
+    title: "Contract Renewal Strategy: Save $300+ Every Year",
+    description: "Master electricity contract renewal timing. Learn when to shop, avoid auto-renewal penalties, and negotiate better rates.",
+    image: "https://images.unsplash.com/photo-1554224311-85f1eb488f7f?w=1200&q=80",
+    excerpt: "Most people overpay $300-800 yearly by letting contracts auto-renew. Here's how to avoid this expensive mistake.",
+    readTime: "10 min",
+    keywords: ["contract renewal", "auto-renewal", "electricity contracts", "renewal strategy"],
+    relatedArticles: [2, 3, 10]
   },
   {
     id: 8,
@@ -77,7 +117,7 @@ const articles = [
     excerpt: "These 10 strategies helped families cut summer electricity bills by 30-40% while staying comfortable.",
     readTime: "8 min",
     keywords: ["summer electricity savings", "lower AC costs", "reduce summer bills"],
-    relatedArticles: [2, 3, 11]
+    relatedArticles: [2, 3, 5]
   },
   {
     id: 9,
@@ -105,7 +145,7 @@ const articles = [
     keywords: ["switch electricity provider", "change power company", "electricity provider switch"],
     relatedArticles: [1, 2, 3]
   },
-  // STATE-SPECIFIC ARTICLES
+  // STATE GUIDES
   {
     id: 11,
     category: "State Guides",
@@ -261,6 +301,46 @@ const articles = [
     readTime: "7 min",
     keywords: ["Rhode Island electricity", "RI power", "National Grid RI"],
     relatedArticles: [1, 2, 11]
+  },
+  // MAJOR CITY GUIDES
+  {
+    id: 23,
+    category: "City Guides",
+    icon: Building2,
+    color: "orange",
+    title: "Houston Electricity Rates 2024: Complete Guide for Harris County",
+    description: "Compare Houston electricity from 45+ providers serving Harris County, Katy, Pearland, The Woodlands. Save $800+ yearly.",
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=1200&q=80",
+    excerpt: "Houston's massive competitive market gives 2.3M residents unmatched power to save. Find the cheapest rates.",
+    readTime: "12 min",
+    keywords: ["Houston electricity", "Harris County power", "Katy electricity", "Pearland power", "The Woodlands energy"],
+    relatedArticles: [11, 24, 2]
+  },
+  {
+    id: 24,
+    category: "City Guides",
+    icon: Building2,
+    color: "blue",
+    title: "Dallas Electricity Rates 2024: DFW Metroplex Shopping Guide",
+    description: "Compare Dallas-Fort Worth electricity from 40+ providers. Serving Dallas, Plano, Irving, Garland, Frisco. Save $700+ yearly.",
+    image: "https://images.unsplash.com/photo-1552083974-186346191183?w=1200&q=80",
+    excerpt: "DFW's 7.5M residents have access to 40+ competitive providers. Master the DFW electricity market.",
+    readTime: "11 min",
+    keywords: ["Dallas electricity", "DFW power rates", "Plano electricity", "Irving energy", "Frisco power", "Fort Worth electricity"],
+    relatedArticles: [11, 23, 2]
+  },
+  {
+    id: 25,
+    category: "City Guides",
+    icon: Building2,
+    color: "purple",
+    title: "Philadelphia Electricity Rates 2024: Complete Philly Metro Guide",
+    description: "Compare Philadelphia electricity from 25+ PECO suppliers. Serving Philly, Chester, Delaware, Montgomery counties. Save $500+ yearly.",
+    image: "https://images.unsplash.com/photo-1548913891-2f6c0feeae98?w=1200&q=80",
+    excerpt: "Philadelphia's competitive market with PA PUC oversight offers safe, effective savings for 1.5M households.",
+    readTime: "11 min",
+    keywords: ["Philadelphia electricity", "Philly power rates", "PECO suppliers", "PA electricity", "Philadelphia energy"],
+    relatedArticles: [12, 2, 1]
   }
 ];
 
