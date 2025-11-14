@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Home, Building2, Zap, Leaf, Clock, CheckCircle, Filter } from "lucide-react";
+import { MapPin, Home, Building2, Zap, Leaf, Clock, CheckCircle, Filter, ArrowRight, Star, Award, TrendingDown } from "lucide-react";
 import { validateZipCode } from "../components/compare/stateData";
 import { 
   getProvidersForZipCode, 
@@ -50,11 +52,11 @@ export default function CompareRates() {
       if (validation.valid) {
         setZipCode(zipFromUrl);
         localStorage.setItem('compareRatesZip', zipFromUrl);
-        setStep(2); // Skip to step 2
+        setStep(2);
       }
     } else if (savedZip && savedZip.length === 5) {
       setZipCode(savedZip);
-      setStep(2); // Skip to step 2
+      setStep(2);
     }
   }, []);
 
@@ -78,7 +80,6 @@ export default function CompareRates() {
       return;
     }
 
-    // Get city and available providers for this ZIP
     const city = getCityFromZip(zipCode);
     const providers = getProvidersForZipCode(zipCode);
     
@@ -95,8 +96,6 @@ export default function CompareRates() {
 
   const handlePreferencesSubmit = () => {
     setIsLoading(true);
-    
-    // Simulate loading
     setTimeout(() => {
       setIsLoading(false);
       setShowResults(true);
@@ -107,16 +106,10 @@ export default function CompareRates() {
     setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  // Filter plans based on ZIP code availability and preferences
-  // CRITICAL: Only show plans from providers that actually serve this ZIP
   const filteredPlans = plans.filter(plan => {
-    // First check if provider serves this ZIP code
-    // This ensures 100% accuracy - no cross-market contamination
     if (zipCode && !providerServesZip(plan.provider_name, zipCode)) {
       return false;
     }
-    
-    // Then apply user preference filters
     if (preferences.fixedRate && plan.plan_type !== 'fixed') return false;
     if (preferences.variableRate && plan.plan_type !== 'variable') return false;
     if (preferences.renewable && (!plan.renewable_percentage || plan.renewable_percentage < 50)) return false;
@@ -124,29 +117,24 @@ export default function CompareRates() {
     return true;
   });
 
-  // Get top 3 recommended plans (lowest rates)
   const sortedPlans = [...filteredPlans].sort((a, b) => a.rate_per_kwh - b.rate_per_kwh);
   const topPlans = sortedPlans.slice(0, 3);
   const otherPlans = sortedPlans.slice(3);
 
-  // Use centralized bill calculation for consistency
   const calculateBill = (plan) => {
     return calculateMonthlyBill(plan, 1000);
   };
 
-  // Get provider logo from provider details
   const getProviderLogo = (providerName) => {
     const provider = getProviderDetails(providerName);
     return provider ? provider.logo : null;
   };
 
-  // Get provider website
   const getProviderWebsite = (providerName) => {
     const provider = getProviderDetails(providerName);
     return provider ? provider.website : "#";
   };
 
-  // Apply filters to other plans
   const getFilteredOtherPlans = () => {
     let filtered = [...otherPlans];
 
@@ -181,7 +169,6 @@ export default function CompareRates() {
     return filtered;
   };
 
-  // Get unique providers for filter (only those available in this ZIP)
   const uniqueProviders = zipCode 
     ? availableProviders.map(p => p.name).sort()
     : [...new Set(plans.map(p => p.provider_name))].sort();
@@ -189,14 +176,15 @@ export default function CompareRates() {
   // Loading Animation
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-5 sm:mb-6">
-            <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
+          <div className="relative w-24 h-24 mx-auto mb-6">
+            <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
             <div className="absolute inset-0 border-4 border-[#0A5C8C] rounded-full border-t-transparent animate-spin"></div>
+            <Zap className="absolute inset-0 m-auto w-10 h-10 text-[#FF6B35]" />
           </div>
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 px-4">Finding Your Best Rates</h2>
-          <p className="text-sm text-gray-600 px-4">Comparing plans from 40+ providers...</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Finding Your Best Rates</h2>
+          <p className="text-gray-600">Comparing plans from {availableProviders.length} verified providers...</p>
         </div>
       </div>
     );
@@ -205,109 +193,97 @@ export default function CompareRates() {
   // Results Page
   if (showResults) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-        {/* Header with Success Message */}
-        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6 sm:py-8 lg:py-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-green-400 flex-shrink-0" />
-              <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">We Found Your Best Deals!</h1>
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        {/* Compact Header */}
+        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Award className="w-6 h-6 text-yellow-400" />
+              <h1 className="text-2xl sm:text-3xl font-bold">Your Personalized Rate Comparison</h1>
             </div>
-            <p className="text-sm sm:text-base lg:text-lg text-blue-100 mb-2 px-4">
-              Comparing {filteredPlans.length} available plans from {availableProviders.length} verified providers in {cityName}
-            </p>
-            <p className="text-xs sm:text-sm text-blue-200 px-4">
-              ZIP Code: {zipCode} • {cityName} • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)} • Based on 1,000 kWh usage
-            </p>
-            <p className="text-xs text-blue-300 mt-2 px-4">
-              ✓ Showing only providers confirmed to serve your ZIP code
+            <p className="text-center text-sm text-blue-100">
+              {filteredPlans.length} plans available in {cityName} (ZIP: {zipCode}) • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)}
             </p>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-12">
-          {/* Top 3 Recommended Plans - Sleek Cards */}
-          <div className="mb-10 sm:mb-12">
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
-              <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg sm:rounded-xl flex-shrink-0">
-                <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">Best Deals for You</h2>
-                <p className="text-xs sm:text-sm text-gray-600">Lowest rates available in your area</p>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Top 3 Recommended Plans */}
+          <div className="mb-12">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
+                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+                Top 3 Recommended Plans
+              </h2>
+              <p className="text-gray-600">Best rates for your area based on 1,000 kWh usage</p>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+            <div className="grid md:grid-cols-3 gap-4">
               {topPlans.map((plan, index) => (
-                <Card key={plan.id} className="relative overflow-hidden border-2 border-orange-200 hover:border-orange-400 transition-all hover:shadow-xl group">
-                  {/* Best Deal Badge */}
-                  <div className="absolute top-0 right-0">
-                    <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2b] text-white text-xs font-bold px-3 py-1.5 rounded-bl-lg shadow-md">
-                      #{index + 1} BEST
+                <Card key={plan.id} className="relative overflow-hidden border-2 hover:border-[#FF6B35] transition-all hover:shadow-2xl group">
+                  {/* Rank Badge */}
+                  <div className="absolute top-0 right-0 z-10">
+                    <div className={`text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl shadow-lg ${
+                      index === 0 ? 'bg-gradient-to-r from-yellow-500 to-yellow-600' :
+                      index === 1 ? 'bg-gradient-to-r from-gray-400 to-gray-500' :
+                      'bg-gradient-to-r from-orange-600 to-orange-700'
+                    }`}>
+                      {index === 0 ? '🥇 BEST' : index === 1 ? '🥈 2ND' : '🥉 3RD'}
                     </div>
                   </div>
                   
-                  {/* Accent Border */}
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-[#FF6B35] to-[#e55a2b]"></div>
-                  
-                  <CardContent className="p-4 pl-6">
-                    {/* Provider Logo */}
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="h-10 flex items-center">
+                  <CardContent className="p-6">
+                    {/* Provider Info */}
+                    <div className="mb-4">
+                      <div className="h-12 flex items-center justify-center mb-3">
                         {getProviderLogo(plan.provider_name) ? (
                           <img 
                             src={getProviderLogo(plan.provider_name)} 
                             alt={plan.provider_name}
-                            className="h-8 w-auto object-contain"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.nextSibling.style.display = 'flex';
-                            }}
+                            className="h-10 w-auto object-contain"
                           />
-                        ) : null}
-                        <div className={`w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
-                          <span className="text-xs font-bold text-white">
-                            {plan.provider_name.substring(0, 3).toUpperCase()}
-                          </span>
-                        </div>
+                        ) : (
+                          <div className="w-full h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                            <span className="text-sm font-bold text-white">{plan.provider_name}</span>
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-600 text-center line-clamp-1">{plan.plan_name}</p>
+                    </div>
+                    
+                    {/* Rate Display */}
+                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-4 mb-4 text-center border-2 border-blue-100">
+                      <div className="text-4xl font-bold text-[#0A5C8C] mb-1">{plan.rate_per_kwh}¢</div>
+                      <div className="text-xs text-gray-500 uppercase tracking-wide">per kWh</div>
+                    </div>
+                    
+                    {/* Details */}
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-600">Est. Monthly:</span>
+                        <span className="font-bold text-gray-900">${calculateBill(plan)}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-600">Contract:</span>
+                        <span className="font-bold text-gray-900">{plan.contract_length || 'Variable'} months</span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-600">Type:</span>
+                        <span className="font-semibold text-gray-900 capitalize">{plan.plan_type}</span>
                       </div>
                       {plan.renewable_percentage >= 50 && (
-                        <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+                        <div className="flex items-center justify-center gap-1 bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold mt-2">
                           <Leaf className="w-3 h-3" />
-                          {plan.renewable_percentage}%
+                          {plan.renewable_percentage}% Renewable
                         </div>
                       )}
                     </div>
-                    
-                    {/* Plan Name */}
-                    <h3 className="font-bold text-gray-900 text-sm mb-1">{plan.provider_name}</h3>
-                    <p className="text-xs text-gray-600 mb-3 line-clamp-1">{plan.plan_name}</p>
-                    
-                    {/* Rate Highlight */}
-                    <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-3 mb-3">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
-                        <div className="text-xs text-gray-500">per kWh</div>
-                      </div>
-                    </div>
-                    
-                    {/* Details Grid */}
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      <div className="text-center p-2 bg-gray-50 rounded">
-                        <div className="text-xs text-gray-600">Est. Monthly</div>
-                        <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
-                      </div>
-                      <div className="text-center p-2 bg-gray-50 rounded">
-                        <div className="text-xs text-gray-600">Contract</div>
-                        <div className="text-base font-bold text-gray-900">{plan.contract_length || 'Var'} mo</div>
-                      </div>
-                    </div>
 
-                    {/* CTA Button */}
+                    {/* CTA */}
                     <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white text-sm font-semibold shadow-md group-hover:shadow-lg transition-all rounded-lg h-9">
-                        Get Plan
+                      <Button className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                        Get This Plan
+                        <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </a>
                   </CardContent>
@@ -316,140 +292,131 @@ export default function CompareRates() {
             </div>
           </div>
 
-          {/* All Other Plans - Table View */}
+          {/* All Other Plans */}
           {otherPlans.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900">More Available Plans</h2>
-                  <p className="text-sm text-gray-600">Additional options in your area</p>
-                </div>
+            <div className="mb-12">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-gray-900 mb-1">More Available Plans</h2>
+                <p className="text-sm text-gray-600">Additional options in your area</p>
               </div>
 
               {/* Filters */}
-              <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Filter className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-semibold text-gray-700">Filter Plans</span>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  <Select value={filterRate} onValueChange={setFilterRate}>
-                    <SelectTrigger className="text-sm h-9">
-                      <SelectValue placeholder="Rate" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Rates</SelectItem>
-                      <SelectItem value="low">Low (&lt;10¢)</SelectItem>
-                      <SelectItem value="medium">Medium (10-12¢)</SelectItem>
-                      <SelectItem value="high">High (&gt;12¢)</SelectItem>
-                    </SelectContent>
-                  </Select>
+              <Card className="mb-6 border-2">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Filter className="w-4 h-4 text-[#0A5C8C]" />
+                    <span className="text-sm font-bold text-gray-900">Filter Plans</span>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <Select value={filterRate} onValueChange={setFilterRate}>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Rate" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Rates</SelectItem>
+                        <SelectItem value="low">Low (&lt;10¢)</SelectItem>
+                        <SelectItem value="medium">Medium (10-12¢)</SelectItem>
+                        <SelectItem value="high">High (&gt;12¢)</SelectItem>
+                      </SelectContent>
+                    </Select>
 
-                  <Select value={filterTerm} onValueChange={setFilterTerm}>
-                    <SelectTrigger className="text-sm h-9">
-                      <SelectValue placeholder="Term" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Terms</SelectItem>
-                      <SelectItem value="short">Short (≤6 mo)</SelectItem>
-                      <SelectItem value="medium">Medium (7-12 mo)</SelectItem>
-                      <SelectItem value="long">Long (&gt;12 mo)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                    <Select value={filterTerm} onValueChange={setFilterTerm}>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Term" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Terms</SelectItem>
+                        <SelectItem value="short">Short (≤6 mo)</SelectItem>
+                        <SelectItem value="medium">Medium (7-12 mo)</SelectItem>
+                        <SelectItem value="long">Long (&gt;12 mo)</SelectItem>
+                      </SelectContent>
+                    </Select>
 
-                  <Select value={filterProvider} onValueChange={setFilterProvider}>
-                    <SelectTrigger className="text-sm h-9">
-                      <SelectValue placeholder="Provider" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Providers</SelectItem>
-                      {uniqueProviders.map(provider => (
-                        <SelectItem key={provider} value={provider}>{provider}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    <Select value={filterProvider} onValueChange={setFilterProvider}>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Provider" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Providers</SelectItem>
+                        {uniqueProviders.map(provider => (
+                          <SelectItem key={provider} value={provider}>{provider}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                  <Select value={filterPlanType} onValueChange={setFilterPlanType}>
-                    <SelectTrigger className="text-sm h-9">
-                      <SelectValue placeholder="Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="fixed">Fixed Rate</SelectItem>
-                      <SelectItem value="variable">Variable Rate</SelectItem>
-                      <SelectItem value="prepaid">Prepaid</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+                    <Select value={filterPlanType} onValueChange={setFilterPlanType}>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Types</SelectItem>
+                        <SelectItem value="fixed">Fixed Rate</SelectItem>
+                        <SelectItem value="variable">Variable Rate</SelectItem>
+                        <SelectItem value="prepaid">Prepaid</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
               
               {/* Desktop Table */}
-              <div className="hidden lg:block bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+              <div className="hidden lg:block bg-white rounded-xl shadow-md border-2 overflow-hidden">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Provider</th>
-                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Rate</th>
-                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Monthly</th>
-                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Term</th>
-                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Type</th>
-                      <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase">Action</th>
+                    <tr className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Provider</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Rate</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Est. Monthly</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Contract</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Type</th>
+                      <th className="px-6 py-4 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {getFilteredOtherPlans().map((plan, index) => (
-                      <tr key={plan.id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} hover:bg-blue-50/30 transition-colors border-b border-gray-100`}>
-                        <td className="px-4 py-3">
+                      <tr key={plan.id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} hover:bg-blue-50 transition-colors border-b border-gray-100`}>
+                        <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="h-8 w-20 flex items-center justify-center">
-                              {getProviderLogo(plan.provider_name) ? (
-                                <img 
-                                  src={getProviderLogo(plan.provider_name)} 
-                                  alt={plan.provider_name}
-                                  className="h-6 w-auto object-contain"
-                                  onError={(e) => {
-                                    e.target.style.display = 'none';
-                                    e.target.nextSibling.style.display = 'flex';
-                                  }}
-                                />
-                              ) : null}
-                              <div className={`w-8 h-8 bg-gradient-to-br from-blue-100 to-green-100 rounded flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
-                                <span className="text-xs font-bold text-[#0A5C8C]">
-                                  {plan.provider_name.substring(0, 2).toUpperCase()}
-                                </span>
+                            {getProviderLogo(plan.provider_name) ? (
+                              <img 
+                                src={getProviderLogo(plan.provider_name)} 
+                                alt={plan.provider_name}
+                                className="h-8 w-auto object-contain"
+                              />
+                            ) : (
+                              <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+                                <span className="text-xs font-bold text-[#0A5C8C]">{plan.provider_name.substring(0, 2)}</span>
                               </div>
-                            </div>
-                            <div className="min-w-0">
-                              <div className="font-semibold text-gray-900 text-sm truncate">{plan.provider_name}</div>
-                              <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
+                            )}
+                            <div>
+                              <div className="font-semibold text-gray-900 text-sm">{plan.provider_name}</div>
+                              <div className="text-xs text-gray-500 truncate max-w-xs">{plan.plan_name}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-center">
-                          <div className="text-lg font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                        <td className="px-6 py-4 text-center">
+                          <div className="text-xl font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         </td>
-                        <td className="px-4 py-3 text-center">
-                          <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
+                        <td className="px-6 py-4 text-center">
+                          <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-6 py-4 text-center">
                           <span className="text-sm font-medium text-gray-900">{plan.contract_length || 'Variable'} mo</span>
                         </td>
-                        <td className="px-4 py-3 text-center">
-                          <div className="flex items-center justify-center gap-1.5">
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 capitalize">
+                        <td className="px-6 py-4 text-center">
+                          <div className="flex items-center justify-center gap-2">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
                               {plan.plan_type}
                             </span>
                             {plan.renewable_percentage >= 50 && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">
-                                <Leaf className="w-3 h-3" />
-                              </span>
+                              <Leaf className="w-4 h-4 text-green-600" />
                             )}
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-6 py-4 text-center">
                           <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer">
-                            <Button size="sm" className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-xs h-8 px-4 rounded-md font-medium">
-                              Get Plan
+                            <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-6 py-2 rounded-lg font-semibold text-sm">
+                              View Plan
                             </Button>
                           </a>
                         </td>
@@ -462,41 +429,32 @@ export default function CompareRates() {
               {/* Mobile Cards */}
               <div className="lg:hidden space-y-3">
                 {getFilteredOtherPlans().map((plan) => (
-                  <Card key={plan.id} className="border hover:border-[#0A5C8C] transition-all">
+                  <Card key={plan.id} className="border-2 hover:border-[#0A5C8C] transition-all">
                     <CardContent className="p-4">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <div className="h-10 w-16 flex items-center justify-center flex-shrink-0">
-                            {getProviderLogo(plan.provider_name) ? (
-                              <img 
-                                src={getProviderLogo(plan.provider_name)} 
-                                alt={plan.provider_name}
-                                className="h-7 w-auto object-contain"
-                                onError={(e) => {
-                                  e.target.style.display = 'none';
-                                  e.target.nextSibling.style.display = 'flex';
-                                }}
-                              />
-                            ) : null}
-                            <div className={`w-10 h-10 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center ${getProviderLogo(plan.provider_name) ? 'hidden' : 'flex'}`}>
-                              <span className="text-xs font-bold text-[#0A5C8C]">
-                                {plan.provider_name.substring(0, 2).toUpperCase()}
-                              </span>
-                            </div>
+                      <div className="flex items-center gap-3 mb-3">
+                        {getProviderLogo(plan.provider_name) ? (
+                          <img 
+                            src={getProviderLogo(plan.provider_name)} 
+                            alt={plan.provider_name}
+                            className="h-8 w-auto object-contain"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
+                            <span className="text-xs font-bold text-[#0A5C8C]">{plan.provider_name.substring(0, 2)}</span>
                           </div>
-                          <div className="min-w-0">
-                            <div className="font-bold text-gray-900 text-sm truncate">{plan.provider_name}</div>
-                            <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
-                          </div>
+                        )}
+                        <div className="flex-1">
+                          <div className="font-bold text-gray-900 text-sm">{plan.provider_name}</div>
+                          <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
                         </div>
                       </div>
                       
                       <div className="flex gap-2 mb-3">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 capitalize">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 capitalize">
                           {plan.plan_type}
                         </span>
                         {plan.renewable_percentage >= 50 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
                             <Leaf className="w-3 h-3 mr-1" />
                             Green
                           </span>
@@ -506,11 +464,11 @@ export default function CompareRates() {
                       <div className="grid grid-cols-3 gap-2 mb-3 bg-gray-50 rounded-lg p-3">
                         <div className="text-center">
                           <div className="text-xs text-gray-600">Rate</div>
-                          <div className="text-base font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                          <div className="text-lg font-bold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
                         </div>
                         <div className="text-center">
                           <div className="text-xs text-gray-600">Monthly</div>
-                          <div className="text-base font-bold text-gray-900">${calculateBill(plan)}</div>
+                          <div className="text-lg font-bold text-gray-900">${calculateBill(plan)}</div>
                         </div>
                         <div className="text-center">
                           <div className="text-xs text-gray-600">Term</div>
@@ -519,8 +477,8 @@ export default function CompareRates() {
                       </div>
 
                       <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
-                        <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm h-9 rounded-md font-medium">
-                          Get Plan
+                        <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold rounded-lg">
+                          View Plan
                         </Button>
                       </a>
                     </CardContent>
@@ -529,77 +487,138 @@ export default function CompareRates() {
               </div>
 
               {getFilteredOtherPlans().length === 0 && (
-                <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
-                  <p className="text-gray-600">No plans match the selected filters.</p>
+                <div className="bg-white rounded-xl border-2 border-gray-200 p-12 text-center">
+                  <p className="text-gray-600 text-lg">No plans match the selected filters.</p>
+                  <p className="text-sm text-gray-500 mt-2">Try adjusting your filter criteria above</p>
                 </div>
               )}
             </div>
           )}
 
           {filteredPlans.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-600 mb-4">No plans match your preferences. Try adjusting your filters.</p>
-              <Button onClick={() => { setShowResults(false); setStep(3); }} variant="outline">
+            <div className="text-center py-16">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">No plans match your preferences</h3>
+              <p className="text-gray-600 mb-6">Try adjusting your preferences to see more options</p>
+              <Button onClick={() => { setShowResults(false); setStep(3); }} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
                 Adjust Preferences
               </Button>
             </div>
           )}
 
-          {/* Informational Content Section */}
-          <div className="mt-16 bg-white rounded-xl shadow-md border border-gray-200 p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Understanding Your Electricity Options</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Why Compare Electricity Rates?</h3>
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  In deregulated electricity markets, you have the power to choose your provider. Competition among 40+ companies means lower rates and better service. The average household saves $500-800 annually just by comparing plans once per year.
-                </p>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Don't let your contract auto-renew at higher rates. Shopping takes 10 minutes and puts hundreds of dollars back in your pocket every year.
-                </p>
+          {/* Educational Content */}
+          <div className="mt-16 space-y-8">
+            {/* Main Info Section */}
+            <Card className="border-2 overflow-hidden">
+              <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white p-6">
+                <h2 className="text-2xl font-bold mb-2">Understanding Your Electricity Options</h2>
+                <p className="text-blue-100 text-sm">Everything you need to know to make the best choice</p>
               </div>
+              <CardContent className="p-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <TrendingDown className="w-5 h-5 text-green-600" />
+                      Why Compare Rates?
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                      In deregulated electricity markets, you have the power to choose your provider. Competition among 40+ companies means lower rates and better service. The average household saves <strong>$500-800 annually</strong> just by comparing plans once per year.
+                    </p>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Don't let your contract auto-renew at higher rates. Shopping takes 10 minutes and puts hundreds of dollars back in your pocket every year.
+                    </p>
+                  </div>
 
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">How to Choose the Right Plan</h3>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Compare Total Cost:</strong> Look at estimated monthly bills at your usage level, not just per-kWh rates</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Match Contract Length:</strong> Choose 12-month plans for best rate-flexibility balance</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Read the Fine Print:</strong> Check early termination fees and auto-renewal terms</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Verify Provider:</strong> Ensure they're licensed with your state's Public Utility Commission</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-blue-600" />
+                      How to Choose the Right Plan
+                    </h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-sm font-semibold text-gray-900">Compare Total Cost:</span>
+                          <p className="text-xs text-gray-600">Look at estimated monthly bills, not just per-kWh rates</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-sm font-semibold text-gray-900">Match Contract Length:</span>
+                          <p className="text-xs text-gray-600">12-month plans offer the best rate-flexibility balance</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-sm font-semibold text-gray-900">Read the Fine Print:</span>
+                          <p className="text-xs text-gray-600">Check early termination fees and auto-renewal terms</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-sm font-semibold text-gray-900">Verify Provider:</span>
+                          <p className="text-xs text-gray-600">Ensure they're licensed with your state's utility commission</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6 border border-blue-100">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Frequently Asked Questions</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 mb-1">Will my power go out when I switch providers?</p>
-                  <p className="text-sm text-gray-600">No. Your local utility still delivers power through the same infrastructure. Only your billing company changes.</p>
+            {/* FAQ Section */}
+            <Card className="border-2 bg-gradient-to-br from-blue-50 to-green-50">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">Frequently Asked Questions</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-white rounded-lg p-5 shadow-sm">
+                    <p className="text-sm font-bold text-gray-900 mb-2">Will my power go out when I switch?</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      No. Your local utility still delivers power through the same infrastructure. Only your billing company changes.
+                    </p>
+                  </div>
+                  <div className="bg-white rounded-lg p-5 shadow-sm">
+                    <p className="text-sm font-bold text-gray-900 mb-2">How long does switching take?</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Enrollment takes 5-10 minutes online. Your new service activates within 1-2 billing cycles (14-45 days).
+                    </p>
+                  </div>
+                  <div className="bg-white rounded-lg p-5 shadow-sm">
+                    <p className="text-sm font-bold text-gray-900 mb-2">Can I switch anytime?</p>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Yes, but you may face early termination fees before contract ends. Wait until expiration for penalty-free switching.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 mb-1">How long does switching take?</p>
-                  <p className="text-sm text-gray-600">Enrollment takes 5-10 minutes online. Your new service activates within 1-2 billing cycles (typically 14-45 days).</p>
+              </CardContent>
+            </Card>
+
+            {/* Learn More CTA */}
+            <Card className="border-2 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white overflow-hidden">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold mb-3">Want to Learn More?</h3>
+                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                  Explore our comprehensive guides on electricity rates, plan types, and money-saving strategies
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <Link to={createPageUrl("LearningCenter")}>
+                    <Button className="bg-white text-[#0A5C8C] hover:bg-gray-100 font-semibold px-6 py-3 rounded-lg">
+                      Learning Center
+                    </Button>
+                  </Link>
+                  <Link to={createPageUrl("FAQ")}>
+                    <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-lg">
+                      View All FAQs
+                    </Button>
+                  </Link>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 mb-1">Can I switch anytime?</p>
-                  <p className="text-sm text-gray-600">You can switch anytime, but may face early termination fees if you cancel before your contract ends. Wait until contract expiration for penalty-free switching.</p>
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
@@ -609,19 +628,24 @@ export default function CompareRates() {
   // Step 1: ZIP Code
   if (step === 1) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">Enter Your ZIP Code</h1>
-            <p className="text-sm text-gray-600 px-4">We'll find the best electricity rates in your area</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center px-4 py-8">
+        <div className="max-w-lg w-full">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] rounded-3xl mb-5 shadow-xl">
+              <MapPin className="w-10 h-10 text-white" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Find Your Best Electricity Rate
+            </h1>
+            <p className="text-gray-600 text-lg">Enter your ZIP code to get started</p>
           </div>
 
-          <Card className="shadow-lg">
-            <CardContent className="p-6">
-              <div className="mb-4">
+          <Card className="shadow-2xl border-2">
+            <CardContent className="p-8">
+              <div className="mb-6">
                 <Input
                   type="text"
-                  placeholder="Enter 5-digit ZIP code"
+                  placeholder="Enter ZIP Code"
                   value={zipCode}
                   onChange={(e) => {
                     setZipCode(e.target.value.replace(/\D/g, ''));
@@ -629,21 +653,37 @@ export default function CompareRates() {
                   }}
                   maxLength={5}
                   inputMode="numeric"
-                  className="h-14 text-center text-lg font-semibold touch-manipulation"
+                  className="h-16 text-center text-2xl font-bold tracking-widest border-2 focus:border-[#0A5C8C] rounded-xl"
                   onKeyPress={(e) => e.key === 'Enter' && handleZipSubmit()}
                 />
                 {zipError && (
-                  <p className="text-xs text-red-600 mt-2 text-center">{zipError}</p>
+                  <p className="text-sm text-red-600 mt-3 text-center font-medium">{zipError}</p>
                 )}
               </div>
 
               <Button 
                 onClick={handleZipSubmit}
-                className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-lg font-semibold touch-manipulation"
+                className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white h-16 text-xl font-bold rounded-xl shadow-lg hover:shadow-2xl transition-all"
                 disabled={zipCode.length !== 5}
               >
-                Continue
+                Compare Rates Now
+                <ArrowRight className="w-6 h-6 ml-2" />
               </Button>
+
+              <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span>100% Free</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span>Instant Results</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span>No Obligation</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -654,35 +694,43 @@ export default function CompareRates() {
   // Step 2: Property Type
   if (step === 2) {
     const propertyTypes = [
-      { value: 'home', label: 'Home', desc: 'Single family house' },
-      { value: 'apartment', label: 'Apartment', desc: 'Apartment or condo' },
-      { value: 'business', label: 'Business', desc: 'Commercial property' }
+      { value: 'home', label: 'Home', icon: Home, desc: 'Single family house', gradient: 'from-blue-500 to-blue-600' },
+      { value: 'apartment', label: 'Apartment', icon: Building2, desc: 'Apartment or condo', gradient: 'from-purple-500 to-purple-600' },
+      { value: 'business', label: 'Business', icon: Building2, desc: 'Commercial property', gradient: 'from-orange-500 to-orange-600' }
     ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
-        <div className="max-w-2xl w-full">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">What Type of Property?</h1>
-            <p className="text-sm text-gray-600 px-4">This helps us show you the most relevant plans</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center px-4 py-8">
+        <div className="max-w-3xl w-full">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Select Your Property Type
+            </h1>
+            <p className="text-gray-600 text-lg">This helps us show you the most relevant plans</p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-4 mb-6">
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
             {propertyTypes.map((type) => (
               <Card
                 key={type.value}
-                className={`cursor-pointer transition-all hover:shadow-lg ${
+                className={`cursor-pointer transition-all hover:shadow-2xl border-2 ${
                   propertyType === type.value 
-                    ? 'border-2 border-[#0A5C8C] bg-blue-50' 
-                    : 'border-2 border-transparent hover:border-gray-300'
+                    ? 'border-[#0A5C8C] shadow-xl scale-105' 
+                    : 'border-gray-200 hover:border-[#0A5C8C]'
                 }`}
                 onClick={() => setPropertyType(type.value)}
               >
-                <CardContent className="p-6 text-center touch-manipulation">
-                  <h3 className="font-bold text-gray-900 mb-1 text-base">{type.label}</h3>
-                  <p className="text-xs text-gray-600 mb-3">{type.desc}</p>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${type.gradient} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
+                    <type.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-lg mb-2">{type.label}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{type.desc}</p>
                   {propertyType === type.value && (
-                    <CheckCircle className="w-5 h-5 text-[#0A5C8C] mx-auto" />
+                    <div className="flex items-center justify-center gap-1 text-[#0A5C8C] font-semibold text-sm">
+                      <CheckCircle className="w-5 h-5" />
+                      Selected
+                    </div>
                   )}
                 </CardContent>
               </Card>
@@ -691,10 +739,11 @@ export default function CompareRates() {
 
           <Button 
             onClick={handlePropertyTypeSubmit}
-            className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-lg font-semibold touch-manipulation"
+            className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white h-16 text-xl font-bold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50"
             disabled={!propertyType}
           >
-            Continue
+            Continue to Preferences
+            <ArrowRight className="w-6 h-6 ml-2" />
           </Button>
         </div>
       </div>
@@ -704,46 +753,51 @@ export default function CompareRates() {
   // Step 3: Plan Preferences
   if (step === 3) {
     const preferenceOptions = [
-      { key: 'fixedRate', label: 'Fixed Rate Plans', desc: 'Locked-in rates for contract term' },
-      { key: 'variableRate', label: 'Variable Rate Plans', desc: 'Rates change monthly' },
-      { key: 'renewable', label: 'Renewable Energy', desc: '50%+ green energy' },
-      { key: 'twelveMonth', label: '12 Month Plans', desc: 'One year contracts' }
+      { key: 'fixedRate', label: 'Fixed Rate Plans', icon: Clock, desc: 'Lock in your rate for contract stability', color: 'blue' },
+      { key: 'variableRate', label: 'Variable Rate Plans', icon: Zap, desc: 'Rates adjust monthly with market conditions', color: 'purple' },
+      { key: 'renewable', label: 'Renewable Energy', icon: Leaf, desc: '50%+ clean wind and solar power', color: 'green' },
+      { key: 'twelveMonth', label: '12 Month Plans', icon: Clock, desc: 'One year contract commitment', color: 'orange' }
     ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center px-4 py-4">
-        <div className="max-w-2xl w-full">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 px-4">What Are You Looking For?</h1>
-            <p className="text-sm text-gray-600 px-4">Select all that apply (or skip to see all plans)</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center px-4 py-8">
+        <div className="max-w-3xl w-full">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              What Matters Most to You?
+            </h1>
+            <p className="text-gray-600 text-lg">Select your preferences or skip to see all plans</p>
           </div>
 
-          <Card className="mb-6 shadow-lg">
-            <CardContent className="p-6">
-              <div className="space-y-3">
+          <Card className="mb-8 shadow-2xl border-2">
+            <CardContent className="p-6 sm:p-8">
+              <div className="grid sm:grid-cols-2 gap-4">
                 {preferenceOptions.map((option) => (
                   <div
                     key={option.key}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all touch-manipulation ${
+                    className={`p-5 rounded-xl border-2 cursor-pointer transition-all ${
                       preferences[option.key]
-                        ? 'border-[#0A5C8C] bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300 active:border-gray-400'
+                        ? 'border-[#0A5C8C] bg-blue-50 shadow-lg'
+                        : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
                     }`}
                     onClick={() => togglePreference(option.key)}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                    <div className="flex items-start gap-3">
+                      <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                         preferences[option.key]
                           ? 'bg-[#0A5C8C] border-[#0A5C8C]'
-                          : 'border-gray-300'
+                          : 'border-gray-300 bg-white'
                       }`}>
                         {preferences[option.key] && (
-                          <CheckCircle className="w-4 h-4 text-white" />
+                          <CheckCircle className="w-5 h-5 text-white" />
                         )}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm text-gray-900">{option.label}</div>
-                        <div className="text-xs text-gray-600">{option.desc}</div>
+                      <div className="flex-1">
+                        <div className="font-bold text-gray-900 mb-1 flex items-center gap-2">
+                          <option.icon className="w-4 h-4" />
+                          {option.label}
+                        </div>
+                        <div className="text-xs text-gray-600 leading-relaxed">{option.desc}</div>
                       </div>
                     </div>
                   </div>
@@ -752,12 +806,22 @@ export default function CompareRates() {
             </CardContent>
           </Card>
 
-          <Button 
-            onClick={handlePreferencesSubmit}
-            className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-lg font-semibold touch-manipulation"
-          >
-            Show My Rates
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              onClick={() => handlePreferencesSubmit()}
+              variant="outline"
+              className="flex-1 h-14 text-lg font-semibold border-2 hover:bg-gray-50"
+            >
+              Skip - Show All
+            </Button>
+            <Button 
+              onClick={handlePreferencesSubmit}
+              className="flex-1 bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white h-14 text-lg font-bold rounded-xl shadow-lg hover:shadow-2xl transition-all"
+            >
+              Find My Plans
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
         </div>
       </div>
     );
