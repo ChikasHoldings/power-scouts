@@ -69,7 +69,7 @@ export default function Layout({ children, currentPageName }) {
             <Link to={createPageUrl("Home")} className="flex items-center">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
-                alt="Power Scouts - Compare Electricity Rates"
+                alt="Power Scouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
                 className="h-12 sm:h-14 lg:h-16"
               />
             </Link>
@@ -229,7 +229,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="flex items-center justify-between p-5 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/100c53ddb_ChatGPTImageNov12202509_09_31PM.png"
-                alt="Power Scouts"
+                alt="Power Scouts - Mobile Menu Logo for Electricity Rate Comparison Service"
                 className="h-14"
               />
               <button
@@ -377,7 +377,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="col-span-2 md:col-span-3 lg:col-span-1">
               <img 
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/f61f9bbae_ChatGPTImageNov12202509_09_31PM.png"
-                alt="Power Scouts - Compare Electricity Rates Nationwide"
+                alt="Power Scouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
                 className="h-12 sm:h-14 mb-4"
               />
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
