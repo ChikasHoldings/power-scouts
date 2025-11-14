@@ -706,5 +706,14 @@ export default function CompareRates() {
     );
   }
 
+  // Step 4: Informational content at bottom of results (after showing results)
+  if (showResults) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+        {/* ... existing results rendering code above ... */}
+      </div>
+    );
+  }
+
   return null;
 }
