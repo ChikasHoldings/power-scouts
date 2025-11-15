@@ -5,18 +5,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, MapPin, CheckCircle, Zap, TrendingDown, ArrowRight } from "lucide-react";
-import { getAllDeregulatedStates } from "../components/compare/stateData";
+import { getAllDeregulatedStates, validateZipCode, getStateByZip } from "../components/compare/stateData";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
 
 export default function AllStates() {
   const [searchTerm, setSearchTerm] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [zipFilter, setZipFilter] = useState("");
+  const [zipValidation, setZipValidation] = useState(null);
   const states = getAllDeregulatedStates();
 
-  const filteredStates = states.filter(state =>
-    state.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    state.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleZipSearch = () => {
+    if (zipFilter.length === 5) {
+      const validation = validateZipCode(zipFilter);
+      setZipValidation(validation);
+    } else if (zipFilter.length === 0) {
+      setZipValidation(null);
+    }
+  };
+
+  const filteredStates = states.filter(state => {
+    // First filter by name search
+    const nameMatch = state.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      state.fullName.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Then filter by ZIP if a valid ZIP validation exists
+    if (zipValidation?.valid && zipValidation?.state) {
+      return nameMatch && state.code === zipValidation.state;
+    }
+    
+    return nameMatch;
+  });
 
   // State capital images map
   const stateImages = {
@@ -59,17 +78,78 @@ export default function AllStates() {
               Compare electricity providers in 12 states where you have the power to choose. Find your state to unlock savings.
             </p>
             
-            {/* Search Bar */}
-            <div className="relative max-w-lg">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Search by state name..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-11 pr-4 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20 touch-manipulation"
-              />
+            {/* Search Bars */}
+            <div className="grid sm:grid-cols-2 gap-3 max-w-2xl">
+              {/* State Name Search */}
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search by state name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-11 pr-4 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20 touch-manipulation"
+                />
+              </div>
+              
+              {/* ZIP Code Search */}
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Or enter ZIP code..."
+                    value={zipFilter}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '');
+                      setZipFilter(value);
+                      if (value.length === 0) {
+                        setZipValidation(null);
+                      }
+                    }}
+                    onKeyPress={(e) => e.key === 'Enter' && handleZipSearch()}
+                    className="pl-11 pr-4 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm rounded-lg focus-visible:ring-2 focus-visible:ring-white/20 touch-manipulation"
+                    maxLength={5}
+                  />
+                </div>
+                <Button
+                  onClick={handleZipSearch}
+                  className="h-11 sm:h-12 px-4 bg-white text-[#0A5C8C] hover:bg-blue-50 font-semibold shadow-lg"
+                  disabled={zipFilter.length !== 5}
+                >
+                  Search
+                </Button>
+              </div>
             </div>
+            
+            {/* ZIP Validation Feedback */}
+            {zipValidation && (
+              <div className={`mt-3 p-3 rounded-lg ${
+                zipValidation.valid 
+                  ? 'bg-green-500/20 border border-green-400' 
+                  : 'bg-red-500/20 border border-red-400'
+              }`}>
+                {zipValidation.valid ? (
+                  <div className="flex items-center gap-2 text-white text-sm">
+                    <CheckCircle className="w-4 h-4" />
+                    <span>Showing electricity options for {zipValidation.stateFullName} (ZIP: {zipFilter})</span>
+                    <button 
+                      onClick={() => {
+                        setZipFilter('');
+                        setZipValidation(null);
+                      }}
+                      className="ml-auto underline hover:no-underline"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 text-white text-sm">
+                    <span>⚠️ {zipValidation.error}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -105,7 +185,11 @@ export default function AllStates() {
             Available Markets
           </h2>
           <p className="text-sm text-gray-600">
-            {filteredStates.length} state{filteredStates.length !== 1 ? 's' : ''} found
+            {zipValidation?.valid ? (
+              <>Showing {filteredStates.length} state for ZIP code {zipFilter}</>
+            ) : (
+              <>{filteredStates.length} state{filteredStates.length !== 1 ? 's' : ''} found</>
+            )}
           </p>
         </div>
 
@@ -204,10 +288,30 @@ export default function AllStates() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-600 mb-4">No states found matching "{searchTerm}"</p>
-            <Button variant="outline" onClick={() => setSearchTerm("")}>
-              Clear Search
-            </Button>
+            <p className="text-gray-600 mb-4">
+              {zipValidation?.valid ? (
+                <>No deregulated markets found for ZIP code "{zipFilter}"</>
+              ) : searchTerm ? (
+                <>No states found matching "{searchTerm}"</>
+              ) : (
+                <>No states found</>
+              )}
+            </p>
+            <div className="flex gap-2 justify-center">
+              {searchTerm && (
+                <Button variant="outline" onClick={() => setSearchTerm("")}>
+                  Clear Name Search
+                </Button>
+              )}
+              {zipValidation && (
+                <Button variant="outline" onClick={() => {
+                  setZipFilter('');
+                  setZipValidation(null);
+                }}>
+                  Clear ZIP Search
+                </Button>
+              )}
+            </div>
           </div>
         )}
       </div>
