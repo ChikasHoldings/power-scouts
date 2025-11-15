@@ -47,7 +47,7 @@ export default function AllStates() {
     'NJ': 'https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?w=800&q=80', // Trenton, NJ State House
     'MD': 'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=800&q=80', // Annapolis, MD State House
     'MA': 'https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=800&q=80', // Boston, MA State House
-    'ME': 'https://images.unsplash.com/photo-1606146127717-b075030d0481?w=800&q=80', // Augusta, ME State House
+    'ME': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/43e4fae9e_019a8321-348a-4c7e-a7e4-078744896b7a.jpg', // Augusta, ME State House
     'NH': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/0ad3806b3_ChatGPTImageNov15202502_45_36PM.png', // Concord, NH State House
     'RI': 'https://images.unsplash.com/photo-1572295727871-7638149ea3d7?w=800&q=80', // Providence, RI State House
     'CT': 'https://images.unsplash.com/photo-1586083702768-190ae093d34d?w=800&q=80'  // Hartford, CT State Capitol
