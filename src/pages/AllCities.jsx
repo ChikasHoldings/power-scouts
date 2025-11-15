@@ -149,7 +149,7 @@ const cities = [
     avgRate: "10.2¢/kWh",
     providers: 32,
     savings: "$680/yr",
-    image: "https://images.unsplash.com/photo-1575489272413-cb506258027e?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/857445e3d_01dc15fd-0434-4dd9-ac68-9123c6a14f33.jpg"
   },
   {
     name: "Pittsburgh",
