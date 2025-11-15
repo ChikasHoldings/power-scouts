@@ -417,7 +417,7 @@ const cities = [
     avgRate: "12.0¢/kWh",
     providers: 15,
     savings: "$520/yr",
-    image: "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/d9b752924_a37c566e-4168-4be1-a823-20bf311f7ed9.jpg"
   },
   {
     name: "Cranston",
