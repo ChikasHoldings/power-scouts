@@ -22,7 +22,7 @@ const articles = [
     color: "blue",
     title: "Understanding Deregulated Electricity Markets: Your Complete Guide",
     description: "Learn how energy deregulation works and how it can save you hundreds on your electricity bills each year.",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1509390144164-4f1c5f9c61b7?w=1200&q=80", // electrical power grid
     excerpt: "Discover how choosing your electricity provider can save you $500-800 per year in competitive energy markets across 12 states.",
     readTime: "8 min",
     keywords: ["deregulated electricity", "energy deregulation", "choose electricity provider"],
@@ -35,7 +35,7 @@ const articles = [
     color: "green",
     title: "How to Compare Electricity Rates and Save $500+ Per Year",
     description: "Master the art of comparing electricity plans with this step-by-step guide used by thousands of smart consumers.",
-    image: "https://images.unsplash.com/photo-1554224311-beee4ece2227?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80", // calculator and bills
     excerpt: "Learn the exact process energy experts use to find the lowest rates and avoid hidden fees that cost you money.",
     readTime: "10 min",
     keywords: ["compare electricity rates", "save money electricity", "electricity shopping guide"],
@@ -48,7 +48,7 @@ const articles = [
     color: "purple",
     title: "Fixed Rate vs Variable Rate: Which Saves You More Money?",
     description: "Real customer examples show you which electricity plan type works best for different situations.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80", // data analytics charts
     excerpt: "See actual bills from families who chose fixed vs variable rates and discover which option is right for you.",
     readTime: "12 min",
     keywords: ["fixed rate electricity", "variable rate electricity", "best electricity plan type"],
@@ -61,7 +61,7 @@ const articles = [
     color: "green",
     title: "Green Energy Plans: Save Money While Saving the Planet",
     description: "How 100% renewable electricity plans work and why they often cost the same as traditional plans.",
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80", // wind turbines green energy
     excerpt: "Thousands of families power their homes with 100% renewable energy without paying extra. Here's how you can too.",
     readTime: "7 min",
     keywords: ["renewable energy plans", "green electricity", "100% renewable energy"],
@@ -74,7 +74,7 @@ const articles = [
     color: "blue",
     title: "Business Electricity Rates: Complete Commercial Power Guide 2024",
     description: "Compare business electricity rates and save thousands on commercial power bills. Expert guide for small business and enterprise.",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80", // office building business
     excerpt: "Small businesses save $2,000-10,000 annually by shopping commercial electricity rates. Here's your complete guide.",
     readTime: "11 min",
     keywords: ["business electricity rates", "commercial power", "small business energy"],
@@ -100,7 +100,7 @@ const articles = [
     color: "green",
     title: "Contract Renewal Strategy: Save $300+ Every Year",
     description: "Master electricity contract renewal timing. Learn when to shop, avoid auto-renewal penalties, and negotiate better rates.",
-    image: "https://images.unsplash.com/photo-1554224311-85f1eb488f7f?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80", // contract signing document
     excerpt: "Most people overpay $300-800 yearly by letting contracts auto-renew. Here's how to avoid this expensive mistake.",
     readTime: "10 min",
     keywords: ["contract renewal", "auto-renewal", "electricity contracts", "renewal strategy"],
@@ -113,7 +113,7 @@ const articles = [
     color: "orange",
     title: "Beat the Heat: Summer Electricity Saving Strategies",
     description: "Proven tactics to lower your electricity bill during hot summer months without sacrificing comfort.",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1552799446-159ba9523315?w=1200&q=80", // summer sun heat
     excerpt: "These 10 strategies helped families cut summer electricity bills by 30-40% while staying comfortable.",
     readTime: "8 min",
     keywords: ["summer electricity savings", "lower AC costs", "reduce summer bills"],
@@ -126,7 +126,7 @@ const articles = [
     color: "teal",
     title: "How to Read Your Electricity Bill and Spot Overcharges",
     description: "Learn to decode your electricity bill and identify hidden fees that cost you money every month.",
-    image: "https://images.unsplash.com/photo-1554224311-beee4ece2227?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80", // utility bill document
     excerpt: "Understanding your bill is the first step to saving money. This guide shows you exactly what to look for.",
     readTime: "7 min",
     keywords: ["read electricity bill", "understand electricity bill", "electricity bill explained"],
@@ -153,7 +153,7 @@ const articles = [
     color: "orange",
     title: "Texas Electricity Rates Guide: Find the Cheapest Plans in 2024",
     description: "Everything Texas residents need to know about finding the lowest electricity rates in Houston, Dallas, Austin, and beyond.",
-    image: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=1200&q=80", // Houston skyline
     excerpt: "Texas has 40+ providers. This guide shows you exactly how to find the cheapest rates and avoid common mistakes.",
     readTime: "12 min",
     keywords: ["Texas electricity rates", "cheapest Texas electricity", "Texas power plans"],
@@ -166,7 +166,7 @@ const articles = [
     color: "blue",
     title: "Pennsylvania Electricity Rates: Complete Guide to PA Power Savings",
     description: "Compare Pennsylvania electricity rates from 25+ providers. Find the cheapest power plans in Philadelphia and Pittsburgh.",
-    image: "https://images.unsplash.com/photo-1590086782792-42dd2350140d?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1548913891-2f6c0feeae98?w=1200&q=80", // Philadelphia skyline
     excerpt: "Pennsylvania consumers save $400-600 yearly by shopping for competitive electricity suppliers. Here's your complete guide.",
     readTime: "11 min",
     keywords: ["Pennsylvania electricity rates", "PA power", "Philadelphia electricity"],
@@ -192,7 +192,7 @@ const articles = [
     color: "green",
     title: "Ohio Electricity Rates: Compare OH Power Plans & Save Money",
     description: "Compare Ohio electricity rates from 20+ suppliers. Find lowest power prices in Cleveland, Columbus, and Cincinnati.",
-    image: "https://images.unsplash.com/photo-1604246851544-2b2d471f671a?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&q=80", // Cleveland skyline
     excerpt: "Ohio's competitive market with PUCO oversight makes shopping safe and profitable. Save $350-550 yearly.",
     readTime: "10 min",
     keywords: ["Ohio electricity", "Cleveland power", "Columbus electricity"],
@@ -244,7 +244,7 @@ const articles = [
     color: "green",
     title: "Massachusetts Electricity Rates: Complete MA Power Guide",
     description: "Compare Massachusetts electricity rates from 12+ suppliers. Find lowest power prices in Boston, Worcester, and Springfield.",
-    image: "https://images.unsplash.com/photo-1572636661577-f6d05cbb7682?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&q=80", // Boston skyline
     excerpt: "Massachusetts offers competitive supplier options with strong DPU oversight. Save $250-400 yearly on electricity.",
     readTime: "8 min",
     keywords: ["Massachusetts electricity", "Boston power", "National Grid MA"],
