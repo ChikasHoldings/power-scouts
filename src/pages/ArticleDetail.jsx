@@ -470,7 +470,7 @@ const articles = [
     color: "green",
     title: "Cleveland Electricity Rates 2024: NEO Power Comparison Guide",
     description: "Compare Cleveland OH electricity from 20+ suppliers. FirstEnergy/CEI territory. Save $400-550 yearly with PUCO certified suppliers.",
-    image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a29bc65bc_0566fb7e-4b0b-46d4-bdc4-04a2189962bf.jpg",
     excerpt: "Cleveland and Cuyahoga County competitive market. 20+ PUCO-certified suppliers serving FirstEnergy territory.",
     readTime: "10 min",
     keywords: ["Cleveland electricity", "FirstEnergy Cleveland", "Cuyahoga County power", "Cleveland CEI rates"],
