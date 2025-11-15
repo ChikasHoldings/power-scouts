@@ -355,7 +355,7 @@ const cities = [
     avgRate: "11.6¢/kWh",
     providers: 16,
     savings: "$560/yr",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/e1656009b_35c3c8a7-86a1-4171-93f9-2a876c9ff35a.jpg"
   },
   {
     name: "Bangor",
