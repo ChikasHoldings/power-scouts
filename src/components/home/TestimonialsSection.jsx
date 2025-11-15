@@ -125,7 +125,32 @@ const allTestimonials = [
   
   // More Connecticut
   { name: "Barbara N.", location: "Bridgeport, CT", rating: 5, text: "I've been saving money every month since I switched. The process was surprisingly easy.", date: "1 week ago", timestamp: 7 },
-  { name: "Charles G.", location: "Stamford, CT", rating: 5, text: "Top-notch service and real savings. I'm telling everyone I know about Power Scouts.", date: "4 days ago", timestamp: 4 }
+  { name: "Charles G.", location: "Stamford, CT", rating: 5, text: "Top-notch service and real savings. I'm telling everyone I know about Power Scouts.", date: "4 days ago", timestamp: 4 },
+  
+  // Additional Recent Reviews
+  { name: "Rebecca T.", location: "Corpus Christi, TX", rating: 5, text: "Just switched yesterday and already feeling confident about my choice. The comparison made it crystal clear which plan was best.", date: "1 day ago", timestamp: 1 },
+  { name: "Marcus D.", location: "Lubbock, TX", rating: 5, text: "After 3 weeks with my new provider, I can confirm the savings are real. My bill is noticeably lower!", date: "3 weeks ago", timestamp: 21 },
+  { name: "Diana K.", location: "Peoria, IL", rating: 5, text: "Been using Power Scouts for a month now. The whole experience has been seamless from start to finish.", date: "1 month ago", timestamp: 30 },
+  { name: "Oscar M.", location: "Youngstown, OH", rating: 5, text: "Two months in and I'm still impressed. Saved enough to take my family out to dinner twice!", date: "2 months ago", timestamp: 60 },
+  { name: "Veronica S.", location: "Lancaster, PA", rating: 5, text: "Three months later and I'm kicking myself for not switching sooner. The savings add up fast!", date: "3 months ago", timestamp: 90 },
+  
+  { name: "Derek P.", location: "El Paso, TX", rating: 5, text: "Power Scouts made choosing an electricity plan so simple. Switched just yesterday and loving it!", date: "1 day ago", timestamp: 1 },
+  { name: "Natalie H.", location: "Yonkers, NY", rating: 5, text: "Three weeks with my new plan and everything is perfect. Lower rates and great customer service.", date: "3 weeks ago", timestamp: 21 },
+  { name: "Felix R.", location: "Camden, NJ", rating: 5, text: "It's been a month since I switched through Power Scouts. Best financial decision I made this year!", date: "1 month ago", timestamp: 30 },
+  { name: "Brenda L.", location: "Lowell, MA", rating: 5, text: "Two months of consistent savings. I tell everyone about this service now. It really works!", date: "2 months ago", timestamp: 60 },
+  { name: "Walter J.", location: "Waterbury, CT", rating: 5, text: "After three months, I can say with certainty this was worth it. My electricity costs are way down.", date: "3 months ago", timestamp: 90 },
+  
+  { name: "Tiffany A.", location: "Garland, TX", rating: 5, text: "Signed up yesterday after comparing all my options. The interface is so user-friendly and helpful!", date: "1 day ago", timestamp: 1 },
+  { name: "Raymond B.", location: "Springfield, IL", rating: 5, text: "It's been 3 weeks and I'm already seeing the difference in my monthly budget. Highly recommend!", date: "3 weeks ago", timestamp: 21 },
+  { name: "Monica W.", location: "Dayton, OH", rating: 5, text: "One month with my new provider and zero regrets. Power Scouts delivers on their promises.", date: "1 month ago", timestamp: 30 },
+  { name: "Harold G.", location: "Scranton, PA", rating: 5, text: "Two months in and the savings are exactly what was promised. No hidden fees, no surprises.", date: "2 months ago", timestamp: 60 },
+  { name: "Gina C.", location: "White Plains, NY", rating: 5, text: "Three months later and I'm still grateful I found Power Scouts. My bills have been consistently lower.", date: "3 months ago", timestamp: 90 },
+  
+  { name: "Terrence V.", location: "Irving, TX", rating: 5, text: "Just made the switch one day ago. The process was so smooth and the rate I got is fantastic!", date: "1 day ago", timestamp: 1 },
+  { name: "Erica N.", location: "Trenton, NJ", rating: 5, text: "Three weeks with my new electricity plan and I couldn't be happier. Power Scouts made it easy!", date: "3 weeks ago", timestamp: 21 },
+  { name: "Vincent K.", location: "Cambridge, MA", rating: 5, text: "One month milestone today. Still loving my decision to switch. Great rates and service!", date: "1 month ago", timestamp: 30 },
+  { name: "Phyllis D.", location: "Canton, OH", rating: 5, text: "After two months, I can confidently say this service is legit. Real savings, real results.", date: "2 months ago", timestamp: 60 },
+  { name: "Bernard S.", location: "Danbury, CT", rating: 5, text: "Three months of lower electricity bills. This is the kind of savings that actually makes a difference!", date: "3 months ago", timestamp: 90 }
 ];
 
 // Sort testimonials by timestamp (most recent first)
