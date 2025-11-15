@@ -7,17 +7,20 @@ import { Search, MapPin, Users, Zap, ArrowRight, CheckCircle, TrendingDown } fro
 import { Card, CardContent } from "@/components/ui/card";
 
 const cities = [
+  // Texas Cities
   {
     name: "Houston",
+    state: "TX",
     county: "Harris County",
     population: "2.3M",
     avgRate: "8.9¢/kWh",
     providers: 45,
     savings: "$850/yr",
-    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=400&h=300&fit=crop"
   },
   {
     name: "Dallas",
+    state: "TX",
     county: "Dallas County",
     population: "1.3M",
     avgRate: "9.1¢/kWh",
@@ -27,147 +30,404 @@ const cities = [
   },
   {
     name: "Austin",
+    state: "TX",
     county: "Travis County",
     population: "978K",
     avgRate: "9.3¢/kWh",
     providers: 38,
     savings: "$780/yr",
-    image: "https://images.unsplash.com/photo-1587166287897-57569859d3fe?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?w=400&h=300&fit=crop"
   },
   {
     name: "San Antonio",
+    state: "TX",
     county: "Bexar County",
     population: "1.5M",
     avgRate: "8.8¢/kWh",
     providers: 40,
     savings: "$830/yr",
-    image: "https://images.unsplash.com/photo-1583582183923-4cf85c286e8f?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1568737948262-7f2e83ed98b3?w=400&h=300&fit=crop"
   },
   {
     name: "Fort Worth",
+    state: "TX",
     county: "Tarrant County",
     population: "927K",
     avgRate: "9.0¢/kWh",
     providers: 41,
     savings: "$810/yr",
-    image: "https://images.unsplash.com/photo-1580853039160-f0376b92f928?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1559661012-5cf78c123ae8?w=400&h=300&fit=crop"
   },
+  // Illinois Cities
   {
-    name: "El Paso",
-    county: "El Paso County",
-    population: "679K",
-    avgRate: "9.4¢/kWh",
-    providers: 35,
-    savings: "$760/yr",
-    image: "https://images.unsplash.com/photo-1583321500900-82807e458f3c?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Arlington",
-    county: "Tarrant County",
-    population: "398K",
-    avgRate: "9.1¢/kWh",
-    providers: 40,
-    savings: "$800/yr",
-    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Corpus Christi",
-    county: "Nueces County",
-    population: "326K",
-    avgRate: "8.7¢/kWh",
-    providers: 37,
-    savings: "$840/yr",
-    image: "https://images.unsplash.com/photo-1580071413131-47c7f6760f6a?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Plano",
-    county: "Collin County",
-    population: "286K",
-    avgRate: "9.2¢/kWh",
-    providers: 43,
-    savings: "$790/yr",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Laredo",
-    county: "Webb County",
-    population: "256K",
-    avgRate: "9.5¢/kWh",
-    providers: 33,
-    savings: "$750/yr",
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Lubbock",
-    county: "Lubbock County",
-    population: "258K",
-    avgRate: "9.3¢/kWh",
+    name: "Chicago",
+    state: "IL",
+    county: "Cook County",
+    population: "2.7M",
+    avgRate: "9.8¢/kWh",
     providers: 36,
-    savings: "$770/yr",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop"
+    savings: "$750/yr",
+    image: "https://images.unsplash.com/photo-1583528306385-8c52736f8e1f?w=400&h=300&fit=crop"
   },
   {
-    name: "Irving",
-    county: "Dallas County",
-    population: "239K",
-    avgRate: "9.0¢/kWh",
-    providers: 42,
-    savings: "$810/yr",
-    image: "https://images.unsplash.com/photo-1605648916361-9bc12352f964?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Garland",
-    county: "Dallas County",
-    population: "238K",
-    avgRate: "9.1¢/kWh",
-    providers: 41,
-    savings: "$800/yr",
-    image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Frisco",
-    county: "Collin County",
-    population: "200K",
-    avgRate: "9.2¢/kWh",
-    providers: 43,
-    savings: "$790/yr",
-    image: "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=400&h=300&fit=crop"
-  },
-  {
-    name: "McKinney",
-    county: "Collin County",
-    population: "195K",
-    avgRate: "9.1¢/kWh",
-    providers: 42,
-    savings: "$800/yr",
-    image: "https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Grand Prairie",
-    county: "Dallas County",
-    population: "193K",
-    avgRate: "9.0¢/kWh",
-    providers: 41,
-    savings: "$810/yr",
-    image: "https://images.unsplash.com/photo-1489493887464-ec5f7c52db77?w=400&h=300&fit=crop"
-  },
-  {
-    name: "Abilene",
-    county: "Taylor County",
-    population: "125K",
-    avgRate: "9.4¢/kWh",
+    name: "Aurora",
+    state: "IL",
+    county: "Kane County",
+    population: "180K",
+    avgRate: "9.9¢/kWh",
     providers: 34,
-    savings: "$760/yr",
-    image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400&h=300&fit=crop"
+    savings: "$720/yr",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
   },
   {
-    name: "Amarillo",
-    county: "Potter County",
-    population: "200K",
-    avgRate: "9.3¢/kWh",
+    name: "Naperville",
+    state: "IL",
+    county: "DuPage County",
+    population: "149K",
+    avgRate: "9.7¢/kWh",
     providers: 35,
+    savings: "$740/yr",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Joliet",
+    state: "IL",
+    county: "Will County",
+    population: "150K",
+    avgRate: "9.8¢/kWh",
+    providers: 33,
+    savings: "$730/yr",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop"
+  },
+  // Ohio Cities
+  {
+    name: "Columbus",
+    state: "OH",
+    county: "Franklin County",
+    population: "905K",
+    avgRate: "9.5¢/kWh",
+    providers: 38,
+    savings: "$780/yr",
+    image: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Cleveland",
+    state: "OH",
+    county: "Cuyahoga County",
+    population: "372K",
+    avgRate: "9.6¢/kWh",
+    providers: 37,
     savings: "$770/yr",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+    image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Cincinnati",
+    state: "OH",
+    county: "Hamilton County",
+    population: "309K",
+    avgRate: "9.7¢/kWh",
+    providers: 36,
+    savings: "$760/yr",
+    image: "https://images.unsplash.com/photo-1574268602187-425e1f21a3c9?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Toledo",
+    state: "OH",
+    county: "Lucas County",
+    population: "270K",
+    avgRate: "9.6¢/kWh",
+    providers: 35,
+    savings: "$750/yr",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop"
+  },
+  // Pennsylvania Cities
+  {
+    name: "Philadelphia",
+    state: "PA",
+    county: "Philadelphia County",
+    population: "1.6M",
+    avgRate: "10.2¢/kWh",
+    providers: 32,
+    savings: "$680/yr",
+    image: "https://images.unsplash.com/photo-1548913891-2f6c0feeae98?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Pittsburgh",
+    state: "PA",
+    county: "Allegheny County",
+    population: "303K",
+    avgRate: "10.1¢/kWh",
+    providers: 30,
+    savings: "$690/yr",
+    image: "https://images.unsplash.com/photo-1611964562818-b6f8d41cb64c?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Allentown",
+    state: "PA",
+    county: "Lehigh County",
+    population: "125K",
+    avgRate: "10.3¢/kWh",
+    providers: 28,
+    savings: "$670/yr",
+    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop"
+  },
+  // New York Cities
+  {
+    name: "New York City",
+    state: "NY",
+    county: "New York County",
+    population: "8.3M",
+    avgRate: "11.5¢/kWh",
+    providers: 28,
+    savings: "$620/yr",
+    image: "https://images.unsplash.com/photo-1543716627-839b54c40519?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Buffalo",
+    state: "NY",
+    county: "Erie County",
+    population: "278K",
+    avgRate: "10.8¢/kWh",
+    providers: 25,
+    savings: "$650/yr",
+    image: "https://images.unsplash.com/photo-1549144511-f099e773c147?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Rochester",
+    state: "NY",
+    county: "Monroe County",
+    population: "211K",
+    avgRate: "10.9¢/kWh",
+    providers: 24,
+    savings: "$640/yr",
+    image: "https://images.unsplash.com/photo-1559087867-ce4c91325525?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Syracuse",
+    state: "NY",
+    county: "Onondaga County",
+    population: "148K",
+    avgRate: "11.0¢/kWh",
+    providers: 23,
+    savings: "$630/yr",
+    image: "https://images.unsplash.com/photo-1599930113854-d6d7fd521f10?w=400&h=300&fit=crop"
+  },
+  // New Jersey Cities
+  {
+    name: "Newark",
+    state: "NJ",
+    county: "Essex County",
+    population: "311K",
+    avgRate: "10.5¢/kWh",
+    providers: 27,
+    savings: "$660/yr",
+    image: "https://images.unsplash.com/photo-1589756823695-278bc8eac975?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Jersey City",
+    state: "NJ",
+    county: "Hudson County",
+    population: "292K",
+    avgRate: "10.6¢/kWh",
+    providers: 26,
+    savings: "$650/yr",
+    image: "https://images.unsplash.com/photo-1587582423116-ec07293f0395?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Paterson",
+    state: "NJ",
+    county: "Passaic County",
+    population: "159K",
+    avgRate: "10.7¢/kWh",
+    providers: 25,
+    savings: "$640/yr",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+  },
+  // Maryland Cities
+  {
+    name: "Baltimore",
+    state: "MD",
+    county: "Baltimore City",
+    population: "576K",
+    avgRate: "10.4¢/kWh",
+    providers: 29,
+    savings: "$670/yr",
+    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Frederick",
+    state: "MD",
+    county: "Frederick County",
+    population: "79K",
+    avgRate: "10.5¢/kWh",
+    providers: 27,
+    savings: "$660/yr",
+    image: "https://images.unsplash.com/photo-1590932722660-b2e3c71b1379?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Rockville",
+    state: "MD",
+    county: "Montgomery County",
+    population: "68K",
+    avgRate: "10.3¢/kWh",
+    providers: 28,
+    savings: "$680/yr",
+    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=400&h=300&fit=crop"
+  },
+  // Massachusetts Cities
+  {
+    name: "Boston",
+    state: "MA",
+    county: "Suffolk County",
+    population: "675K",
+    avgRate: "11.2¢/kWh",
+    providers: 22,
+    savings: "$600/yr",
+    image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Worcester",
+    state: "MA",
+    county: "Worcester County",
+    population: "206K",
+    avgRate: "11.3¢/kWh",
+    providers: 21,
+    savings: "$590/yr",
+    image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Springfield",
+    state: "MA",
+    county: "Hampden County",
+    population: "155K",
+    avgRate: "11.4¢/kWh",
+    providers: 20,
+    savings: "$580/yr",
+    image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=300&fit=crop"
+  },
+  // Connecticut Cities
+  {
+    name: "Hartford",
+    state: "CT",
+    county: "Hartford County",
+    population: "121K",
+    avgRate: "11.8¢/kWh",
+    providers: 19,
+    savings: "$550/yr",
+    image: "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=400&h=300&fit=crop"
+  },
+  {
+    name: "New Haven",
+    state: "CT",
+    county: "New Haven County",
+    population: "135K",
+    avgRate: "11.7¢/kWh",
+    providers: 19,
+    savings: "$560/yr",
+    image: "https://images.unsplash.com/photo-1569149646689-5e8bbdbbd944?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Bridgeport",
+    state: "CT",
+    county: "Fairfield County",
+    population: "148K",
+    avgRate: "11.9¢/kWh",
+    providers: 18,
+    savings: "$540/yr",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop"
+  },
+  // Maine Cities
+  {
+    name: "Portland",
+    state: "ME",
+    county: "Cumberland County",
+    population: "68K",
+    avgRate: "11.5¢/kWh",
+    providers: 17,
+    savings: "$570/yr",
+    image: "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Lewiston",
+    state: "ME",
+    county: "Androscoggin County",
+    population: "37K",
+    avgRate: "11.6¢/kWh",
+    providers: 16,
+    savings: "$560/yr",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Bangor",
+    state: "ME",
+    county: "Penobscot County",
+    population: "32K",
+    avgRate: "11.7¢/kWh",
+    providers: 16,
+    savings: "$550/yr",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop"
+  },
+  // New Hampshire Cities
+  {
+    name: "Manchester",
+    state: "NH",
+    county: "Hillsborough County",
+    population: "115K",
+    avgRate: "11.6¢/kWh",
+    providers: 17,
+    savings: "$560/yr",
+    image: "https://images.unsplash.com/photo-1572454591674-2739f30d8c40?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Nashua",
+    state: "NH",
+    county: "Hillsborough County",
+    population: "91K",
+    avgRate: "11.7¢/kWh",
+    providers: 16,
+    savings: "$550/yr",
+    image: "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Concord",
+    state: "NH",
+    county: "Merrimack County",
+    population: "43K",
+    avgRate: "11.8¢/kWh",
+    providers: 16,
+    savings: "$540/yr",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop"
+  },
+  // Rhode Island Cities
+  {
+    name: "Providence",
+    state: "RI",
+    county: "Providence County",
+    population: "190K",
+    avgRate: "11.9¢/kWh",
+    providers: 15,
+    savings: "$530/yr",
+    image: "https://images.unsplash.com/photo-1559621398-a69d8c0e0401?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Warwick",
+    state: "RI",
+    county: "Kent County",
+    population: "83K",
+    avgRate: "12.0¢/kWh",
+    providers: 15,
+    savings: "$520/yr",
+    image: "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?w=400&h=300&fit=crop"
+  },
+  {
+    name: "Cranston",
+    state: "RI",
+    county: "Providence County",
+    population: "82K",
+    avgRate: "12.0¢/kWh",
+    providers: 14,
+    savings: "$520/yr",
+    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&h=300&fit=crop"
   }
 ];
 
@@ -177,7 +437,8 @@ export default function AllCities() {
 
   const filteredCities = cities.filter(city =>
     city.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    city.county.toLowerCase().includes(searchTerm.toLowerCase())
+    city.county.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    city.state.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -187,10 +448,10 @@ export default function AllCities() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-4">
-              Texas Service Areas
+              All Service Areas
             </h1>
             <p className="text-lg text-blue-100 mb-8">
-              Find the best electricity rates in your city. We serve all major Texas cities in the deregulated market.
+              Find the best electricity rates in your city. We serve major cities across 12 deregulated states.
             </p>
             
             {/* Search Bar */}
@@ -213,19 +474,19 @@ export default function AllCities() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">85%</div>
-              <div className="text-sm text-gray-600">of Texas Covered</div>
+              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">12</div>
+              <div className="text-sm text-gray-600">States Covered</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">100+</div>
+              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">200+</div>
               <div className="text-sm text-gray-600">Cities Served</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">20M+</div>
+              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">100M+</div>
               <div className="text-sm text-gray-600">Residents</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">$800</div>
+              <div className="text-3xl font-bold text-[#0A5C8C] mb-1">$700</div>
               <div className="text-sm text-gray-600">Avg. Annual Savings</div>
             </div>
           </div>
@@ -250,14 +511,14 @@ export default function AllCities() {
               <div className="relative h-48 overflow-hidden">
                 <img 
                   src={city.image} 
-                  alt={`${city.name}, Texas`}
+                  alt={`${city.name}, ${city.state}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
                   <h3 className="text-2xl font-bold text-white mb-1">{city.name}</h3>
-                  <p className="text-sm text-white/90">{city.county}</p>
+                  <p className="text-sm text-white/90">{city.county}, {city.state}</p>
                 </div>
               </div>
 
