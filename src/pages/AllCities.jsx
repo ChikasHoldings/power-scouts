@@ -87,7 +87,7 @@ const cities = [
     avgRate: "9.7¢/kWh",
     providers: 35,
     savings: "$740/yr",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a29348055_403443a6-48b5-4052-ac9e-6600f43ab721.jpg"
   },
   {
     name: "Joliet",

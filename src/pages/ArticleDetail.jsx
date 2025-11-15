@@ -561,7 +561,7 @@ const articles = [
     color: "green",
     title: "Naperville Electricity Rates 2024: DuPage County IL Power Guide",
     description: "Compare Naperville IL electricity from 20+ suppliers. ComEd territory. Save $400-520 yearly in DuPage County.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a29348055_403443a6-48b5-4052-ac9e-6600f43ab721.jpg",
     excerpt: "Naperville and DuPage County competitive market. 20+ ICC-licensed suppliers serving affluent Illinois suburb.",
     readTime: "9 min",
     keywords: ["Naperville electricity", "ComEd Naperville", "DuPage County power", "Naperville IL energy"],
