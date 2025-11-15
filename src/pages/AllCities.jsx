@@ -46,7 +46,7 @@ const cities = [
     avgRate: "8.8¢/kWh",
     providers: 40,
     savings: "$830/yr",
-    image: "https://images.unsplash.com/photo-1568737948262-7f2e83ed98b3?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/9afbd2a3e_136ff412-03e2-40c7-8934-8517d2404665.jpg"
   },
   {
     name: "Fort Worth",
