@@ -44,7 +44,7 @@ export default function AllStates() {
     'OH': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/8cb27999c_ChatGPTImageNov15202502_43_31PM.png', // Columbus, OH Statehouse
     'PA': 'https://images.unsplash.com/photo-1575489272413-cb506258027e?w=800&q=80', // Harrisburg, PA State Capitol
     'NY': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/e9e695304_2df6101f-36ce-4e88-b0b4-5a7b280fbc8c.jpg', // Albany, NY Capitol Building
-    'NJ': 'https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?w=800&q=80', // Trenton, NJ State House
+    'NJ': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a88378e68_7c4d9304-68aa-406d-b5e7-0e3fe12aa17b.jpg', // Trenton, NJ State House
     'MD': 'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=800&q=80', // Annapolis, MD State House
     'MA': 'https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=800&q=80', // Boston, MA State House
     'ME': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/43e4fae9e_019a8321-348a-4c7e-a7e4-078744896b7a.jpg', // Augusta, ME State House
