@@ -407,7 +407,7 @@ const cities = [
     avgRate: "11.9¢/kWh",
     providers: 15,
     savings: "$530/yr",
-    image: "https://images.unsplash.com/photo-1572636661577-f6d05cbb7682?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/3a56f40c4_3de2f374-e6c7-4415-a731-3588f4dc57b8.jpg"
   },
   {
     name: "Warwick",
