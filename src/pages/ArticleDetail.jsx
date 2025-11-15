@@ -730,7 +730,7 @@ const articles = [
     color: "orange",
     title: "Bangor ME Electricity Rates 2024: Northern Maine Power Guide",
     description: "Compare Bangor ME electricity from 8+ suppliers. Emera Maine territory. Save $250-360 yearly in Penobscot County.",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a83f5b033_f9cc9f9f-03e1-4bc8-bb2c-a8bdf40d7b5d.jpg",
     excerpt: "Bangor and Penobscot County competitive market. 8+ PUC-licensed suppliers serving Emera Maine Northern ME.",
     readTime: "8 min",
     keywords: ["Bangor electricity", "Emera Maine", "Penobscot County power", "Bangor ME energy"],

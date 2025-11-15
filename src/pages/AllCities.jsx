@@ -365,7 +365,7 @@ const cities = [
     avgRate: "11.7¢/kWh",
     providers: 16,
     savings: "$550/yr",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/a83f5b033_f9cc9f9f-03e1-4bc8-bb2c-a8bdf40d7b5d.jpg"
   },
   // New Hampshire Cities
   {
