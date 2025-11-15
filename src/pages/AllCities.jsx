@@ -376,7 +376,7 @@ const cities = [
     avgRate: "11.6¢/kWh",
     providers: 17,
     savings: "$560/yr",
-    image: "https://images.unsplash.com/photo-1606403726988-eb685c61c9b6?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/9dba14695_b89134a8-4b49-4280-b376-c9c36d77a3a1.jpg"
   },
   {
     name: "Nashua",

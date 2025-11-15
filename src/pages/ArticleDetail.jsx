@@ -743,7 +743,7 @@ const articles = [
     color: "blue",
     title: "Manchester NH Electricity Rates 2024: Southern NH Power Guide",
     description: "Compare Manchester NH electricity from 8+ suppliers. Eversource territory. Save $280-390 yearly in Hillsborough County.",
-    image: "https://images.unsplash.com/photo-1606403726988-eb685c61c9b6?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/9dba14695_b89134a8-4b49-4280-b376-c9c36d77a3a1.jpg",
     excerpt: "Manchester and Hillsborough County competitive market. 8+ PUC-licensed suppliers serving Eversource Southern NH.",
     readTime: "9 min",
     keywords: ["Manchester NH electricity", "Eversource Manchester", "Hillsborough County power", "Manchester New Hampshire energy"],
