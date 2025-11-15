@@ -57,7 +57,7 @@ export default function ProvidersSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.05 }}
-            className="flex items-center justify-center h-14 sm:h-16 lg:h-20 px-2">
+            className={`flex items-center justify-center h-14 sm:h-16 lg:h-20 px-2 ${index === 6 ? 'col-span-2 sm:col-span-1' : ''}`}>
 
               <img
               src={logo.src}
