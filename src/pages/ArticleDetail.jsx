@@ -509,7 +509,7 @@ const articles = [
     color: "green",
     title: "Toledo Electricity Rates 2024: Northwest Ohio Power Guide",
     description: "Compare Toledo OH electricity from 18+ suppliers. FirstEnergy territory. Save $380-500 yearly in Lucas County.",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/1d0dc8814_c3d7d2f5-d102-4ed8-aa7f-f2e9c6e02764.jpg",
     excerpt: "Toledo and Lucas County competitive market. 18+ PUCO-certified suppliers serving FirstEnergy territory.",
     readTime: "9 min",
     keywords: ["Toledo electricity", "FirstEnergy Toledo", "Lucas County power", "Toledo energy rates"],
