@@ -665,7 +665,7 @@ const articles = [
     color: "green",
     title: "Hartford Electricity Rates 2024: Central CT Power Guide",
     description: "Compare Hartford CT electricity from 12+ suppliers. Eversource territory. Save $300-420 yearly in Hartford County.",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/c2fba1722_ottawa-street.jpg",
     excerpt: "Hartford and Hartford County competitive market. 12+ PURA-licensed suppliers serving Connecticut capital.",
     readTime: "9 min",
     keywords: ["Hartford electricity", "Eversource Hartford", "Hartford County power", "Hartford CT energy"],
