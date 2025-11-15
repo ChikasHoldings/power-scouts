@@ -243,17 +243,6 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Menu Content */}
             <div className="p-4">
-              {/* Primary CTA */}
-              <Link 
-                to={createPageUrl("CompareRates")} 
-                onClick={() => setMobileMenuOpen(false)}
-                className="block mb-3"
-              >
-                <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-3.5 text-base rounded-lg">
-                  Compare Rates Now
-                </Button>
-              </Link>
-
               {/* Navigation Links - Removed icon containers, reduced spacing */}
               <Link 
                 to={createPageUrl("Home")} 
@@ -320,6 +309,17 @@ export default function Layout({ children, currentPageName }) {
               >
                 <Leaf className="w-5 h-5 text-green-600 flex-shrink-0" />
                 <span className="text-gray-900 font-medium text-base">Renewable Energy</span>
+              </Link>
+
+              {/* Primary CTA */}
+              <Link 
+                to={createPageUrl("CompareRates")} 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mt-4 mb-3"
+              >
+                <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-3.5 text-base rounded-lg">
+                  Compare Rates Now
+                </Button>
               </Link>
             </div>
 
