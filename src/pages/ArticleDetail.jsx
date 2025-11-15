@@ -496,7 +496,7 @@ const articles = [
     color: "blue",
     title: "Cincinnati Electricity Rates 2024: SW Ohio Power Guide",
     description: "Compare Cincinnati OH electricity from 18+ suppliers. Duke Energy Ohio territory. Save $400-550 yearly in Hamilton County.",
-    image: "https://images.unsplash.com/photo-1574268602187-425e1f21a3c9?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25159c55a_e1e2ce07-4723-4b43-b55c-8e6a0251d472.jpg",
     excerpt: "Cincinnati and Hamilton County competitive market. 18+ PUCO-certified suppliers serving Duke Energy Ohio.",
     readTime: "9 min",
     keywords: ["Cincinnati electricity", "Duke Energy Ohio", "Hamilton County power", "Cincinnati energy rates"],

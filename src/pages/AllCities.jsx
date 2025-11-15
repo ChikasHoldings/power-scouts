@@ -128,7 +128,7 @@ const cities = [
     avgRate: "9.7¢/kWh",
     providers: 36,
     savings: "$760/yr",
-    image: "https://images.unsplash.com/photo-1574268602187-425e1f21a3c9?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/25159c55a_e1e2ce07-4723-4b43-b55c-8e6a0251d472.jpg"
   },
   {
     name: "Toledo",
