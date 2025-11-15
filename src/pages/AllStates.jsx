@@ -50,7 +50,7 @@ export default function AllStates() {
     'ME': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/43e4fae9e_019a8321-348a-4c7e-a7e4-078744896b7a.jpg', // Augusta, ME State House
     'NH': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/0ad3806b3_ChatGPTImageNov15202502_45_36PM.png', // Concord, NH State House
     'RI': 'https://images.unsplash.com/photo-1572295727871-7638149ea3d7?w=800&q=80', // Providence, RI State House
-    'CT': 'https://images.unsplash.com/photo-1586083702768-190ae093d34d?w=800&q=80'  // Hartford, CT State Capitol
+    'CT': 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/9f22776d4_26acfe5d-4dd4-4897-94aa-f67876a75dc6.jpg'  // Hartford, CT State Capitol
   };
 
   const breadcrumbData = getBreadcrumbSchema([
