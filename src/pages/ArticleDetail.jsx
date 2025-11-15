@@ -336,7 +336,7 @@ const articles = [
     color: "purple",
     title: "Philadelphia Electricity Rates 2024: Complete Philly Metro Guide",
     description: "Compare Philadelphia electricity from 25+ PECO suppliers. Serving Philly, Chester, Delaware, Montgomery counties. Save $500+ yearly.",
-    image: "https://images.unsplash.com/photo-1548913891-2f6c0feeae98?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/857445e3d_01dc15fd-0434-4dd9-ac68-9123c6a14f33.jpg",
     excerpt: "Philadelphia's competitive market with PA PUC oversight offers safe, effective savings for 1.5M households.",
     readTime: "11 min",
     keywords: ["Philadelphia electricity", "Philly power rates", "PECO suppliers", "PA electricity", "Philadelphia energy"],
