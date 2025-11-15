@@ -483,7 +483,7 @@ const articles = [
     color: "orange",
     title: "Columbus Electricity Rates 2024: Central Ohio Power Guide",
     description: "Compare Columbus OH electricity from 20+ suppliers. AEP Ohio territory. Save $400-550 yearly in Franklin County.",
-    image: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/3a9213c53_03fe81c8-162d-4692-be26-32e20095399c.jpg",
     excerpt: "Columbus and Franklin County competitive market. 20+ PUCO-certified suppliers serving AEP Ohio.",
     readTime: "10 min",
     keywords: ["Columbus electricity", "AEP Ohio", "Franklin County power", "Columbus energy rates"],

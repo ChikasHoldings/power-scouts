@@ -108,7 +108,7 @@ const cities = [
     avgRate: "9.5¢/kWh",
     providers: 38,
     savings: "$780/yr",
-    image: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/3a9213c53_03fe81c8-162d-4692-be26-32e20095399c.jpg"
   },
   {
     name: "Cleveland",
