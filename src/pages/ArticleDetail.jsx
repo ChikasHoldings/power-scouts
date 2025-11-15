@@ -639,7 +639,7 @@ const articles = [
     color: "blue",
     title: "Springfield MA Electricity Rates 2024: Western MA Power Guide",
     description: "Compare Springfield MA electricity from 12+ suppliers. Eversource territory. Save $280-400 yearly in Hampden County.",
-    image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/081e45489_45362c2b-5e37-45ca-a6ab-ac06564ed343.jpg",
     excerpt: "Springfield and Hampden County competitive market. 12+ DPU-licensed suppliers serving Eversource Western MA.",
     readTime: "9 min",
     keywords: ["Springfield MA electricity", "Eversource Springfield", "Hampden County power", "Western MA energy"],

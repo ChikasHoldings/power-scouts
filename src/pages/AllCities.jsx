@@ -303,7 +303,7 @@ const cities = [
     avgRate: "11.4¢/kWh",
     providers: 20,
     savings: "$580/yr",
-    image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/081e45489_45362c2b-5e37-45ca-a6ab-ac06564ed343.jpg"
   },
   // Connecticut Cities
   {
