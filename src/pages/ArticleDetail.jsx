@@ -35,7 +35,7 @@ const articles = [
     color: "green",
     title: "How to Compare Electricity Rates and Save $500+ Per Year",
     description: "Master the art of comparing electricity plans with this step-by-step guide used by thousands of smart consumers.",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80", // calculator and bills
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/dc494ab1e_hand-lit-light-bulb.jpg",
     excerpt: "Learn the exact process energy experts use to find the lowest rates and avoid hidden fees that cost you money.",
     readTime: "10 min",
     keywords: ["compare electricity rates", "save money electricity", "electricity shopping guide"],
