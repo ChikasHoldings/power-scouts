@@ -14,7 +14,12 @@ const topStates = [
 ];
 
 const topCities = [
-  "Houston", "Dallas", "Chicago", "Columbus", "Philadelphia", "New York City"
+  { name: "Houston", state: "TX" },
+  { name: "Dallas", state: "TX" },
+  { name: "Chicago", state: "IL" },
+  { name: "Columbus", state: "OH" },
+  { name: "Philadelphia", state: "PA" },
+  { name: "New York City", state: "NY" }
 ];
 
 export default function Layout({ children, currentPageName }) {
