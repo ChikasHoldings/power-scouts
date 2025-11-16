@@ -119,11 +119,14 @@ const articles = [
     relatedArticles: [106, 107, 1]
   }
 ];
-    category: "State Guides",
-    icon: MapPin,
-    color: "green",
-    title: "Ohio Electricity Rates: Compare OH Power Plans & Save Money",
-    description: "Compare Ohio electricity rates from 20+ suppliers. Find lowest power prices in Cleveland, Columbus, and Cincinnati.",
+
+const colorClasses = {
+  blue: { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-200" },
+  green: { bg: "bg-green-50", text: "text-green-600", border: "border-green-200" },
+  purple: { bg: "bg-purple-50", text: "text-purple-600", border: "border-purple-200" },
+  orange: { bg: "bg-orange-50", text: "text-orange-600", border: "border-orange-200" },
+  teal: { bg: "bg-teal-50", text: "text-teal-600", border: "border-teal-200" }
+};
     image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=1200&q=80", // Cleveland skyline
     excerpt: "Ohio's competitive market with PUCO oversight makes shopping safe and profitable. Save $350-550 yearly.",
     readTime: "10 min",
