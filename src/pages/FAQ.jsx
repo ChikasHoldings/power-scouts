@@ -277,19 +277,7 @@ export default function FAQ() {
                 Our energy experts are here to help you find the perfect electricity plan across all 12 deregulated states
               </p>
               
-              <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                <a href="tel:855-475-8315">
-                  <Card className="hover:shadow-lg transition-all cursor-pointer">
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-[#0A5C8C] rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Phone className="w-6 h-6 text-white" />
-                      </div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
-                      <p className="text-sm text-gray-600">855-475-8315</p>
-                    </CardContent>
-                  </Card>
-                </a>
-
+              <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
                 <Link to={createPageUrl("CompareRates")}>
                   <Card className="hover:shadow-lg transition-all cursor-pointer">
                     <CardContent className="p-6">
