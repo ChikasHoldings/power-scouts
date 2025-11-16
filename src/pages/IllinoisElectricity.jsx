@@ -123,12 +123,37 @@ export default function IllinoisElectricity() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* State Overview Section */}
+        <section className="mb-12">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Electricity Choice in Illinois
+            </h2>
+            <div className="prose prose-gray max-w-none">
+              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                As an Illinois resident, you have the power to choose your electricity supplier from over 40 competing companies. 
+                Unlike regulated markets, Illinois's competitive electricity market lets you compare plans based on price per kWh, 
+                contract length, and estimated monthly bills—all in one place.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                By comparing rates, Illinois residents save an average of $750 per year on electricity bills. Whether you're 
+                looking for fixed-rate plans, month-to-month flexibility, or 100% renewable energy options, our comparison 
+                tool makes it simple to find the perfect plan for your home or business.
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Start by entering your ZIP code above to see available plans in your area. Compare rates, read plan details, 
+                and switch providers in minutes—all without any hidden fees or complicated paperwork.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Why Compare Illinois Electricity Rates?
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             <Card className="border-2 hover:shadow-xl transition-all">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -164,6 +189,56 @@ export default function IllinoisElectricity() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </section>
+
+        {/* City Guides Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-5">
+            Illinois City Electricity Guides
+          </h2>
+          <p className="text-sm text-gray-600 mb-5">
+            Compare electricity rates and providers for major Illinois cities
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {[
+              { name: "Chicago" },
+              { name: "Aurora" },
+              { name: "Naperville" },
+              { name: "Joliet" },
+              { name: "Rockford" },
+              { name: "Springfield" }
+            ].map((city, index) => (
+              <Link 
+                key={index}
+                to={createPageUrl("CityRates") + `?city=${city.name}`}
+                className="group"
+              >
+                <Card className="hover:shadow-lg hover:border-[#0A5C8C] transition-all border h-full">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                        <MapPin className="w-5 h-5 text-[#0A5C8C]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-bold text-gray-900 group-hover:text-[#0A5C8C] transition-colors">
+                          {city.name}
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          Compare rates →
+                        </p>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-[#0A5C8C] transition-colors flex-shrink-0" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link to={createPageUrl("AllCities")} className="text-sm text-[#FF6B35] hover:text-[#e55a2b] font-semibold transition-colors">
+              View all Illinois cities →
+            </Link>
           </div>
         </section>
 
@@ -246,48 +321,48 @@ export default function IllinoisElectricity() {
           </div>
         </section>
 
-        <section className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-3xl p-12 text-center text-white">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+        <section className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-2xl p-10 text-center text-white">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-3">
             Ready to Save on Illinois Electricity?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-blue-100 mb-6 max-w-2xl mx-auto">
             Compare rates now and start saving on your electricity bill
           </p>
           
-          <div className="bg-white rounded-xl p-2 shadow-2xl max-w-2xl mx-auto mb-6">
+          <div className="bg-white rounded-xl p-1.5 shadow-2xl max-w-2xl mx-auto mb-5">
             <div className="flex flex-col sm:flex-row items-stretch gap-2">
-              <div className="flex-1 flex items-center gap-3 px-5 py-4 bg-gray-50 rounded-lg">
-                <MapPin className="w-5 h-5 text-[#0A5C8C] flex-shrink-0" />
+              <div className="flex-1 flex items-center gap-2.5 px-4 py-3 bg-gray-50 rounded-lg">
+                <MapPin className="w-4 h-4 text-[#0A5C8C] flex-shrink-0" />
                 <Input
                   type="text"
                   placeholder="Enter your Illinois ZIP code"
                   value={zipCode}
                   onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
-                  className="border-0 bg-transparent focus-visible:ring-0 text-gray-900 text-lg p-0 h-auto font-semibold"
+                  className="border-0 bg-transparent focus-visible:ring-0 text-gray-900 text-base p-0 h-auto font-semibold"
                   maxLength={5}
                 />
               </div>
               <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
-                <Button className="w-full sm:w-auto px-10 py-6 text-lg font-bold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-full">
+                <Button className="w-full sm:w-auto px-8 py-3 text-base font-bold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-full">
                   Compare Now
                 </Button>
               </Link>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-6 flex-wrap text-sm">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
+          <div className="flex items-center justify-center gap-5 flex-wrap text-xs">
+            <div className="flex items-center gap-1.5">
+              <CheckCircle className="w-3.5 h-3.5 text-green-400" />
               <span>100% Free</span>
             </div>
             <span className="text-blue-300">•</span>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
+            <div className="flex items-center gap-1.5">
+              <CheckCircle className="w-3.5 h-3.5 text-green-400" />
               <span>No Credit Check</span>
             </div>
             <span className="text-blue-300">•</span>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
+            <div className="flex items-center gap-1.5">
+              <CheckCircle className="w-3.5 h-3.5 text-green-400" />
               <span>Instant Results</span>
             </div>
           </div>
