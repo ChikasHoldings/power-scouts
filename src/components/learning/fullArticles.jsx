@@ -835,8 +835,7 @@ Annual cost: $33,744<br>
 
 <p><strong>Related resources:</strong> Explore <a href="/article?id=100">restaurant-specific electricity strategies</a>, learn about <a href="/article?id=78">small business commercial rates</a>, understand <a href="/article?id=92">time-of-use pricing for flexible businesses</a>, or browse <a href="/business-rates">commercial electricity providers</a> in your area.</p>
 `
-  }
-};
+  },
 
   106: {
     title: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually",
