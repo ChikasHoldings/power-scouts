@@ -30,7 +30,7 @@ import BillAnalyzer from './pages/BillAnalyzer';
 import Sitemap from './pages/Sitemap';
 import Robots from './pages/Robots';
 import ArticleDetail from './pages/ArticleDetail';
-import Layout from './Layout.jsx';
+import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
@@ -71,5 +71,5 @@ export const PAGES = {
 export const pagesConfig = {
     mainPage: "Home",
     Pages: PAGES,
-    Layout: Layout,
+    Layout: __Layout,
 };

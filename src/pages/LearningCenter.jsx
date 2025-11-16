@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
@@ -10,8 +12,8 @@ import {
 import SEOHead, { getBreadcrumbSchema, getArticleSchema } from "../components/SEOHead";
 import EnhancedSearch from "../components/learning/EnhancedSearch";
 
-// Article database - Only articles with 500+ words of content
-const articles = [
+// Fallback local articles for initial display
+const fallbackArticles = [
   {
     id: 1,
     category: "Getting Started",
@@ -127,8 +129,36 @@ const colorClasses = {
 };
 
 export default function LearningCenter() {
-  const [searchResults, setSearchResults] = useState(articles);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Fetch articles from database
+  const { data: dbArticles, isLoading } = useQuery({
+    queryKey: ['articles'],
+    queryFn: () => base44.entities.Article.list('-created_date'),
+    initialData: [],
+  });
+
+  // Map database articles to expected format
+  const articles = dbArticles.length > 0 ? dbArticles.map(article => ({
+    id: article.id,
+    category: article.category,
+    icon: MapPin, // Default icon for city guides
+    color: "teal",
+    title: article.title,
+    description: article.meta_description,
+    image: article.featured_image,
+    excerpt: article.excerpt,
+    readTime: article.read_time,
+    keywords: article.keywords || [],
+    relatedArticles: article.related_articles || []
+  })) : fallbackArticles;
+
+  const [searchResults, setSearchResults] = useState(articles);
+
+  // Update search results when articles change
+  React.useEffect(() => {
+    setSearchResults(articles);
+  }, [dbArticles]);
 
   const handleSearch = (results) => {
     setSearchResults(results);
