@@ -197,9 +197,14 @@ export default function ArticleDetail() {
   const Icon = article.icon;
   const colors = colorClasses[article.color];
 
-  // Try to get full article content from database or fallback
+  // Get full article content from database
   const dbArticle = dbArticles.find(a => a.id === articleId);
-  const fullArticle = dbArticle?.data?.content ? { content: dbArticle.data.content } : getFullArticle(articleId);
+  const fullArticle = dbArticle?.content ? { 
+    content: dbArticle.content,
+    metaTitle: dbArticle.meta_title,
+    metaDescription: dbArticle.meta_description,
+    tags: dbArticle.tags
+  } : getFullArticle(articleId);
 
   const articleSchema = getArticleSchema({
     title: fullArticle?.metaTitle || article.title,
