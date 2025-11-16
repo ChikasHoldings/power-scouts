@@ -455,14 +455,14 @@ export default function AllCities() {
             </p>
             
             {/* Search Bar */}
-            <div className="relative max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="relative max-w-xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Search cities or counties..."
+                placeholder="Search by city, county, or state..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-12 bg-white border-0 shadow-lg"
+                className="pl-11 sm:pl-12 pr-4 h-11 sm:h-12 bg-white border-0 shadow-lg text-sm sm:text-base rounded-lg focus-visible:ring-2 focus-visible:ring-white/20 touch-manipulation text-gray-900 placeholder:text-gray-400"
               />
             </div>
           </div>
