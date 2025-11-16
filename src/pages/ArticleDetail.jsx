@@ -129,16 +129,6 @@ const colorClasses = {
 };
 
 export default function ArticleDetail() {
-    excerpt: "Ohio's competitive market with PUCO oversight makes shopping safe and profitable. Save $350-550 yearly.",
-    readTime: "10 min",
-    keywords: ["Ohio electricity", "Cleveland power", "Columbus electricity"],
-    relatedArticles: [1, 2, 15]
-  },
-  {
-    id: 15,
-    category: "State Guides",
-    icon: MapPin,
-    color: "orange",
     title: "Illinois Electricity Rates: Complete Guide to IL Power Savings",
     description: "Compare Illinois electricity rates from 20+ suppliers. Find cheapest power in Chicago, Aurora, and Naperville.",
     image: "https://images.unsplash.com/photo-1583528306385-8c52736f8e1f?w=1200&q=80", // Chicago skyline
