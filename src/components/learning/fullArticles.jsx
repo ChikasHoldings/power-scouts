@@ -61,7 +61,7 @@ export const fullArticles = {
 <div class="cta-box">
 <h3>Ready to Start Saving?</h3>
 <p>Compare electricity rates from 40+ providers in your area. Most people save $500+ per year.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>How Does the Provider vs Utility Relationship Work?</h2>
@@ -211,7 +211,7 @@ A: Yes! Renters have the same right as homeowners to choose electricity provider
 <div class="cta-box">
 <h3>Ready to Start Saving?</h3>
 <p>Compare electricity rates from 40+ providers in your area. Most people save $500+ per year.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>The Bottom Line</h2>
@@ -300,7 +300,7 @@ Energy: 9.5¢ + TDU delivery: 4.5¢ + Base charge: $9.95÷1000kWh = 1¢<br>
 <div class="cta-box">
 <h3>Compare Rates the Easy Way</h3>
 <p>Our free tool shows total costs at your exact usage, including all fees and TDU charges.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>Step 4: Compare Apples to Apples</h2>
@@ -604,7 +604,7 @@ Traditional plans: 9.3-11.2¢/kWh<br>
 <div class="cta-box">
 <h3>Compare 100% Renewable Plans</h3>
 <p>See renewable electricity plans that match or beat traditional rates in your area.</p>
-<a href="/compare-rates" class="cta-button">Compare Green Energy Plans</a>
+<a href="?page=CompareRates" class="cta-button">Compare Green Energy Plans</a>
 </div>
 
 <h2>How to Verify You're Getting True Renewable Energy</h2>
@@ -752,7 +752,7 @@ Annual cost: $24,000-96,000</p>
 <div class="cta-box">
 <h3>Get Commercial Rate Quotes</h3>
 <p>Compare business electricity rates from 30+ commercial providers in your area.</p>
-<a href="/business-rates" class="cta-button">Compare Business Rates</a>
+<a href="?page=CompareRates" class="cta-button">Compare Business Rates</a>
 </div>
 
 <h2>Understanding Demand Charges: The Hidden Cost</h2>
@@ -817,7 +817,7 @@ Annual cost: $33,744<br>
 <div class="cta-box">
 <h3>Get Competitive Commercial Quotes</h3>
 <p>Request free quotes from top commercial electricity providers in your area.</p>
-<a href="/business-rates" class="cta-button">Get Business Quotes</a>
+<a href="?page=CompareRates" class="cta-button">Get Business Quotes</a>
 </div>
 
 <h2>The Bottom Line</h2>
@@ -900,7 +900,7 @@ Competitive rate cost: $107-143/month<br>
 <div class="cta-box">
 <h3>Compare Nashua Electricity Rates</h3>
 <p>See personalized rate quotes from 16+ licensed suppliers serving Nashua and Hillsborough County.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>Top Competitive Suppliers in Nashua</h2>
@@ -1065,7 +1065,7 @@ Competitive cost: $97-132/month ($1,161-1,578 annually)<br>
 <div class="cta-box">
 <h3>Compare Concord Electricity Rates</h3>
 <p>Get personalized quotes from 16+ licensed suppliers serving New Hampshire's capital city.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>Available Competitive Suppliers in Concord</h2>
@@ -1256,7 +1256,7 @@ Competitive supplier cost: $95-126/month ($1,137-1,509 annually)<br>
 <div class="cta-box">
 <h3>Compare Warwick Electricity Rates</h3>
 <p>Get instant rate quotes from 15+ PUC-licensed suppliers serving Warwick and Kent County.</p>
-<a href="/compare-rates" class="cta-button">Compare Rates Now</a>
+<a href="?page=CompareRates" class="cta-button">Compare Rates Now</a>
 </div>
 
 <h2>Licensed Competitive Suppliers Serving Warwick</h2>
