@@ -15,7 +15,11 @@ const providers = [
     reviews: 2340,
     description: "Texas' largest electricity provider with a wide range of plan options and competitive rates.",
     features: ["24/7 Customer Support", "Mobile App", "Renewable Options"],
-    minRate: "8.9¢/kWh"
+    minRate: "8.9¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas", "Austin", "San Antonio"],
+    planCount: 15,
+    customerCount: "1.8M+"
   },
   {
     name: "Gexa Energy",
@@ -24,7 +28,11 @@ const providers = [
     reviews: 1560,
     description: "100% renewable energy plans with transparent pricing and no hidden fees.",
     features: ["100% Green Energy", "No Deposit Plans", "Flexible Terms"],
-    minRate: "8.7¢/kWh"
+    minRate: "8.7¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas", "Austin"],
+    planCount: 10,
+    customerCount: "800K+"
   },
   {
     name: "Frontier Utilities",
@@ -33,7 +41,11 @@ const providers = [
     reviews: 850,
     description: "Customer-focused provider with competitive rates for residential and business.",
     features: ["Low Rates", "Flexible Contracts", "Quick Activation"],
-    minRate: "8.8¢/kWh"
+    minRate: "8.8¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Austin", "Fort Worth"],
+    planCount: 7,
+    customerCount: "310K+"
   },
   {
     name: "Rhythm Energy",
@@ -42,7 +54,11 @@ const providers = [
     reviews: 1240,
     description: "Modern energy provider with innovative plans and smart home technology support.",
     features: ["Smart Thermostat Programs", "Usage Tracking", "Green Energy Options"],
-    minRate: "9.1¢/kWh"
+    minRate: "9.1¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas", "Austin"],
+    planCount: 6,
+    customerCount: "280K+"
   },
   {
     name: "Express Energy",
@@ -51,7 +67,11 @@ const providers = [
     reviews: 920,
     description: "Fast setup and competitive plans designed for today's busy lifestyle.",
     features: ["Quick Enrollment", "No Credit Check Options", "Prepaid Plans"],
-    minRate: "9.6¢/kWh"
+    minRate: "9.6¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas"],
+    planCount: 5,
+    customerCount: "220K+"
   },
   {
     name: "Discount Power",
@@ -60,7 +80,11 @@ const providers = [
     reviews: 1150,
     description: "Simple and affordable electricity plans with no hidden fees or surprises.",
     features: ["Low Rates", "No Deposit Required", "Easy Signup"],
-    minRate: "8.4¢/kWh"
+    minRate: "8.4¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "San Antonio"],
+    planCount: 8,
+    customerCount: "390K+"
   },
   {
     name: "Ambit Energy",
@@ -69,7 +93,11 @@ const providers = [
     reviews: 980,
     description: "Reliable energy provider with competitive rates and excellent customer rewards.",
     features: ["Customer Rewards", "Fixed Rate Plans", "Online Management"],
-    minRate: "9.3¢/kWh"
+    minRate: "9.3¢/kWh",
+    states: ["TX"],
+    cities: ["Dallas", "Fort Worth"],
+    planCount: 9,
+    customerCount: "450K+"
   },
   {
     name: "Constellation Energy",
@@ -78,7 +106,11 @@ const providers = [
     reviews: 1680,
     description: "National leader in clean energy with innovative plans for homes and businesses.",
     features: ["Renewable Options", "Smart Energy Tools", "Flexible Plans"],
-    minRate: "9.2¢/kWh"
+    minRate: "9.2¢/kWh",
+    states: ["TX", "IL", "OH", "PA", "NY", "NJ", "MD", "MA", "CT"],
+    cities: ["Houston", "Chicago", "Columbus", "Philadelphia", "Baltimore"],
+    planCount: 22,
+    customerCount: "3.1M+"
   },
   {
     name: "Chariot Energy",
@@ -87,7 +119,11 @@ const providers = [
     reviews: 1320,
     description: "100% renewable energy provider with transparent pricing and local solar options.",
     features: ["100% Solar", "Smart Technology", "Local Support"],
-    minRate: "9.5¢/kWh"
+    minRate: "9.5¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Austin"],
+    planCount: 5,
+    customerCount: "180K+"
   },
   {
     name: "Champion Energy",
@@ -96,7 +132,11 @@ const providers = [
     reviews: 1050,
     description: "Texas-based provider offering straightforward plans with reliable service.",
     features: ["Fixed & Variable Plans", "No Surprises", "Quick Setup"],
-    minRate: "8.9¢/kWh"
+    minRate: "8.9¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas", "Austin", "El Paso"],
+    planCount: 11,
+    customerCount: "520K+"
   },
   {
     name: "BKV Energy",
@@ -105,7 +145,11 @@ const providers = [
     reviews: 890,
     description: "Innovative energy solutions with competitive rates and renewable options.",
     features: ["Green Energy", "Competitive Rates", "Modern Platform"],
-    minRate: "9.0¢/kWh"
+    minRate: "9.0¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "Dallas"],
+    planCount: 6,
+    customerCount: "250K+"
   },
   {
     name: "APG&E",
@@ -114,7 +158,11 @@ const providers = [
     reviews: 760,
     description: "Affordable and sustainable energy plans with excellent customer service.",
     features: ["Low Rates", "Green Options", "24/7 Support"],
-    minRate: "8.6¢/kWh"
+    minRate: "8.6¢/kWh",
+    states: ["TX"],
+    cities: ["Houston", "San Antonio"],
+    planCount: 8,
+    customerCount: "290K+"
   }
 ];
 
@@ -236,31 +284,75 @@ export default function AllProviders() {
                   {provider.description}
                 </p>
 
-                {/* Starting Rate */}
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-3 mb-4">
-                  <div className="text-xs text-gray-600 mb-1">Starting at</div>
-                  <div className="text-2xl font-bold text-[#0A5C8C]">
-                    {provider.minRate}
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="bg-blue-50 rounded-lg p-2 text-center">
+                    <div className="text-xs text-gray-600 mb-0.5">Starting at</div>
+                    <div className="text-sm font-bold text-[#0A5C8C]">{provider.minRate}</div>
+                  </div>
+                  <div className="bg-green-50 rounded-lg p-2 text-center">
+                    <div className="text-xs text-gray-600 mb-0.5">Plans</div>
+                    <div className="text-sm font-bold text-green-700">{provider.planCount}</div>
+                  </div>
+                  <div className="bg-purple-50 rounded-lg p-2 text-center">
+                    <div className="text-xs text-gray-600 mb-0.5">Customers</div>
+                    <div className="text-xs font-bold text-purple-700">{provider.customerCount}</div>
+                  </div>
+                </div>
+
+                {/* States Coverage */}
+                <div className="mb-4">
+                  <div className="text-xs font-semibold text-gray-700 mb-2">Serves {provider.states.length} State{provider.states.length > 1 ? 's' : ''}:</div>
+                  <div className="flex flex-wrap gap-1">
+                    {provider.states.map((state, i) => (
+                      <span key={i} className="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded">
+                        {state}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Top Cities */}
+                <div className="mb-4">
+                  <div className="text-xs font-semibold text-gray-700 mb-2">Top Cities:</div>
+                  <div className="flex flex-wrap gap-1">
+                    {provider.cities.slice(0, 3).map((city, i) => (
+                      <span key={i} className="text-xs text-gray-600">
+                        {city}{i < Math.min(provider.cities.length - 1, 2) ? ',' : ''}
+                      </span>
+                    ))}
+                    {provider.cities.length > 3 && (
+                      <span className="text-xs text-gray-500">+{provider.cities.length - 3}</span>
+                    )}
                   </div>
                 </div>
 
                 {/* Features */}
-                <div className="space-y-2 mb-4">
-                  {provider.features.slice(0, 3).map((feature, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
+                <div className="mb-4">
+                  <div className="text-xs font-semibold text-gray-700 mb-2">Key Features:</div>
+                  <div className="space-y-1">
+                    {provider.features.slice(0, 3).map((feature, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs text-gray-600">
+                        <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* CTA Button */}
-                <Link to={createPageUrl("ProviderDetails") + `?provider=${provider.name}`}>
-                  <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white group-hover:shadow-lg transition-all">
-                    View Plans
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
+                {/* CTA Buttons */}
+                <div className="grid grid-cols-2 gap-2">
+                  <Link to={createPageUrl("ProviderDetails") + `?provider=${encodeURIComponent(provider.name)}`}>
+                    <Button variant="outline" className="w-full text-sm">
+                      Learn More
+                    </Button>
+                  </Link>
+                  <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                    <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
+                      View Plans
+                    </Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ))}
