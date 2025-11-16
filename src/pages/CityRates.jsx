@@ -13,6 +13,7 @@ import {
 import PlanCard from "../components/compare/PlanCard";
 import { getProvidersForZipCode, getProviderDetails } from "../components/compare/providerAvailability";
 import { calculateMonthlyBill } from "../components/compare/dataValidation";
+import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 
 // Comprehensive city data for all states
 const cityData = {
@@ -712,14 +713,38 @@ export default function CityRates() {
     const stateParam = urlParams.get('state') || 'TX';
     const cityKey = `${cityParam}-${stateParam}`;
     setCityName(cityKey);
-    
-    // Set page title for SEO
-    const cityInfo = cityData[cityKey] || cityData[cityParam] || cityData["Houston-TX"];
-    document.title = `Cheap Electricity Rates in ${cityParam}, ${cityInfo.stateCode} | Compare ${cityParam} Energy Plans`;
   }, []);
 
   const city = cityData[cityName] || cityData[cityName.split('-')[0]] || cityData["Houston-TX"];
   const displayCityName = cityName.split('-')[0];
+
+  // Generate dynamic SEO data
+  const seoTitle = `${displayCityName} ${city.stateCode} Electricity Rates 2026 - Save ${city.avgMonthlyBill}/Month | Power Scouts`;
+  const seoDescription = `Compare electricity rates in ${displayCityName}, ${city.state} from ${city.providers}+ providers. Average rate: ${city.avgRate}. ${city.description}`;
+  const seoKeywords = `${displayCityName} electricity rates, ${displayCityName} ${city.stateCode} power plans, electricity providers ${displayCityName}, ${city.county} electricity, ${displayCityName} energy rates, compare electricity ${displayCityName}, cheapest electricity ${displayCityName}`;
+
+  const breadcrumbData = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "All Cities", url: "/all-cities" },
+    { name: `${displayCityName}, ${city.stateCode}`, url: `/city-rates?city=${displayCityName}&state=${city.stateCode}` }
+  ]);
+
+  const serviceData = getServiceSchema(city.state);
+
+  const faqData = getFAQSchema([
+    {
+      question: `What is the average electricity rate in ${displayCityName}, ${city.stateCode}?`,
+      answer: `The average electricity rate in ${displayCityName} is approximately ${city.avgRate}, though rates vary by provider, plan type, and usage level.`
+    },
+    {
+      question: `How do I switch electricity providers in ${displayCityName}?`,
+      answer: `Switching electricity providers in ${displayCityName} is easy. Simply compare plans, select your preferred plan, and sign up. Your new provider handles the switch.`
+    },
+    {
+      question: `Are there renewable energy options in ${displayCityName}?`,
+      answer: `Yes! Many electricity providers in ${displayCityName} offer renewable energy plans sourced from wind and solar farms.`
+    }
+  ]);
 
   const { data: plans, isLoading } = useQuery({
     queryKey: ['plans'],
@@ -745,6 +770,15 @@ export default function CityRates() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        canonical={`/city-rates?city=${displayCityName}&state=${city.stateCode}`}
+        image={city.image}
+        structuredData={[breadcrumbData, serviceData, faqData]}
+      />
+
       {/* Hero Section - SEO Optimized */}
       <div className="relative bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
