@@ -1129,7 +1129,8 @@ Annual cost: $33,744<br>
 
       <p>Join thousands of Warwick residents saving $520+ annually on electricity. Our free comparison tool shows you personalized rates from all 15 suppliers serving Kent County in seconds. Start comparing today and take control of your energy costs.</p>
     `
-  },
+  }
+};
 
 export const getFullArticle = (articleId) => {
   return fullArticles[articleId] || null;
