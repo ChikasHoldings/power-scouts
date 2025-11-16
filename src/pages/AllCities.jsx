@@ -241,7 +241,7 @@ const cities = [
     avgRate: "10.7¢/kWh",
     providers: 25,
     savings: "$640/yr",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/58fce9716_8bb83b32-7b38-4635-9279-d5fe12f4d755.jpg"
   },
   // Maryland Cities
   {
