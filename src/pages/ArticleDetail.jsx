@@ -899,7 +899,7 @@ const articles = [
     color: "blue",
     title: "Rockville MD Electricity Rates 2024: Montgomery County Power Guide",
     description: "Compare Rockville MD electricity from 15+ suppliers. Pepco territory. Save $330-450 yearly in Montgomery County.",
-    image: "https://images.unsplash.com/photo-1577894947058-fccf5cf3f8ac?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/dcbb7d9d2_46fe92cb-3aa8-4914-8974-bde36dd806af.jpg",
     excerpt: "Rockville and Montgomery County competitive market. 15+ PSC-licensed suppliers serving Pepco DC-adjacent MD.",
     readTime: "9 min",
     keywords: ["Rockville electricity", "Pepco Rockville", "Montgomery County MD power", "Rockville energy"],
