@@ -1,7 +1,6 @@
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import FAQ from './pages/FAQ';
-import BusinessRates from './pages/BusinessRates';
 import HomeConcierge from './pages/HomeConcierge';
 import AllProviders from './pages/AllProviders';
 import AllCities from './pages/AllCities';
@@ -37,7 +36,6 @@ export const PAGES = {
     "Home": Home,
     "AboutUs": AboutUs,
     "FAQ": FAQ,
-    "BusinessRates": BusinessRates,
     "HomeConcierge": HomeConcierge,
     "AllProviders": AllProviders,
     "AllCities": AllCities,

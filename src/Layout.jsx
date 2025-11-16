@@ -215,9 +215,6 @@ export default function Layout({ children, currentPageName }) {
                     <Link to={createPageUrl("RenewableEnergy")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
                       Renewable Energy
                     </Link>
-                    <Link to={createPageUrl("BusinessRates")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
-                      Business Rates
-                    </Link>
                     <Link to={createPageUrl("HomeConcierge")} className="block text-sm text-gray-600 hover:text-blue-600 hover:translate-x-1 transition-all py-2">
                       Home Concierge
                     </Link>
