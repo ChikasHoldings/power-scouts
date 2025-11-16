@@ -274,10 +274,6 @@ const articles = [
     relatedArticles: [106, 107, 1]
   }
 ];
-    category: "City Guides",
-    icon: Building2,
-    color: "blue",
-    title: "San Antonio Electricity Rates 2024: Complete TX Power Guide",
     description: "Compare San Antonio electricity options. CPS Energy territory and competitive suburbs. Save $600-800 yearly in eligible areas.",
     image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/9afbd2a3e_136ff412-03e2-40c7-8934-8517d2404665.jpg",
     excerpt: "San Antonio electricity market overview. CPS Energy coverage and competitive options in surrounding areas.",
