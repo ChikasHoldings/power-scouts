@@ -97,7 +97,7 @@ const cities = [
     avgRate: "9.8¢/kWh",
     providers: 33,
     savings: "$730/yr",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/214455956_58463eb0-e880-4c1a-b78b-be40c42fb456.jpg"
   },
   // Ohio Cities
   {
