@@ -190,7 +190,7 @@ const cities = [
     avgRate: "10.8¢/kWh",
     providers: 25,
     savings: "$650/yr",
-    image: "https://images.unsplash.com/photo-1549144511-f099e773c147?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/d747b6596_7c7a75cb-3931-4991-b608-275c44e5dd84.jpg"
   },
   {
     name: "Rochester",

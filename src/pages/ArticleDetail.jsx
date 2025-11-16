@@ -443,7 +443,7 @@ const articles = [
     color: "blue",
     title: "Buffalo Electricity Rates 2024: Western NY Power Guide",
     description: "Compare Buffalo NY electricity from 18+ ESCOs. National Grid territory. Save $350-500 yearly in Erie County.",
-    image: "https://images.unsplash.com/photo-1549144511-f099e773c147?w=1200&q=80",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/d747b6596_7c7a75cb-3931-4991-b608-275c44e5dd84.jpg",
     excerpt: "Buffalo and Erie County ESCO market. 18+ suppliers serving National Grid Western NY territory.",
     readTime: "9 min",
     keywords: ["Buffalo electricity", "National Grid Buffalo", "Western NY power", "Buffalo ESCO rates"],
