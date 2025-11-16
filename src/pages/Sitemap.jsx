@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import { createPageUrl } from "@/utils";
 
 export default function Sitemap() {
-  useEffect(() => {
-    // Get the current domain
-    const baseUrl = window.location.origin;
-    
-    // Define all pages in the app with their priority and change frequency
-    const pages = [
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://powerscouts.com';
+  
+  // Define all pages in the app with their priority and change frequency
+  const pages = [
       { url: "/", priority: 1.0, changefreq: "daily" },
       { url: createPageUrl("CompareRates"), priority: 1.0, changefreq: "daily" },
       { url: createPageUrl("AllProviders"), priority: 0.9, changefreq: "weekly" },
@@ -67,12 +65,12 @@ export default function Sitemap() {
       { url: createPageUrl("ProviderDetails") + "?provider=Gexa Energy", priority: 0.7, changefreq: "weekly" },
       { url: createPageUrl("ProviderDetails") + "?provider=Direct Energy", priority: 0.7, changefreq: "weekly" },
       { url: createPageUrl("ProviderDetails") + "?provider=Green Mountain Energy", priority: 0.7, changefreq: "weekly" },
-    ];
+  ];
 
-    // Generate XML sitemap
-    const currentDate = new Date().toISOString().split('T')[0];
-    
-    const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+  // Generate XML sitemap
+  const currentDate = new Date().toISOString().split('T')[0];
+  
+  const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(page => `  <url>
     <loc>${baseUrl}${page.url}</loc>
@@ -82,37 +80,28 @@ ${pages.map(page => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-    // Set content type and display XML
-    document.querySelector('#sitemap-content').textContent = xmlContent;
+  useEffect(() => {
+    // Set content type for XML
+    const metaContentType = document.createElement('meta');
+    metaContentType.httpEquiv = 'Content-Type';
+    metaContentType.content = 'application/xml; charset=utf-8';
+    document.head.appendChild(metaContentType);
+
+    return () => {
+      document.head.removeChild(metaContentType);
+    };
   }, []);
 
+  // Return raw XML for search engines
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">XML Sitemap</h1>
-          <p className="text-gray-600 mb-8">
-            This is the XML sitemap for Power Scouts. Copy the content below to create a sitemap.xml file
-            for search engines to crawl your site more effectively.
-          </p>
-          
-          <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
-            <pre className="text-green-400 text-sm font-mono whitespace-pre-wrap" id="sitemap-content">
-              Loading sitemap...
-            </pre>
-          </div>
-
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h2 className="font-bold text-gray-900 mb-2">SEO Instructions:</h2>
-            <ul className="text-sm text-gray-700 space-y-1 list-disc list-inside">
-              <li>Copy the XML content above and save it as sitemap.xml in your website root</li>
-              <li>Submit this sitemap to Google Search Console and Bing Webmaster Tools</li>
-              <li>Add a reference to your robots.txt file: <code className="bg-white px-2 py-1 rounded">Sitemap: {window.location.origin}/sitemap.xml</code></li>
-              <li>Update the sitemap whenever you add new pages or content</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <pre style={{ 
+      fontFamily: 'monospace', 
+      whiteSpace: 'pre-wrap', 
+      wordWrap: 'break-word',
+      margin: 0,
+      padding: 0
+    }}>
+      {xmlContent}
+    </pre>
   );
 }
