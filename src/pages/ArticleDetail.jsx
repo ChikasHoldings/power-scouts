@@ -989,7 +989,7 @@ const articles = [
     excerpt: "Early termination fees range from $0-500. Discover legal ways to avoid them and situations where you're protected.",
     readTime: "8 min",
     keywords: ["early termination fee electricity", "cancel electricity contract", "break electricity contract", "ETF electricity", "penalty-free cancellation"],
-    relatedArticles: [6, 7, 10]
+    relatedArticles: [10, 2, 1]
   },
   {
     id: 80,
@@ -1106,7 +1106,7 @@ const articles = [
     excerpt: "Deposits range from $0-500 based on credit. 25+ providers offer no-deposit plans even with poor credit.",
     readTime: "8 min",
     keywords: ["no deposit electricity", "electricity deposit", "no credit check electricity", "electricity without deposit", "bad credit electricity"],
-    relatedArticles: [75, 6, 10]
+    relatedArticles: [75, 10, 2]
   },
   {
     id: 89,
@@ -1197,7 +1197,7 @@ const articles = [
     excerpt: "85% of shoppers make these mistakes: ignoring TDU fees, comparing wrong usage levels, and missing auto-renewal traps.",
     readTime: "9 min",
     keywords: ["electricity shopping mistakes", "rate comparison errors", "electricity plan mistakes", "avoid electricity scams", "smart electricity shopping"],
-    relatedArticles: [2, 6, 76]
+    relatedArticles: [2, 1, 76]
   },
   {
     id: 96,
@@ -1236,7 +1236,7 @@ const articles = [
     excerpt: "Hidden fees in electricity contracts cost consumers $100-300 yearly. Learn to spot 12 common red flags before signing.",
     readTime: "10 min",
     keywords: ["read electricity contract", "electricity hidden fees", "electricity contract red flags", "EFL explained", "electricity facts label"],
-    relatedArticles: [6, 79, 9]
+    relatedArticles: [2, 79, 1]
   },
   {
     id: 99,
@@ -1327,7 +1327,7 @@ const articles = [
     excerpt: "87% of online electricity reviews are potentially fake or paid. Learn to find legitimate provider ratings and customer feedback.",
     readTime: "8 min",
     keywords: ["electricity provider reviews", "best electricity company", "provider ratings", "electricity customer reviews", "trustworthy provider"],
-    relatedArticles: [6, 2, 95]
+    relatedArticles: [2, 1, 95]
   }
 ];
 
