@@ -231,7 +231,7 @@ const cities = [
     avgRate: "10.6¢/kWh",
     providers: 26,
     savings: "$650/yr",
-    image: "https://images.unsplash.com/photo-1587582423116-ec07293f0395?w=400&h=300&fit=crop"
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/e04a9188b_29c455be-4263-4009-8e75-1475730b0b76.jpg"
   },
   {
     name: "Paterson",
