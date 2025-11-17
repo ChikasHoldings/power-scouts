@@ -245,7 +245,7 @@ export default function ArticleDetail() {
   const dbArticle = dbArticles.find(a => String(a.id) === String(articleId));
   const articleData = dbArticle?.data || dbArticle;
   const fullArticle = articleData?.content ? { 
-    content: articleData.content,
+    content: fixArticleLinks(articleData.content),
     metaTitle: articleData.meta_title,
     metaDescription: articleData.meta_description,
     tags: articleData.tags
