@@ -216,3 +216,27 @@ export const getBreadcrumbSchema = (items) => ({
     "item": `${window.location.origin}${item.url}`
   }))
 });
+
+// Helper function to generate LocalBusiness schema
+export const getLocalBusinessSchema = (business) => ({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": business.name || "Power Scouts",
+  "description": business.description || "Compare electricity rates and save money on your energy bills",
+  "url": business.url || window.location.origin,
+  "telephone": business.telephone || "",
+  "address": business.address ? {
+    "@type": "PostalAddress",
+    "streetAddress": business.address.streetAddress,
+    "addressLocality": business.address.city,
+    "addressRegion": business.address.state,
+    "postalCode": business.address.zipCode,
+    "addressCountry": "US"
+  } : undefined,
+  "geo": business.geo ? {
+    "@type": "GeoCoordinates",
+    "latitude": business.geo.latitude,
+    "longitude": business.geo.longitude
+  } : undefined,
+  "areaServed": business.areaServed || ["US"]
+});
