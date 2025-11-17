@@ -170,6 +170,7 @@ export default function EnhancedSearch({
   placeholder = "Search articles, topics, cities, or states..." 
 }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [lastSearchTerm, setLastSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
@@ -188,12 +189,14 @@ export default function EnhancedSearch({
     const timer = setTimeout(() => {
       if (searchTerm.trim().length > 0) {
         const results = advancedSearch(articles, searchTerm);
-        onSearch(results.map(r => r.article));
+        onSearch(results.map(r => r.article), searchTerm);
+        setLastSearchTerm(searchTerm);
         
         // Generate suggestions based on search results
         generateSuggestions(searchTerm, results);
       } else {
-        onSearch(articles);
+        onSearch(articles, "");
+        setLastSearchTerm("");
         setSuggestions([]);
       }
     }, 300);
@@ -280,7 +283,8 @@ export default function EnhancedSearch({
   
   const clearSearch = () => {
     setSearchTerm("");
-    onSearch(articles);
+    setLastSearchTerm("");
+    onSearch(articles, "");
     setSuggestions([]);
     setShowSuggestions(false);
   };
