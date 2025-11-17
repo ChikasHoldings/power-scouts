@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, CheckCircle, Zap, TrendingDown, ArrowRight } from "lucide-react";
+import { Search, MapPin, CheckCircle, Zap, TrendingDown, ArrowRight } from "lucide-react";
 import { getAllDeregulatedStates, validateZipCode, getStateByZip } from "../components/compare/stateData";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
 import ValidatedZipInput from "../components/ValidatedZipInput";
