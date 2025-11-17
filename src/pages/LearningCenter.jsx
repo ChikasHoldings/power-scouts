@@ -180,19 +180,22 @@ export default function LearningCenter() {
     return colorMap[category] || "blue";
   };
 
-  const articles = dbArticles && dbArticles.length > 0 ? dbArticles.map(article => ({
-    id: article.id,
-    category: article.category,
-    icon: getCategoryIcon(article.category),
-    color: getCategoryColor(article.category),
-    title: article.title,
-    description: article.meta_description,
-    image: article.featured_image || "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
-    excerpt: article.excerpt,
-    readTime: article.read_time,
-    keywords: article.keywords || [],
-    relatedArticles: article.related_articles || []
-  })) : fallbackArticles;
+  const articles = dbArticles && dbArticles.length > 0 ? dbArticles.map(article => {
+    const data = article.data || article;
+    return {
+      id: article.id,
+      category: data.category,
+      icon: getCategoryIcon(data.category),
+      color: getCategoryColor(data.category),
+      title: data.title,
+      description: data.meta_description,
+      image: data.featured_image || "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+      excerpt: data.excerpt,
+      readTime: data.read_time,
+      keywords: data.keywords || [],
+      relatedArticles: data.related_articles || []
+    };
+  }) : fallbackArticles;
 
   const [searchResults, setSearchResults] = useState(articles);
 
