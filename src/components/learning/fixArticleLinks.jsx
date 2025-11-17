@@ -76,7 +76,7 @@ export function fixArticleLinks(htmlContent) {
   // Fix article links without leading slash
   fixedContent = fixedContent.replace(
     /href=["']article\?id=([^"']+)["']/gi,
-    'href="/app/ArticleDetail?id=$1"
+    'href="/app/ArticleDetail?id=$1"'
   );
 
   // Fix provider details links
