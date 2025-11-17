@@ -187,17 +187,20 @@ export default function LearningCenter() {
     }
     console.log('Mapping database articles:', dbArticles.length);
     return dbArticles.map(article => {
+      // Handle both nested and flat data structures
       const data = article.data || article;
+      const articleId = article.id || data.id;
+      
       return {
-        id: article.id,
-        category: data.category,
-        icon: getCategoryIcon(data.category),
-        color: getCategoryColor(data.category),
-        title: data.title,
-        description: data.meta_description,
+        id: articleId,
+        category: data.category || "Getting Started",
+        icon: getCategoryIcon(data.category || "Getting Started"),
+        color: getCategoryColor(data.category || "Getting Started"),
+        title: data.title || "Untitled Article",
+        description: data.meta_description || data.description || data.excerpt,
         image: data.featured_image || "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
-        excerpt: data.excerpt,
-        readTime: data.read_time,
+        excerpt: data.excerpt || data.meta_description || "",
+        readTime: data.read_time || "5 min",
         keywords: data.keywords || [],
         relatedArticles: data.related_articles || []
       };
