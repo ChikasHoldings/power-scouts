@@ -1,12 +1,23 @@
 /**
  * Utility to fix internal links in article content
- * Converts relative links to proper page URLs
+ * Converts relative links to proper page URLs and removes links to non-existent pages
  */
 
 export function fixArticleLinks(htmlContent) {
   if (!htmlContent) return htmlContent;
 
-  // Map of old link patterns to correct page names
+  // List of valid pages that exist in the app
+  const validPages = [
+    'Home', 'CompareRates', 'LearningCenter', 'ArticleDetail', 'BillAnalyzer',
+    'BusinessElectricity', 'RenewableEnergy', 'HomeConcierge', 'FAQ', 'AboutUs',
+    'PrivacyPolicy', 'TermsOfService', 'AllStates', 'AllCities', 'AllProviders',
+    'CityRates', 'ProviderDetails', 'TexasElectricity', 'PennsylvaniaElectricity',
+    'IllinoisElectricity', 'OhioElectricity', 'NewYorkElectricity', 'NewJerseyElectricity',
+    'MarylandElectricity', 'MassachusettsElectricity', 'MaineElectricity',
+    'NewHampshireElectricity', 'RhodeIslandElectricity', 'ConnecticutElectricity'
+  ];
+
+  // Map of old link patterns to correct page names (only valid pages)
   const linkMappings = {
     // Core pages
     '/compare-rates': 'CompareRates',
