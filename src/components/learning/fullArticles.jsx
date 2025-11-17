@@ -817,7 +817,7 @@ Annual cost: $33,744<br>
 <div class="cta-box">
 <h3>Get Competitive Commercial Quotes</h3>
 <p>Request free quotes from top commercial electricity providers in your area.</p>
-<a href="?page=CompareRates" class="cta-button">Get Business Quotes</a>
+<a href="/app/CompareRates" class="cta-button">Get Business Quotes</a>
 </div>
 
 <h2>The Bottom Line</h2>
