@@ -97,7 +97,7 @@ export default function BusinessElectricity() {
             </div>
 
             {/* Business Quote Form */}
-            <Card className="border-0 shadow-2xl">
+            <Card id="business-quote-form" className="border-0 shadow-2xl">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Get Custom Business Quotes</h3>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -424,12 +424,12 @@ export default function BusinessElectricity() {
             Get custom quotes from commercial electricity providers. Save thousands annually with the right business energy plan.
           </p>
           
-          <Link to={createPageUrl("CompareRates") + "?type=business"}>
+          <a href="#business-quote-form">
             <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-10 py-4 text-lg rounded-lg">
-              Get Business Quotes Now
+              Get Business Quotes
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-          </Link>
+          </a>
 
           <div className="flex items-center justify-center gap-5 flex-wrap text-xs mt-6">
             <div className="flex items-center gap-1.5">
