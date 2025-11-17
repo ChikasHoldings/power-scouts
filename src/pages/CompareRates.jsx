@@ -45,18 +45,47 @@ export default function CompareRates() {
   const [cityName, setCityName] = useState("");
   const [availableProviders, setAvailableProviders] = useState([]);
 
+  // Business flow state
+  const [businessFlow, setBusinessFlow] = useState(false);
+  const [businessInfo, setBusinessInfo] = useState({
+    businessType: "",
+    industryType: "",
+    monthlyUsage: "",
+    peakDemand: "",
+    numberOfLocations: "1",
+    energyGoals: []
+  });
+
   // Load ZIP code from URL or localStorage on mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const zipFromUrl = urlParams.get('zip');
+    const typeFromUrl = urlParams.get('type');
+    const businessTypeFromUrl = urlParams.get('businessType');
+    const usageFromUrl = urlParams.get('usage');
     const savedZip = localStorage.getItem('compareRatesZip');
+    
+    // Check if business flow
+    if (typeFromUrl === 'business') {
+      setBusinessFlow(true);
+      if (businessTypeFromUrl) {
+        setBusinessInfo(prev => ({ ...prev, businessType: businessTypeFromUrl }));
+      }
+      if (usageFromUrl) {
+        setBusinessInfo(prev => ({ ...prev, monthlyUsage: usageFromUrl }));
+      }
+    }
     
     if (zipFromUrl && zipFromUrl.length === 5) {
       const validation = validateZipCode(zipFromUrl);
       if (validation.valid) {
         setZipCode(zipFromUrl);
         localStorage.setItem('compareRatesZip', zipFromUrl);
-        setStep(2);
+        if (typeFromUrl === 'business') {
+          setStep(4); // Industry Type step for business
+        } else {
+          setStep(2);
+        }
       }
     } else if (savedZip && savedZip.length === 5) {
       setZipCode(savedZip);
@@ -106,6 +135,24 @@ export default function CompareRates() {
     }, 2000);
   };
 
+  // Business flow handlers
+  const handleBusinessDetailsSubmit = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowResults(true);
+    }, 2000);
+  };
+
+  const toggleBusinessGoal = (goal) => {
+    setBusinessInfo(prev => ({
+      ...prev,
+      energyGoals: prev.energyGoals.includes(goal)
+        ? prev.energyGoals.filter(g => g !== goal)
+        : [...prev.energyGoals, goal]
+    }));
+  };
+
   const togglePreference = (key) => {
     setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
   };
@@ -126,7 +173,10 @@ export default function CompareRates() {
   const otherPlans = sortedPlans.slice(3);
 
   const calculateBill = (plan) => {
-    return calculateMonthlyBill(plan, 1000);
+    const usage = businessFlow && businessInfo.monthlyUsage 
+      ? parseInt(businessInfo.monthlyUsage) 
+      : 1000;
+    return calculateMonthlyBill(plan, usage);
   };
 
   const getProviderLogo = (providerName) => {
@@ -222,10 +272,15 @@ export default function CompareRates() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Award className="w-6 h-6 text-yellow-400" />
-              <h1 className="text-2xl sm:text-3xl font-bold">Your Personalized Rate Comparison</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold">
+                {businessFlow ? 'Your Business Energy Solutions' : 'Your Personalized Rate Comparison'}
+              </h1>
             </div>
             <p className="text-center text-sm text-blue-100">
-              {filteredPlans.length} plans available in {cityName} (ZIP: {zipCode}) • {propertyType.charAt(0).toUpperCase() + propertyType.slice(1)}
+              {filteredPlans.length} plans available in {cityName} (ZIP: {zipCode})
+              {businessFlow && businessInfo.industryType && ` • ${businessInfo.industryType}`}
+              {businessFlow && businessInfo.monthlyUsage && ` • ${parseInt(businessInfo.monthlyUsage).toLocaleString()} kWh/mo`}
+              {!businessFlow && propertyType && ` • ${propertyType.charAt(0).toUpperCase() + propertyType.slice(1)}`}
             </p>
           </div>
         </div>
@@ -236,9 +291,13 @@ export default function CompareRates() {
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
                 <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
-                Top 3 Recommended Plans
+                {businessFlow ? 'Top 3 Business Plans' : 'Top 3 Recommended Plans'}
               </h2>
-              <p className="text-gray-600">Best rates for your area based on 1,000 kWh usage</p>
+              <p className="text-gray-600">
+                {businessFlow && businessInfo.monthlyUsage 
+                  ? `Best commercial rates based on ${parseInt(businessInfo.monthlyUsage).toLocaleString()} kWh usage`
+                  : 'Best rates for your area based on 1,000 kWh usage'}
+              </p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-4">
@@ -1022,6 +1081,161 @@ export default function CompareRates() {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 4: Business Industry Type (Business Flow Only)
+  if (step === 4 && businessFlow) {
+    const industryTypes = [
+      "Retail", "Restaurant/Food Service", "Office/Professional Services", "Healthcare/Medical",
+      "Manufacturing", "Warehouse/Distribution", "Hospitality/Hotel", "Education",
+      "Technology/Data Center", "Real Estate/Property Management", "Agriculture", "Other"
+    ];
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-6 pb-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              What Industry Are You In?
+            </h1>
+            <p className="text-gray-600 text-lg">This helps us match you with the best commercial plans</p>
+          </div>
+
+          <Card className="shadow-2xl border-2 mb-6">
+            <CardContent className="p-8">
+              <Select 
+                value={businessInfo.industryType} 
+                onValueChange={(val) => setBusinessInfo(prev => ({ ...prev, industryType: val }))}
+              >
+                <SelectTrigger className="h-14 text-lg">
+                  <SelectValue placeholder="Select your industry" />
+                </SelectTrigger>
+                <SelectContent>
+                  {industryTypes.map((industry) => (
+                    <SelectItem key={industry} value={industry}>{industry}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
+
+          <Button 
+            onClick={() => setStep(5)}
+            className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white h-16 text-xl font-bold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50"
+            disabled={!businessInfo.industryType}
+          >
+            Continue
+            <ArrowRight className="w-6 h-6 ml-2" />
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 5: Business Details (Business Flow Only)
+  if (step === 5 && businessFlow) {
+    const energyGoalOptions = [
+      { value: "cost", label: "Reduce Energy Costs", icon: TrendingDown },
+      { value: "sustainability", label: "Sustainability/Green Energy", icon: Leaf },
+      { value: "predictability", label: "Budget Predictability", icon: Clock },
+      { value: "demand", label: "Manage Peak Demand", icon: Zap }
+    ];
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-6 pb-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              Tell Us More About Your Business
+            </h1>
+            <p className="text-gray-600 text-lg">Just a few more details to find your perfect plan</p>
+          </div>
+
+          <Card className="shadow-2xl border-2 mb-6">
+            <CardContent className="p-8 space-y-6">
+              {/* Usage & Demand */}
+              {!businessInfo.monthlyUsage && (
+                <div>
+                  <label className="text-sm font-bold text-gray-900 mb-2 block">Average Monthly Usage (kWh)</label>
+                  <Input
+                    type="text"
+                    placeholder="e.g., 15000"
+                    value={businessInfo.monthlyUsage}
+                    onChange={(e) => setBusinessInfo(prev => ({ ...prev, monthlyUsage: e.target.value.replace(/\D/g, '') }))}
+                    className="h-12 text-lg"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="text-sm font-bold text-gray-900 mb-2 block">Peak Demand (kW) - Optional</label>
+                <Input
+                  type="text"
+                  placeholder="e.g., 50"
+                  value={businessInfo.peakDemand}
+                  onChange={(e) => setBusinessInfo(prev => ({ ...prev, peakDemand: e.target.value.replace(/\D/g, '') }))}
+                  className="h-12 text-lg"
+                />
+              </div>
+
+              {/* Number of Locations */}
+              <div>
+                <label className="text-sm font-bold text-gray-900 mb-2 block">Number of Locations</label>
+                <Select 
+                  value={businessInfo.numberOfLocations} 
+                  onValueChange={(val) => setBusinessInfo(prev => ({ ...prev, numberOfLocations: val }))}
+                >
+                  <SelectTrigger className="h-12 text-lg">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1 Location</SelectItem>
+                    <SelectItem value="2-5">2-5 Locations</SelectItem>
+                    <SelectItem value="6-10">6-10 Locations</SelectItem>
+                    <SelectItem value="10+">10+ Locations</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Energy Goals */}
+              <div>
+                <label className="text-sm font-bold text-gray-900 mb-3 block">Your Energy Goals (Select all that apply)</label>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {energyGoalOptions.map((goal) => (
+                    <div
+                      key={goal.value}
+                      onClick={() => toggleBusinessGoal(goal.value)}
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                        businessInfo.energyGoals.includes(goal.value)
+                          ? 'border-[#0A5C8C] bg-blue-50 shadow-lg'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <goal.icon className="w-5 h-5 text-[#0A5C8C]" />
+                        <span className="font-semibold text-gray-900">{goal.label}</span>
+                        {businessInfo.energyGoals.includes(goal.value) && (
+                          <CheckCircle className="w-5 h-5 text-[#0A5C8C] ml-auto" />
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Button 
+            onClick={handleBusinessDetailsSubmit}
+            className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] hover:from-[#e55a2b] hover:to-[#cc4a1f] text-white h-16 text-xl font-bold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50"
+            disabled={!businessInfo.monthlyUsage}
+          >
+            Find Business Plans
+            <ArrowRight className="w-6 h-6 ml-2" />
+          </Button>
         </div>
       </div>
     );
