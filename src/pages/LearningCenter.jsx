@@ -177,7 +177,7 @@ export default function LearningCenter() {
     return colorMap[category] || "blue";
   };
 
-  const articles = dbArticles.length > 0 ? dbArticles.map(article => ({
+  const articles = dbArticles && dbArticles.length > 0 ? dbArticles.filter(a => a.published !== false).map(article => ({
     id: article.id,
     category: article.category,
     icon: getCategoryIcon(article.category),
