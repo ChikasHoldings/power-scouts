@@ -187,10 +187,10 @@ export default function LearningCenter() {
 
   const articles = React.useMemo(() => {
     if (!dbArticles || dbArticles.length === 0) {
-      console.log('Using fallback articles, dbArticles:', dbArticles);
+      console.log('Using fallback articles');
       return fallbackArticles;
     }
-    console.log('Mapping database articles:', dbArticles.length, 'first article:', dbArticles[0]);
+    console.log('Mapping database articles:', dbArticles.length);
     return dbArticles.map(article => {
       // Handle both nested and flat data structures
       const data = article.data || article;
