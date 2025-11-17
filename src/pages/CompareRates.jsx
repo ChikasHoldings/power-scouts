@@ -111,6 +111,13 @@ export default function CompareRates() {
     }
   }, []);
 
+  // Scroll to top when results are shown
+  useEffect(() => {
+    if (showResults) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showResults]);
+
   const { data: plans } = useQuery({
     queryKey: ['plans'],
     queryFn: () => base44.entities.ElectricityPlan.list(),
@@ -299,13 +306,6 @@ export default function CompareRates() {
       </div>
     );
   }
-
-  // Scroll to top when results are shown
-  useEffect(() => {
-    if (showResults) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [showResults]);
 
   // Results Page
   if (showResults) {
