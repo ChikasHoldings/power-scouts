@@ -20,6 +20,7 @@ import {
   calculateMonthlyBill,
   validateZipForComparison 
 } from "../components/compare/dataValidation";
+import { calculateMatchScore, calculateSavings, generatePlanSummary } from "../components/compare/matchScore";
 
 export default function CompareRates() {
   const [step, setStep] = useState(1);
@@ -97,6 +98,8 @@ export default function CompareRates() {
     queryKey: ['plans'],
     queryFn: () => base44.entities.ElectricityPlan.list(),
     initialData: [],
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
   });
 
   const handleZipSubmit = () => {
@@ -168,7 +171,21 @@ export default function CompareRates() {
     return true;
   });
 
-  const sortedPlans = [...filteredPlans].sort((a, b) => a.rate_per_kwh - b.rate_per_kwh);
+  // Sort plans by match score and rate
+  const plansWithScores = filteredPlans.map(plan => ({
+    ...plan,
+    matchScore: calculateMatchScore(plan, preferences, propertyType, businessInfo),
+    summary: generatePlanSummary(plan, businessFlow && businessInfo.monthlyUsage ? parseInt(businessInfo.monthlyUsage) : 1000)
+  }));
+
+  const sortedPlans = [...plansWithScores].sort((a, b) => {
+    // First sort by match score, then by rate
+    if (b.matchScore.score !== a.matchScore.score) {
+      return b.matchScore.score - a.matchScore.score;
+    }
+    return a.rate_per_kwh - b.rate_per_kwh;
+  });
+
   const topPlans = sortedPlans.slice(0, 3);
   const otherPlans = sortedPlans.slice(3);
 
@@ -262,20 +279,27 @@ export default function CompareRates() {
     );
   }
 
+  // Scroll to top when results are shown
+  useEffect(() => {
+    if (showResults) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showResults]);
+
   // Results Page
   if (showResults) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-5">
+        <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-4 sm:py-5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Award className="w-5 h-5 text-yellow-400" />
-              <h1 className="text-xl sm:text-2xl font-semibold">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-1">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 flex-shrink-0" />
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-center">
                 {businessFlow ? 'Your Business Energy Solutions' : 'Your Personalized Rate Comparison'}
               </h1>
             </div>
-            <p className="text-center text-xs text-blue-100">
+            <p className="text-center text-xs sm:text-sm text-blue-100 px-2">
               {filteredPlans.length} plans available in {cityName} (ZIP: {zipCode})
               {businessFlow && businessInfo.industryType && ` • ${businessInfo.industryType}`}
               {businessFlow && businessInfo.monthlyUsage && ` • ${parseInt(businessInfo.monthlyUsage).toLocaleString()} kWh/mo`}
@@ -284,24 +308,36 @@ export default function CompareRates() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           {/* Top 3 Recommended Plans */}
-          <div className="mb-10">
-            <div className="text-center mb-5">
-              <h2 className="text-lg font-semibold text-gray-900 mb-1 flex items-center justify-center gap-2">
-                <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                {businessFlow ? 'Top 3 Business Plans' : 'Top 3 Recommended Plans'}
+          <div className="mb-8 sm:mb-10">
+            <div className="text-center mb-4 sm:mb-5">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 flex items-center justify-center gap-2">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 fill-yellow-500 flex-shrink-0" />
+                <span>{businessFlow ? 'Top 3 Business Plans' : 'Top 3 Recommended Plans'}</span>
               </h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs sm:text-sm text-gray-600 px-4">
                 {businessFlow && businessInfo.monthlyUsage 
                   ? `Best commercial rates based on ${parseInt(businessInfo.monthlyUsage).toLocaleString()} kWh usage`
                   : 'Best rates for your area based on 1,000 kWh usage'}
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
               {topPlans.map((plan, index) => (
                 <Card key={plan.id} className="relative overflow-hidden border hover:border-[#FF6B35] transition-all hover:shadow-lg group">
+                  {/* Match Score Badge */}
+                  <div className="absolute top-3 left-3 z-10">
+                    <div className={`px-2.5 py-1 rounded-lg font-bold text-xs ${
+                      plan.matchScore.tier === 'excellent' ? 'bg-green-500 text-white' :
+                      plan.matchScore.tier === 'great' ? 'bg-blue-500 text-white' :
+                      plan.matchScore.tier === 'good' ? 'bg-yellow-500 text-white' :
+                      'bg-gray-500 text-white'
+                    }`}>
+                      {plan.matchScore.score}% Match
+                    </div>
+                  </div>
+                  
                   {/* Rank Badge */}
                   <div className="absolute top-3 right-3 z-10">
                     <div className={`text-white text-[10px] font-semibold px-2 py-1 rounded-md ${
@@ -336,11 +372,26 @@ export default function CompareRates() {
                       <div className="text-[10px] text-gray-500 uppercase tracking-wide">per kWh</div>
                     </div>
                     
+                    {/* Match Reasons */}
+                    {plan.matchScore.reasons.length > 0 && (
+                      <div className="bg-blue-50 rounded-lg p-2.5 mb-3">
+                        <p className="text-[10px] font-semibold text-blue-900 mb-1">Why this matches:</p>
+                        <ul className="space-y-0.5">
+                          {plan.matchScore.reasons.map((reason, i) => (
+                            <li key={i} className="text-[10px] text-blue-700 flex items-start gap-1">
+                              <CheckCircle className="w-2.5 h-2.5 flex-shrink-0 mt-0.5" />
+                              <span>{reason}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                     {/* Details */}
                     <div className="space-y-1.5 mb-3 text-xs">
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Est. Monthly:</span>
-                        <span className="font-semibold text-gray-900">${calculateBill(plan)}</span>
+                        <span className="font-semibold text-gray-900">${plan.summary.monthlyBill}</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gray-600">Contract:</span>
@@ -350,6 +401,18 @@ export default function CompareRates() {
                         <span className="text-gray-600">Type:</span>
                         <span className="font-medium text-gray-900 capitalize">{plan.plan_type}</span>
                       </div>
+                      {plan.summary.earlyTermFee > 0 && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600">Cancel Fee:</span>
+                          <span className="font-semibold text-orange-600">${plan.summary.earlyTermFee}</span>
+                        </div>
+                      )}
+                      {plan.summary.potentialSavings > 0 && (
+                        <div className="flex justify-between items-center bg-green-50 -mx-2 px-2 py-1 rounded">
+                          <span className="text-green-700 font-medium">Annual Savings:</span>
+                          <span className="font-bold text-green-700">${plan.summary.potentialSavings}</span>
+                        </div>
+                      )}
                       {plan.renewable_percentage >= 50 && (
                         <div className="flex items-center justify-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-md text-[10px] font-medium mt-2">
                           <Leaf className="w-3 h-3" />
@@ -373,34 +436,34 @@ export default function CompareRates() {
 
           {/* All Other Plans */}
           {otherPlans.length > 0 && (
-            <div className="mb-10">
-              <div className="mb-4">
-                <h2 className="text-lg font-semibold text-gray-900 mb-0.5">More Available Plans</h2>
-                <p className="text-xs text-gray-600">Additional options in your area</p>
+            <div className="mb-8 sm:mb-10">
+              <div className="mb-3 sm:mb-4">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-0.5">More Available Plans</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Additional options in your area</p>
               </div>
 
               {/* Filters */}
-              <Card className="mb-5 border">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-3">
+              <Card className="mb-4 sm:mb-5 border">
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex items-center justify-between mb-2 sm:mb-3">
                     <div className="flex items-center gap-1.5">
-                      <Filter className="w-4 h-4 text-[#0A5C8C]" />
-                      <span className="text-sm font-semibold text-gray-900">Filter Plans</span>
+                      <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0A5C8C] flex-shrink-0" />
+                      <span className="text-xs sm:text-sm font-semibold text-gray-900">Filter Plans</span>
                     </div>
                     <Button 
                       variant="ghost" 
                       size="sm"
                       onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-                      className="text-xs text-[#0A5C8C] hover:text-[#084a6f] h-7"
+                      className="text-xs text-[#0A5C8C] hover:text-[#084a6f] h-6 sm:h-7 px-2"
                     >
                       {showAdvancedFilters ? 'Hide' : 'Show'} Advanced
                     </Button>
                   </div>
 
                   {/* Basic Filters */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5">
                     <Select value={filterRate} onValueChange={setFilterRate}>
-                      <SelectTrigger className="h-9 text-sm">
+                      <SelectTrigger className="h-8 sm:h-9 text-xs sm:text-sm">
                         <SelectValue placeholder="Rate" />
                       </SelectTrigger>
                       <SelectContent>
@@ -412,7 +475,7 @@ export default function CompareRates() {
                     </Select>
 
                     <Select value={filterTerm} onValueChange={setFilterTerm}>
-                      <SelectTrigger className="h-9 text-sm">
+                      <SelectTrigger className="h-8 sm:h-9 text-xs sm:text-sm">
                         <SelectValue placeholder="Term" />
                       </SelectTrigger>
                       <SelectContent>
@@ -424,7 +487,7 @@ export default function CompareRates() {
                     </Select>
 
                     <Select value={filterProvider} onValueChange={setFilterProvider}>
-                      <SelectTrigger className="h-9 text-sm">
+                      <SelectTrigger className="h-8 sm:h-9 text-xs sm:text-sm">
                         <SelectValue placeholder="Provider" />
                       </SelectTrigger>
                       <SelectContent>
@@ -436,7 +499,7 @@ export default function CompareRates() {
                     </Select>
 
                     <Select value={filterPlanType} onValueChange={setFilterPlanType}>
-                      <SelectTrigger className="h-9 text-sm">
+                      <SelectTrigger className="h-8 sm:h-9 text-xs sm:text-sm">
                         <SelectValue placeholder="Type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -567,27 +630,47 @@ export default function CompareRates() {
                                 src={getProviderLogo(plan.provider_name)} 
                                 alt={plan.provider_name}
                                 className="h-7 w-auto object-contain"
+                                loading="lazy"
                               />
                             ) : (
                               <span className="text-xs font-semibold text-gray-900">{plan.provider_name.substring(0, 2)}</span>
                             )}
-                            <div>
-                              <div className="font-medium text-gray-900 text-sm">{plan.provider_name}</div>
-                              <div className="text-xs text-gray-500 truncate max-w-xs">{plan.plan_name}</div>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-medium text-gray-900 text-sm flex items-center gap-2">
+                                {plan.provider_name}
+                                {plan.matchScore && plan.matchScore.score >= 75 && (
+                                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                    plan.matchScore.tier === 'excellent' ? 'bg-green-100 text-green-700' :
+                                    'bg-blue-100 text-blue-700'
+                                  }`}>
+                                    {plan.matchScore.score}% Match
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-3 text-center">
                           <div className="text-lg font-semibold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                          {plan.summary.baseCharge > 0 && (
+                            <div className="text-[10px] text-gray-500">+${plan.summary.baseCharge} base</div>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <div className="text-base font-semibold text-gray-900">${calculateBill(plan)}</div>
+                          <div className="text-base font-semibold text-gray-900">${plan.summary.monthlyBill}</div>
+                          {plan.summary.potentialSavings > 0 && (
+                            <div className="text-[10px] text-green-600 font-medium">Save ${plan.summary.potentialSavings}/yr</div>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span className="text-sm font-medium text-gray-900">{plan.contract_length || 'Var'} mo</span>
+                          {plan.summary.earlyTermFee > 0 && (
+                            <div className="text-[10px] text-orange-600">${plan.summary.earlyTermFee} ETF</div>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <div className="flex items-center justify-center gap-1.5">
+                          <div className="flex items-center justify-center gap-1.5 flex-wrap">
                             <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-50 text-blue-700 capitalize">
                               {plan.plan_type}
                             </span>
@@ -620,17 +703,28 @@ export default function CompareRates() {
                             src={getProviderLogo(plan.provider_name)} 
                             alt={plan.provider_name}
                             className="h-7 w-auto object-contain"
+                            loading="lazy"
                           />
                         ) : (
                           <span className="text-xs font-semibold text-gray-900">{plan.provider_name.substring(0, 3)}</span>
                         )}
-                        <div className="flex-1">
-                          <div className="font-semibold text-gray-900 text-sm">{plan.provider_name}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
+                            <span className="truncate">{plan.provider_name}</span>
+                            {plan.matchScore && plan.matchScore.score >= 75 && (
+                              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${
+                                plan.matchScore.tier === 'excellent' ? 'bg-green-500 text-white' :
+                                'bg-blue-500 text-white'
+                              }`}>
+                                {plan.matchScore.score}%
+                              </span>
+                            )}
+                          </div>
                           <div className="text-xs text-gray-500 truncate">{plan.plan_name}</div>
                         </div>
                       </div>
                       
-                      <div className="flex gap-1.5 mb-2.5">
+                      <div className="flex gap-1.5 mb-2.5 flex-wrap">
                         <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-50 text-blue-700 capitalize">
                           {plan.plan_type}
                         </span>
@@ -640,26 +734,38 @@ export default function CompareRates() {
                             Green
                           </span>
                         )}
+                        {plan.summary.potentialSavings > 0 && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-green-50 text-green-700">
+                            <TrendingDown className="w-3 h-3 mr-0.5" />
+                            Save ${plan.summary.potentialSavings}/yr
+                          </span>
+                        )}
                       </div>
 
                       <div className="grid grid-cols-3 gap-2 mb-2.5 bg-gray-50 rounded-lg p-2.5">
                         <div className="text-center">
                           <div className="text-[10px] text-gray-600">Rate</div>
                           <div className="text-base font-semibold text-[#0A5C8C]">{plan.rate_per_kwh}¢</div>
+                          {plan.summary.baseCharge > 0 && (
+                            <div className="text-[9px] text-gray-500">+${plan.summary.baseCharge}</div>
+                          )}
                         </div>
                         <div className="text-center">
                           <div className="text-[10px] text-gray-600">Monthly</div>
-                          <div className="text-base font-semibold text-gray-900">${calculateBill(plan)}</div>
+                          <div className="text-base font-semibold text-gray-900">${plan.summary.monthlyBill}</div>
                         </div>
                         <div className="text-center">
                           <div className="text-[10px] text-gray-600">Term</div>
                           <div className="text-sm font-medium text-gray-900">{plan.contract_length || 'Var'} mo</div>
+                          {plan.summary.earlyTermFee > 0 && (
+                            <div className="text-[9px] text-orange-600">${plan.summary.earlyTermFee} ETF</div>
+                          )}
                         </div>
                       </div>
 
                       <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
                         <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm font-medium py-2 rounded-lg">
-                          View Plan
+                          View Plan Details
                         </Button>
                       </a>
                     </CardContent>
