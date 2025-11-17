@@ -14,6 +14,7 @@ import { getFullArticle } from "../components/learning/fullArticles";
 import ArticleRecommendations from "../components/learning/ArticleRecommendations";
 import ArticleSuggestions from "../components/learning/ArticleSuggestions";
 import { trackDailyReading } from "../components/learning/ReadingAnalytics";
+import { fixArticleLinks } from "../components/learning/fixArticleLinks";
 
 // Fallback articles
 const fallbackArticles = [
