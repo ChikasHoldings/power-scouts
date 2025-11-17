@@ -101,16 +101,38 @@ export function fixArticleLinks(htmlContent) {
     'href="/app/ProviderDetails?provider=$1"'
   );
 
-  // Fix any remaining relative links that start with / and aren't external
-  // This catches any links we might have missed
+  // Remove links to non-existent pages by converting them to plain text
+  // Match <a> tags with href to internal pages
   fixedContent = fixedContent.replace(
-    /href=["']\/((?!app\/|http|https|www|\#)[a-zA-Z0-9\-_]+)["']/gi,
-    (match, path) => {
-      // Convert kebab-case to PascalCase
+    /<a\s+([^>]*?)href=["']\/app\/([^"'?]+)(\?[^"']*)?["']([^>]*)>(.*?)<\/a>/gi,
+    (match, beforeHref, pageName, queryString, afterHref, linkText) => {
+      // Check if the page exists in our valid pages list
+      if (validPages.includes(pageName)) {
+        // Keep the link as is
+        return match;
+      } else {
+        // Remove the link, keep only the text content
+        return linkText;
+      }
+    }
+  );
+
+  // Also remove any remaining relative links that don't map to valid pages
+  fixedContent = fixedContent.replace(
+    /<a\s+([^>]*?)href=["']\/((?!app\/|http|https|www|\#)[a-zA-Z0-9\-_]+)["']([^>]*)>(.*?)<\/a>/gi,
+    (match, beforeHref, path, afterHref, linkText) => {
+      // Convert kebab-case to PascalCase to check if page exists
       const pageName = path.split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join('');
-      return `href="/app/${pageName}"`;
+      
+      if (validPages.includes(pageName)) {
+        // Fix the link to proper format
+        return `<a ${beforeHref}href="/app/${pageName}"${afterHref}>${linkText}</a>`;
+      } else {
+        // Remove the link, keep only the text
+        return linkText;
+      }
     }
   );
 
