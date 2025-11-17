@@ -14,6 +14,7 @@ export default function BusinessElectricity() {
   const [zipCode, setZipCode] = useState("");
   const [businessType, setBusinessType] = useState("");
   const [monthlyUsage, setMonthlyUsage] = useState("");
+  const [showCustomQuoteModal, setShowCustomQuoteModal] = useState(false);
 
   const { data: plans } = useQuery({
     queryKey: ['plans'],
