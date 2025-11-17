@@ -37,7 +37,19 @@ export default function TexasElectricity() {
       { name: "Fort Worth", population: "942K" },
       { name: "El Paso", population: "678K" },
       { name: "Arlington", population: "398K" },
-      { name: "Plano", population: "288K" }
+      { name: "Plano", population: "288K" },
+      { name: "Corpus Christi", population: "317K" },
+      { name: "Lubbock", population: "258K" },
+      { name: "Irving", population: "256K" },
+      { name: "Garland", population: "246K" },
+      { name: "Frisco", population: "200K" },
+      { name: "McKinney", population: "195K" },
+      { name: "Grand Prairie", population: "194K" },
+      { name: "Amarillo", population: "200K" },
+      { name: "Mesquite", population: "140K" },
+      { name: "Killeen", population: "153K" },
+      { name: "Waco", population: "138K" },
+      { name: "Carrollton", population: "139K" }
     ],
     topProviders: ["TXU Energy", "Reliant Energy", "Gexa Energy", "Direct Energy", "Green Mountain Energy", "Frontier Utilities"],
     faqs: [
@@ -164,6 +176,41 @@ export default function TexasElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Texas Market Information */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            Texas Electricity Market Guide
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Understanding Texas Utilities</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Texas has multiple utility companies that maintain the power grid in different regions. Your local utility (TDU - Transmission and Distribution Utility) handles power delivery and infrastructure, while you choose your Retail Electric Provider (REP) for competitive rates.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Major Texas Utilities (TDUs)</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Oncor (Dallas, Fort Worth, North Texas)</li>
+                    <li>• CenterPoint Energy (Houston area)</li>
+                    <li>• AEP Texas (Corpus Christi, West Texas)</li>
+                    <li>• TNMP (rural areas)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Texas Energy Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Summer rates peak June-September</li>
+                    <li>• Lock in rates before summer heat</li>
+                    <li>• 12-month contracts offer best value</li>
+                    <li>• Free nights plans save heavy AC users</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* State Overview Section */}
         <section className="mb-12">
           <div className="max-w-4xl mx-auto">
