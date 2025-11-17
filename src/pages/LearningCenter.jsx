@@ -186,17 +186,18 @@ export default function LearningCenter() {
   };
 
   const articles = React.useMemo(() => {
+    console.log('Database articles raw:', dbArticles);
     if (!dbArticles || dbArticles.length === 0) {
-      console.log('Using fallback articles');
+      console.log('Using fallback articles, db count:', dbArticles?.length);
       return fallbackArticles;
     }
     console.log('Mapping database articles:', dbArticles.length);
-    return dbArticles.map(article => {
+    const mapped = dbArticles.map(article => {
       // Handle both nested and flat data structures
       const data = article.data || article;
       const articleId = article.id || data.id;
       
-      return {
+      const mapped = {
         id: articleId,
         category: data.category || "Getting Started",
         icon: getCategoryIcon(data.category || "Getting Started"),
@@ -209,7 +210,11 @@ export default function LearningCenter() {
         keywords: data.keywords || [],
         relatedArticles: data.related_articles || []
       };
+      console.log('Mapped article:', articleId, mapped.title);
+      return mapped;
     });
+    console.log('Total mapped articles:', mapped.length);
+    return mapped;
   }, [dbArticles]);
 
   const [searchResults, setSearchResults] = useState(articles);
