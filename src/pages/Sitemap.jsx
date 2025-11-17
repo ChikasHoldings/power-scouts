@@ -38,15 +38,59 @@ export default function Sitemap() {
       { url: createPageUrl("PrivacyPolicy"), priority: 0.5, changefreq: "yearly" },
       { url: createPageUrl("TermsOfService"), priority: 0.5, changefreq: "yearly" },
       
-      // Dynamic city pages (major cities)
-      { url: createPageUrl("CityRates") + "?city=Houston", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Dallas", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Austin", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=San Antonio", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Chicago", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Columbus", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Philadelphia", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=New York City", priority: 0.8, changefreq: "weekly" },
+      // Dynamic city pages - Texas
+      { url: createPageUrl("CityRates") + "?city=Houston&state=TX", priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Dallas&state=TX", priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Austin&state=TX", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=San Antonio&state=TX", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Fort Worth&state=TX", priority: 0.7, changefreq: "weekly" },
+      
+      // Illinois cities
+      { url: createPageUrl("CityRates") + "?city=Chicago&state=IL", priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Aurora&state=IL", priority: 0.6, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Naperville&state=IL", priority: 0.6, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Joliet&state=IL", priority: 0.6, changefreq: "weekly" },
+      
+      // Ohio cities
+      { url: createPageUrl("CityRates") + "?city=Columbus&state=OH", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Cleveland&state=OH", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Cincinnati&state=OH", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Toledo&state=OH", priority: 0.6, changefreq: "weekly" },
+      
+      // Pennsylvania cities
+      { url: createPageUrl("CityRates") + "?city=Philadelphia&state=PA", priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Pittsburgh&state=PA", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Allentown&state=PA", priority: 0.6, changefreq: "weekly" },
+      
+      // New York cities
+      { url: createPageUrl("CityRates") + "?city=New York City&state=NY", priority: 0.9, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Buffalo&state=NY", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Rochester&state=NY", priority: 0.6, changefreq: "weekly" },
+      
+      // New Jersey cities
+      { url: createPageUrl("CityRates") + "?city=Newark&state=NJ", priority: 0.7, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Jersey City&state=NJ", priority: 0.7, changefreq: "weekly" },
+      
+      // Maryland cities
+      { url: createPageUrl("CityRates") + "?city=Baltimore&state=MD", priority: 0.7, changefreq: "weekly" },
+      
+      // Massachusetts cities
+      { url: createPageUrl("CityRates") + "?city=Boston&state=MA", priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Worcester&state=MA", priority: 0.6, changefreq: "weekly" },
+      
+      // Connecticut cities
+      { url: createPageUrl("CityRates") + "?city=Hartford&state=CT", priority: 0.6, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=New Haven&state=CT", priority: 0.6, changefreq: "weekly" },
+      
+      // Maine cities
+      { url: createPageUrl("CityRates") + "?city=Portland&state=ME", priority: 0.6, changefreq: "weekly" },
+      
+      // New Hampshire cities
+      { url: createPageUrl("CityRates") + "?city=Manchester&state=NH", priority: 0.6, changefreq: "weekly" },
+      { url: createPageUrl("CityRates") + "?city=Nashua&state=NH", priority: 0.6, changefreq: "weekly" },
+      
+      // Rhode Island cities
+      { url: createPageUrl("CityRates") + "?city=Providence&state=RI", priority: 0.6, changefreq: "weekly" },
       
       // Learning Center Articles
       { url: createPageUrl("ArticleDetail") + "?id=1", priority: 0.7, changefreq: "monthly" },

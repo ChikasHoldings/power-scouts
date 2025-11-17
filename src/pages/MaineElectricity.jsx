@@ -197,11 +197,23 @@ export default function MaineElectricity() {
           <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-8">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {stateData.topCities.map((city, index) => (
-                <div key={index} className="flex items-center gap-2 text-gray-700">
+                <Link 
+                  key={index} 
+                  to={createPageUrl("CityRates") + `?city=${city}&state=ME`}
+                  className="flex items-center gap-2 text-gray-700 hover:text-[#0A5C8C] transition-colors"
+                >
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
                   <span className="font-medium">{city}</span>
-                </div>
+                </Link>
               ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link to={createPageUrl("AllCities")}>
+                <Button variant="outline" className="rounded-lg">
+                  View All Maine Cities
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
