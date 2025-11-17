@@ -715,7 +715,9 @@ export default function CityRates() {
     setCityName(cityKey);
   }, []);
 
-  const city = cityData[cityName] || cityData[cityName.split('-')[0]] || cityData["Houston-TX"];
+  // Always prioritize the full city-state key, only fallback to Houston-TX if city doesn't exist
+  const cityKey = cityName;
+  const city = cityData[cityKey] || cityData["Houston-TX"];
   const displayCityName = cityName.split('-')[0];
 
   // Generate dynamic SEO data
