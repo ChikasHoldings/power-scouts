@@ -17,7 +17,7 @@ export default function NewHampshireElectricity() {
     providerCount: 25,
     avgRate: "10.5¢/kWh",
     avgMonthlyBill: "$151",
-    topCities: ["Manchester", "Nashua", "Concord", "Derry", "Rochester", "Salem"],
+    topCities: ["Manchester", "Nashua", "Concord", "Derry", "Rochester", "Salem", "Dover", "Merrimack", "Londonderry", "Hudson", "Keene", "Bedford", "Portsmouth", "Laconia", "Durham", "Hampton", "Exeter", "Windham", "Pelham", "Hooksett"],
     topProviders: ["Constellation", "Verde Energy", "Direct Energy", "Liberty Power", "Residents Energy", "NextEra Energy"],
     faqs: [
       {
@@ -123,6 +123,40 @@ export default function NewHampshireElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            New Hampshire Energy Market
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">NH Competitive Electric Suppliers</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                New Hampshire's competitive market provides 25+ supplier options while Eversource or Liberty Utilities delivers electricity and maintains the local distribution infrastructure.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">NH Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Eversource (Southern & Seacoast NH)</li>
+                    <li>• Liberty Utilities (Central NH)</li>
+                    <li>• Unitil (Southern NH areas)</li>
+                    <li>• NH Electric Coop (rural areas)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">NH Energy Savings Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare competitive vs. default rate</li>
+                    <li>• Cold winters increase usage significantly</li>
+                    <li>• NHSaves programs reduce consumption</li>
+                    <li>• Fixed rates hedge against price swings</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare New Hampshire Electricity Rates?

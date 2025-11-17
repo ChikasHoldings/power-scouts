@@ -17,7 +17,7 @@ export default function ConnecticutElectricity() {
     providerCount: 30,
     avgRate: "10.8¢/kWh",
     avgMonthlyBill: "$155",
-    topCities: ["Bridgeport", "New Haven", "Hartford", "Stamford", "Waterbury", "Norwalk"],
+    topCities: ["Bridgeport", "New Haven", "Hartford", "Stamford", "Waterbury", "Norwalk", "Danbury", "New Britain", "West Hartford", "Greenwich", "Hamden", "Meriden", "Bristol", "Milford", "West Haven", "Stratford", "East Hartford", "Middletown", "Wallingford", "Norwich"],
     topProviders: ["Constellation", "Verde Energy", "Direct Energy", "Liberty Power", "Residents Energy", "NextEra Energy"],
     faqs: [
       {
@@ -123,6 +123,39 @@ export default function ConnecticutElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Connecticut Energy Market Overview
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">CT Competitive Electric Suppliers</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Connecticut's established competitive market offers 30+ electricity suppliers statewide. Eversource or United Illuminating maintains grid infrastructure while you select the best supply rates.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">CT Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Eversource (Northern & Eastern CT)</li>
+                    <li>• United Illuminating (New Haven area)</li>
+                    <li>• Municipal utilities (select cities)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">CT Energy Saving Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare vs. standard service rate</li>
+                    <li>• Winter heating costs add up quickly</li>
+                    <li>• Energize CT efficiency programs</li>
+                    <li>• Fixed rates protect your budget</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Connecticut Electricity Rates?

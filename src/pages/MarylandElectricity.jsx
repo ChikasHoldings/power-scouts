@@ -17,7 +17,7 @@ export default function MarylandElectricity() {
     providerCount: 32,
     avgRate: "9.3¢/kWh",
     avgMonthlyBill: "$134",
-    topCities: ["Baltimore", "Columbia", "Germantown", "Silver Spring", "Waldorf", "Ellicott City"],
+    topCities: ["Baltimore", "Columbia", "Germantown", "Silver Spring", "Waldorf", "Ellicott City", "Frederick", "Rockville", "Gaithersburg", "Bowie", "Annapolis", "Towson", "Salisbury", "Dundalk", "Bethesda", "Wheaton", "Aspen Hill", "Clinton", "Severn", "Glen Burnie"],
     topProviders: ["Constellation", "Direct Energy", "WGL Energy", "Verde Energy", "Liberty Power", "Residents Energy"],
     faqs: [
       {
@@ -123,6 +123,40 @@ export default function MarylandElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Maryland Electricity Market Overview
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Maryland Utility Companies</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Maryland's competitive electricity market allows residents to choose from 32+ suppliers while BGE, Pepco, or Delmarva Power maintains grid infrastructure and reliable delivery.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Maryland Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• BGE (Baltimore & Central MD)</li>
+                    <li>• Pepco (Montgomery & Prince George's)</li>
+                    <li>• Delmarva Power (Eastern Shore)</li>
+                    <li>• SMECO (Southern Maryland - limited)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Maryland Savings Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Shop before summer season starts</li>
+                    <li>• Compare standard offer service (SOS)</li>
+                    <li>• Check MD PSC license verification</li>
+                    <li>• Renewable Energy Credits available</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Maryland Electricity Rates?

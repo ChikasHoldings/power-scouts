@@ -17,7 +17,7 @@ export default function MaineElectricity() {
     providerCount: 22,
     avgRate: "9.8¢/kWh",
     avgMonthlyBill: "$141",
-    topCities: ["Portland", "Lewiston", "Bangor", "South Portland", "Auburn", "Biddeford"],
+    topCities: ["Portland", "Lewiston", "Bangor", "South Portland", "Auburn", "Biddeford", "Sanford", "Saco", "Westbrook", "Augusta", "Waterville", "Presque Isle", "Brunswick", "Scarborough", "York", "Kennebunk", "Old Orchard Beach", "Bath", "Ellsworth", "Belfast"],
     topProviders: ["Constellation", "Verde Energy", "Direct Energy", "Residents Energy", "Standard Power", "Liberty Power"],
     faqs: [
       {
@@ -123,6 +123,39 @@ export default function MaineElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Maine Energy Market Information
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Maine Competitive Suppliers</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Maine's electricity market offers competitive suppliers throughout the state. Central Maine Power or Versant Power delivers your electricity while you choose the best supplier for competitive rates.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Maine Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Central Maine Power (Southern ME)</li>
+                    <li>• Versant Power (Northern & Eastern ME)</li>
+                    <li>• Municipal utilities (some areas)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Maine Savings Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare before winter heating season</li>
+                    <li>• Standard offer vs. competitive rates</li>
+                    <li>• Efficiency Maine incentives available</li>
+                    <li>• Renewable options support local wind</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Maine Electricity Rates?

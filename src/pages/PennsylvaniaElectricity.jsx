@@ -17,7 +17,7 @@ export default function PennsylvaniaElectricity() {
     providerCount: 38,
     avgRate: "9.1¢/kWh",
     avgMonthlyBill: "$131",
-    topCities: ["Philadelphia", "Pittsburgh", "Allentown", "Erie", "Reading", "Scranton", "Lancaster"],
+    topCities: ["Philadelphia", "Pittsburgh", "Allentown", "Erie", "Reading", "Scranton", "Lancaster", "Bethlehem", "Harrisburg", "York", "State College", "Wilkes-Barre", "Chester", "Easton", "Norristown", "Lebanon", "Hazleton", "New Castle", "Johnstown", "McKeesport"],
     topProviders: ["Constellation", "Direct Energy", "Green Mountain Energy", "Champion Energy", "Verde Energy", "IGS Energy"],
     faqs: [
       {
@@ -121,6 +121,40 @@ export default function PennsylvaniaElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Pennsylvania Energy Market Information
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Pennsylvania Utilities & Market</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Pennsylvania pioneered electricity deregulation in 1997. Your utility delivers power while you select from 38+ competitive suppliers for the best rates and service options.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">PA Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• PECO (Philadelphia & suburbs)</li>
+                    <li>• Duquesne Light (Pittsburgh area)</li>
+                    <li>• PPL Electric (Central & Eastern PA)</li>
+                    <li>• Met-Ed, Penelec, Penn Power (various)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">PA Money-Saving Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare before contract expires</li>
+                    <li>• Avoid auto-renewal penalties</li>
+                    <li>• Check supplier licensing with PUC</li>
+                    <li>• Bundle discounts sometimes available</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Pennsylvania Electricity Rates?

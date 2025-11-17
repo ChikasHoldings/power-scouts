@@ -17,7 +17,7 @@ export default function NewYorkElectricity() {
     providerCount: 42,
     avgRate: "10.2¢/kWh",
     avgMonthlyBill: "$146",
-    topCities: ["New York City", "Buffalo", "Rochester", "Yonkers", "Syracuse", "Albany"],
+    topCities: ["New York City", "Buffalo", "Rochester", "Yonkers", "Syracuse", "Albany", "New Rochelle", "Mount Vernon", "Schenectady", "Utica", "White Plains", "Hempstead", "Troy", "Niagara Falls", "Binghamton", "Freeport", "Valley Stream", "Long Beach", "Spring Valley", "Jamestown"],
     topProviders: ["Constellation", "Direct Energy", "Verde Energy", "Liberty Power", "XOOM Energy", "IDT Energy"],
     faqs: [
       {
@@ -123,6 +123,40 @@ export default function NewYorkElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            New York Energy Market Overview
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">NY Utilities & ESCOs</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                New York's competitive market features ESCOs (Energy Service Companies) competing for your business while your local utility delivers power. Understanding both helps you maximize savings.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">New York Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Con Edison (NYC & Westchester)</li>
+                    <li>• National Grid (Upstate, Long Island)</li>
+                    <li>• NYSEG (Central & Southern NY)</li>
+                    <li>• RG&E (Rochester & surrounding)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">NY Energy Saving Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Review your ESCO terms carefully</li>
+                    <li>• Avoid variable rate traps</li>
+                    <li>• Check NY PSC complaint records</li>
+                    <li>• Winter rates typically lower than summer</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare New York Electricity Rates?

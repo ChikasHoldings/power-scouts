@@ -17,7 +17,7 @@ export default function MassachusettsElectricity() {
     providerCount: 34,
     avgRate: "11.1¢/kWh",
     avgMonthlyBill: "$159",
-    topCities: ["Boston", "Worcester", "Springfield", "Cambridge", "Lowell", "Brockton"],
+    topCities: ["Boston", "Worcester", "Springfield", "Cambridge", "Lowell", "Brockton", "Quincy", "Lynn", "New Bedford", "Fall River", "Newton", "Somerville", "Lawrence", "Framingham", "Haverhill", "Waltham", "Malden", "Brookline", "Plymouth", "Medford"],
     topProviders: ["Constellation", "Verde Energy", "Direct Energy", "Liberty Power", "Residents Energy", "NextEra Energy"],
     faqs: [
       {
@@ -123,6 +123,40 @@ export default function MassachusettsElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Massachusetts Energy Market Guide
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">MA Competitive Suppliers</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Massachusetts residents can choose competitive suppliers while Eversource, National Grid, or Unitil maintains the distribution network and handles power delivery across the state.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">MA Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Eversource (Eastern & Central MA)</li>
+                    <li>• National Grid (Greater Boston, Cape)</li>
+                    <li>• Unitil (North Central region)</li>
+                    <li>• Municipal utilities (select cities)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">MA Energy Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare vs. basic service rate</li>
+                    <li>• Winter heating costs are higher</li>
+                    <li>• Mass Save programs available</li>
+                    <li>• Green energy supports state goals</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Massachusetts Electricity Rates?

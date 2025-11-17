@@ -17,7 +17,7 @@ export default function OhioElectricity() {
     providerCount: 40,
     avgRate: "8.6¢/kWh",
     avgMonthlyBill: "$124",
-    topCities: ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron", "Dayton"],
+    topCities: ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron", "Dayton", "Parma", "Canton", "Youngstown", "Lorain", "Hamilton", "Springfield", "Kettering", "Elyria", "Lakewood", "Cuyahoga Falls", "Middletown", "Newark", "Mansfield", "Mentor"],
     topProviders: ["Constellation", "Direct Energy", "IGS Energy", "AEP Energy", "Energy Harbor", "Verde Energy"],
     faqs: [
       {
@@ -121,6 +121,40 @@ export default function OhioElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Ohio Energy Market Guide
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Ohio Utility Information</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Ohio's competitive electricity market allows you to choose from 40+ suppliers while your local utility continues to deliver power safely and reliably to your home or business.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Ohio Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• AEP Ohio (Columbus, Southeast)</li>
+                    <li>• Duke Energy Ohio (Cincinnati area)</li>
+                    <li>• FirstEnergy (Cleveland, Toledo)</li>
+                    <li>• Dayton Power & Light (Dayton region)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">Ohio Savings Strategies</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Shop rates annually for best deals</li>
+                    <li>• Avoid utility's default rate</li>
+                    <li>• Consider green energy options</li>
+                    <li>• Lock rates during low market periods</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Ohio Electricity Rates?

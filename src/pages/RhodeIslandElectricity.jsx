@@ -17,7 +17,7 @@ export default function RhodeIslandElectricity() {
     providerCount: 26,
     avgRate: "11.3¢/kWh",
     avgMonthlyBill: "$162",
-    topCities: ["Providence", "Warwick", "Cranston", "Pawtucket", "East Providence", "Woonsocket"],
+    topCities: ["Providence", "Warwick", "Cranston", "Pawtucket", "East Providence", "Woonsocket", "Coventry", "Cumberland", "North Providence", "South Kingstown", "West Warwick", "Johnston", "North Kingstown", "Newport", "Bristol", "Westerly", "Smithfield", "Lincoln", "Central Falls", "Portsmouth"],
     topProviders: ["Constellation", "Verde Energy", "Direct Energy", "Liberty Power", "Residents Energy", "Standard Power"],
     faqs: [
       {
@@ -123,6 +123,39 @@ export default function RhodeIslandElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Rhode Island Electricity Market
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">RI Competitive Suppliers</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Rhode Island Energy (formerly National Grid) delivers power throughout the state while 26+ competitive suppliers compete to offer you the best electricity rates and service plans.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">RI Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Rhode Island Energy (statewide)</li>
+                    <li>• Block Island Power Company (Block Island)</li>
+                    <li>• Pascoag Utility District (limited)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">RI Savings Strategies</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare before standard offer changes</li>
+                    <li>• Small state = quick switches</li>
+                    <li>• Renewable Energy Growth program</li>
+                    <li>• Check supplier licensing with PUC</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare Rhode Island Electricity Rates?

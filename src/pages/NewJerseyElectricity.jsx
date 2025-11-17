@@ -17,7 +17,7 @@ export default function NewJerseyElectricity() {
     providerCount: 35,
     avgRate: "9.5¢/kWh",
     avgMonthlyBill: "$137",
-    topCities: ["Newark", "Jersey City", "Paterson", "Elizabeth", "Trenton", "Camden"],
+    topCities: ["Newark", "Jersey City", "Paterson", "Elizabeth", "Trenton", "Camden", "Clifton", "Passaic", "Union City", "Bayonne", "East Orange", "Vineland", "New Brunswick", "Hoboken", "Perth Amboy", "West New York", "Plainfield", "Hackensack", "Sayreville", "Kearny"],
     topProviders: ["Constellation", "Direct Energy", "Green Mountain Energy", "Verde Energy", "Starion Energy", "Liberty Power"],
     faqs: [
       {
@@ -123,6 +123,40 @@ export default function NewJerseyElectricity() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            New Jersey Energy Market Guide
+          </h2>
+          <Card className="border-2 mb-8">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">NJ Third Party Suppliers (TPS)</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                New Jersey's competitive market lets you choose a Third Party Supplier (TPS) for electricity supply while your local utility handles delivery and infrastructure maintenance.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">NJ Electric Utilities</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• PSE&G (Northern & Central NJ)</li>
+                    <li>• JCP&L (North & Central regions)</li>
+                    <li>• Atlantic City Electric (Southern NJ)</li>
+                    <li>• Rockland Electric (Bergen County)</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-bold text-gray-900 mb-2">NJ Savings Tips</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Compare TPS vs. BGS rates</li>
+                    <li>• Watch for promotional rates expiring</li>
+                    <li>• Review NJ BPU approved suppliers</li>
+                    <li>• Fixed rates protect against spikes</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Why Compare New Jersey Electricity Rates?
