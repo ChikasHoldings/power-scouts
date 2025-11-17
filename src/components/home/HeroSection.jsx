@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { MapPin, Star, Sparkles, CheckCircle, Shield } from "lucide-react";
+import { Star, Sparkles, CheckCircle, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import ValidatedZipInput from "../ValidatedZipInput";
 
 export default function HeroSection({ zipCode, setZipCode }) {
   const [isZipValid, setIsZipValid] = useState(false);
@@ -37,21 +37,18 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Enhanced ZIP Code Input */}
             <div className="bg-white rounded-2xl shadow-xl border-2 border-gray-200 p-1.5 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
               <div className="flex flex-col sm:flex-row items-stretch gap-4 sm:gap-2.5">
-                <div className="flex-1 flex items-center gap-3 px-5 py-3 bg-gray-50 rounded-xl">
-                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF6B35] flex-shrink-0" />
-                  <Input
-                    type="text"
-                    placeholder="Enter ZIP code"
+                <div className="flex-1 px-5 py-3 bg-gray-50 rounded-xl">
+                  <ValidatedZipInput
                     value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value.replace(/\D/g, ''))}
-                    className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-xl sm:text-2xl p-0 h-auto placeholder:text-gray-400 font-bold touch-manipulation"
-                    maxLength={5}
-                    inputMode="numeric"
+                    onChange={setZipCode}
+                    placeholder="Enter ZIP code"
+                    className="text-xl sm:text-2xl"
+                    onValidationChange={setIsZipValid}
                   />
                 </div>
                 <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')} className="w-full sm:w-auto">
                   <Button
-                    disabled={zipCode.length !== 5}
+                    disabled={!isZipValid}
                     className="w-full sm:w-auto px-10 py-4 h-auto text-lg sm:text-xl font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 touch-manipulation active:scale-95">
                     Compare Now
                   </Button>
