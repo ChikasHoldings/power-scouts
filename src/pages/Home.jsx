@@ -7,13 +7,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import ValidatedZipInput from "../components/ValidatedZipInput";
-import HeroSection from "../components/home/HeroSection";
-import AnnouncementBanner from "../components/home/AnnouncementBanner";
-import AboutSection from "../components/home/AboutSection";
-import ProvidersSection from "../components/home/ProvidersSection";
-import HowItWorksSection from "../components/home/HowItWorksSection";
-import TestimonialsSection from "../components/home/TestimonialsSection";
 import SEOHead, { getOrganizationSchema, getServiceSchema } from "../components/SEOHead";
+
+// Lazy load heavy components for better performance
+const HeroSection = React.lazy(() => import("../components/home/HeroSection"));
+const AnnouncementBanner = React.lazy(() => import("../components/home/AnnouncementBanner"));
+const AboutSection = React.lazy(() => import("../components/home/AboutSection"));
+const ProvidersSection = React.lazy(() => import("../components/home/ProvidersSection"));
+const HowItWorksSection = React.lazy(() => import("../components/home/HowItWorksSection"));
+const TestimonialsSection = React.lazy(() => import("../components/home/TestimonialsSection"));
 
 export default function Home() {
   const [zipCode, setZipCode] = useState("");
@@ -44,11 +46,13 @@ export default function Home() {
         canonical="/"
         structuredData={structuredData}
       />
-      <HeroSection zipCode={zipCode} setZipCode={setZipCode} />
-      <ProvidersSection />
-      <AboutSection />
-      <HowItWorksSection />
-      <TestimonialsSection />
+      <React.Suspense fallback={<div className="min-h-screen bg-white"></div>}>
+        <HeroSection zipCode={zipCode} setZipCode={setZipCode} />
+        <ProvidersSection />
+        <AboutSection />
+        <HowItWorksSection />
+        <TestimonialsSection />
+      </React.Suspense>
 
       {/* CTA Section */}
       <section className="bg-slate-50 py-10 sm:py-16 lg:py-20">

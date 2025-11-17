@@ -10,16 +10,19 @@ css
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
   
   body {
     @apply bg-white text-gray-900;
+    overflow-x: hidden;
   }
 
   /* Reduce layout shift - reserve space for images */
   img {
     height: auto;
     max-width: 100%;
+    content-visibility: auto;
   }
 
   /* Improve heading hierarchy for SEO */
@@ -30,6 +33,16 @@ css
   /* Reduce Cumulative Layout Shift (CLS) */
   * {
     box-sizing: border-box;
+  }
+
+  /* Image lazy loading optimization */
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  img[loading="lazy"].loaded {
+    opacity: 1;
   }
 }
 

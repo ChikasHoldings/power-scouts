@@ -786,6 +786,8 @@ export default function CityRates() {
     queryKey: ['plans'],
     queryFn: () => base44.entities.ElectricityPlan.list(),
     initialData: [],
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes
   });
 
   // Get available providers for first ZIP in city
@@ -818,7 +820,7 @@ export default function CityRates() {
       {/* Hero Section - SEO Optimized */}
       <div className="relative bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <img src={city.image} alt={`${displayCityName} skyline`} className="w-full h-full object-cover" />
+          <img src={city.image} alt={`${displayCityName} skyline`} className="w-full h-full object-cover" loading="lazy" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="max-w-3xl">

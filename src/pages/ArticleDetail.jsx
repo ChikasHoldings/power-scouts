@@ -143,6 +143,8 @@ export default function ArticleDetail() {
     queryKey: ['articles'],
     queryFn: () => base44.entities.Article.list('-created_date'),
     initialData: [],
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    cacheTime: 15 * 60 * 1000, // 15 minutes
   });
 
   // Map database articles to expected format

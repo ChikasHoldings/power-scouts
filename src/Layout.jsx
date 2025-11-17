@@ -76,7 +76,8 @@ export default function Layout({ children, currentPageName }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setMobileMenuOpen(false);
-  }, [location.pathname]);
+    setServiceAreaOpen(false);
+  }, [location.pathname, location.search]);
 
 
 
