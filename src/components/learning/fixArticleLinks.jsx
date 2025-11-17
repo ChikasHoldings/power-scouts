@@ -30,6 +30,8 @@ export function fixArticleLinks(htmlContent) {
     '/about-us': 'AboutUs',
     '/privacy-policy': 'PrivacyPolicy',
     '/terms-of-service': 'TermsOfService',
+    '/': 'Home',
+    '/home': 'Home',
     
     // State pages
     '/texas-electricity': 'TexasElectricity',
@@ -55,11 +57,18 @@ export function fixArticleLinks(htmlContent) {
 
   // Replace each mapped link
   Object.entries(linkMappings).forEach(([oldPath, pageName]) => {
+    // Escape special regex characters in the path
+    const escapedPath = oldPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    
     // Match href="oldPath" or href="/oldPath" (with or without trailing slash)
     const patterns = [
-      new RegExp(`href=["']${oldPath}/?["']`, 'gi'),
-      new RegExp(`href=["']${oldPath.substring(1)}/?["']`, 'gi'), // without leading slash
+      new RegExp(`href=["']${escapedPath}/?["']`, 'gi'),
     ];
+    
+    // Also handle paths without leading slash (if oldPath starts with /)
+    if (oldPath.startsWith('/') && oldPath.length > 1) {
+      patterns.push(new RegExp(`href=["']${escapedPath.substring(1)}/?["']`, 'gi'));
+    }
     
     patterns.forEach(regex => {
       fixedContent = fixedContent.replace(regex, `href="/app/${pageName}"`);
