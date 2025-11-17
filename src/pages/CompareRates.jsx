@@ -178,8 +178,12 @@ export default function CompareRates() {
   };
 
   const filteredPlans = plans.filter(plan => {
-    if (zipCode && !providerServesZip(plan.provider_name, zipCode)) {
-      return false;
+    // When zipCode is set and we have provider availability data, filter by ZIP
+    // If no providers found for ZIP (new area), show all plans as fallback
+    if (zipCode && availableProviders.length > 0) {
+      if (!providerServesZip(plan.provider_name, zipCode)) {
+        return false;
+      }
     }
     if (preferences.fixedRate && plan.plan_type !== 'fixed') return false;
     if (preferences.variableRate && plan.plan_type !== 'variable') return false;
@@ -340,9 +344,23 @@ export default function CompareRates() {
               </p>
             </div>
             
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-              {topPlans.map((plan, index) => (
-                <Card key={plan.id} className="relative overflow-hidden border hover:border-[#FF6B35] transition-all hover:shadow-lg group">
+            {topPlans.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">No plans available yet</h3>
+                <p className="text-gray-600 mb-6">
+                  We're working on adding plans for {cityName} (ZIP: {zipCode}). Try searching with a different ZIP code.
+                </p>
+                <Button onClick={() => { setShowResults(false); setStep(1); setZipCode(""); }} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+                  Try Another ZIP Code
+                </Button>
+              </div>
+            ) : (
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                {topPlans.map((plan, index) => (
+                  <Card key={plan.id} className="relative overflow-hidden border hover:border-[#FF6B35] transition-all hover:shadow-lg group">
                   {/* Match Score Badge */}
                   <div className="absolute top-3 left-3 z-10">
                     <div className={`px-2.5 py-1 rounded-lg font-bold text-xs ${
@@ -447,8 +465,9 @@ export default function CompareRates() {
                     </a>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* All Other Plans */}
@@ -799,7 +818,7 @@ export default function CompareRates() {
             </div>
           )}
 
-          {filteredPlans.length === 0 && (
+          {filteredPlans.length === 0 && topPlans.length > 0 && (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-gray-400" />

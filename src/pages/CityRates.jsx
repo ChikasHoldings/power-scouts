@@ -716,6 +716,9 @@ export default function CityRates() {
     if (cityParam && stateParam) {
       const cityKey = `${cityParam}-${stateParam}`;
       setCityName(cityKey);
+    } else if (cityParam) {
+      // Handle city-only param (backwards compatibility)
+      setCityName(cityParam);
     } else {
       // Only default if no params at all
       setCityName('Houston-TX');
