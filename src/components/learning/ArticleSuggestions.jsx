@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Sparkles, Clock, ArrowRight } from "lucide-react";
 
-const ArticleSuggestions = React.memo(function ArticleSuggestions({ searchTerm, currentArticleId, currentCategory }) {
+export default function ArticleSuggestions({ searchTerm, currentArticleId, currentCategory }) {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
 
