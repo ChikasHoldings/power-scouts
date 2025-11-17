@@ -134,12 +134,17 @@ export default function LearningCenter() {
   const [currentSearchTerm, setCurrentSearchTerm] = useState("");
 
   // Fetch articles from database
-  const { data: dbArticles = [], isLoading } = useQuery({
+  const { data: dbArticles = [], isLoading, error } = useQuery({
     queryKey: ['articles'],
     queryFn: async () => {
-      const articles = await base44.entities.Article.list('-created_date', 1000);
-      console.log('Fetched articles:', articles.length);
-      return articles;
+      try {
+        const articles = await base44.entities.Article.filter({ published: true }, '-created_date', 1000);
+        console.log('Fetched published articles:', articles.length, articles);
+        return articles || [];
+      } catch (err) {
+        console.error('Failed to fetch articles:', err);
+        return [];
+      }
     },
     staleTime: 10 * 60 * 1000,
     cacheTime: 15 * 60 * 1000,

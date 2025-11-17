@@ -137,9 +137,9 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
       });
 
       if (response.recommended_ids && Array.isArray(response.recommended_ids)) {
-        // Get full article objects for recommended IDs
+        // Get full article objects for recommended IDs - handle both string and numeric IDs
         const recommendedArticles = response.recommended_ids
-          .map(id => allArticles.find(a => a.id === id))
+          .map(id => allArticles.find(a => String(a.id) === String(id)))
           .filter(a => a !== undefined)
           .slice(0, 6); // Max 6 recommendations
 
@@ -165,7 +165,7 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
     
     // Score articles by relevance
     const scoredArticles = allArticles
-      .filter(a => a.id !== currentArticle.id)
+      .filter(a => String(a.id) !== String(currentArticle.id))
       .map(article => {
         let score = 0;
         
@@ -200,8 +200,8 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
     if (recommended.length < 3) {
       const popularIds = getPopularArticles(allArticles, 6);
       const popularArticles = popularIds
-        .map(id => allArticles.find(a => a.id === id))
-        .filter(a => a && a.id !== currentArticle.id && !recommended.find(r => r.id === a.id))
+        .map(id => allArticles.find(a => String(a.id) === String(id)))
+        .filter(a => a && String(a.id) !== String(currentArticle.id) && !recommended.find(r => String(r.id) === String(a.id)))
         .slice(0, 6 - recommended.length);
       recommended = [...recommended, ...popularArticles];
       setRecommendationType('popular');

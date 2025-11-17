@@ -143,8 +143,14 @@ export default function ArticleDetail() {
   const { data: dbArticles, isLoading } = useQuery({
     queryKey: ['articles'],
     queryFn: async () => {
-      const articles = await base44.entities.Article.list('-created_date', 1000);
-      return articles;
+      try {
+        const articles = await base44.entities.Article.filter({ published: true }, '-created_date', 1000);
+        console.log('Fetched published articles for detail:', articles.length);
+        return articles || [];
+      } catch (err) {
+        console.error('Failed to fetch articles:', err);
+        return [];
+      }
     },
     initialData: [],
     staleTime: 10 * 60 * 1000,
@@ -206,7 +212,11 @@ export default function ArticleDetail() {
     };
   }) : fallbackArticles;
 
-  const article = articles.find(a => String(a.id) === String(articleId));
+  const article = articles.find(a => {
+    const aId = String(a.id).trim();
+    const searchId = String(articleId).trim();
+    return aId === searchId;
+  });
 
   // Scroll to top on mount and track reading - depend on full location to detect changes
   useEffect(() => {
