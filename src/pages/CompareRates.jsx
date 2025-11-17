@@ -81,12 +81,29 @@ export default function CompareRates() {
       const validation = validateZipCode(zipFromUrl);
       if (validation.valid) {
         setZipCode(zipFromUrl);
+        const city = getCityFromZip(zipFromUrl);
+        const providers = getProvidersForZipCode(zipFromUrl);
+        setCityName(city);
+        setAvailableProviders(providers);
         localStorage.setItem('compareRatesZip', zipFromUrl);
+        
+        // When ZIP comes from URL, skip directly to results
         if (typeFromUrl === 'business') {
           setStep(4); // Industry Type step for business
         } else {
-          setStep(2);
+          // Auto-advance to results for direct ZIP links
+          setPropertyType('home'); // Default to home
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+            setShowResults(true);
+          }, 1500);
         }
+      } else {
+        // Invalid ZIP - show error on step 1
+        setZipCode(zipFromUrl);
+        setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+        setStep(1);
       }
     } else if (savedZip && savedZip.length === 5) {
       setZipCode(savedZip);
