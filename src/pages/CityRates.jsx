@@ -707,7 +707,7 @@ export default function CityRates() {
   const [openFaq, setOpenFaq] = useState(null);
   const [isZipValid, setIsZipValid] = useState(false);
 
-  // Get city and state from URL
+  // Get city and state from URL - update when URL changes
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const cityParam = urlParams.get('city');
@@ -720,7 +720,7 @@ export default function CityRates() {
       // Only default if no params at all
       setCityName('Houston-TX');
     }
-  }, []);
+  }, [window.location.search]);
 
   // Always prioritize the full city-state key, generate generic data if city doesn't exist
   const cityKey = cityName;
