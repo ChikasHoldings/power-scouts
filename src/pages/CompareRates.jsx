@@ -1016,14 +1016,16 @@ export default function CompareRates() {
             ))}
           </div>
 
-          <Button 
-            onClick={handlePropertyTypeSubmit}
-            className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-11 text-base font-semibold rounded-lg transition-all disabled:opacity-50"
-            disabled={!propertyType}
-          >
-            Continue to Preferences
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <div className="flex justify-center">
+            <Button 
+              onClick={handlePropertyTypeSubmit}
+              className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-11 text-base font-semibold rounded-lg transition-all disabled:opacity-50 px-8"
+              disabled={!propertyType}
+            >
+              Continue to Preferences
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
 
           {/* Business CTA */}
           <div className="mt-6 text-center">
