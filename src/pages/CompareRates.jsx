@@ -975,32 +975,38 @@ export default function CompareRates() {
     ];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-6 pb-12">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-5">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-1.5">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-8 pb-12">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
               Select Your Property Type
             </h1>
             <p className="text-gray-600 text-base">This helps us show you the most relevant plans</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-3 mb-5">
+          <div className="grid grid-cols-2 gap-4 mb-6">
             {propertyTypes.map((type) => (
               <Card
                 key={type.value}
-                className={`cursor-pointer transition-all hover:shadow-lg border ${
+                className={`cursor-pointer transition-all hover:shadow-lg border-2 ${
                   propertyType === type.value 
-                    ? 'border-[#0A5C8C] shadow-md scale-[1.02]' 
+                    ? 'border-[#0A5C8C] shadow-lg bg-blue-50' 
                     : 'border-gray-200 hover:border-[#0A5C8C]'
                 }`}
                 onClick={() => setPropertyType(type.value)}
               >
-                <CardContent className="p-5 text-center">
-                  <type.icon className="w-8 h-8 text-[#0A5C8C] mx-auto mb-3" />
-                  <h3 className="font-semibold text-gray-900 text-base mb-1">{type.label}</h3>
-                  <p className="text-xs text-gray-600 mb-2">{type.desc}</p>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                    propertyType === type.value ? 'bg-[#0A5C8C]' : 'bg-gray-100'
+                  }`}>
+                    <type.icon className={`w-8 h-8 ${
+                      propertyType === type.value ? 'text-white' : 'text-gray-600'
+                    }`} />
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-lg mb-1">{type.label}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{type.desc}</p>
                   {propertyType === type.value && (
-                    <div className="flex items-center justify-center gap-1 text-[#0A5C8C] text-xs font-medium">
+                    <div className="flex items-center justify-center gap-1.5 text-[#0A5C8C] text-sm font-semibold">
                       <CheckCircle className="w-4 h-4" />
                       Selected
                     </div>
@@ -1010,37 +1016,42 @@ export default function CompareRates() {
             ))}
           </div>
 
-          <div className="space-y-3 mb-6">
-            <Button 
-              onClick={handlePropertyTypeSubmit}
-              className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-12 text-base font-semibold rounded-lg transition-all disabled:opacity-50"
-              disabled={!propertyType}
-            >
-              Continue to Preferences
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+          <Button 
+            onClick={handlePropertyTypeSubmit}
+            className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-lg font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50"
+            disabled={!propertyType}
+          >
+            Continue to Preferences
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
 
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">Looking for business electricity rates?</p>
+          {/* Business CTA */}
+          <div className="mt-8 text-center">
+            <div className="inline-block bg-white rounded-xl shadow-lg border-2 border-gray-200 p-6">
+              <Building2 className="w-8 h-8 text-[#0A5C8C] mx-auto mb-3" />
+              <p className="text-sm font-semibold text-gray-900 mb-1">Looking for Business Rates?</p>
+              <p className="text-xs text-gray-600 mb-4">Get custom quotes for commercial properties</p>
               <Link to={createPageUrl("BusinessElectricity") + (zipCode ? `?zip=${zipCode}` : '')}>
-                <Button variant="outline" className="border-2 border-[#0A5C8C] text-[#0A5C8C] hover:bg-[#0A5C8C] hover:text-white">
-                  <Building2 className="w-4 h-4 mr-2" />
+                <Button className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold px-6 rounded-lg">
                   Get Business Quotes
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Informational Cards */}
-          <div className="mt-6">
-            <Card className="border bg-gradient-to-r from-blue-50 to-green-50">
-              <CardContent className="p-4">
+          {/* Informational Card */}
+          <div className="mt-8">
+            <Card className="border-2 bg-gradient-to-r from-blue-50 to-green-50 shadow-md">
+              <CardContent className="p-5">
                 <div className="flex items-start gap-3">
-                  <Zap className="w-5 h-5 text-[#0A5C8C] mt-0.5" />
+                  <div className="bg-white rounded-full p-2 shadow-sm">
+                    <Zap className="w-5 h-5 text-[#0A5C8C]" />
+                  </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1 text-sm">Why We Ask This</h3>
+                    <h3 className="font-bold text-gray-900 mb-2 text-sm">Why We Ask This</h3>
                     <p className="text-xs text-gray-600 leading-relaxed">
-                      Different property types have different energy needs and usage patterns. By knowing your property type, we can show you plans specifically designed for your situation - whether it's residential fixed-rate plans for homes, flexible options for apartments, or commercial rates for businesses.
+                      Different property types have different energy needs and usage patterns. By knowing your property type, we can show you plans specifically designed for your situation - whether it's residential fixed-rate plans for homes or flexible options for apartments.
                     </p>
                   </div>
                 </div>
