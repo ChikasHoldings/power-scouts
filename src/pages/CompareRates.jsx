@@ -1029,12 +1029,14 @@ export default function CompareRates() {
 
           {/* Business CTA */}
           <div className="mt-6 text-center">
-            <div className="inline-block bg-white rounded-lg border-2 border-gray-200 p-4">
-              <Building2 className="w-6 h-6 text-[#0A5C8C] mx-auto mb-2" />
-              <p className="text-sm font-semibold text-gray-900 mb-0.5">Looking for Business Rates?</p>
-              <p className="text-xs text-gray-600 mb-3">Get custom quotes for commercial properties</p>
+            <div className="inline-block bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-lg p-5 transform hover:scale-105 transition-all">
+              <div className="bg-white/20 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-3">
+                <Building2 className="w-5 h-5 text-white" />
+              </div>
+              <p className="text-base font-bold text-white mb-1">Looking for Business Rates?</p>
+              <p className="text-xs text-white/90 mb-3">Get custom quotes for commercial properties</p>
               <Link to={createPageUrl("BusinessElectricity") + (zipCode ? `?zip=${zipCode}` : '')}>
-                <Button size="sm" className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold px-5">
+                <Button size="sm" className="bg-white text-orange-600 hover:bg-orange-50 font-bold px-5 shadow-md">
                   Get Business Quotes
                   <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                 </Button>
