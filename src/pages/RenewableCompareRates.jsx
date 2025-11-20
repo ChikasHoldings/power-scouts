@@ -39,7 +39,7 @@ export default function RenewableCompareRates() {
     
     if (zipFromUrl && zipFromUrl.length === 5) {
       const validation = validateZipCode(zipFromUrl);
-      if (validation.isValid) {
+      if (validation.valid) {
         setZipCode(zipFromUrl);
         setIsZipValid(true);
         const city = getCityFromZip(zipFromUrl);
@@ -50,7 +50,7 @@ export default function RenewableCompareRates() {
         setStep(2);
       } else {
         setZipCode(zipFromUrl);
-        setZipError(validation.message || "This ZIP code is not in a deregulated electricity market");
+        setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
         setStep(1);
       }
     }
