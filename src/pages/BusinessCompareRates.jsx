@@ -39,17 +39,18 @@ export default function BusinessCompareRates() {
     
     if (zipFromUrl && zipFromUrl.length === 5) {
       const validation = validateZipCode(zipFromUrl);
-      if (validation.valid) {
+      if (validation.isValid) {
         setZipCode(zipFromUrl);
+        setIsZipValid(true);
         const city = getCityFromZip(zipFromUrl);
         const providers = getProvidersForZipCode(zipFromUrl);
-        setCityName(city);
+        setCityName(city || validation.state?.name || "your area");
         setAvailableProviders(providers);
         localStorage.setItem('businessRatesZip', zipFromUrl);
         setStep(2);
       } else {
         setZipCode(zipFromUrl);
-        setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+        setZipError(validation.message || "This ZIP code is not in a deregulated electricity market");
         setStep(1);
       }
     }
@@ -62,14 +63,14 @@ export default function BusinessCompareRates() {
     }
 
     const validation = validateZipCode(zipCode);
-    if (!validation.valid) {
-      setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+    if (!validation.isValid) {
+      setZipError(validation.message || "This ZIP code is not in a deregulated electricity market");
       return;
     }
 
     const city = getCityFromZip(zipCode);
     const providers = getProvidersForZipCode(zipCode);
-    setCityName(city);
+    setCityName(city || validation.state?.name || "your area");
     setAvailableProviders(providers);
     setZipError("");
     localStorage.setItem('businessRatesZip', zipCode);
