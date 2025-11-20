@@ -12,6 +12,7 @@ import { getCityFromZip, getProvidersForZipCode } from "../components/compare/pr
 import { validateZipCode } from "../components/compare/stateData";
 import PlanCard from "../components/compare/PlanCard";
 import BillUploadStep from "../components/compare/BillUploadStep";
+import IneligibleZipMessage from "../components/compare/IneligibleZipMessage";
 import SEOHead from "../components/SEOHead";
 
 export default function BusinessCompareRates() {
