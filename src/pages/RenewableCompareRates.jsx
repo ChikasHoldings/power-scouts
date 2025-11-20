@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, Zap, CheckCircle, Home, Building, Leaf, Wind, Sun } from "lucide-react";
 import ValidatedZipInput from "../components/ValidatedZipInput";
-import { validateZipCode, getCityFromZip, getProvidersForZipCode } from "../components/compare/providerAvailability";
+import { getCityFromZip, getProvidersForZipCode } from "../components/compare/providerAvailability";
+import { validateZipCode } from "../components/compare/dataValidation";
 import PlanCard from "../components/compare/PlanCard";
 import SEOHead from "../components/SEOHead";
 
