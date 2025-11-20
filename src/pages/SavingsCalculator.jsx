@@ -8,13 +8,27 @@ import { getStateData, getCityData } from "../components/location/locationData";
 import { validateZipCode } from "../components/compare/stateData";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import SEOHead from "../components/SEOHead";
+import SEOHead, { getOrganizationSchema, getWebPageSchema, getBreadcrumbSchema } from "../components/SEOHead";
+import SchemaValidator from "../components/seo/SchemaValidator";
 
 export default function SavingsCalculator() {
   const [currentRate, setCurrentRate] = useState("");
   const [monthlyUsage, setMonthlyUsage] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [results, setResults] = useState(null);
+
+  const schemas = [
+    getOrganizationSchema(),
+    getWebPageSchema(
+      "Electricity Savings Calculator - Predict Your Annual Savings | Power Scouts",
+      "Calculate how much you can save on electricity bills. Input your current rate and usage to get personalized savings estimates and plan recommendations.",
+      `${window.location.origin}/savings-calculator`
+    ),
+    getBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Savings Calculator", url: "/savings-calculator" }
+    ])
+  ];
 
   const calculateSavings = () => {
     if (!currentRate || !monthlyUsage || !zipCode || zipCode.length !== 5) return;
@@ -131,7 +145,9 @@ export default function SavingsCalculator() {
         description="Calculate how much you can save on electricity bills. Input your current rate and usage to get personalized savings estimates and plan recommendations for your state."
         keywords="electricity savings calculator, energy bill calculator, electricity cost calculator, power savings estimator, electricity rate comparison calculator"
         canonical="/savings-calculator"
+        structuredData={schemas}
       />
+      <SchemaValidator schemas={schemas} pageName="SavingsCalculator" />
 
       {/* Hero */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12">

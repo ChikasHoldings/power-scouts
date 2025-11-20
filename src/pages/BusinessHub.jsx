@@ -11,10 +11,25 @@ import {
 } from "lucide-react";
 import BusinessTestimonials from "../components/business/BusinessTestimonials";
 import BusinessComparison from "../components/business/BusinessComparison";
-import SEOHead from "../components/SEOHead";
+import SEOHead, { getOrganizationSchema, getWebPageSchema, getBreadcrumbSchema, getServiceSchema } from "../components/SEOHead";
+import SchemaValidator from "../components/seo/SchemaValidator";
 
 export default function BusinessHub() {
   const [zipCode, setZipCode] = useState("");
+
+  const schemas = [
+    getOrganizationSchema(),
+    getServiceSchema("Business"),
+    getWebPageSchema(
+      "Business Electricity Plans - Commercial Energy Solutions | Power Scouts",
+      "Compare commercial electricity rates for your business. Custom usage tiers, volume discounts, flexible contracts. Save up to 30% on business energy costs.",
+      `${window.location.origin}/business-hub`
+    ),
+    getBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Business Electricity", url: "/business-hub" }
+    ])
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -23,7 +38,9 @@ export default function BusinessHub() {
         description="Compare commercial electricity rates for your business. Custom usage tiers, volume discounts, flexible contracts. Save up to 30% on business energy costs."
         keywords="business electricity, commercial electricity rates, business energy plans, commercial power, business electricity comparison"
         canonical="/business-hub"
+        structuredData={schemas}
       />
+      <SchemaValidator schemas={schemas} pageName="BusinessHub" />
 
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-16">
