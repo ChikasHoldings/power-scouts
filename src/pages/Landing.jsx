@@ -15,6 +15,7 @@ import {
   FAQPageSchema,
   HowToSchema 
 } from "../components/seo/StructuredData";
+import { generateAltText } from "../components/seo/SEOConfig";
 
 export default function Landing() {
   const [zipCode, setZipCode] = useState("");

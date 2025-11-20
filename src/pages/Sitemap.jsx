@@ -1,163 +1,114 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { Card, CardContent } from "@/components/ui/card";
+import { MapPin, FileText, Building, Zap } from "lucide-react";
+import SEOHead from "../components/SEOHead";
 
 export default function Sitemap() {
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://powerscouts.com';
-  
-  // Define all pages in the app with their priority and change frequency
-  const pages = [
-      { url: "/", priority: 1.0, changefreq: "daily" },
-      { url: createPageUrl("CompareRates"), priority: 1.0, changefreq: "daily" },
-      { url: createPageUrl("AllProviders"), priority: 0.9, changefreq: "weekly" },
-      { url: createPageUrl("AllStates"), priority: 0.9, changefreq: "weekly" },
-      { url: createPageUrl("AllCities"), priority: 0.8, changefreq: "weekly" },
-      
-      // State pages
-      { url: createPageUrl("TexasElectricity"), priority: 0.9, changefreq: "weekly" },
-      { url: createPageUrl("IllinoisElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("OhioElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("PennsylvaniaElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("NewYorkElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("NewJerseyElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("MarylandElectricity"), priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("MassachusettsElectricity"), priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("MaineElectricity"), priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("NewHampshireElectricity"), priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("RhodeIslandElectricity"), priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("ConnecticutElectricity"), priority: 0.7, changefreq: "weekly" },
-      
-      // Resource pages
-      { url: createPageUrl("LearningCenter"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("FAQ"), priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("RenewableEnergy"), priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("BillAnalyzer"), priority: 0.8, changefreq: "monthly" },
-      { url: createPageUrl("HomeConcierge"), priority: 0.6, changefreq: "monthly" },
-      { url: createPageUrl("BusinessElectricity"), priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("RenewableCompareRates"), priority: 0.8, changefreq: "daily" },
-      { url: createPageUrl("BusinessCompareRates"), priority: 0.8, changefreq: "daily" },
-      
-      // Legal pages
-      { url: createPageUrl("AboutUs"), priority: 0.6, changefreq: "monthly" },
-      { url: createPageUrl("PrivacyPolicy"), priority: 0.5, changefreq: "yearly" },
-      { url: createPageUrl("TermsOfService"), priority: 0.5, changefreq: "yearly" },
-      
-      // Dynamic city pages - Texas
-      { url: createPageUrl("CityRates") + "?city=Houston&state=TX", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Dallas&state=TX", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Austin&state=TX", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=San Antonio&state=TX", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Fort Worth&state=TX", priority: 0.7, changefreq: "weekly" },
-      
-      // Illinois cities
-      { url: createPageUrl("CityRates") + "?city=Chicago&state=IL", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Aurora&state=IL", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Naperville&state=IL", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Joliet&state=IL", priority: 0.6, changefreq: "weekly" },
-      
-      // Ohio cities
-      { url: createPageUrl("CityRates") + "?city=Columbus&state=OH", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Cleveland&state=OH", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Cincinnati&state=OH", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Toledo&state=OH", priority: 0.6, changefreq: "weekly" },
-      
-      // Pennsylvania cities
-      { url: createPageUrl("CityRates") + "?city=Philadelphia&state=PA", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Pittsburgh&state=PA", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Allentown&state=PA", priority: 0.6, changefreq: "weekly" },
-      
-      // New York cities
-      { url: createPageUrl("CityRates") + "?city=New York City&state=NY", priority: 0.9, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Buffalo&state=NY", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Rochester&state=NY", priority: 0.6, changefreq: "weekly" },
-      
-      // New Jersey cities
-      { url: createPageUrl("CityRates") + "?city=Newark&state=NJ", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Jersey City&state=NJ", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Paterson&state=NJ", priority: 0.6, changefreq: "weekly" },
-      
-      // Maryland cities
-      { url: createPageUrl("CityRates") + "?city=Baltimore&state=MD", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Frederick&state=MD", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Rockville&state=MD", priority: 0.6, changefreq: "weekly" },
-      
-      // Massachusetts cities
-      { url: createPageUrl("CityRates") + "?city=Boston&state=MA", priority: 0.8, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Worcester&state=MA", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Springfield&state=MA", priority: 0.6, changefreq: "weekly" },
-      
-      // Connecticut cities
-      { url: createPageUrl("CityRates") + "?city=Hartford&state=CT", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=New Haven&state=CT", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Bridgeport&state=CT", priority: 0.6, changefreq: "weekly" },
-      
-      // Maine cities
-      { url: createPageUrl("CityRates") + "?city=Portland&state=ME", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Lewiston&state=ME", priority: 0.5, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Bangor&state=ME", priority: 0.5, changefreq: "weekly" },
-      
-      // New Hampshire cities
-      { url: createPageUrl("CityRates") + "?city=Manchester&state=NH", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Nashua&state=NH", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Concord&state=NH", priority: 0.5, changefreq: "weekly" },
-      
-      // Rhode Island cities
-      { url: createPageUrl("CityRates") + "?city=Providence&state=RI", priority: 0.6, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Warwick&state=RI", priority: 0.5, changefreq: "weekly" },
-      { url: createPageUrl("CityRates") + "?city=Cranston&state=RI", priority: 0.5, changefreq: "weekly" },
-      
-      // Learning Center Articles
-      { url: createPageUrl("ArticleDetail") + "?id=1", priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=2", priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=3", priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=4", priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=5", priority: 0.7, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=106", priority: 0.6, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=107", priority: 0.6, changefreq: "monthly" },
-      { url: createPageUrl("ArticleDetail") + "?id=108", priority: 0.6, changefreq: "monthly" },
-      
-      // Provider pages (major providers)
-      { url: createPageUrl("ProviderDetails") + "?provider=TXU Energy", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("ProviderDetails") + "?provider=Reliant Energy", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("ProviderDetails") + "?provider=Gexa Energy", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("ProviderDetails") + "?provider=Direct Energy", priority: 0.7, changefreq: "weekly" },
-      { url: createPageUrl("ProviderDetails") + "?provider=Green Mountain Energy", priority: 0.7, changefreq: "weekly" },
+  const sections = [
+    {
+      title: "Main Pages",
+      icon: Zap,
+      links: [
+        { name: "Home", url: "/" },
+        { name: "Compare Electricity Rates", url: "/compare-rates" },
+        { name: "Business Electricity", url: "/business-electricity" },
+        { name: "Renewable Energy", url: "/renewable-energy" },
+        { name: "Savings Calculator", url: "/savings-calculator" },
+        { name: "Bill Analyzer", url: "/bill-analyzer" },
+        { name: "FAQ", url: "/faq" },
+        { name: "About Us", url: "/about-us" }
+      ]
+    },
+    {
+      title: "State Pages",
+      icon: MapPin,
+      links: [
+        { name: "Texas Electricity Rates", url: "/texas-electricity" },
+        { name: "Illinois Electricity Rates", url: "/illinois-electricity" },
+        { name: "Ohio Electricity Rates", url: "/ohio-electricity" },
+        { name: "Pennsylvania Electricity Rates", url: "/pennsylvania-electricity" },
+        { name: "New York Electricity Rates", url: "/new-york-electricity" },
+        { name: "New Jersey Electricity Rates", url: "/new-jersey-electricity" },
+        { name: "Maryland Electricity Rates", url: "/maryland-electricity" },
+        { name: "Massachusetts Electricity Rates", url: "/massachusetts-electricity" },
+        { name: "Maine Electricity Rates", url: "/maine-electricity" },
+        { name: "New Hampshire Electricity Rates", url: "/new-hampshire-electricity" },
+        { name: "Rhode Island Electricity Rates", url: "/rhode-island-electricity" },
+        { name: "Connecticut Electricity Rates", url: "/connecticut-electricity" }
+      ]
+    },
+    {
+      title: "Resources",
+      icon: FileText,
+      links: [
+        { name: "Learning Center", url: "/learning-center" },
+        { name: "All Providers", url: "/all-providers" },
+        { name: "All States", url: "/all-states" },
+        { name: "All Cities", url: "/all-cities" },
+        { name: "Home Concierge", url: "/home-concierge" }
+      ]
+    },
+    {
+      title: "Legal & Support",
+      icon: Building,
+      links: [
+        { name: "Privacy Policy", url: "/privacy-policy" },
+        { name: "Terms of Service", url: "/terms-of-service" }
+      ]
+    }
   ];
 
-  // Generate XML sitemap
-  const currentDate = new Date().toISOString().split('T')[0];
-  
-  const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(page => `  <url>
-    <loc>${baseUrl}${page.url}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-
-  useEffect(() => {
-    // Set content type for XML
-    const metaContentType = document.createElement('meta');
-    metaContentType.httpEquiv = 'Content-Type';
-    metaContentType.content = 'application/xml; charset=utf-8';
-    document.head.appendChild(metaContentType);
-
-    return () => {
-      document.head.removeChild(metaContentType);
-    };
-  }, []);
-
-  // Return raw XML for search engines
   return (
-    <pre style={{ 
-      fontFamily: 'monospace', 
-      whiteSpace: 'pre-wrap', 
-      wordWrap: 'break-word',
-      margin: 0,
-      padding: 0
-    }}>
-      {xmlContent}
-    </pre>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <SEOHead
+        title="Sitemap - All Pages & Resources"
+        description="Complete sitemap of Power Scouts electricity rate comparison platform. Find all pages, states, cities, providers, and resources."
+        keywords="power scouts sitemap, electricity comparison pages, all states electricity rates"
+        canonical="/sitemap"
+      />
+
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-3">Site Map</h1>
+          <p className="text-lg text-blue-100">
+            Navigate all Power Scouts pages and resources
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid md:grid-cols-2 gap-8">
+          {sections.map((section, idx) => {
+            const Icon = section.icon;
+            return (
+              <Card key={idx} className="border-2">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-[#0A5C8C]" />
+                    </div>
+                    <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
+                  </div>
+                  <ul className="space-y-2">
+                    {section.links.map((link, i) => (
+                      <li key={i}>
+                        <Link
+                          to={createPageUrl(link.url.substring(1))}
+                          className="text-blue-600 hover:text-blue-800 hover:underline text-sm"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }
