@@ -233,3 +233,54 @@ export const getLocalBusinessSchema = (cityName, stateName, countyName) => ({
     }
   }
 });
+
+// Helper function to generate Product schema (for plans)
+export const getProductSchema = (plan, estimatedCost) => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": plan.plan_name,
+  "description": `${plan.plan_type} electricity plan from ${plan.provider_name}`,
+  "brand": {
+    "@type": "Brand",
+    "name": plan.provider_name
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": estimatedCost || plan.rate_per_kwh,
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": plan.rate_per_kwh,
+      "priceCurrency": "USD",
+      "unitText": "per kWh"
+    }
+  }
+});
+
+// Helper function to generate Review/Rating schema
+export const getAggregateRatingSchema = (providerName, rating, reviewCount) => ({
+  "@context": "https://schema.org",
+  "@type": "AggregateRating",
+  "itemReviewed": {
+    "@type": "Service",
+    "name": `${providerName} Electricity Service`
+  },
+  "ratingValue": rating,
+  "bestRating": "5",
+  "worstRating": "1",
+  "ratingCount": reviewCount
+});
+
+// Helper function to generate WebPage schema
+export const getWebPageSchema = (title, description, url) => ({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": url || window.location.href,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Power Scouts"
+  }
+});

@@ -32,6 +32,9 @@ export default function Sitemap() {
       { url: createPageUrl("RenewableEnergy"), priority: 0.7, changefreq: "monthly" },
       { url: createPageUrl("BillAnalyzer"), priority: 0.8, changefreq: "monthly" },
       { url: createPageUrl("HomeConcierge"), priority: 0.6, changefreq: "monthly" },
+      { url: createPageUrl("BusinessElectricity"), priority: 0.8, changefreq: "weekly" },
+      { url: createPageUrl("RenewableCompareRates"), priority: 0.8, changefreq: "daily" },
+      { url: createPageUrl("BusinessCompareRates"), priority: 0.8, changefreq: "daily" },
       
       // Legal pages
       { url: createPageUrl("AboutUs"), priority: 0.6, changefreq: "monthly" },
