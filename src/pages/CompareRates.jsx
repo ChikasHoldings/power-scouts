@@ -875,7 +875,7 @@ export default function CompareRates() {
                     </Button>
                   </Link>
                   <Link to={createPageUrl("FAQ")}>
-                    <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-lg">
+                    <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#0A5C8C] font-semibold px-6 py-3 rounded-lg transition-colors">
                       View All FAQs
                     </Button>
                   </Link>
