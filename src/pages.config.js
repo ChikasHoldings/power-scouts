@@ -32,6 +32,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import BusinessElectricity from './pages/BusinessElectricity';
 import BusinessQuoteDashboard from './pages/BusinessQuoteDashboard';
 import NotFound from './pages/NotFound';
+import RenewableCompareRates from './pages/RenewableCompareRates';
 import __Layout from './Layout.jsx';
 
 
@@ -70,6 +71,7 @@ export const PAGES = {
     "BusinessElectricity": BusinessElectricity,
     "BusinessQuoteDashboard": BusinessQuoteDashboard,
     "NotFound": NotFound,
+    "RenewableCompareRates": RenewableCompareRates,
 }
 
 export const pagesConfig = {
