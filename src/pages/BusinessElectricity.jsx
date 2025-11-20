@@ -436,12 +436,12 @@ export default function BusinessElectricity() {
             Get custom quotes from commercial electricity providers. Save thousands annually with the right business energy plan.
           </p>
           
-          <a href="#business-quote-form">
+          <Link to={createPageUrl("BusinessCompareRates")}>
             <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-10 py-4 text-lg rounded-lg">
               Get Business Quotes
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-          </a>
+          </Link>
 
           <div className="flex items-center justify-center gap-5 flex-wrap text-xs mt-6">
             <div className="flex items-center gap-1.5">
