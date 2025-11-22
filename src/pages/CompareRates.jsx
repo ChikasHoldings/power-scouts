@@ -99,7 +99,12 @@ export default function CompareRates() {
   const { data: plans, isLoading: plansLoading, error: plansError } = useQuery({
     queryKey: ['plans'],
     queryFn: async () => {
+      console.log("🔍 Fetching plans from database...");
       const result = await base44.entities.ElectricityPlan.list();
+      console.log("Plans fetched:", result?.length || 0);
+      if (result && result.length > 0) {
+        console.log("Sample plan:", result[0]);
+      }
       return result || [];
     },
     initialData: [],
@@ -108,6 +113,7 @@ export default function CompareRates() {
   });
 
   const handleZipSubmit = async () => {
+    console.log("🔍 ZIP SUBMIT - Start");
     setZipError("");
     
     if (zipCode.length !== 5) {
@@ -116,13 +122,18 @@ export default function CompareRates() {
     }
 
     const validation = validateZipCode(zipCode);
+    console.log("ZIP Validation:", validation);
     if (!validation.valid) {
       setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
       return;
     }
 
     const city = getCityFromZip(zipCode);
+    const stateCode = getStateFromZip(zipCode);
+    console.log("ZIP Resolution:", { zipCode, city, stateCode });
+    
     const providers = await getProvidersForZipCode(zipCode);
+    console.log("Providers for ZIP:", providers.length, providers);
     
     setCityName(city);
     setAvailableProviders(providers);
@@ -169,35 +180,72 @@ export default function CompareRates() {
     setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const filteredPlans = plans.filter(plan => {
-    // Extract data - handle nested data structures
-    const planData = plan.data || plan;
-    const providerName = planData.provider_name;
-    const planName = planData.plan_name;
-    const planType = planData.plan_type;
-    const renewablePercentage = planData.renewable_percentage;
-    const contractLength = planData.contract_length;
-    
-    // Filter out business plans from residential comparison
-    if (planName && planName.toLowerCase().includes('business')) {
-      return false;
-    }
-    
-    // When zipCode is set, filter by provider availability
-    if (zipCode && availableProviders.length > 0) {
-      // Check if provider is in available providers list
-      const provider = availableProviders.find(p => p.name === providerName);
-      if (!provider) {
+  const filteredPlans = React.useMemo(() => {
+    console.log("🔍 FILTERING PLANS - Start");
+    console.log("Total plans:", plans.length);
+    console.log("ZIP Code:", zipCode);
+    console.log("Available Providers:", availableProviders.length, availableProviders.map(p => p.name));
+    console.log("Preferences:", preferences);
+
+    return plans.filter(plan => {
+      // Extract data - handle nested data structures
+      const planData = plan.data || plan;
+      const providerName = planData.provider_name;
+      const planName = planData.plan_name;
+      const planType = planData.plan_type;
+      const renewablePercentage = planData.renewable_percentage;
+      const contractLength = planData.contract_length;
+      
+      console.log(`\n--- Evaluating Plan: ${planName} ---`);
+      console.log("Provider:", providerName);
+      console.log("Type:", planType);
+      console.log("Contract:", contractLength);
+      
+      // Filter out business plans from residential comparison
+      if (planName && planName.toLowerCase().includes('business')) {
+        console.log("❌ FILTERED: Business plan");
         return false;
       }
-    }
-    
-    if (preferences.fixedRate && planType !== 'fixed') return false;
-    if (preferences.variableRate && planType !== 'variable') return false;
-    if (preferences.renewable && (!renewablePercentage || renewablePercentage < 50)) return false;
-    if (preferences.twelveMonth && contractLength !== 12) return false;
-    return true;
-  });
+      
+      // When zipCode is set, filter by provider availability
+      if (zipCode && availableProviders.length > 0) {
+        const provider = availableProviders.find(p => p.name === providerName);
+        console.log("Provider availability check:", {
+          providerName,
+          found: !!provider,
+          availableProviders: availableProviders.map(p => p.name)
+        });
+        if (!provider) {
+          console.log("❌ FILTERED: Provider not available for ZIP");
+          return false;
+        }
+        console.log("✅ Provider available");
+      } else {
+        console.log("⚠️ No ZIP filter applied (availableProviders:", availableProviders.length, ")");
+      }
+      
+      // Preference filters
+      if (preferences.fixedRate && planType !== 'fixed') {
+        console.log("❌ FILTERED: Not fixed rate");
+        return false;
+      }
+      if (preferences.variableRate && planType !== 'variable') {
+        console.log("❌ FILTERED: Not variable rate");
+        return false;
+      }
+      if (preferences.renewable && (!renewablePercentage || renewablePercentage < 50)) {
+        console.log("❌ FILTERED: Not renewable enough");
+        return false;
+      }
+      if (preferences.twelveMonth && contractLength !== 12) {
+        console.log("❌ FILTERED: Not 12 month contract");
+        return false;
+      }
+      
+      console.log("✅ PLAN PASSED ALL FILTERS");
+      return true;
+    });
+  }, [plans, zipCode, availableProviders, preferences]);
 
   // Sort plans by match score and rate
   const plansWithScores = filteredPlans.map(plan => {
@@ -231,6 +279,17 @@ export default function CompareRates() {
     return a.rate_per_kwh - b.rate_per_kwh;
   });
 
+  console.log("📊 FINAL RESULTS:");
+  console.log("Filtered Plans:", filteredPlans.length);
+  console.log("Plans with Scores:", plansWithScores.length);
+  console.log("Sorted Plans:", sortedPlans.length);
+  console.log("Top 3:", sortedPlans.slice(0, 3).map(p => ({
+    provider: p.provider_name,
+    plan: p.plan_name,
+    rate: p.rate_per_kwh,
+    score: p.matchScore.score
+  })));
+
   const topPlans = sortedPlans.slice(0, 3);
   const otherPlans = sortedPlans.slice(3);
 
@@ -251,7 +310,12 @@ export default function CompareRates() {
   const { data: providers = [], isLoading: providersLoading } = useQuery({
     queryKey: ['providers'],
     queryFn: async () => {
+      console.log("🔍 Fetching providers from database...");
       const result = await base44.entities.ElectricityProvider.filter({ is_active: true });
+      console.log("Providers fetched:", result?.length || 0);
+      if (result && result.length > 0) {
+        console.log("Sample provider:", result[0]);
+      }
       return result || [];
     },
     initialData: [],
