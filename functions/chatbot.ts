@@ -72,22 +72,23 @@ PLAN COMPARISON CONVERSATION FLOW:
 1. **After category selection → Ask for ZIP code naturally:**
    Examples: "Perfect! What's your ZIP code?" / "Great choice! Where are you located?"
 
-2. **ZIP code response:**
-   - **VALID**: "Nice! You're in a great area for comparing rates." / "Awesome, you've got options!"
+2. **ZIP code response → Ask follow-up questions BEFORE showing results:**
+   - **VALID ZIP**: Acknowledge it, then ask ONE question at a time:
+     - "Great! Quick question—do you know your average monthly usage? (Check a recent bill, or I can estimate!)"
+     - OR "What matters most to you—finding the lowest rate, or locking in long-term stability?"
    - **INVALID**: "Got it—looks like your area doesn't have electricity choice yet (it's a utility-only market). Still happy to answer any energy questions though!"
 
-3. **Ask preference questions (ONE at a time):**
-   - **Residential**: "What matters most to you—finding the absolute lowest rate, or locking in stability for the long haul?"
-   - **Commercial**: "Quick question—do you know your monthly usage? Even a rough estimate helps me narrow down the best deals."
-   - **Renewable**: "Love that! Are you after 100% green energy, or more focused on supporting renewables while keeping costs down?"
+3. **After collecting preferences → Show results:**
+   Only fetch and display plan recommendations AFTER you have:
+   - ZIP code
+   - At least ONE preference (usage, plan type preference, or contract length preference)
 
-4. **Handle common scenarios naturally:**
+4. **After showing results (if no bill uploaded) → Prompt for bill upload:**
+   Say something like: "Want even more accurate savings? Upload your current bill and I'll show you exactly how much you could save! 💡"
+
+5. **Handle common scenarios naturally:**
    - **"I don't know"**: "No worries! Average homes use around 1,000 kWh/month—does that sound about right?"
    - **Confusion**: "Let me break it down simply—[clear explanation in plain English]"
-   - **Bill upload**: "Want to upload your bill? I can pull your exact usage and show you real savings numbers!"
-
-5. **After showing results:**
-   "These are your top matches based on what you told me. Need help picking the best one? Just ask! 😊"
 
 CRITICAL CONVERSATIONAL RULES:
 - **Handle both modes**: Answer general energy questions AND guide plan comparisons
@@ -117,14 +118,16 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
     let billAnalysis = null;
     let showBillUploadButtons = false;
 
-    // Detect if we should show bill upload buttons
-    const shouldOfferBillUpload = conversationHistory.length >= 4 && 
-      conversationHistory.some(msg => msg.content && /\b\d{5}\b/.test(msg.content)) &&
-      !conversationHistory.some(msg => msg.content && msg.content.toLowerCase().includes('upload'));
-
-    if (shouldOfferBillUpload && !billFileUrl) {
-      showBillUploadButtons = true;
-    }
+    // Track if ZIP code has been provided
+    const hasZipCode = conversationHistory.some(msg => msg.content && /\b\d{5}\b/.test(msg.content)) || /\b\d{5}\b/.test(message);
+    
+    // Track if preferences have been collected (usage, plan type, etc)
+    const hasPreferences = conversationHistory.length >= 2 && hasZipCode;
+    
+    // Track if bill was uploaded
+    const hasBillUploaded = billFileUrl || conversationHistory.some(msg => 
+      msg.content && msg.content.toLowerCase().includes('uploaded')
+    );
 
     // Handle bill upload
     if (billFileUrl) {
@@ -168,10 +171,8 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
       }
     }
 
-    // Check if we should fetch actual plan data
-    const shouldFetchPlans = conversationHistory.some(msg => 
-      msg.content && /\b\d{5}\b/.test(msg.content)
-    ) || /\b\d{5}\b/.test(message) || (billAnalysis && billAnalysis.zipCode);
+    // Only fetch plans if we have ZIP code AND preferences
+    const shouldFetchPlans = hasPreferences && (billAnalysis?.zipCode || hasZipCode);
 
     if (shouldFetchPlans) {
       // Extract ZIP code from bill or conversation
@@ -236,6 +237,11 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
             }
           } else {
             botResponse = `Here are my top picks for your area! ⚡`;
+          }
+          
+          // Offer bill upload after showing results if bill wasn't uploaded
+          if (!hasBillUploaded) {
+            showBillUploadButtons = true;
           }
         }
       }
