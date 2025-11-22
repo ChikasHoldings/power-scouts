@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
+import { getProvidersForZipCode, getStateFromZip } from "../components/compare/providerAvailability";
 
 export default function BillAnalyzer() {
   const [file, setFile] = useState(null);
@@ -22,6 +23,12 @@ export default function BillAnalyzer() {
   const { data: plans } = useQuery({
     queryKey: ['plans'],
     queryFn: () => base44.entities.ElectricityPlan.list(),
+    initialData: [],
+  });
+
+  const { data: providers = [] } = useQuery({
+    queryKey: ['providers'],
+    queryFn: () => base44.entities.ElectricityProvider.filter({ is_active: true }),
     initialData: [],
   });
 
@@ -94,14 +101,58 @@ export default function BillAnalyzer() {
   };
 
   // Calculate savings for each plan
-  const getRecommendations = () => {
+  const getRecommendations = async () => {
     if (!billData || !billData.monthly_usage_kwh) return [];
 
     const currentMonthlyCost = billData.monthly_cost || 0;
+    const zipCode = billData.zip_code;
     
-    return plans
+    // Get available providers for the ZIP code
+    let availableProviders = [];
+    if (zipCode && zipCode.length === 5) {
+      availableProviders = await getProvidersForZipCode(zipCode);
+    }
+    
+    // Filter plans to only show those from available providers with affiliate URLs
+    const filteredPlans = plans.filter(plan => {
+      const planData = plan.data || plan;
+      const providerName = planData.provider_name || plan.provider_name;
+      const planName = planData.plan_name || plan.plan_name;
+      
+      // Filter out business plans
+      if (planName && planName.toLowerCase().includes('business')) {
+        return false;
+      }
+      
+      // Only show plans from available providers
+      if (zipCode && availableProviders.length > 0) {
+        const provider = availableProviders.find(p => p.name === providerName);
+        if (!provider) return false;
+        
+        // Only show providers with affiliate URLs
+        const providerRecord = providers.find(p => {
+          const pName = p.name || p.data?.name;
+          return pName === providerName;
+        });
+        
+        if (!providerRecord) return false;
+        
+        const pData = providerRecord.data || providerRecord;
+        const hasAffiliateUrl = pData.affiliate_url || providerRecord.affiliate_url;
+        
+        if (!hasAffiliateUrl) return false;
+      }
+      
+      return true;
+    });
+    
+    return filteredPlans
       .map(plan => {
-        const estimatedCost = (plan.rate_per_kwh / 100) * billData.monthly_usage_kwh + (plan.monthly_base_charge || 0);
+        const planData = plan.data || plan;
+        const ratePerKwh = planData.rate_per_kwh || plan.rate_per_kwh;
+        const baseCharge = planData.monthly_base_charge || plan.monthly_base_charge || 0;
+        
+        const estimatedCost = (ratePerKwh / 100) * billData.monthly_usage_kwh + baseCharge;
         const monthlySavings = currentMonthlyCost - estimatedCost;
         const annualSavings = monthlySavings * 12;
         
@@ -117,7 +168,13 @@ export default function BillAnalyzer() {
       .slice(0, 6);
   };
 
-  const recommendations = showResults ? getRecommendations() : [];
+  const [recommendations, setRecommendations] = React.useState([]);
+  
+  React.useEffect(() => {
+    if (showResults && billData) {
+      getRecommendations().then(setRecommendations);
+    }
+  }, [showResults, billData]);
 
   const breadcrumbData = getBreadcrumbSchema([
     { name: "Home", url: "/" },
@@ -289,10 +346,27 @@ export default function BillAnalyzer() {
                         </div>
                       )}
 
-                      <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
-                        Switch to This Plan
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      <a 
+                        href={(() => {
+                          const planData = plan.data || plan;
+                          const providerName = planData.provider_name || plan.provider_name;
+                          const provider = providers.find(p => {
+                            const pName = p.name || p.data?.name;
+                            return pName === providerName;
+                          });
+                          if (!provider) return "#";
+                          const pData = provider.data || provider;
+                          return pData.affiliate_url || provider.affiliate_url || pData.website_url || provider.website_url || "#";
+                        })()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
+                          Switch to This Plan
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </a>
                     </CardContent>
                   </Card>
                 ))}
