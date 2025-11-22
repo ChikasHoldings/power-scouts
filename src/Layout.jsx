@@ -40,6 +40,16 @@ export default function Layout({ children, currentPageName }) {
   // Auto-notify search engines on route changes (new articles published)
   useAutoSitemapNotify(location.pathname.includes('ArticleDetail'), 5000);
 
+  // Fetch affiliate providers for footer
+  const { data: affiliateProviders = [] } = useQuery({
+    queryKey: ['affiliateProviders'],
+    queryFn: async () => {
+      const providers = await base44.entities.ElectricityProvider.filter({ is_active: true });
+      return providers.filter(p => p.affiliate_url).slice(0, 5);
+    },
+    initialData: [],
+  });
+
   // Google Analytics & SEO Meta Tags
   useEffect(() => {
     const script1 = document.createElement('script');
