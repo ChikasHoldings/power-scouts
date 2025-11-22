@@ -18,11 +18,15 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(false);
+  const [showProactivePrompt, setShowProactivePrompt] = useState(false);
+  const [hasEverOpened, setHasEverOpened] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   const idleTimeoutRef = useRef(null);
   const lastActivityRef = useRef(Date.now());
+  const siteIdleTimeoutRef = useRef(null);
+  const hasShownProactiveRef = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -68,6 +72,50 @@ export default function ChatBot() {
   useEffect(() => {
     return () => clearIdleTimeout();
   }, []);
+
+  // Site-wide inactivity detection for proactive outreach
+  useEffect(() => {
+    const startSiteIdleTimer = () => {
+      if (siteIdleTimeoutRef.current) {
+        clearTimeout(siteIdleTimeoutRef.current);
+      }
+      
+      // Only show proactive prompt if chatbot hasn't been opened and not already shown
+      if (!hasEverOpened && !hasShownProactiveRef.current && !isOpen) {
+        siteIdleTimeoutRef.current = setTimeout(() => {
+          setShowProactivePrompt(true);
+          hasShownProactiveRef.current = true;
+        }, 120000); // 2 minutes
+      }
+    };
+
+    const resetSiteIdleTimer = () => {
+      if (siteIdleTimeoutRef.current) {
+        clearTimeout(siteIdleTimeoutRef.current);
+      }
+      if (!hasEverOpened && !hasShownProactiveRef.current) {
+        startSiteIdleTimer();
+      }
+    };
+
+    // Track user activity across the site
+    const activityEvents = ['mousedown', 'keydown', 'scroll', 'touchstart'];
+    activityEvents.forEach(event => {
+      window.addEventListener(event, resetSiteIdleTimer, { passive: true });
+    });
+
+    // Start initial timer
+    startSiteIdleTimer();
+
+    return () => {
+      if (siteIdleTimeoutRef.current) {
+        clearTimeout(siteIdleTimeoutRef.current);
+      }
+      activityEvents.forEach(event => {
+        window.removeEventListener(event, resetSiteIdleTimer);
+      });
+    };
+  }, [hasEverOpened, isOpen]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -344,15 +392,72 @@ export default function ChatBot() {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-24 px-4 py-3 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all z-[999] flex items-center gap-2 group hover:scale-105"
-        aria-label="Open chat"
-      >
-        <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        <span className="text-sm font-semibold whitespace-nowrap">Chat with us</span>
-        <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF6B35] rounded-full animate-pulse"></span>
-      </button>
+      <>
+        <button
+          onClick={() => {
+            setIsOpen(true);
+            setHasEverOpened(true);
+            setShowProactivePrompt(false);
+          }}
+          className="fixed bottom-6 right-24 px-4 py-3 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all z-[999] flex items-center gap-2 group hover:scale-105"
+          aria-label="Open chat"
+        >
+          <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          <span className="text-sm font-semibold whitespace-nowrap">Chat with us</span>
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF6B35] rounded-full animate-pulse"></span>
+        </button>
+
+        {/* Proactive Outreach Prompt */}
+        {showProactivePrompt && (
+          <div 
+            className="fixed bottom-28 right-6 bg-white rounded-xl shadow-2xl border-2 border-[#0A5C8C] p-4 max-w-xs z-[998] animate-slideUp"
+            style={{ animation: 'slideUp 0.4s ease-out' }}
+          >
+            <button
+              onClick={() => setShowProactivePrompt(false)}
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
+              aria-label="Close notification"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            
+            <div className="flex items-start gap-3 pr-4">
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/b405070be_ChatGPTImageNov22202501_00_14AM.png"
+                alt="Nora"
+                className="w-10 h-10 rounded-full object-cover border-2 border-[#0A5C8C] flex-shrink-0"
+              />
+              <div>
+                <p className="font-bold text-gray-900 text-sm mb-1">Still looking for energy savings?</p>
+                <p className="text-xs text-gray-600 mb-3">I can help find the best rates for your ZIP code! 💡</p>
+                <button
+                  onClick={() => {
+                    setIsOpen(true);
+                    setHasEverOpened(true);
+                    setShowProactivePrompt(false);
+                  }}
+                  className="w-full bg-[#0A5C8C] hover:bg-[#084a6f] text-white text-xs font-semibold py-2 px-3 rounded-lg transition-colors"
+                >
+                  Chat with Nora
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <style>{`
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
+      </>
     );
   }
 
