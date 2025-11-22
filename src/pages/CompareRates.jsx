@@ -185,9 +185,15 @@ export default function CompareRates() {
     return provider ? provider.logo : null;
   };
 
+  const { data: providers = [] } = useQuery({
+    queryKey: ['providers'],
+    queryFn: () => base44.entities.ElectricityProvider.filter({ is_active: true }),
+    initialData: [],
+  });
+
   const getProviderWebsite = (providerName) => {
-    const provider = getProviderDetails(providerName);
-    return provider ? provider.website : "#";
+    const provider = providers.find(p => p.name === providerName);
+    return provider ? (provider.affiliate_url || provider.website_url) : "#";
   };
 
   const getFilteredOtherPlans = () => {
