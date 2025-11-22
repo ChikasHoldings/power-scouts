@@ -101,6 +101,12 @@ export default function ChatBot() {
         conversationHistory: conversationHistory
       });
 
+      // Add natural delay based on response type
+      const responseLength = response.data.response?.length || 50;
+      const baseDelay = Math.min(800 + (responseLength * 8), 2000); // 800ms-2s based on length
+
+      await new Promise(resolve => setTimeout(resolve, baseDelay));
+
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
         const searchingMessage = {
@@ -110,7 +116,7 @@ export default function ChatBot() {
         };
         setMessages(prev => [...prev, searchingMessage]);
 
-        // Wait 2.5 seconds before showing results
+        // Wait additional time before showing results
         await new Promise(resolve => setTimeout(resolve, 2500));
 
         const resultsMessage = {
@@ -168,6 +174,11 @@ export default function ChatBot() {
           content: msg.content
         }))
       });
+
+      // Add natural delay
+      const responseLength = response.data.response?.length || 50;
+      const baseDelay = Math.min(800 + (responseLength * 8), 2000);
+      await new Promise(resolve => setTimeout(resolve, baseDelay));
 
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
@@ -259,6 +270,9 @@ export default function ChatBot() {
         conversationHistory: conversationHistory,
         billFileUrl: fileUrl
       });
+
+      // Add natural delay for bill analysis
+      await new Promise(resolve => setTimeout(resolve, 1200));
 
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
