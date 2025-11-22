@@ -29,7 +29,21 @@ export default function ProviderDetails() {
     initialData: [],
   });
 
-  const providerInfo = getProviderDetails(providerName);
+  const { data: providers = [] } = useQuery({
+    queryKey: ['providers'],
+    queryFn: () => base44.entities.ElectricityProvider.filter({ is_active: true }),
+    initialData: [],
+  });
+
+  const providerFromDB = providers.find(p => p.name === providerName);
+  const providerInfo = providerFromDB ? {
+    name: providerFromDB.name,
+    logo: providerFromDB.logo_url,
+    website: providerFromDB.affiliate_url || providerFromDB.website_url,
+    states: providerFromDB.supported_states || [],
+    isRecommended: providerFromDB.is_recommended || false
+  } : null;
+
   const providerPlans = allPlans
     .filter(plan => plan.provider_name === providerName)
     .sort((a, b) => a.rate_per_kwh - b.rate_per_kwh);
@@ -103,7 +117,7 @@ export default function ProviderDetails() {
                 <div className="flex items-center gap-4 mb-3">
                   <div className="flex items-center gap-1">
                     <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                    <span className="font-semibold">4.5</span>
+                    <span className="font-semibold">{providerFromDB?.rating || 4.8}</span>
                   </div>
                   <span className="text-blue-200">•</span>
                   <span className="text-blue-100">{providerPlans.length} Plans Available</span>
@@ -147,9 +161,8 @@ export default function ProviderDetails() {
           <Card>
             <CardContent className="p-8">
               <p className="text-gray-700 leading-relaxed mb-6">
-                {providerName} is a trusted electricity provider serving customers across {providerInfo.states.join(", ")}. 
-                With {providerPlans.length} available plans ranging from {lowestRate}¢/kWh to competitive variable rates, 
-                {providerName} offers options for every household and business. 
+                {providerFromDB?.description || `${providerName} is a trusted electricity provider serving customers across ${providerInfo.states.join(", ")}.`}
+                {providerPlans.length > 0 && ` With ${providerPlans.length} available plans ranging from ${lowestRate}¢/kWh to competitive variable rates, ${providerName} offers options for every household and business.`}
                 {renewablePlansCount > 0 && ` They also offer ${renewablePlansCount} renewable energy plans for environmentally conscious customers.`}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -226,12 +239,12 @@ export default function ProviderDetails() {
                       </div>
 
                       <div className="flex flex-col gap-2">
-                        <Link to={createPageUrl("CompareRates")}>
+                        <a href={providerInfo.website} target="_blank" rel="noopener noreferrer">
                           <Button className="w-full md:w-auto bg-[#FF6B35] hover:bg-[#e55a2b] text-white">
-                            Check Availability
+                            Get This Plan
                             <ArrowRight className="w-4 h-4 ml-2" />
                           </Button>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </CardContent>
