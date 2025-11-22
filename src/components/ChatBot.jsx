@@ -354,7 +354,7 @@ export default function ChatBot() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl z-[999] flex flex-col overflow-hidden border border-gray-200">
+    <div className="fixed bottom-6 right-6 w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl z-[999] flex flex-col overflow-hidden border-2 border-gray-200">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -378,7 +378,7 @@ export default function ChatBot() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -485,10 +485,10 @@ export default function ChatBot() {
         
         {(isLoading || uploadingFile) && (
           <div className="flex justify-start">
-            <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
-              <div className="flex items-center gap-2 text-gray-500">
+            <div className="bg-white border border-blue-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-md">
+              <div className="flex items-center gap-2 text-[#0A5C8C]">
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm">{uploadingFile ? 'Reading your bill...' : 'Looking into it...'}</span>
+                <span className="text-sm font-medium">{uploadingFile ? 'Reading your bill...' : 'Looking into it...'}</span>
               </div>
             </div>
           </div>
@@ -501,26 +501,24 @@ export default function ChatBot() {
 
       {/* Input */}
       <div className="p-4 bg-white border-t border-gray-200">
-        <div className="flex gap-2 mb-2 text-xs text-gray-500 justify-center">
+        <div className="flex gap-3 mb-3 justify-center flex-wrap px-2">
           <button 
             onClick={() => handleSend("Residential electricity rates")}
-            className="hover:text-[#0A5C8C] transition-colors"
+            className="px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-[#0A5C8C] rounded-lg font-medium text-sm border border-blue-200 transition-all hover:shadow-md"
           >
-            Residential
+            🏠 Home Energy
           </button>
-          <span>•</span>
           <button 
             onClick={() => handleSend("Commercial electricity rates")}
-            className="hover:text-[#0A5C8C] transition-colors"
+            className="px-4 py-2 bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 text-purple-700 rounded-lg font-medium text-sm border border-purple-200 transition-all hover:shadow-md"
           >
-            Commercial
+            🏢 Business Rates
           </button>
-          <span>•</span>
           <button 
             onClick={() => handleSend("Renewable energy options")}
-            className="hover:text-[#0A5C8C] transition-colors"
+            className="px-4 py-2 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 text-green-700 rounded-lg font-medium text-sm border border-green-200 transition-all hover:shadow-md"
           >
-            Renewable
+            🌱 Green Energy
           </button>
         </div>
         <div className="flex gap-2">
