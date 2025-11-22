@@ -96,7 +96,6 @@ export default function CompareRates() {
     queryKey: ['plans'],
     queryFn: async () => {
       const result = await base44.entities.ElectricityPlan.list();
-      console.log('Fetched plans:', result?.length || 0, result);
       return result || [];
     },
     initialData: [],
@@ -120,8 +119,6 @@ export default function CompareRates() {
 
     const city = getCityFromZip(zipCode);
     const providers = await getProvidersForZipCode(zipCode);
-    
-    console.log('ZIP submitted:', { zipCode, city, providersFound: providers.length, providers });
     
     setCityName(city);
     setAvailableProviders(providers);
@@ -158,15 +155,13 @@ export default function CompareRates() {
   };
 
   const filteredPlans = plans.filter(plan => {
-    // Extract data - handle both direct and nested data structures
+    // Extract data - handle nested data structures
     const planData = plan.data || plan;
-    const providerName = planData.provider_name || plan.provider_name;
-    const planName = planData.plan_name || plan.plan_name;
-    const planType = planData.plan_type || plan.plan_type;
-    const renewablePercentage = planData.renewable_percentage || plan.renewable_percentage;
-    const contractLength = planData.contract_length || plan.contract_length;
-    
-    console.log('Filtering plan:', { providerName, planName, zipCode, availableProvidersCount: availableProviders.length });
+    const providerName = planData.provider_name;
+    const planName = planData.plan_name;
+    const planType = planData.plan_type;
+    const renewablePercentage = planData.renewable_percentage;
+    const contractLength = planData.contract_length;
     
     // Filter out business plans from residential comparison
     if (planName && planName.toLowerCase().includes('business')) {
@@ -175,18 +170,9 @@ export default function CompareRates() {
     
     // When zipCode is set, filter by provider availability
     if (zipCode && availableProviders.length > 0) {
-      const stateCode = getStateFromZip(zipCode);
-      
       // Check if provider is in available providers list
       const provider = availableProviders.find(p => p.name === providerName);
-      console.log('Provider check:', { providerName, found: !!provider, availableProviders: availableProviders.map(p => p.name) });
       if (!provider) {
-        return false;
-      }
-      
-      // Double check state support
-      if (stateCode && provider.states && !provider.states.includes(stateCode)) {
-        console.log('State check failed:', { providerName, stateCode, supportedStates: provider.states });
         return false;
       }
     }
@@ -200,18 +186,19 @@ export default function CompareRates() {
 
   // Sort plans by match score and rate
   const plansWithScores = filteredPlans.map(plan => {
-    // Normalize plan data structure
+    // Normalize plan data structure - extract from nested data
     const planData = plan.data || plan;
     const normalizedPlan = {
-      ...plan,
-      provider_name: planData.provider_name || plan.provider_name,
-      plan_name: planData.plan_name || plan.plan_name,
-      rate_per_kwh: planData.rate_per_kwh || plan.rate_per_kwh,
-      contract_length: planData.contract_length || plan.contract_length,
-      plan_type: planData.plan_type || plan.plan_type,
-      renewable_percentage: planData.renewable_percentage || plan.renewable_percentage,
-      monthly_base_charge: planData.monthly_base_charge || plan.monthly_base_charge,
-      early_termination_fee: planData.early_termination_fee || plan.early_termination_fee
+      id: plan.id,
+      provider_name: planData.provider_name,
+      plan_name: planData.plan_name,
+      rate_per_kwh: planData.rate_per_kwh,
+      contract_length: planData.contract_length,
+      plan_type: planData.plan_type,
+      renewable_percentage: planData.renewable_percentage || 0,
+      monthly_base_charge: planData.monthly_base_charge || 0,
+      early_termination_fee: planData.early_termination_fee || 0,
+      features: planData.features || []
     };
     
     return {
@@ -229,8 +216,6 @@ export default function CompareRates() {
     return a.rate_per_kwh - b.rate_per_kwh;
   });
 
-  console.log('Sorted plans:', sortedPlans.length, sortedPlans.slice(0, 3).map(p => ({ provider: p.provider_name, rate: p.rate_per_kwh })));
-
   const topPlans = sortedPlans.slice(0, 3);
   const otherPlans = sortedPlans.slice(3);
 
@@ -240,19 +225,18 @@ export default function CompareRates() {
 
   const getProviderLogo = (providerName) => {
     const provider = providers.find(p => {
-      const pName = p.name || p.data?.name;
-      return pName === providerName;
+      const pData = p.data || p;
+      return pData.name === providerName;
     });
     if (!provider) return null;
     const pData = provider.data || provider;
-    return pData.logo_url || provider.logo_url || null;
+    return pData.logo_url;
   };
 
   const { data: providers = [], isLoading: providersLoading } = useQuery({
     queryKey: ['providers'],
     queryFn: async () => {
       const result = await base44.entities.ElectricityProvider.filter({ is_active: true });
-      console.log('Fetched providers:', result?.length || 0, result);
       return result || [];
     },
     initialData: [],
@@ -260,12 +244,12 @@ export default function CompareRates() {
 
   const getProviderWebsite = (providerName) => {
     const provider = providers.find(p => {
-      const pName = p.name || p.data?.name;
-      return pName === providerName;
+      const pData = p.data || p;
+      return pData.name === providerName;
     });
     if (!provider) return "#";
     const pData = provider.data || provider;
-    return pData.affiliate_url || provider.affiliate_url || pData.website_url || provider.website_url || "#";
+    return pData.affiliate_url || pData.website_url || "#";
   };
 
   const getFilteredOtherPlans = () => {
@@ -325,8 +309,8 @@ export default function CompareRates() {
     ? availableProviders.map(p => p.name).sort()
     : [...new Set(plans.map(p => {
         const planData = p.data || p;
-        return planData.provider_name || p.provider_name;
-      }))].sort();
+        return planData.provider_name;
+      }).filter(Boolean))].sort();
 
   // Loading Animation
   if (isLoading) {
