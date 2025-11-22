@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   BookOpen, Zap, DollarSign, Leaf, TrendingDown, Shield, 
-  Clock, Users, ArrowRight, CheckCircle, MapPin, Building2, Home, FileText, Star
+  Clock, Users, ArrowRight, CheckCircle, MapPin, Building2, Home, FileText, Star, Tag, X
 } from "lucide-react";
 import SEOHead, { getBreadcrumbSchema, getArticleSchema } from "../components/SEOHead";
 import EnhancedSearch from "../components/learning/EnhancedSearch";
@@ -132,6 +132,9 @@ const colorClasses = {
 export default function LearningCenter() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentSearchTerm, setCurrentSearchTerm] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedReadability, setSelectedReadability] = useState("All");
+  const [showFilters, setShowFilters] = useState(false);
 
   // Fetch articles from database
   const { data: dbArticles = [], isLoading, error } = useQuery({
@@ -230,9 +233,37 @@ export default function LearningCenter() {
     setCurrentSearchTerm(searchTerm || "");
   };
 
+  // Extract all unique tags from articles
+  const allTags = React.useMemo(() => {
+    const tagsSet = new Set();
+    articles.forEach(article => {
+      if (article.keywords && Array.isArray(article.keywords)) {
+        article.keywords.forEach(tag => tagsSet.add(tag));
+      }
+    });
+    return Array.from(tagsSet).sort();
+  }, [articles]);
+
+  // Calculate readability level based on read time
+  const getReadability = (readTime) => {
+    const minutes = parseInt(readTime);
+    if (minutes <= 5) return "Quick Read";
+    if (minutes <= 10) return "Medium Read";
+    return "In-Depth";
+  };
+
   const filteredArticles = searchResults.filter(article => {
     const matchesCategory = selectedCategory === "All" || article.category === selectedCategory;
-    return matchesCategory;
+    
+    const matchesTags = selectedTags.length === 0 || 
+      (article.keywords && selectedTags.some(tag => 
+        article.keywords.some(k => k.toLowerCase() === tag.toLowerCase())
+      ));
+    
+    const articleReadability = getReadability(article.readTime);
+    const matchesReadability = selectedReadability === "All" || articleReadability === selectedReadability;
+    
+    return matchesCategory && matchesTags && matchesReadability;
   });
 
   const categories = ["All", ...new Set(articles.map(a => a.category))];
@@ -298,9 +329,11 @@ export default function LearningCenter() {
                 articles={articles}
                 onSearch={handleSearch}
               />
-              {searchResults.length !== articles.length && (
+              {(searchResults.length !== articles.length || selectedTags.length > 0 || selectedReadability !== "All" || selectedCategory !== "All") && (
                 <p className="text-center text-gray-600 mt-3 text-sm">
-                  Found {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} matching your search
+                  Found {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''}
+                  {searchResults.length !== articles.length && ' matching your search'}
+                  {(selectedTags.length > 0 || selectedReadability !== "All" || selectedCategory !== "All") && ' with active filters'}
                 </p>
               )}
             </div>
@@ -316,7 +349,7 @@ export default function LearningCenter() {
             )}
 
             {/* Category Pills */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8 sm:mb-10">
+            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6">
               {categories.map((category, index) => (
                 <button
                   key={index}
@@ -331,6 +364,142 @@ export default function LearningCenter() {
                 </button>
               ))}
             </div>
+
+            {/* Advanced Filters Toggle */}
+            <div className="text-center mb-8">
+              <Button
+                variant="outline"
+                onClick={() => setShowFilters(!showFilters)}
+                className="border-2 hover:border-[#0A5C8C] hover:text-[#0A5C8C]"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                {showFilters ? 'Hide' : 'Show'} Advanced Filters
+                {(selectedTags.length > 0 || selectedReadability !== "All") && (
+                  <span className="ml-2 bg-[#FF6B35] text-white text-xs px-2 py-0.5 rounded-full">
+                    {selectedTags.length + (selectedReadability !== "All" ? 1 : 0)}
+                  </span>
+                )}
+              </Button>
+            </div>
+
+            {/* Advanced Filters Panel */}
+            {showFilters && (
+              <Card className="mb-8 border-2 border-gray-200 shadow-lg">
+                <CardContent className="p-6">
+                  <div className="space-y-6">
+                    {/* Readability Filter */}
+                    <div>
+                      <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-[#0A5C8C]" />
+                        Reading Time
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {["All", "Quick Read", "Medium Read", "In-Depth"].map((level) => (
+                          <button
+                            key={level}
+                            onClick={() => setSelectedReadability(level)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                              selectedReadability === level
+                                ? 'bg-[#0A5C8C] text-white shadow-md'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            {level}
+                            {level !== "All" && (
+                              <span className="ml-2 text-xs opacity-75">
+                                {level === "Quick Read" ? "≤5 min" : 
+                                 level === "Medium Read" ? "6-10 min" : ">10 min"}
+                              </span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tags Filter */}
+                    <div>
+                      <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                        <Tag className="w-4 h-4 text-[#0A5C8C]" />
+                        Filter by Tags
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {allTags.slice(0, 15).map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => {
+                              setSelectedTags(prev => 
+                                prev.includes(tag)
+                                  ? prev.filter(t => t !== tag)
+                                  : [...prev, tag]
+                              );
+                            }}
+                            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                              selectedTags.includes(tag)
+                                ? 'bg-[#FF6B35] text-white shadow-md'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
+                      {allTags.length > 15 && (
+                        <p className="text-xs text-gray-500 mt-2">
+                          Showing 15 of {allTags.length} tags
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Active Filters Summary */}
+                    {(selectedTags.length > 0 || selectedReadability !== "All" || selectedCategory !== "All") && (
+                      <div className="pt-4 border-t border-gray-200">
+                        <div className="flex items-center justify-between mb-3">
+                          <h4 className="text-sm font-semibold text-gray-900">Active Filters:</h4>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedCategory("All");
+                              setSelectedTags([]);
+                              setSelectedReadability("All");
+                            }}
+                            className="text-xs text-[#FF6B35] hover:text-[#e55a2b]"
+                          >
+                            Clear All
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedCategory !== "All" && (
+                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                              Category: {selectedCategory}
+                              <button onClick={() => setSelectedCategory("All")} className="hover:text-blue-900">
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          )}
+                          {selectedReadability !== "All" && (
+                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                              {selectedReadability}
+                              <button onClick={() => setSelectedReadability("All")} className="hover:text-green-900">
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          )}
+                          {selectedTags.map(tag => (
+                            <span key={tag} className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                              {tag}
+                              <button onClick={() => setSelectedTags(prev => prev.filter(t => t !== tag))} className="hover:text-orange-900">
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Featured Article */}
             {searchResults.length === articles.length && selectedCategory === "All" && filteredArticles.length > 0 && (
@@ -435,16 +604,19 @@ export default function LearningCenter() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-xl text-gray-600 mb-4">No articles found matching your search</p>
-                <p className="text-sm text-gray-500 mb-6">Try different keywords or browse by category</p>
+                <p className="text-xl text-gray-600 mb-4">No articles found matching your filters</p>
+                <p className="text-sm text-gray-500 mb-6">Try adjusting your search or filter criteria</p>
                 <Button 
                   variant="outline" 
                   onClick={() => {
                     setSearchResults(articles);
                     setSelectedCategory("All");
+                    setSelectedTags([]);
+                    setSelectedReadability("All");
+                    setCurrentSearchTerm("");
                   }}
                 >
-                  Clear Filters
+                  Clear All Filters
                 </Button>
               </div>
             )}
