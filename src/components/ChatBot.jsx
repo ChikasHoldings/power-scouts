@@ -10,8 +10,9 @@ export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm here to help you find the best electricity rates. Let's start by getting your ZIP code. What's your 5-digit ZIP code?",
-      timestamp: new Date()
+      content: "Hi there! I'm Nora 😊\nWhat can I help you with today — Residential, Commercial, or Renewable Energy?",
+      timestamp: new Date(),
+      showCategoryButtons: true
     }
   ]);
   const [input, setInput] = useState("");
@@ -63,6 +64,8 @@ export default function ChatBot() {
         role: "assistant",
         content: response.data.response,
         recommendations: response.data.recommendations,
+        billAnalysis: response.data.billAnalysis,
+        showBillUploadButtons: response.data.showBillUploadButtons,
         timestamp: new Date()
       };
 
@@ -184,7 +187,7 @@ export default function ChatBot() {
       console.error('Bill upload error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "I had trouble analyzing your bill. Please try uploading it again or enter your information manually.",
+        content: "Oops! I had trouble reading that. Mind trying again or just tell me your ZIP code?",
         timestamp: new Date()
       }]);
     } finally {
@@ -237,8 +240,8 @@ export default function ChatBot() {
             <Zap className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-bold text-sm">Power Scouts Assistant</h3>
-            <p className="text-xs text-blue-100">Online • Ready to help</p>
+            <h3 className="font-bold text-sm">Nora - Energy Advisor</h3>
+            <p className="text-xs text-blue-100">Online • Ready to help 😊</p>
           </div>
         </div>
         <button
