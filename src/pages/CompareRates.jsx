@@ -54,27 +54,31 @@ export default function CompareRates() {
 
   // Load ZIP code from URL on mount
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const zipFromUrl = urlParams.get('zip');
+    const loadZipData = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const zipFromUrl = urlParams.get('zip');
 
-    if (zipFromUrl && zipFromUrl.length === 5) {
-      const validation = validateZipCode(zipFromUrl);
-      if (validation.valid) {
-        setZipCode(zipFromUrl);
-        saveZip(zipFromUrl);
-        const city = getCityFromZip(zipFromUrl);
-        const providers = getProvidersForZipCode(zipFromUrl);
-        setCityName(city);
-        setAvailableProviders(providers);
-        setStep(2);
-      } else {
-        setZipCode(zipFromUrl);
-        setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
-        setStep(1);
+      if (zipFromUrl && zipFromUrl.length === 5) {
+        const validation = validateZipCode(zipFromUrl);
+        if (validation.valid) {
+          setZipCode(zipFromUrl);
+          saveZip(zipFromUrl);
+          const city = getCityFromZip(zipFromUrl);
+          const providers = await getProvidersForZipCode(zipFromUrl);
+          setCityName(city);
+          setAvailableProviders(providers);
+          setStep(2);
+        } else {
+          setZipCode(zipFromUrl);
+          setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+          setStep(1);
+        }
+      } else if (detectedZip && !zipCode) {
+        setZipCode(detectedZip);
       }
-    } else if (detectedZip && !zipCode) {
-      setZipCode(detectedZip);
-    }
+    };
+    
+    loadZipData();
   }, [detectedZip]);
 
   // Scroll to top when results are shown
@@ -92,7 +96,7 @@ export default function CompareRates() {
     cacheTime: 10 * 60 * 1000,
   });
 
-  const handleZipSubmit = () => {
+  const handleZipSubmit = async () => {
     setZipError("");
     
     if (zipCode.length !== 5) {
@@ -107,7 +111,7 @@ export default function CompareRates() {
     }
 
     const city = getCityFromZip(zipCode);
-    const providers = getProvidersForZipCode(zipCode);
+    const providers = await getProvidersForZipCode(zipCode);
     
     setCityName(city);
     setAvailableProviders(providers);
