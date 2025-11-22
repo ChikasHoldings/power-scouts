@@ -76,25 +76,20 @@ export async function debugCompareRatesPipeline(zipCode) {
     const allPlans = await base44.entities.ElectricityPlan.list();
     console.log("Total plans in DB:", allPlans.length);
     
-    const providerNames = providersForState.map(p => {
-      const pData = p.data || p;
-      return pData.name;
-    });
+    const providerNames = providersForState.map(p => p.name);
     console.log("Provider names to match:", providerNames);
 
     const plansForProviders = allPlans.filter(plan => {
-      const planData = plan.data || plan;
-      const providerName = planData.provider_name;
+      const providerName = plan.provider_name;
       const matches = providerNames.includes(providerName);
-      console.log(`Plan: ${planData.plan_name}, Provider: ${providerName}, Matches: ${matches}`);
+      console.log(`Plan: ${plan.plan_name}, Provider: ${providerName}, Matches: ${matches}`);
       return matches;
     });
 
     console.log("Plans matching providers:", plansForProviders.length);
 
     const residentialPlans = plansForProviders.filter(plan => {
-      const planData = plan.data || plan;
-      const planName = planData.plan_name || "";
+      const planName = plan.plan_name || "";
       const isBusiness = planName.toLowerCase().includes('business');
       console.log(`Plan: ${planName}, Is Business: ${isBusiness}`);
       return !isBusiness;
@@ -104,17 +99,14 @@ export async function debugCompareRatesPipeline(zipCode) {
       totalPlans: allPlans.length,
       plansForProviders: plansForProviders.length,
       residentialPlans: residentialPlans.length,
-      plansList: residentialPlans.map(p => {
-        const pData = p.data || p;
-        return {
-          id: p.id,
-          provider: pData.provider_name,
-          planName: pData.plan_name,
-          rate: pData.rate_per_kwh,
-          type: pData.plan_type,
-          contractLength: pData.contract_length
-        };
-      }),
+      plansList: residentialPlans.map(p => ({
+        id: p.id,
+        provider: p.provider_name,
+        planName: p.plan_name,
+        rate: p.rate_per_kwh,
+        type: p.plan_type,
+        contractLength: p.contract_length
+      })),
       passed: residentialPlans.length > 0
     };
     console.log("Plan Validation:", debug.stages.planValidation);
@@ -137,10 +129,9 @@ export async function debugCompareRatesPipeline(zipCode) {
     };
 
     const filteredByPreferences = residentialPlans.filter(plan => {
-      const planData = plan.data || plan;
-      const planType = planData.plan_type;
-      const renewablePercentage = planData.renewable_percentage || 0;
-      const contractLength = planData.contract_length;
+      const planType = plan.plan_type;
+      const renewablePercentage = plan.renewable_percentage || 0;
+      const contractLength = plan.contract_length;
 
       if (testPreferences.fixedRate && planType !== 'fixed') return false;
       if (testPreferences.variableRate && planType !== 'variable') return false;

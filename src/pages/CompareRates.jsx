@@ -188,13 +188,12 @@ export default function CompareRates() {
     console.log("Preferences:", preferences);
 
     return plans.filter(plan => {
-      // Extract data - handle nested data structures
-      const planData = plan.data || plan;
-      const providerName = planData.provider_name;
-      const planName = planData.plan_name;
-      const planType = planData.plan_type;
-      const renewablePercentage = planData.renewable_percentage;
-      const contractLength = planData.contract_length;
+      // Plan data is at root level, not nested
+      const providerName = plan.provider_name;
+      const planName = plan.plan_name;
+      const planType = plan.plan_type;
+      const renewablePercentage = plan.renewable_percentage;
+      const contractLength = plan.contract_length;
       
       console.log(`\n--- Evaluating Plan: ${planName} ---`);
       console.log("Provider:", providerName);
@@ -249,19 +248,18 @@ export default function CompareRates() {
 
   // Sort plans by match score and rate
   const plansWithScores = filteredPlans.map(plan => {
-    // Normalize plan data structure - extract from nested data
-    const planData = plan.data || plan;
+    // Plan data is at root level
     const normalizedPlan = {
       id: plan.id,
-      provider_name: planData.provider_name,
-      plan_name: planData.plan_name,
-      rate_per_kwh: planData.rate_per_kwh,
-      contract_length: planData.contract_length,
-      plan_type: planData.plan_type,
-      renewable_percentage: planData.renewable_percentage || 0,
-      monthly_base_charge: planData.monthly_base_charge || 0,
-      early_termination_fee: planData.early_termination_fee || 0,
-      features: planData.features || []
+      provider_name: plan.provider_name,
+      plan_name: plan.plan_name,
+      rate_per_kwh: plan.rate_per_kwh,
+      contract_length: plan.contract_length,
+      plan_type: plan.plan_type,
+      renewable_percentage: plan.renewable_percentage || 0,
+      monthly_base_charge: plan.monthly_base_charge || 0,
+      early_termination_fee: plan.early_termination_fee || 0,
+      features: plan.features || []
     };
     
     return {
@@ -298,13 +296,9 @@ export default function CompareRates() {
   };
 
   const getProviderLogo = (providerName) => {
-    const provider = providers.find(p => {
-      const pData = p.data || p;
-      return pData.name === providerName;
-    });
+    const provider = providers.find(p => p.name === providerName);
     if (!provider) return null;
-    const pData = provider.data || provider;
-    return pData.logo_url;
+    return provider.logo_url;
   };
 
   const { data: providers = [], isLoading: providersLoading } = useQuery({
@@ -322,13 +316,9 @@ export default function CompareRates() {
   });
 
   const getProviderWebsite = (providerName) => {
-    const provider = providers.find(p => {
-      const pData = p.data || p;
-      return pData.name === providerName;
-    });
+    const provider = providers.find(p => p.name === providerName);
     if (!provider) return "#";
-    const pData = provider.data || provider;
-    return pData.affiliate_url || pData.website_url || "#";
+    return provider.affiliate_url || provider.website_url || "#";
   };
 
   const getFilteredOtherPlans = () => {
@@ -386,10 +376,7 @@ export default function CompareRates() {
 
   const uniqueProviders = zipCode 
     ? availableProviders.map(p => p.name).sort()
-    : [...new Set(plans.map(p => {
-        const planData = p.data || p;
-        return planData.provider_name;
-      }).filter(Boolean))].sort();
+    : [...new Set(plans.map(p => p.provider_name).filter(Boolean))].sort();
 
   // Loading Animation
   if (isLoading) {
