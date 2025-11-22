@@ -87,6 +87,11 @@ PLAN COMPARISON CONVERSATION FLOW:
    Only NOW fetch and display plan recommendations. You should have:
    - ZIP code ✓
    - At least ONE answered preference (usage, plan type, or contract length) ✓
+   
+   **CRITICAL**: When showing plans, keep your text response SHORT. Do NOT write fake plan data or provider names in your response. The actual plans will be displayed automatically in structured cards below your message. Just say something like:
+   - "Here are your best matches! ⚡" 
+   - "Found some great options for you! 💡"
+   - "Check out these top picks! 😊"
 
 4. **After showing results (if no bill uploaded) → Prompt for bill upload:**
    Say something like: "Want even more accurate savings? Upload your current bill and I'll show you exactly how much you could save! 💡"
@@ -252,12 +257,12 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
           if (billAnalysis && billAnalysis.currentCost) {
             const maxSavings = Math.max(...recommendations.slice(0, 4).map(r => r.savings || 0));
             if (maxSavings > 0) {
-              botResponse = `Great news! I found some excellent options that could save you up to $${maxSavings}/month. Check these out below! ⚡`;
+              botResponse = `Great news! You could save up to $${maxSavings}/month. Check out these top matches! ⚡`;
             } else {
-              botResponse = `I found some solid competitive plans for you. Take a look below!`;
+              botResponse = `Found some solid options for you! 💡`;
             }
           } else {
-            botResponse = `Here are my top picks for your area! ⚡`;
+            botResponse = `Here are your best matches! ⚡`;
           }
           
           // Offer bill upload after showing results if bill wasn't uploaded
