@@ -87,7 +87,7 @@ export default function PlanCard({ plan, usage, estimatedMonthlyCost, isSaved, o
             <div className="text-xs text-gray-500">est. @ {usageValue} kWh/mo</div>
           </div>
           <a 
-            href={plan.affiliate_url || plan.website_url || "#"} 
+            href={affiliateLink} 
             target="_blank" 
             rel="noopener noreferrer"
           >
