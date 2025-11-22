@@ -58,12 +58,9 @@ export default function CompareRates() {
 
 
 
-  // Load ZIP code from URL on mount
+  // Load ZIP code from URL on mount and when URL changes
   useEffect(() => {
     const loadZipData = async () => {
-      // Run full system test on mount
-      await runFullSystemTest("75244");
-      
       const urlParams = new URLSearchParams(window.location.search);
       const zipFromUrl = urlParams.get('zip');
 
@@ -88,7 +85,7 @@ export default function CompareRates() {
     };
     
     loadZipData();
-  }, [detectedZip]);
+  }, [location.search, detectedZip]);
 
   // Scroll to top when results are shown
   useEffect(() => {
