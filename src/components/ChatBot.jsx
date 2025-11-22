@@ -10,15 +10,14 @@ export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hey! I'm Nora, your energy savings guide 😊\n\nI help people find the best electricity rates and can answer any questions about energy plans. What would you like to know?",
-      timestamp: new Date()
+      content: "Hi there! I'm Nora 😊\nWhat can I help you with today — Residential, Commercial, or Renewable Energy?",
+      timestamp: new Date(),
+      showCategoryButtons: true
     }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(false);
-  const [categorySelected, setCategorySelected] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Looking into it...");
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -77,7 +76,7 @@ export default function ChatBot() {
   }, [isOpen]);
 
   const handleSend = async (messageOverride = null) => {
-    const messageToSend = String(messageOverride || input.trim());
+    const messageToSend = messageOverride || input.trim();
     if (!messageToSend || isLoading) return;
 
     const userMessage = {
@@ -86,25 +85,10 @@ export default function ChatBot() {
       timestamp: new Date()
     };
 
-    // Determine loading message based on context
-    let dynamicLoadingMsg = "Typing...";
-    const msgLower = messageToSend.toLowerCase();
-    if (/\b\d{5}\b/.test(messageToSend)) {
-      dynamicLoadingMsg = "Searching your area...";
-    } else if (msgLower.includes('usage') || /\d+\s*(kwh|kilowatt)/i.test(messageToSend)) {
-      dynamicLoadingMsg = "Analyzing your needs...";
-    } else if (messages.length > 2 && messages.some(m => m.recommendations)) {
-      dynamicLoadingMsg = "Finding more details...";
-    } else if (messageToSend.length > 50) {
-      dynamicLoadingMsg = "Processing that...";
-    }
-
     resetActivity();
     setMessages(prev => [...prev, userMessage]);
     setInput("");
-    setLoadingMessage(dynamicLoadingMsg);
     setIsLoading(true);
-    setCategorySelected(true);
 
     try {
       const conversationHistory = messages.map(msg => ({
@@ -117,12 +101,6 @@ export default function ChatBot() {
         conversationHistory: conversationHistory
       });
 
-      // Add natural delay based on response type
-      const responseLength = response.data.response?.length || 50;
-      const baseDelay = Math.min(800 + (responseLength * 8), 2000); // 800ms-2s based on length
-
-      await new Promise(resolve => setTimeout(resolve, baseDelay));
-
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
         const searchingMessage = {
@@ -132,7 +110,7 @@ export default function ChatBot() {
         };
         setMessages(prev => [...prev, searchingMessage]);
 
-        // Wait additional time before showing results
+        // Wait 2.5 seconds before showing results
         await new Promise(resolve => setTimeout(resolve, 2500));
 
         const resultsMessage = {
@@ -159,7 +137,7 @@ export default function ChatBot() {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Oops! Something went wrong on my end. Mind trying again? If it keeps happening, email Henry at chk@powerscouts.com.",
+        content: "I apologize, but I encountered an error. Please try again or contact support if this persists.",
         timestamp: new Date()
       }]);
     } finally {
@@ -190,11 +168,6 @@ export default function ChatBot() {
           content: msg.content
         }))
       });
-
-      // Add natural delay
-      const responseLength = response.data.response?.length || 50;
-      const baseDelay = Math.min(800 + (responseLength * 8), 2000);
-      await new Promise(resolve => setTimeout(resolve, baseDelay));
 
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
@@ -228,7 +201,7 @@ export default function ChatBot() {
       console.error('Chatbot error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Hmm, something glitched. Try that again for me?",
+        content: "Oops! Something went wrong. Let's try that again.",
         timestamp: new Date()
       }]);
     } finally {
@@ -264,7 +237,6 @@ export default function ChatBot() {
     }
 
     setUploadingFile(true);
-    setLoadingMessage("Reading your bill...");
     setMessages(prev => [...prev, {
       role: "user",
       content: `📎 Uploaded bill: ${file.name}`,
@@ -287,9 +259,6 @@ export default function ChatBot() {
         conversationHistory: conversationHistory,
         billFileUrl: fileUrl
       });
-
-      // Add natural delay for bill analysis
-      await new Promise(resolve => setTimeout(resolve, 1200));
 
       // If response has recommendations, show searching message first
       if (response.data.recommendations && response.data.recommendations.length > 0) {
@@ -326,7 +295,7 @@ export default function ChatBot() {
       console.error('Bill upload error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Had trouble reading that one. Wanna try again or just tell me your ZIP code?",
+        content: "Oops! I had trouble reading that. Mind trying again or just tell me your ZIP code?",
         timestamp: new Date()
       }]);
     } finally {
@@ -338,8 +307,6 @@ export default function ChatBot() {
   };
 
   const formatMessage = (content) => {
-    if (!content) return null;
-    if (typeof content !== 'string') return String(content);
     return content.split('\n').map((line, i) => {
       // Bold text
       if (line.includes('**')) {
@@ -373,7 +340,7 @@ export default function ChatBot() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl z-[999] flex flex-col overflow-hidden border-2 border-gray-200">
+    <div className="fixed bottom-6 right-6 w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl z-[999] flex flex-col overflow-hidden border border-gray-200">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -397,7 +364,7 @@ export default function ChatBot() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -412,9 +379,32 @@ export default function ChatBot() {
             >
               <div className="text-sm leading-relaxed">
                 {formatMessage(msg.content)}
+              </div>
+              
+              {msg.showCategoryButtons && (
+                <div className="mt-3 flex flex-col gap-2">
+                  <button
+                    onClick={() => handleCategorySelect("Residential")}
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🏠 Residential
+                  </button>
+                  <button
+                    onClick={() => handleCategorySelect("Commercial")}
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🏢 Commercial
+                  </button>
+                  <button
+                    onClick={() => handleCategorySelect("Renewable")}
+                    className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🌱 Renewable Energy
+                  </button>
                 </div>
+              )}
 
-                {msg.showBillUploadButtons && (
+              {msg.showBillUploadButtons && (
                 <div className="mt-3 flex flex-col gap-2">
                   <button
                     onClick={() => fileInputRef.current?.click()}
@@ -423,7 +413,12 @@ export default function ChatBot() {
                     📄 Upload Bill
                   </button>
                   <button
-                    onClick={() => handleSend("Skip for now")}
+                    onClick={() => {
+                      setMessages(prev => [...prev, 
+                        { role: "user", content: "Skip for now", timestamp: new Date() }
+                      ]);
+                      handleSend("Skip for now");
+                    }}
                     className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-200 transition-all"
                   >
                     Skip for Now
@@ -499,14 +494,10 @@ export default function ChatBot() {
         
         {(isLoading || uploadingFile) && (
           <div className="flex justify-start">
-            <div className="bg-white border border-blue-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-md">
-              <div className="flex items-center gap-2 text-[#0A5C8C]">
-                <span className="text-sm font-medium">{loadingMessage}</span>
-                <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-                </div>
+            <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+              <div className="flex items-center gap-2 text-gray-500">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm">{uploadingFile ? 'Analyzing bill...' : 'Thinking...'}</span>
               </div>
             </div>
           </div>
@@ -519,28 +510,6 @@ export default function ChatBot() {
 
       {/* Input */}
       <div className="p-4 bg-white border-t border-gray-200">
-        {!categorySelected && (
-          <div className="flex gap-3 mb-3 justify-center flex-wrap px-2">
-            <button 
-              onClick={() => handleSend("Residential electricity rates")}
-              className="px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-[#0A5C8C] rounded-lg font-medium text-sm border border-blue-200 transition-all hover:shadow-md"
-            >
-              🏠 Home Energy
-            </button>
-            <button 
-              onClick={() => handleSend("Commercial electricity rates")}
-              className="px-4 py-2 bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 text-purple-700 rounded-lg font-medium text-sm border border-purple-200 transition-all hover:shadow-md"
-            >
-              🏢 Business Rates
-            </button>
-            <button 
-              onClick={() => handleSend("Renewable energy options")}
-              className="px-4 py-2 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 text-green-700 rounded-lg font-medium text-sm border border-green-200 transition-all hover:shadow-md"
-            >
-              🌱 Green Energy
-            </button>
-          </div>
-        )}
         <div className="flex gap-2">
           <input
             ref={fileInputRef}
