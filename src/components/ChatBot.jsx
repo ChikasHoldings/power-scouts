@@ -423,12 +423,7 @@ export default function ChatBot() {
                     📄 Upload Bill
                   </button>
                   <button
-                    onClick={() => {
-                      setMessages(prev => [...prev, 
-                        { role: "user", content: "Skip for now", timestamp: new Date() }
-                      ]);
-                      handleSend("Skip for now");
-                    }}
+                    onClick={() => handleSend("Skip for now")}
                     className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-200 transition-all"
                   >
                     Skip for Now
