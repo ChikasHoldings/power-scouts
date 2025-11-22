@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
@@ -8,6 +8,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import ValidatedZipInput from "../components/ValidatedZipInput";
 import SEOHead, { getOrganizationSchema, getServiceSchema } from "../components/SEOHead";
+import { useZipDetection } from "../components/hooks/useZipDetection";
 
 // Lazy load heavy components for better performance
 const HeroSection = React.lazy(() => import("../components/home/HeroSection"));
@@ -20,6 +21,20 @@ const TestimonialsSection = React.lazy(() => import("../components/home/Testimon
 export default function Home() {
   const [zipCode, setZipCode] = useState("");
   const [isZipValid, setIsZipValid] = useState(false);
+  const { detectedZip, saveZip } = useZipDetection();
+
+  useEffect(() => {
+    if (detectedZip && !zipCode) {
+      setZipCode(detectedZip);
+    }
+  }, [detectedZip]);
+
+  const handleZipChange = (newZip) => {
+    setZipCode(newZip);
+    if (newZip.length === 5) {
+      saveZip(newZip);
+    }
+  };
 
   const structuredData = [
     getOrganizationSchema(),
@@ -91,7 +106,7 @@ export default function Home() {
                     <div className="h-14 px-4 py-3 border-2 rounded-xl bg-white">
                       <ValidatedZipInput
                         value={zipCode}
-                        onChange={setZipCode}
+                        onChange={handleZipChange}
                         placeholder="Enter ZIP code"
                         className="text-xl"
                         onValidationChange={setIsZipValid}

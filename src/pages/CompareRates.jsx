@@ -22,6 +22,7 @@ import {
 } from "../components/compare/dataValidation";
 import { calculateMatchScore, calculateSavings, generatePlanSummary } from "../components/compare/matchScore";
 import BillUploadStep from "../components/compare/BillUploadStep";
+import { useZipDetection } from "../components/hooks/useZipDetection";
 
 export default function CompareRates() {
   const [step, setStep] = useState(1);
@@ -47,6 +48,7 @@ export default function CompareRates() {
   const [cityName, setCityName] = useState("");
   const [availableProviders, setAvailableProviders] = useState([]);
   const [billData, setBillData] = useState(null);
+  const { detectedZip, saveZip } = useZipDetection();
 
 
 
@@ -59,22 +61,21 @@ export default function CompareRates() {
       const validation = validateZipCode(zipFromUrl);
       if (validation.valid) {
         setZipCode(zipFromUrl);
+        saveZip(zipFromUrl);
         const city = getCityFromZip(zipFromUrl);
         const providers = getProvidersForZipCode(zipFromUrl);
         setCityName(city);
         setAvailableProviders(providers);
-        localStorage.setItem('compareRatesZip', zipFromUrl);
-        // Skip to property type step
         setStep(2);
       } else {
-        // Invalid ZIP - show error on step 1
         setZipCode(zipFromUrl);
         setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
         setStep(1);
       }
+    } else if (detectedZip && !zipCode) {
+      setZipCode(detectedZip);
     }
-    // Always start at step 1 if no ZIP in URL
-  }, []);
+  }, [detectedZip]);
 
   // Scroll to top when results are shown
   useEffect(() => {
@@ -110,7 +111,7 @@ export default function CompareRates() {
     
     setCityName(city);
     setAvailableProviders(providers);
-    localStorage.setItem('compareRatesZip', zipCode);
+    saveZip(zipCode);
     setStep(2);
   };
 
