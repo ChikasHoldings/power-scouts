@@ -21,6 +21,18 @@ export default function TexasElectricity() {
     initialData: [],
   });
 
+  // Fetch providers for this state
+  const { data: stateProviders = [] } = useQuery({
+    queryKey: ['providers', 'TX'],
+    queryFn: async () => {
+      const allProviders = await base44.entities.ElectricityProvider.filter({ is_active: true });
+      return allProviders.filter(p => 
+        (p.supported_states || []).includes('TX')
+      );
+    },
+    initialData: [],
+  });
+
   const stateData = {
     name: "Texas",
     fullName: "Texas",
@@ -235,6 +247,79 @@ export default function TexasElectricity() {
             </div>
           </div>
         </section>
+
+        {/* Available Providers Section */}
+        {stateProviders.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-5">
+              Available Electricity Providers in {stateData.fullName}
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {stateProviders.map((provider, index) => (
+                <Card key={index} className="border hover:shadow-lg hover:border-[#0A5C8C] transition-all">
+                  <CardContent className="p-5">
+                    <div className="flex items-center gap-3 mb-3">
+                      {provider.logo_url ? (
+                        <img 
+                          src={provider.logo_url} 
+                          alt={provider.name}
+                          className="h-10 w-auto object-contain"
+                        />
+                      ) : (
+                        <div className="h-10 flex items-center">
+                          <span className="text-base font-bold text-gray-900">{provider.name}</span>
+                        </div>
+                      )}
+                    </div>
+                    {provider.description && (
+                      <p className="text-xs text-gray-600 mb-3 line-clamp-2">
+                        {provider.description}
+                      </p>
+                    )}
+                    {provider.rating && (
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              className={`w-3 h-3 ${
+                                i < Math.floor(provider.rating)
+                                  ? 'text-yellow-400 fill-yellow-400'
+                                  : 'text-gray-300 fill-gray-300'
+                              }`}
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="text-xs text-gray-600">{provider.rating.toFixed(1)}</span>
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <Link to={createPageUrl("ProviderDetails") + `?provider=${encodeURIComponent(provider.name)}`} className="flex-1">
+                        <Button variant="outline" size="sm" className="w-full text-xs">
+                          Learn More
+                        </Button>
+                      </Link>
+                      <a 
+                        href={provider.affiliate_url || provider.website_url || '#'} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1"
+                      >
+                        <Button size="sm" className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-xs">
+                          Get Plans
+                          <ExternalLink className="w-3 h-3 ml-1" />
+                        </Button>
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Why Choose Section */}
         <section className="mb-12">
