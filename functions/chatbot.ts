@@ -103,8 +103,8 @@ PLAN COMPARISON CONVERSATION FLOW:
    - "Found some great options for you! 💡"
    - "Check out these top picks! 😊"
 
-4. **After showing results (if no bill uploaded) → Prompt for bill upload:**
-   Say something like: "Want even more accurate savings? Upload your current bill and I'll show you exactly how much you could save! 💡"
+4. **After showing results (if no bill uploaded) → Prompt for bill upload with buttons:**
+   After displaying plan cards, offer bill upload with action buttons for a cleaner experience.
 
 5. **Handle common scenarios naturally:**
    - **"I don't know"**: "No worries! Average homes use around 1,000 kWh/month - does that sound about right?"

@@ -152,16 +152,12 @@ export default function CompareRates() {
 
   const handlePropertyTypeSubmit = () => {
     if (!propertyType) return;
-    setStep(2.5);
+    setStep(3);
   };
 
   const handleBillAnalysis = (data) => {
     setBillData(data);
-    setStep(3);
-  };
-
-  const handleSkipBillUpload = () => {
-    setStep(3);
+    setShowResults(true);
   };
 
   const handlePreferencesSubmit = async () => {
@@ -871,6 +867,73 @@ export default function CompareRates() {
             </div>
           )}
 
+          {/* Bill Upload Prompt - After Results */}
+          {!billData && (
+            <div className="mt-12 mb-8">
+              <Card className="border-2 border-[#0A5C8C] bg-gradient-to-br from-blue-50 to-white overflow-hidden">
+                <CardContent className="p-6 text-center">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <FileText className="w-6 h-6 text-[#0A5C8C]" />
+                    <h3 className="text-xl font-bold text-gray-900">Want Even More Accurate Savings?</h3>
+                  </div>
+                  <p className="text-gray-600 mb-5 max-w-xl mx-auto">
+                    Upload your current electricity bill and I'll analyze your exact usage to find the absolute best deals for you.
+                  </p>
+                  <Button 
+                    onClick={() => {
+                      const input = document.createElement('input');
+                      input.type = 'file';
+                      input.accept = '.pdf,.png,.jpg,.jpeg';
+                      input.onchange = async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+
+                        setIsLoading(true);
+                        try {
+                          const uploadResponse = await base44.integrations.Core.UploadFile({ file });
+                          const extractionResult = await base44.integrations.Core.ExtractDataFromUploadedFile({
+                            file_url: uploadResponse.file_url,
+                            json_schema: {
+                              type: "object",
+                              properties: {
+                                current_provider: { type: "string" },
+                                current_rate: { type: "number" },
+                                monthly_usage: { type: "number" },
+                                current_cost: { type: "number" },
+                                zip_code: { type: "string" }
+                              }
+                            }
+                          });
+
+                          if (extractionResult.status === 'success' && extractionResult.output) {
+                            setBillData({
+                              currentProvider: extractionResult.output.current_provider,
+                              currentRate: extractionResult.output.current_rate,
+                              monthlyUsage: extractionResult.output.monthly_usage,
+                              currentCost: extractionResult.output.current_cost,
+                              zipCode: extractionResult.output.zip_code
+                            });
+                            setPreferences(prev => ({ ...prev, monthlyUsage: extractionResult.output.monthly_usage || 1000 }));
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }
+                        } catch (error) {
+                          console.error('Bill analysis error:', error);
+                        } finally {
+                          setIsLoading(false);
+                        }
+                      };
+                      input.click();
+                    }}
+                    className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-8 py-3 text-lg"
+                  >
+                    <FileText className="w-5 h-5 mr-2" />
+                    Upload My Bill
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
           {/* Educational Content */}
           <div className="mt-16 space-y-8">
             {/* Main Info Section */}
@@ -1172,21 +1235,7 @@ export default function CompareRates() {
     );
   }
 
-  // Step 2.5: Bill Upload (Optional)
-  if (step === 2.5) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 px-4 pt-8 pb-12">
-        <div className="max-w-3xl mx-auto">
-          <BillUploadStep
-            onSkip={handleSkipBillUpload}
-            onAnalysisComplete={handleBillAnalysis}
-            onBack={() => setStep(2)}
-            accentColor="#0A5C8C"
-          />
-        </div>
-      </div>
-    );
-  }
+
 
   // Step 3: Plan Preferences
   if (step === 3) {
