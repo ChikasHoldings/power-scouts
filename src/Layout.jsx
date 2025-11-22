@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronDown, Menu, X, ArrowUp, MapPin, Building, Home as HomeIcon, FileText, Lightbulb, HelpCircle, Leaf } from "lucide-react";
 import ValidatedZipInput from "./components/ValidatedZipInput";
 import SchemaDebugger from "./components/seo/SchemaDebugger";
+import { useAutoSitemapNotify } from "./components/seo/useAutoSitemapNotify";
 
 const topStates = [
   { name: "Texas", code: "TX", page: "TexasElectricity" },
@@ -33,6 +34,9 @@ export default function Layout({ children, currentPageName }) {
   const [serviceAreaOpen, setServiceAreaOpen] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [isZipValid, setIsZipValid] = useState(false);
+  
+  // Auto-notify search engines on route changes (new articles published)
+  useAutoSitemapNotify(location.pathname.includes('ArticleDetail'), 5000);
 
   // Google Analytics & SEO Meta Tags
   useEffect(() => {

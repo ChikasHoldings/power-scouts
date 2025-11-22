@@ -44,12 +44,17 @@ export async function generateDynamicSitemap(articles = []) {
   ];
 
   // Add dynamic article pages
-  const articlePages = articles.map(article => ({
-    url: `/article/${article.slug}`,
-    priority: '0.8',
-    changefreq: 'monthly',
-    lastmod: article.updated_date || article.created_date
-  }));
+  const articlePages = articles.map(article => {
+    const articleData = article.data || article;
+    const slug = articleData.slug || article.slug;
+    const id = article.id;
+    return {
+      url: `/app/ArticleDetail?id=${id}`,
+      priority: '0.8',
+      changefreq: 'weekly',
+      lastmod: article.updated_date || article.created_date
+    };
+  });
 
   const allPages = [...staticPages, ...articlePages];
   const lastmod = new Date().toISOString().split('T')[0];
