@@ -3,7 +3,17 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { message, conversationHistory = [], billFileUrl = null } = await req.json();
+    const body = await req.json();
+    const message = body.message || '';
+    const conversationHistory = body.conversationHistory || [];
+    const billFileUrl = body.billFileUrl || null;
+
+    // Validate message
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return Response.json({ 
+        response: "I didn't catch that. Could you type that again? 😊"
+      });
+    }
 
     // Build conversation context
     const conversationContext = conversationHistory
@@ -153,18 +163,18 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
             zipCode: extractionResult.output.zip_code
           };
 
-          botResponse = `Great! I've analyzed your bill:\n\n` +
-            `• Current Provider: ${billAnalysis.currentProvider || 'Not found'}\n` +
-            `• Current Rate: ${billAnalysis.currentRate || 'N/A'}¢/kWh\n` +
-            `• Monthly Usage: ${billAnalysis.monthlyUsage || 'N/A'} kWh\n` +
-            `• Current Cost: $${billAnalysis.currentCost || 'N/A'}\n\n` +
-            `Let me find better plans for you...`;
+          botResponse = `Perfect! Here's what I found on your bill:\n\n` +
+            `**${billAnalysis.currentProvider || 'Provider not found'}**\n` +
+            `Current Rate: ${billAnalysis.currentRate || 'N/A'}¢/kWh\n` +
+            `Monthly Usage: ${billAnalysis.monthlyUsage || 'N/A'} kWh\n` +
+            `Current Cost: $${billAnalysis.currentCost || 'N/A'}\n\n` +
+            `Give me a sec to find you better deals! 🔍`;
         } else {
-          botResponse = "I had trouble reading some details from your bill. Could you tell me your ZIP code and average monthly usage so I can find better rates for you?";
+          botResponse = "Hmm, I'm having trouble reading your bill clearly. No worries though! Just tell me your ZIP code and roughly how much you use per month, and I'll find great rates for you. 😊";
         }
       } catch (error) {
         console.error('Bill extraction error:', error);
-        botResponse = "I had trouble analyzing your bill. Could you tell me your ZIP code and average monthly usage?";
+        botResponse = "I'm having a bit of trouble reading that file. Mind telling me your ZIP code and average monthly usage instead? That works just as well! 😊";
       }
     }
 
@@ -230,12 +240,12 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
           if (billAnalysis && billAnalysis.currentCost) {
             const maxSavings = Math.max(...recommendations.slice(0, 4).map(r => r.savings || 0));
             if (maxSavings > 0) {
-              botResponse = `Great news! I found some excellent options that could save you up to $${maxSavings}/month. Check these out below! ⚡`;
+              botResponse = `Awesome news! 🎉 You could save up to $${maxSavings}/month. Here are my top picks:`;
             } else {
-              botResponse = `I found some solid competitive plans for you. Take a look below!`;
+              botResponse = `Here are some competitive plans I found for your area:`;
             }
           } else {
-            botResponse = `Here are my top picks for your area! ⚡`;
+            botResponse = `Perfect! Here are my top recommendations for your ZIP code:`;
           }
         }
       }

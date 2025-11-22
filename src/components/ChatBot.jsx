@@ -138,9 +138,10 @@ export default function ChatBot() {
       }
     } catch (error) {
       console.error('Chat error:', error);
+      const errorMessage = error.message || 'Unknown error';
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "I apologize, but I encountered an error. Please try again or contact support if this persists.",
+        content: "Oops! Something went wrong on my end. Could you try sending that again? If this keeps happening, our support team can help! 😊",
         timestamp: new Date()
       }]);
     } finally {
@@ -207,7 +208,7 @@ export default function ChatBot() {
       console.error('Chatbot error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Oops! Something went wrong. Let's try that again.",
+        content: "Hmm, I hit a snag there. Mind trying that again? 😊",
         timestamp: new Date()
       }]);
     } finally {
@@ -301,7 +302,7 @@ export default function ChatBot() {
       console.error('Bill upload error:', error);
       setMessages(prev => [...prev, {
         role: "assistant",
-        content: "Oops! I had trouble reading that. Mind trying again or just tell me your ZIP code?",
+        content: "I'm having trouble reading that file. Could you try uploading it again, or just tell me your ZIP code and monthly usage? Either works! 😊",
         timestamp: new Date()
       }]);
     } finally {
