@@ -26,9 +26,46 @@ export default function ChatBot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const startIdleTimeout = () => {
+    clearIdleTimeout();
+    idleTimeoutRef.current = setTimeout(() => {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage && lastMessage.sender === 'bot' && !isLoading) {
+        const proactiveMessages = [
+          "Still here? 😊",
+          "Take your time! I'm here when you're ready.",
+          "No rush - just checking in!",
+          "Still with me? Let me know if you need help!"
+        ];
+        const randomMessage = proactiveMessages[Math.floor(Math.random() * proactiveMessages.length)];
+        setMessages(prev => [...prev, { sender: 'bot', text: randomMessage }]);
+      }
+    }, 60000);
+  };
+
+  const clearIdleTimeout = () => {
+    if (idleTimeoutRef.current) {
+      clearTimeout(idleTimeoutRef.current);
+      idleTimeoutRef.current = null;
+    }
+  };
+
+  const resetActivity = () => {
+    lastActivityRef.current = Date.now();
+    clearIdleTimeout();
+  };
+
   useEffect(() => {
     scrollToBottom();
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.sender === 'bot' && !isLoading) {
+      startIdleTimeout();
+    }
   }, [messages]);
+
+  useEffect(() => {
+    return () => clearIdleTimeout();
+  }, []);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -171,6 +208,8 @@ export default function ChatBot() {
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    
+    resetActivity();
 
     // Validate file type
     const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
