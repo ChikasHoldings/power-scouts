@@ -486,20 +486,23 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Popular Cities</h3>
               <div className="space-y-2">
+                <Link to={createPageUrl("CityRates") + "?city=New York&state=NY"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  New York City
+                </Link>
                 <Link to={createPageUrl("CityRates") + "?city=Houston&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Houston
+                </Link>
+                <Link to={createPageUrl("CityRates") + "?city=Chicago&state=IL"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Chicago
                 </Link>
                 <Link to={createPageUrl("CityRates") + "?city=Dallas&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Dallas
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Austin&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Austin
+                <Link to={createPageUrl("CityRates") + "?city=Philadelphia&state=PA"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                  Philadelphia
                 </Link>
                 <Link to={createPageUrl("CityRates") + "?city=San Antonio&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
                   San Antonio
-                </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Fort Worth&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
-                  Fort Worth
                 </Link>
                 <Link to={createPageUrl("AllCities")} className="block text-[#FF6B35] hover:text-[#FF8C5A] text-sm transition-colors font-medium">
                   View All Cities →
