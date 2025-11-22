@@ -77,7 +77,7 @@ export default function ChatBot() {
   }, [isOpen]);
 
   const handleSend = async (messageOverride = null) => {
-    const messageToSend = messageOverride || input.trim();
+    const messageToSend = String(messageOverride || input.trim());
     if (!messageToSend || isLoading) return;
 
     const userMessage = {
@@ -88,9 +88,10 @@ export default function ChatBot() {
 
     // Determine loading message based on context
     let dynamicLoadingMsg = "Typing...";
+    const msgLower = messageToSend.toLowerCase();
     if (/\b\d{5}\b/.test(messageToSend)) {
       dynamicLoadingMsg = "Searching your area...";
-    } else if (messageToSend.toLowerCase().includes('usage') || /\d+\s*(kwh|kilowatt)/i.test(messageToSend)) {
+    } else if (msgLower.includes('usage') || /\d+\s*(kwh|kilowatt)/i.test(messageToSend)) {
       dynamicLoadingMsg = "Analyzing your needs...";
     } else if (messages.length > 2 && messages.some(m => m.recommendations)) {
       dynamicLoadingMsg = "Finding more details...";
