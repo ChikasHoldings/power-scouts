@@ -85,7 +85,7 @@ export default function CompareRates() {
     };
     
     loadZipData();
-  }, [location.search, detectedZip]);
+  }, [detectedZip]);
 
   // Scroll to top when results are shown
   useEffect(() => {

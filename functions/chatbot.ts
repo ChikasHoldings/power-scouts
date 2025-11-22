@@ -207,8 +207,8 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
       )
     );
 
-    // Detect thank you or acknowledgment messages
-    const isThankYouMessage = /^(thanks?|thank you|ty|thx|cool|awesome|great|nice|perfect|ok|okay|got it)/i.test(message.trim());
+    // Detect thank you or acknowledgment messages (but not ZIP codes or numbers)
+    const isThankYouMessage = /^(thanks?|thank you|ty|thx|cool|awesome|great|nice|perfect|ok|okay|got it)$/i.test(message.trim());
 
     // Check if we should fetch actual plan data
     const hasZipInCurrentMessage = /\b\d{5}\b/.test(message);
@@ -221,11 +221,14 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
     const hasSelectedCategory = conversationHistory.some(msg => 
       msg.role === 'user' && (
         msg.content === 'Residential' ||
+        msg.content === 'Compare or find rates' ||
         msg.content === 'Commercial' ||
+        msg.content === 'Business rate' ||
         msg.content === 'Renewable' ||
+        msg.content === 'Renewable energy' ||
         msg.content.toLowerCase().includes('compare') ||
-        msg.content.toLowerCase().includes('business rate') ||
-        msg.content.toLowerCase().includes('renewable energy')
+        msg.content.toLowerCase().includes('business') ||
+        msg.content.toLowerCase().includes('renewable')
       )
     );
     
