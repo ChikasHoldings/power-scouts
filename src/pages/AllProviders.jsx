@@ -205,16 +205,16 @@ export default function AllProviders() {
 
                 {/* CTA Buttons */}
                 <div className="grid grid-cols-2 gap-2">
-                  <a href={providers.find(p => p.name === provider.name)?.website_url || providers.find(p => p.name === provider.name)?.affiliate_url || '#'} target="_blank" rel="noopener noreferrer">
+                  <Link to={createPageUrl("ProviderDetails") + `?provider=${encodeURIComponent(provider.name)}`}>
                     <Button variant="outline" className="w-full text-sm">
                       Learn More
                     </Button>
-                  </a>
-                  <Link to={createPageUrl("ProviderDetails") + `?provider=${encodeURIComponent(provider.name)}`}>
+                  </Link>
+                  <a href={providers.find(p => p.name === provider.name)?.affiliate_url || providers.find(p => p.name === provider.name)?.website_url || '#'} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
                       View Plans
                     </Button>
-                  </Link>
+                  </a>
                 </div>
               </CardContent>
             </Card>

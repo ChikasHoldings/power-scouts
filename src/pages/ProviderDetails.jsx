@@ -211,7 +211,7 @@ export default function ProviderDetails() {
             </h2>
             <a href={providerInfo.website} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="sm">
-                Visit Website
+                Get Plans
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </a>
