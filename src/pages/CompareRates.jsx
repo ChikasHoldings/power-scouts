@@ -142,6 +142,11 @@ export default function CompareRates() {
     setCityName(city);
     setAvailableProviders(providers);
     saveZip(zipCode);
+    
+    // Update URL to reflect new ZIP
+    const newUrl = `${window.location.pathname}?zip=${zipCode}`;
+    window.history.pushState({}, '', newUrl);
+    
     setStep(2);
   };
 
