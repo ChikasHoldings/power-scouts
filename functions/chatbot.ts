@@ -190,25 +190,27 @@ Respond as Nora would in a real conversation. Be warm, natural, and helpful!`;
       }
     }
 
-    // Check if we should fetch actual plan data - only when explicitly ready to show plans
-    const hasZipCode = /\b\d{5}\b/.test(message) || 
-      conversationHistory.slice(-3).some(msg => msg.content && /\b\d{5}\b/.test(msg.content)) ||
-      (billAnalysis && billAnalysis.zipCode);
+    // Check if we should fetch actual plan data
+    const hasZipInCurrentMessage = /\b\d{5}\b/.test(message);
+    const hasZipInRecentHistory = conversationHistory.slice(-3).some(msg => 
+      msg.content && /\b\d{5}\b/.test(msg.content)
+    );
+    const hasBillZip = billAnalysis && billAnalysis.zipCode;
     
-    const userWantsPlans = message.toLowerCase().includes('plan') ||
-      message.toLowerCase().includes('compare') ||
-      message.toLowerCase().includes('rate') ||
-      message.toLowerCase().includes('show') ||
-      conversationHistory.slice(-2).some(msg => 
-        msg.content && (
-          msg.content.toLowerCase().includes('what matters most') ||
-          msg.content.toLowerCase().includes('monthly usage') ||
-          msg.content.toLowerCase().includes('preference')
+    // Check if conversation has progressed past greetings (user selected category or engaged)
+    const hasEngaged = conversationHistory.length >= 2 || 
+      conversationHistory.some(msg => 
+        msg.role === 'user' && (
+          msg.content.toLowerCase().includes('residential') ||
+          msg.content.toLowerCase().includes('commercial') ||
+          msg.content.toLowerCase().includes('renewable') ||
+          msg.content.toLowerCase().includes('business')
         )
-      ) ||
-      billFileUrl; // Always show plans after bill upload
-
-    const shouldFetchPlans = hasZipCode && (userWantsPlans || billFileUrl);
+      );
+    
+    // Fetch plans if ZIP provided AND user has engaged in conversation
+    const shouldFetchPlans = (hasZipInCurrentMessage || hasZipInRecentHistory || hasBillZip) && 
+      (hasEngaged || billFileUrl);
 
     if (shouldFetchPlans) {
       // Extract ZIP code from bill or conversation
