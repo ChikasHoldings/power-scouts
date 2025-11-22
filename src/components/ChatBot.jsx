@@ -104,10 +104,11 @@ export default function ChatBot() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all z-[999] flex items-center justify-center group hover:scale-110"
+        className="fixed bottom-6 right-24 px-4 py-3 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all z-[999] flex items-center gap-2 group hover:scale-105"
         aria-label="Open chat"
       >
-        <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform" />
+        <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+        <span className="text-sm font-semibold whitespace-nowrap">Chat with us</span>
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF6B35] rounded-full animate-pulse"></span>
       </button>
     );
