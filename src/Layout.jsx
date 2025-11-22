@@ -9,6 +9,7 @@ import { ChevronDown, Menu, X, ArrowUp, MapPin, Building, Home as HomeIcon, File
 import ValidatedZipInput from "./components/ValidatedZipInput";
 import SchemaDebugger from "./components/seo/SchemaDebugger";
 import { useAutoSitemapNotify } from "./components/seo/useAutoSitemapNotify";
+import ChatBot from "./components/ChatBot";
 
 const topStates = [
   { name: "Texas", code: "TX", page: "TexasElectricity" },
@@ -669,6 +670,9 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Schema Debugger (Dev Only) */}
       <SchemaDebugger />
+
+      {/* AI Chatbot */}
+      <ChatBot />
       </div>
       );
       }
