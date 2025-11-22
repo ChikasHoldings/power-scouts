@@ -180,14 +180,7 @@ export default function BusinessElectricity() {
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
-                  <Button 
-                    onClick={handleBusinessQuoteSubmit}
-                    disabled={!isZipValid || !businessType || !monthlyUsage}
-                    variant="outline"
-                    className="w-full border-2 font-bold py-3 rounded-lg"
-                  >
-                    Request Custom Quote
-                  </Button>
+
                 </div>
               </CardContent>
             </Card>
