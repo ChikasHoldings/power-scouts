@@ -89,11 +89,7 @@ export default function ChatBot() {
     setMessages(prev => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
-    
-    // Hide category buttons after first message
-    if (messageOverride) {
-      setCategorySelected(true);
-    }
+    setCategorySelected(true);
 
     try {
       const conversationHistory = messages.map(msg => ({
