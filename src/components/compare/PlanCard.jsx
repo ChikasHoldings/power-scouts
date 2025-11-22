@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Zap, Clock, Leaf, DollarSign, ExternalLink, Heart } from "lucide-react";
 
-export default function PlanCard({ plan, usage, isSaved, onToggleSave }) {
-  const estimatedCost = (plan.rate_per_kwh * usage / 100 + (plan.monthly_base_charge || 0)).toFixed(2);
+export default function PlanCard({ plan, usage, estimatedMonthlyCost, isSaved, onToggleSave, rank, isTopPick, monthlyUsage }) {
+  const usageValue = parseInt(usage || monthlyUsage || 1000);
+  const cost = estimatedMonthlyCost || (plan.rate_per_kwh * usageValue / 100 + (plan.monthly_base_charge || 0)).toFixed(2);
 
   return (
     <div className="bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#0A5C8C] relative group">
