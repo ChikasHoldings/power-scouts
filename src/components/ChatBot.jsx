@@ -504,7 +504,11 @@ export default function ChatBot() {
           <div className="flex justify-start">
             <div className="bg-white border border-blue-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-md">
               <div className="flex items-center gap-2 text-[#0A5C8C]">
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <div className="flex gap-1">
+                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-2 h-2 bg-[#0A5C8C] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </div>
                 <span className="text-sm font-medium">{loadingMessage}</span>
               </div>
             </div>
