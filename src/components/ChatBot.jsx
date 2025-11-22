@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { X, Send, MessageCircle, Loader2, Zap, ExternalLink } from "lucide-react";
+import { X, Send, MessageCircle, Loader2, Zap, ExternalLink, Upload, Paperclip } from "lucide-react";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +16,10 @@ export default function ChatBot() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadingFile, setUploadingFile] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -79,6 +81,79 @@ export default function ChatBot() {
 
   const handleQuickReply = (reply) => {
     setInput(reply);
+  };
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "Please upload a PDF, PNG, or JPG file of your electricity bill.",
+        timestamp: new Date()
+      }]);
+      return;
+    }
+
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "File size must be less than 10MB. Please upload a smaller file.",
+        timestamp: new Date()
+      }]);
+      return;
+    }
+
+    setUploadingFile(true);
+    setMessages(prev => [...prev, {
+      role: "user",
+      content: `📎 Uploaded bill: ${file.name}`,
+      timestamp: new Date()
+    }]);
+
+    try {
+      // Upload file
+      const uploadResponse = await base44.integrations.Core.UploadFile({ file });
+      const fileUrl = uploadResponse.file_url;
+
+      // Analyze bill with chatbot
+      const conversationHistory = messages.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+
+      const response = await base44.functions.invoke('chatbot', {
+        message: `I've uploaded my electricity bill. Please analyze it.`,
+        conversationHistory: conversationHistory,
+        billFileUrl: fileUrl
+      });
+
+      const assistantMessage = {
+        role: "assistant",
+        content: response.data.response,
+        recommendations: response.data.recommendations,
+        billAnalysis: response.data.billAnalysis,
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error('Bill upload error:', error);
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "I had trouble analyzing your bill. Please try uploading it again or enter your information manually.",
+        timestamp: new Date()
+      }]);
+    } finally {
+      setUploadingFile(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const formatMessage = (content) => {
@@ -154,6 +229,26 @@ export default function ChatBot() {
                 {formatMessage(msg.content)}
               </div>
               
+              {msg.billAnalysis && (
+                <div className="mt-3 bg-blue-50 rounded-lg p-3 border border-blue-200">
+                  <div className="text-xs font-bold text-blue-900 mb-2">📊 Bill Analysis</div>
+                  <div className="space-y-1 text-[11px] text-blue-800">
+                    {msg.billAnalysis.currentProvider && (
+                      <div><span className="font-semibold">Provider:</span> {msg.billAnalysis.currentProvider}</div>
+                    )}
+                    {msg.billAnalysis.currentRate && (
+                      <div><span className="font-semibold">Current Rate:</span> {msg.billAnalysis.currentRate}¢/kWh</div>
+                    )}
+                    {msg.billAnalysis.monthlyUsage && (
+                      <div><span className="font-semibold">Usage:</span> {msg.billAnalysis.monthlyUsage} kWh</div>
+                    )}
+                    {msg.billAnalysis.currentCost && (
+                      <div><span className="font-semibold">Current Cost:</span> ${msg.billAnalysis.currentCost}</div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
               {msg.recommendations && msg.recommendations.length > 0 && (
                 <div className="mt-3 space-y-2">
                   {msg.recommendations.slice(0, 3).map((rec, i) => (
@@ -169,6 +264,11 @@ export default function ChatBot() {
                           <div className="font-bold text-xs text-gray-900 truncate">{rec.provider}</div>
                           <div className="text-[10px] text-gray-600 truncate">{rec.plan}</div>
                         </div>
+                        {rec.savings > 0 && (
+                          <div className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">
+                            Save ${rec.savings}
+                          </div>
+                        )}
                         <ExternalLink className="w-3 h-3 text-[#0A5C8C] flex-shrink-0" />
                       </div>
                       <div className="mt-2 flex items-center justify-between text-[11px]">
@@ -187,12 +287,12 @@ export default function ChatBot() {
           </div>
         ))}
         
-        {isLoading && (
+        {(isLoading || uploadingFile) && (
           <div className="flex justify-start">
             <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
               <div className="flex items-center gap-2 text-gray-500">
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm">Thinking...</span>
+                <span className="text-sm">{uploadingFile ? 'Analyzing bill...' : 'Thinking...'}</span>
               </div>
             </div>
           </div>
@@ -218,10 +318,12 @@ export default function ChatBot() {
               Fixed rates
             </button>
             <button
-              onClick={() => handleQuickReply("Renewable energy")}
-              className="text-xs bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-100 transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+              className="text-xs bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full hover:bg-orange-100 transition-colors flex items-center gap-1"
+              disabled={uploadingFile}
             >
-              Renewable energy
+              <Upload className="w-3 h-3" />
+              Upload Bill
             </button>
           </div>
         </div>
@@ -230,18 +332,34 @@ export default function ChatBot() {
       {/* Input */}
       <div className="p-4 bg-white border-t border-gray-200">
         <div className="flex gap-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".pdf,.png,.jpg,.jpeg"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          <Button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadingFile || isLoading}
+            variant="outline"
+            className="rounded-full w-10 h-10 p-0 border-gray-300 hover:border-[#0A5C8C] hover:bg-blue-50"
+            title="Upload electricity bill"
+          >
+            <Paperclip className="w-4 h-4" />
+          </Button>
           <Input
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your message..."
-            disabled={isLoading}
+            disabled={isLoading || uploadingFile}
             className="flex-1 rounded-full border-gray-300 focus:border-[#0A5C8C]"
           />
           <Button
             onClick={handleSend}
-            disabled={!input.trim() || isLoading}
+            disabled={!input.trim() || isLoading || uploadingFile}
             className="rounded-full w-10 h-10 p-0 bg-[#0A5C8C] hover:bg-[#084a6f]"
           >
             {isLoading ? (
