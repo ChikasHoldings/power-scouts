@@ -83,6 +83,44 @@ export default function ChatBot() {
     setInput(reply);
   };
 
+  const handleCategorySelect = async (category) => {
+    // Add user's category selection
+    setMessages(prev => [...prev, {
+      role: "user",
+      content: category,
+      timestamp: new Date()
+    }]);
+
+    setIsLoading(true);
+
+    try {
+      const response = await base44.functions.invoke('chatbot', {
+        message: category,
+        conversationHistory: messages.map(msg => ({
+          role: msg.role,
+          content: msg.content
+        }))
+      });
+
+      const assistantMessage = {
+        role: "assistant",
+        content: response.data.response,
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error('Chatbot error:', error);
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: "Oops! Something went wrong. Let's try that again.",
+        timestamp: new Date()
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleFileUpload = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -137,6 +175,7 @@ export default function ChatBot() {
         content: response.data.response,
         recommendations: response.data.recommendations,
         billAnalysis: response.data.billAnalysis,
+        showBillUploadButtons: response.data.showBillUploadButtons,
         timestamp: new Date()
       };
 
@@ -229,6 +268,51 @@ export default function ChatBot() {
                 {formatMessage(msg.content)}
               </div>
               
+              {msg.showCategoryButtons && (
+                <div className="mt-3 flex flex-col gap-2">
+                  <button
+                    onClick={() => handleCategorySelect("Residential")}
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🏠 Residential
+                  </button>
+                  <button
+                    onClick={() => handleCategorySelect("Commercial")}
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🏢 Commercial
+                  </button>
+                  <button
+                    onClick={() => handleCategorySelect("Renewable")}
+                    className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    🌱 Renewable Energy
+                  </button>
+                </div>
+              )}
+
+              {msg.showBillUploadButtons && (
+                <div className="mt-3 flex flex-col gap-2">
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm hover:shadow-md transition-all"
+                  >
+                    📄 Upload Bill
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMessages(prev => [...prev, 
+                        { role: "user", content: "Skip for now", timestamp: new Date() }
+                      ]);
+                      handleSend("Skip for now");
+                    }}
+                    className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg font-medium text-sm hover:bg-gray-200 transition-all"
+                  >
+                    Skip for Now
+                  </button>
+                </div>
+              )}
+
               {msg.billAnalysis && (
                 <div className="mt-3 bg-blue-50 rounded-lg p-3 border border-blue-200">
                   <div className="text-xs font-bold text-blue-900 mb-2">📊 Bill Analysis</div>
@@ -250,32 +334,40 @@ export default function ChatBot() {
               )}
               
               {msg.recommendations && msg.recommendations.length > 0 && (
-                <div className="mt-3 space-y-2">
-                  {msg.recommendations.slice(0, 3).map((rec, i) => (
-                    <a
-                      key={i}
-                      href={rec.affiliateUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-3 hover:shadow-md transition-all border border-blue-100"
-                    >
-                      <div className="flex items-start justify-between gap-2">
+                <div className="mt-3 space-y-3">
+                  <div className="text-xs font-bold text-gray-900 mb-2">🔥 Top Matches for Your ZIP</div>
+                  {msg.recommendations.slice(0, 4).map((rec, i) => (
+                    <div key={i} className="bg-white rounded-lg p-3 border-2 border-blue-100 hover:border-blue-300 transition-all">
+                      <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex-1 min-w-0">
-                          <div className="font-bold text-xs text-gray-900 truncate">{rec.provider}</div>
-                          <div className="text-[10px] text-gray-600 truncate">{rec.plan}</div>
+                          <div className="font-bold text-xs text-gray-900">{rec.provider} — {rec.plan}</div>
+                          <div className="text-[10px] text-gray-600 mt-0.5">
+                            {rec.contractLength} months • {rec.rate}¢/kWh
+                            {rec.renewable > 0 && ` • ${rec.renewable}% Green 🌱`}
+                          </div>
                         </div>
                         {rec.savings > 0 && (
-                          <div className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">
-                            Save ${rec.savings}
+                          <div className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded whitespace-nowrap">
+                            Save ${rec.savings}/mo
                           </div>
                         )}
-                        <ExternalLink className="w-3 h-3 text-[#0A5C8C] flex-shrink-0" />
                       </div>
-                      <div className="mt-2 flex items-center justify-between text-[11px]">
-                        <span className="font-bold text-[#0A5C8C]">{rec.rate}¢/kWh</span>
-                        <span className="text-gray-600">${rec.estimatedMonthlyCost}/mo</span>
-                      </div>
-                    </a>
+                      {rec.highlights && rec.highlights.length > 0 && (
+                        <div className="text-[10px] text-gray-600 mb-2 space-y-0.5">
+                          {rec.highlights.map((highlight, idx) => (
+                            <div key={idx}>• {highlight}</div>
+                          ))}
+                        </div>
+                      )}
+                      <a
+                        href={rec.affiliateUrl || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white text-center py-2 rounded-lg font-medium text-xs hover:shadow-md transition-all"
+                      >
+                        👉 Check Availability
+                      </a>
+                    </div>
                   ))}
                 </div>
               )}
@@ -301,33 +393,7 @@ export default function ChatBot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Quick Replies */}
-      {messages.length <= 2 && (
-        <div className="px-4 py-2 bg-white border-t border-gray-200">
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => handleQuickReply("I'm in Houston")}
-              className="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors"
-            >
-              I'm in Houston
-            </button>
-            <button
-              onClick={() => handleQuickReply("Show me fixed rates")}
-              className="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-full hover:bg-green-100 transition-colors"
-            >
-              Fixed rates
-            </button>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="text-xs bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full hover:bg-orange-100 transition-colors flex items-center gap-1"
-              disabled={uploadingFile}
-            >
-              <Upload className="w-3 h-3" />
-              Upload Bill
-            </button>
-          </div>
-        </div>
-      )}
+
 
       {/* Input */}
       <div className="p-4 bg-white border-t border-gray-200">
