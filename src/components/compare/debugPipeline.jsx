@@ -38,19 +38,17 @@ export async function debugCompareRatesPipeline(zipCode) {
     console.log("Total providers in DB:", allProviders.length);
     
     const activeProviders = allProviders.filter(p => {
-      const pData = p.data || p;
-      const isActive = pData.is_active;
-      console.log(`Provider: ${pData.name}, Active: ${isActive}, States:`, pData.supported_states);
+      const isActive = p.data?.is_active ?? p.is_active ?? true;
+      console.log(`Provider: ${p.name}, Active: ${isActive}, States:`, p.supported_states);
       return isActive === true;
     });
     
     console.log("Active providers:", activeProviders.length);
     
     const providersForState = activeProviders.filter(p => {
-      const pData = p.data || p;
-      const supportedStates = pData.supported_states || [];
+      const supportedStates = p.supported_states || [];
       const matches = supportedStates.includes(stateCode);
-      console.log(`Provider ${pData.name} supports ${stateCode}:`, matches, "Supported:", supportedStates);
+      console.log(`Provider ${p.name} supports ${stateCode}:`, matches, "Supported:", supportedStates);
       return matches;
     });
 
@@ -58,15 +56,12 @@ export async function debugCompareRatesPipeline(zipCode) {
       totalProviders: allProviders.length,
       activeProviders: activeProviders.length,
       providersForState: providersForState.length,
-      providersList: providersForState.map(p => {
-        const pData = p.data || p;
-        return {
-          id: p.id,
-          name: pData.name,
-          isActive: pData.is_active,
-          supportedStates: pData.supported_states
-        };
-      }),
+      providersList: providersForState.map(p => ({
+        id: p.id,
+        name: p.name,
+        isActive: p.data?.is_active ?? p.is_active,
+        supportedStates: p.supported_states
+      })),
       passed: providersForState.length > 0
     };
     console.log("Provider Validation:", debug.stages.providerValidation);
