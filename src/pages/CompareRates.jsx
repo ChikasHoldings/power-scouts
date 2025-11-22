@@ -33,7 +33,11 @@ export default function CompareRates() {
     fixedRate: false,
     variableRate: false,
     renewable: false,
-    twelveMonth: false
+    twelveMonth: false,
+    contractLength: "",
+    renewablePercentage: "",
+    etfTolerance: "",
+    monthlyUsage: 1000
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -192,7 +196,7 @@ export default function CompareRates() {
     return {
       ...normalizedPlan,
       matchScore: calculateMatchScore(normalizedPlan, preferences, propertyType, {}),
-      summary: generatePlanSummary(normalizedPlan, 1000)
+      summary: generatePlanSummary(normalizedPlan, preferences.monthlyUsage || 1000)
     };
   });
 
@@ -1155,7 +1159,7 @@ export default function CompareRates() {
 
           <Card className="mb-5 shadow-lg border">
             <CardContent className="p-5">
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 {preferenceOptions.map((option) => (
                   <div
                     key={option.key}
@@ -1186,6 +1190,78 @@ export default function CompareRates() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="border-t pt-4 space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Average Monthly Usage (kWh)
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="1000"
+                    value={preferences.monthlyUsage}
+                    onChange={(e) => setPreferences(prev => ({ ...prev, monthlyUsage: parseInt(e.target.value) || 1000 }))}
+                    className="h-10"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Used to calculate accurate savings estimates</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Preferred Contract Length
+                  </label>
+                  <Select value={preferences.contractLength} onValueChange={(value) => setPreferences(prev => ({ ...prev, contractLength: value }))}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Any length" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={null}>Any length</SelectItem>
+                      <SelectItem value="6">6 months</SelectItem>
+                      <SelectItem value="12">12 months</SelectItem>
+                      <SelectItem value="18">18 months</SelectItem>
+                      <SelectItem value="24">24 months</SelectItem>
+                      <SelectItem value="36">36 months</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Minimum Renewable Energy %
+                  </label>
+                  <Select value={preferences.renewablePercentage} onValueChange={(value) => setPreferences(prev => ({ ...prev, renewablePercentage: value }))}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Any percentage" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={null}>Any percentage</SelectItem>
+                      <SelectItem value="25">25% or more</SelectItem>
+                      <SelectItem value="50">50% or more</SelectItem>
+                      <SelectItem value="75">75% or more</SelectItem>
+                      <SelectItem value="100">100% renewable</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Max Early Termination Fee
+                  </label>
+                  <Select value={preferences.etfTolerance} onValueChange={(value) => setPreferences(prev => ({ ...prev, etfTolerance: value }))}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Any amount" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={null}>Any amount</SelectItem>
+                      <SelectItem value="0">$0 only</SelectItem>
+                      <SelectItem value="100">Up to $100</SelectItem>
+                      <SelectItem value="150">Up to $150</SelectItem>
+                      <SelectItem value="200">Up to $200</SelectItem>
+                      <SelectItem value="300">Up to $300</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </CardContent>
           </Card>
