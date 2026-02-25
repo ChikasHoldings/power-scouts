@@ -155,8 +155,19 @@ export default function CompareRates() {
     setStep(2.5);
   };
 
-  const handleBillAnalysis = (data) => {
+  const handleBillAnalysis = async (data) => {
     setBillData(data);
+    if (data.zip_code && data.zip_code !== zipCode) {
+      setZipCode(data.zip_code);
+      saveZip(data.zip_code);
+      const city = getCityFromZip(data.zip_code);
+      const providers = await getProvidersForZipCode(data.zip_code);
+      setCityName(city);
+      setAvailableProviders(providers);
+    }
+    if (data.monthly_usage_kwh) {
+      setPreferences(prev => ({ ...prev, monthlyUsage: data.monthly_usage_kwh }));
+    }
     setStep(3);
   };
 
