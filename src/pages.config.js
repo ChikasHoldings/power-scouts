@@ -1,85 +1,134 @@
-import Home from './pages/Home';
+/**
+ * pages.config.js - Page routing configuration
+ * 
+ * This file is AUTO-GENERATED. Do not add imports or modify PAGES manually.
+ * Pages are auto-registered when you create files in the ./pages/ folder.
+ * 
+ * THE ONLY EDITABLE VALUE: mainPage
+ * This controls which page is the landing page (shown when users visit the app).
+ * 
+ * Example file structure:
+ * 
+ *   import HomePage from './pages/HomePage';
+ *   import Dashboard from './pages/Dashboard';
+ *   import Settings from './pages/Settings';
+ *   
+ *   export const PAGES = {
+ *       "HomePage": HomePage,
+ *       "Dashboard": Dashboard,
+ *       "Settings": Settings,
+ *   }
+ *   
+ *   export const pagesConfig = {
+ *       mainPage: "HomePage",
+ *       Pages: PAGES,
+ *   };
+ * 
+ * Example with Layout (wraps all pages):
+ *
+ *   import Home from './pages/Home';
+ *   import Settings from './pages/Settings';
+ *   import __Layout from './Layout.jsx';
+ *
+ *   export const PAGES = {
+ *       "Home": Home,
+ *       "Settings": Settings,
+ *   }
+ *
+ *   export const pagesConfig = {
+ *       mainPage: "Home",
+ *       Pages: PAGES,
+ *       Layout: __Layout,
+ *   };
+ *
+ * To change the main page from HomePage to Dashboard, use find_replace:
+ *   Old: mainPage: "HomePage",
+ *   New: mainPage: "Dashboard",
+ *
+ * The mainPage value must match a key in the PAGES object exactly.
+ */
 import AboutUs from './pages/AboutUs';
-import FAQ from './pages/FAQ';
-import HomeConcierge from './pages/HomeConcierge';
-import AllProviders from './pages/AllProviders';
 import AllCities from './pages/AllCities';
-import CityRates from './pages/CityRates';
-import ProviderDetails from './pages/ProviderDetails';
-import LearningCenter from './pages/LearningCenter';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import RenewableEnergy from './pages/RenewableEnergy';
-import Landing from './pages/Landing';
+import AllProviders from './pages/AllProviders';
 import AllStates from './pages/AllStates';
-import TexasElectricity from './pages/TexasElectricity';
+import ArticleDetail from './pages/ArticleDetail';
+import BillAnalyzer from './pages/BillAnalyzer';
+import BusinessCompareRates from './pages/BusinessCompareRates';
+import BusinessElectricity from './pages/BusinessElectricity';
+import BusinessHub from './pages/BusinessHub';
+import BusinessQuoteDashboard from './pages/BusinessQuoteDashboard';
+import CityRates from './pages/CityRates';
+import CompareRates from './pages/CompareRates';
+import ConnecticutElectricity from './pages/ConnecticutElectricity';
+import FAQ from './pages/FAQ';
+import Home from './pages/Home';
+import HomeConcierge from './pages/HomeConcierge';
 import IllinoisElectricity from './pages/IllinoisElectricity';
-import OhioElectricity from './pages/OhioElectricity';
-import PennsylvaniaElectricity from './pages/PennsylvaniaElectricity';
-import NewYorkElectricity from './pages/NewYorkElectricity';
-import NewJerseyElectricity from './pages/NewJerseyElectricity';
+import Landing from './pages/Landing';
+import LearningCenter from './pages/LearningCenter';
+import MaineElectricity from './pages/MaineElectricity';
 import MarylandElectricity from './pages/MarylandElectricity';
 import MassachusettsElectricity from './pages/MassachusettsElectricity';
-import MaineElectricity from './pages/MaineElectricity';
 import NewHampshireElectricity from './pages/NewHampshireElectricity';
-import RhodeIslandElectricity from './pages/RhodeIslandElectricity';
-import ConnecticutElectricity from './pages/ConnecticutElectricity';
-import CompareRates from './pages/CompareRates';
-import BillAnalyzer from './pages/BillAnalyzer';
-import Sitemap from './pages/Sitemap';
-import Robots from './pages/Robots';
-import ArticleDetail from './pages/ArticleDetail';
-import BusinessElectricity from './pages/BusinessElectricity';
-import BusinessQuoteDashboard from './pages/BusinessQuoteDashboard';
+import NewJerseyElectricity from './pages/NewJerseyElectricity';
+import NewYorkElectricity from './pages/NewYorkElectricity';
 import NotFound from './pages/NotFound';
+import OhioElectricity from './pages/OhioElectricity';
+import PennsylvaniaElectricity from './pages/PennsylvaniaElectricity';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import ProviderDetails from './pages/ProviderDetails';
 import RenewableCompareRates from './pages/RenewableCompareRates';
-import BusinessCompareRates from './pages/BusinessCompareRates';
+import RenewableEnergy from './pages/RenewableEnergy';
+import RhodeIslandElectricity from './pages/RhodeIslandElectricity';
+import Robots from './pages/Robots';
 import SavingsCalculator from './pages/SavingsCalculator';
-import BusinessHub from './pages/BusinessHub';
+import Sitemap from './pages/Sitemap';
 import SitemapXML from './pages/SitemapXML';
+import TermsOfService from './pages/TermsOfService';
+import TexasElectricity from './pages/TexasElectricity';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
     "AboutUs": AboutUs,
-    "FAQ": FAQ,
-    "HomeConcierge": HomeConcierge,
-    "AllProviders": AllProviders,
     "AllCities": AllCities,
-    "CityRates": CityRates,
-    "ProviderDetails": ProviderDetails,
-    "LearningCenter": LearningCenter,
-    "PrivacyPolicy": PrivacyPolicy,
-    "TermsOfService": TermsOfService,
-    "RenewableEnergy": RenewableEnergy,
-    "Landing": Landing,
+    "AllProviders": AllProviders,
     "AllStates": AllStates,
-    "TexasElectricity": TexasElectricity,
+    "ArticleDetail": ArticleDetail,
+    "BillAnalyzer": BillAnalyzer,
+    "BusinessCompareRates": BusinessCompareRates,
+    "BusinessElectricity": BusinessElectricity,
+    "BusinessHub": BusinessHub,
+    "BusinessQuoteDashboard": BusinessQuoteDashboard,
+    "CityRates": CityRates,
+    "CompareRates": CompareRates,
+    "ConnecticutElectricity": ConnecticutElectricity,
+    "FAQ": FAQ,
+    "Home": Home,
+    "HomeConcierge": HomeConcierge,
     "IllinoisElectricity": IllinoisElectricity,
-    "OhioElectricity": OhioElectricity,
-    "PennsylvaniaElectricity": PennsylvaniaElectricity,
-    "NewYorkElectricity": NewYorkElectricity,
-    "NewJerseyElectricity": NewJerseyElectricity,
+    "Landing": Landing,
+    "LearningCenter": LearningCenter,
+    "MaineElectricity": MaineElectricity,
     "MarylandElectricity": MarylandElectricity,
     "MassachusettsElectricity": MassachusettsElectricity,
-    "MaineElectricity": MaineElectricity,
     "NewHampshireElectricity": NewHampshireElectricity,
-    "RhodeIslandElectricity": RhodeIslandElectricity,
-    "ConnecticutElectricity": ConnecticutElectricity,
-    "CompareRates": CompareRates,
-    "BillAnalyzer": BillAnalyzer,
-    "Sitemap": Sitemap,
-    "Robots": Robots,
-    "ArticleDetail": ArticleDetail,
-    "BusinessElectricity": BusinessElectricity,
-    "BusinessQuoteDashboard": BusinessQuoteDashboard,
+    "NewJerseyElectricity": NewJerseyElectricity,
+    "NewYorkElectricity": NewYorkElectricity,
     "NotFound": NotFound,
+    "OhioElectricity": OhioElectricity,
+    "PennsylvaniaElectricity": PennsylvaniaElectricity,
+    "PrivacyPolicy": PrivacyPolicy,
+    "ProviderDetails": ProviderDetails,
     "RenewableCompareRates": RenewableCompareRates,
-    "BusinessCompareRates": BusinessCompareRates,
+    "RenewableEnergy": RenewableEnergy,
+    "RhodeIslandElectricity": RhodeIslandElectricity,
+    "Robots": Robots,
     "SavingsCalculator": SavingsCalculator,
-    "BusinessHub": BusinessHub,
+    "Sitemap": Sitemap,
     "SitemapXML": SitemapXML,
+    "TermsOfService": TermsOfService,
+    "TexasElectricity": TexasElectricity,
 }
 
 export const pagesConfig = {

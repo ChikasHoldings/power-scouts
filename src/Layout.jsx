@@ -671,8 +671,8 @@ export default function Layout({ children, currentPageName }) {
       {/* Schema Debugger (Dev Only) */}
       <SchemaDebugger />
 
-      {/* AI Chatbot */}
-      <ChatBot />
+      {/* AI Chatbot - Hidden */}
+      {/* <ChatBot /> */}
       </div>
       );
       }
