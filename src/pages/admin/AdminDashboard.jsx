@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { supabase } from "@/lib/supabaseClient";
 import {
   ElectricityProvider,
   ElectricityPlan,
@@ -22,12 +23,20 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  Link2,
+  MousePointerClick,
+  Upload,
+  UserPlus,
+  BarChart3,
 } from "lucide-react";
 
 function StatCard({ title, value, icon: Icon, color, link, subtitle }) {
+  const Wrapper = link ? Link : "div";
+  const wrapperProps = link ? { to: link } : {};
+
   return (
-    <Link to={link}>
-      <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+    <Wrapper {...wrapperProps}>
+      <Card className={`hover:shadow-md transition-shadow ${link ? "cursor-pointer" : ""} group`}>
         <CardContent className="p-6">
           <div className="flex items-start justify-between">
             <div>
@@ -41,13 +50,15 @@ function StatCard({ title, value, icon: Icon, color, link, subtitle }) {
               <Icon className="w-6 h-6 text-white" />
             </div>
           </div>
-          <div className="mt-4 flex items-center text-sm text-gray-500 group-hover:text-[#0A5C8C] transition-colors">
-            <span>View all</span>
-            <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-          </div>
+          {link && (
+            <div className="mt-4 flex items-center text-sm text-gray-500 group-hover:text-[#0A5C8C] transition-colors">
+              <span>View all</span>
+              <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+            </div>
+          )}
         </CardContent>
       </Card>
-    </Link>
+    </Wrapper>
   );
 }
 
@@ -77,12 +88,62 @@ export default function AdminDashboard() {
     queryFn: () => Profile.list(),
   });
 
+  // Affiliate analytics
+  const { data: affiliateData = { totalClicks: 0, topSlugs: [], activeLinks: 0 }, isLoading: loadingAffiliates } = useQuery({
+    queryKey: ["admin-affiliate-analytics"],
+    queryFn: async () => {
+      // Get active affiliate links count
+      const { data: links } = await supabase
+        .from("affiliate_links")
+        .select("slug, is_active");
+
+      const activeLinks = (links || []).filter((l) => l.is_active).length;
+
+      // Get click tracking data
+      const { data: clicks } = await supabase
+        .from("click_tracking")
+        .select("slug, created_at");
+
+      const totalClicks = (clicks || []).length;
+
+      // Count clicks per slug
+      const slugCounts = {};
+      (clicks || []).forEach((c) => {
+        slugCounts[c.slug] = (slugCounts[c.slug] || 0) + 1;
+      });
+
+      // Top 5 slugs by click count
+      const topSlugs = Object.entries(slugCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([slug, count]) => ({ slug, count }));
+
+      // Clicks in last 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const recentClicks = (clicks || []).filter(
+        (c) => new Date(c.created_at) >= sevenDaysAgo
+      ).length;
+
+      // Clicks in last 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const monthlyClicks = (clicks || []).filter(
+        (c) => new Date(c.created_at) >= thirtyDaysAgo
+      ).length;
+
+      return { totalClicks, topSlugs, activeLinks, recentClicks, monthlyClicks };
+    },
+  });
+
   const isLoading =
-    loadingProviders || loadingPlans || loadingArticles || loadingQuotes || loadingUsers;
+    loadingProviders || loadingPlans || loadingArticles || loadingQuotes || loadingUsers || loadingAffiliates;
 
   const activeProviders = providers.filter((p) => p.is_active);
   const publishedArticles = articles.filter((a) => a.published);
   const pendingQuotes = quotes.filter((q) => q.status === "pending" || q.status === "new");
+  const billUploads = quotes.filter((q) => q.bill_file_url);
+  const leadsCount = quotes.length;
   const recentQuotes = quotes
     .sort((a, b) => new Date(b.created_date) - new Date(a.created_date))
     .slice(0, 5);
@@ -97,7 +158,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Stats Grid */}
+      {/* Primary Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         <StatCard
           title="Providers"
@@ -141,8 +202,50 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Affiliate & Lead Analytics */}
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-[#0A5C8C]" />
+          Analytics Overview
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title="Total Affiliate Clicks"
+            value={affiliateData.totalClicks}
+            subtitle={`${affiliateData.recentClicks || 0} in last 7 days`}
+            icon={MousePointerClick}
+            color="bg-cyan-500"
+            link="/admin/affiliates"
+          />
+          <StatCard
+            title="Active Affiliate Links"
+            value={affiliateData.activeLinks}
+            subtitle={`${affiliateData.monthlyClicks || 0} clicks this month`}
+            icon={Link2}
+            color="bg-teal-500"
+            link="/admin/affiliates"
+          />
+          <StatCard
+            title="Bill Uploads"
+            value={billUploads.length}
+            subtitle="Bills submitted for analysis"
+            icon={Upload}
+            color="bg-indigo-500"
+            link="/admin/quotes"
+          />
+          <StatCard
+            title="Leads Captured"
+            value={leadsCount}
+            subtitle={`${pendingQuotes.length} awaiting response`}
+            icon={UserPlus}
+            color="bg-rose-500"
+            link="/admin/quotes"
+          />
+        </div>
+      </div>
+
+      {/* Three-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Business Quotes */}
         <Card>
           <CardHeader className="pb-3">
@@ -204,7 +307,63 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        {/* Quick Stats / Overview */}
+        {/* Top Affiliate Slugs */}
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Top Affiliate Links</CardTitle>
+              <Link
+                to="/admin/affiliates"
+                className="text-sm text-[#0A5C8C] hover:underline"
+              >
+                View all
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {affiliateData.topSlugs.length === 0 ? (
+              <p className="text-sm text-gray-500 py-4 text-center">
+                No affiliate clicks recorded yet
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {affiliateData.topSlugs.map((item, index) => (
+                  <div
+                    key={item.slug}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white ${
+                        index === 0
+                          ? "bg-yellow-500"
+                          : index === 1
+                          ? "bg-gray-400"
+                          : index === 2
+                          ? "bg-amber-600"
+                          : "bg-gray-300"
+                      }`}>
+                        {index + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          /go/{item.slug}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 ml-3">
+                      <MousePointerClick className="w-3 h-3 text-cyan-500" />
+                      <span className="text-sm font-semibold text-gray-700">
+                        {item.count}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Platform Overview */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Platform Overview</CardTitle>
