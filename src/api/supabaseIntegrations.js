@@ -1,6 +1,6 @@
 /**
  * Supabase Integrations Layer
- * Drop-in replacement for base44.integrations.Core.* calls
+ * Integration service layer for AI, file uploads, and data extraction
  * 
  * These call Vercel serverless API routes (created in Phase 6)
  * which securely hold API keys on the server side.

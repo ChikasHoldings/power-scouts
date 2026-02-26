@@ -1,8 +1,8 @@
 /**
  * Supabase Entity Service Layer
- * Drop-in replacement for base44.entities.* calls
+ * Entity CRUD service layer for Supabase
  * 
- * Provides the same API surface as Base44 SDK:
+ * Provides a consistent API surface:
  *   - .list()           → SELECT * (with optional ordering)
  *   - .filter(criteria)  → SELECT * WHERE ...
  *   - .get(id)           → SELECT * WHERE id = ...
@@ -42,7 +42,7 @@ function createEntity(tableName, options = {}) {
      * Filter rows by criteria object
      * Supports: { key: value } for equality, { key: [val1, val2] } for IN
      * 
-     * Backward compatible with Base44 positional args:
+     * Supports positional args for backward compatibility:
      *   .filter(criteria, '-created_date', 1000)
      *   .filter(criteria)  // uses defaults
      *   .filter(criteria, { order, ascending, limit })  // new style
@@ -53,7 +53,7 @@ function createEntity(tableName, options = {}) {
       let limit;
 
       if (typeof optsOrOrder === 'string') {
-        // Base44-style: .filter(criteria, '-created_date', 1000)
+        // Positional style: .filter(criteria, '-created_date', 1000)
         const desc = optsOrOrder.startsWith('-');
         order = desc ? optsOrOrder.substring(1) : optsOrOrder;
         ascending = !desc;
