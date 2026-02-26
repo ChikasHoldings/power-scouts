@@ -14,6 +14,9 @@ import PlanCard from "../components/compare/PlanCard";
 import BillUploadStep from "../components/compare/BillUploadStep";
 import IneligibleZipMessage from "../components/compare/IneligibleZipMessage";
 import SEOHead from "../components/SEOHead";
+import EmailResults from "../components/compare/EmailResults";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
+import { ElectricityProvider } from "@/api/supabaseEntities";
 
 export default function BusinessCompareRates() {
   const [step, setStep] = useState(1);
@@ -35,6 +38,21 @@ export default function BusinessCompareRates() {
     queryFn: () => ElectricityPlan.list(),
     initialData: [],
   });
+
+  const { data: providers = [] } = useQuery({
+    queryKey: ['providers'],
+    queryFn: () => ElectricityProvider.filter({ is_active: true }),
+    initialData: [],
+  });
+
+  const { getAffiliateUrl } = useAffiliateLinks();
+
+  const getProviderAffiliateUrl = (plan) => {
+    const provider = providers.find(p => p.name === plan.provider_name);
+    if (!provider) return "#";
+    const fallback = provider.affiliate_url || provider.website_url || "#";
+    return getAffiliateUrl({ providerId: provider.id, offerId: plan.id, fallbackUrl: fallback });
+  };
 
   // Load ZIP code from URL on mount
   useEffect(() => {
@@ -626,6 +644,21 @@ export default function BusinessCompareRates() {
                   </div>
                 )}
               </>
+            )}
+
+            {/* Email Results */}
+            {sortedPlans.length > 0 && (
+              <div className="mt-4">
+                <EmailResults
+                  plans={sortedPlans.slice(0, 6)}
+                  zipCode={zipCode}
+                  cityName={cityName}
+                  monthlyUsage={monthlyUsage}
+                  comparisonType="business"
+                  accentColor="#0A5C8C"
+                  getAffiliateUrl={getProviderAffiliateUrl}
+                />
+              </div>
             )}
 
             {/* Business Info */}

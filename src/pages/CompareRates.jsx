@@ -23,6 +23,7 @@ import {
 import { calculateMatchScore, calculateSavings, generatePlanSummary } from "../components/compare/matchScore";
 import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 import BillUploadStep from "../components/compare/BillUploadStep";
+import EmailResults from "../components/compare/EmailResults";
 import { useZipDetection } from "../components/hooks/useZipDetection";
 import { debugCompareRatesPipeline, validateDataStructures } from "../components/compare/debugPipeline";
 import { runFullSystemTest } from "../components/compare/systemTest";
@@ -907,6 +908,21 @@ export default function CompareRates() {
               <Button onClick={() => { setShowResults(false); setStep(3); }} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
                 Adjust Preferences
               </Button>
+            </div>
+          )}
+
+          {/* Email Results */}
+          {(topPlans.length > 0 || filteredPlans.length > 0) && (
+            <div className="mt-8">
+              <EmailResults
+                plans={[...topPlans, ...filteredPlans].slice(0, 6)}
+                zipCode={zipCode}
+                cityName={cityName}
+                monthlyUsage={usage}
+                comparisonType="residential"
+                accentColor="#0A5C8C"
+                getAffiliateUrl={(plan) => getProviderWebsite(plan.provider_name, plan.id)}
+              />
             </div>
           )}
 
