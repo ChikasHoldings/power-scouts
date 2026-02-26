@@ -42,7 +42,7 @@ export default function Home() {
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Power Scouts",
+      "name": "ElectricScouts",
       "url": window.location.origin,
       "potentialAction": {
         "@type": "SearchAction",
@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Compare Electricity Rates - Save Up to $800/Year in 12 States | Power Scouts"
+        title="Compare Electricity Rates - Save Up to $800/Year in 12 States | ElectricScouts"
         description="Compare electricity rates from 40+ providers in TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT. Find the best electricity plan for your home - fixed rates, renewable energy, variable plans. Free comparison tool, instant results. Serving Houston, Dallas, Chicago, Philadelphia, NYC & 100+ cities. Switch & save today."
         keywords="compare electricity rates, best electricity rates, electricity providers, energy comparison, electricity plans, power companies, cheap electricity, fixed rate electricity, variable rate plans, renewable energy plans, electricity rates by zip code, switch electricity provider, deregulated electricity markets"
         canonical="/"

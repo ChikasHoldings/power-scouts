@@ -128,7 +128,7 @@ export default function RenewableCompareRates() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       <SEOHead
-        title="Compare 100% Renewable Energy Plans - Green Electricity Rates | Power Scouts"
+        title="Compare 100% Renewable Energy Plans - Green Electricity Rates | ElectricScouts"
         description="Find the best renewable energy electricity plans in your area. Compare 100% green energy rates from wind and solar providers. Support clean energy while saving money."
         keywords="renewable energy plans, green electricity, 100% renewable, wind energy, solar power, clean energy rates"
         canonical="/renewable-compare-rates"

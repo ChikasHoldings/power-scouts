@@ -1,15 +1,15 @@
 import React from "react";
 
 export default function Robots() {
-  const robotsTxt = `# Power Scouts - Robots.txt
+  const robotsTxt = `# ElectricScouts - Robots.txt
 # Updated: ${new Date().toISOString().split('T')[0]}
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://powerscouts.com/sitemap.xml
-Sitemap: https://powerscouts.com/app/SitemapXML
+Sitemap: https://electricscouts.com/sitemap.xml
+Sitemap: https://electricscouts.com/app/SitemapXML
 
 # Crawl-delay for politeness
 Crawl-delay: 1

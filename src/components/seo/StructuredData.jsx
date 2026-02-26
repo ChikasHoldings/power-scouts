@@ -28,19 +28,19 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Power Scouts",
-    "url": "https://powerscouts.com",
-    "logo": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png",
+    "name": "ElectricScouts",
+    "url": "https://electricscouts.com",
+    "logo": "https://electricscouts.com/images/logo-header.png",
     "description": "Compare electricity rates from 40+ providers across 12 deregulated states. Save up to $800/year on your electricity bill.",
     "sameAs": [
-      "https://facebook.com/powerscouts",
-      "https://twitter.com/powerscouts",
-      "https://linkedin.com/company/powerscouts"
+      "https://facebook.com/electricscouts",
+      "https://twitter.com/electricscouts",
+      "https://linkedin.com/company/electricscouts"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Service",
-      "email": "support@powerscouts.com",
+      "email": "support@electricscouts.com",
       "areaServed": ["TX", "IL", "OH", "PA", "NY", "NJ", "MD", "MA", "ME", "NH", "RI", "CT"]
     },
     "aggregateRating": {
@@ -64,7 +64,7 @@ export function BreadcrumbSchema({ items }) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": item.url ? `https://powerscouts.com${item.url}` : undefined
+      "item": item.url ? `https://electricscouts.com${item.url}` : undefined
     }))
   };
 
@@ -132,7 +132,7 @@ export function LocalBusinessSchema({ location, avgRate, providerCount }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": `Power Scouts - ${location} Electricity Comparison`,
+    "name": `ElectricScouts - ${location} Electricity Comparison`,
     "description": `Compare electricity rates in ${location} from ${providerCount}+ providers. Average rate: ${avgRate}¢/kWh`,
     "areaServed": {
       "@type": "Place",
@@ -157,19 +157,19 @@ export function ArticleSchema({ article }) {
     "dateModified": article.updated_date,
     "author": {
       "@type": "Organization",
-      "name": article.author || "Power Scouts Team"
+      "name": article.author || "ElectricScouts Team"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Power Scouts",
+      "name": "ElectricScouts",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
+        "url": "https://electricscouts.com/images/logo-header.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://powerscouts.com/article/${article.slug}`
+      "@id": `https://electricscouts.com/article/${article.slug}`
     }
   };
 
@@ -181,13 +181,13 @@ export function WebSiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Power Scouts",
-    "url": "https://powerscouts.com",
+    "name": "ElectricScouts",
+    "url": "https://electricscouts.com",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://powerscouts.com/compare-rates?zip={search_term_string}"
+        "urlTemplate": "https://electricscouts.com/compare-rates?zip={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -204,7 +204,7 @@ export function ServiceSchema({ service }) {
     "serviceType": service.type,
     "provider": {
       "@type": "Organization",
-      "name": "Power Scouts"
+      "name": "ElectricScouts"
     },
     "areaServed": {
       "@type": "Country",

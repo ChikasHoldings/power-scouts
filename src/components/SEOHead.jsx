@@ -29,7 +29,7 @@ export default function SEOHead({
       }
     };
     
-    addPreconnect('https://qtrypzzcjebvfcihiynt.supabase.co');
+    addPreconnect('https://iwguavsojnbzveutwzpw.supabase.co');
     addPreconnect('https://images.unsplash.com');
 
     // Helper function to update or create meta tag
@@ -61,7 +61,7 @@ export default function SEOHead({
     updateMetaTag('meta[property="og:title"]', 'property', title);
     updateMetaTag('meta[property="og:description"]', 'property', description);
     updateMetaTag('meta[property="og:image"]', 'property', defaultImage);
-    updateMetaTag('meta[property="og:site_name"]', 'property', "Power Scouts");
+    updateMetaTag('meta[property="og:site_name"]', 'property', "ElectricScouts");
 
     // Update Twitter tags
     updateMetaTag('meta[name="twitter:card"]', 'name', "summary_large_image");
@@ -109,20 +109,20 @@ export default function SEOHead({
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Power Scouts",
+  "name": "ElectricScouts",
   "url": window.location.origin,
   "logo": `${window.location.origin}/logo.png`,
   "description": "Compare electricity rates from 40+ providers across 17 deregulated states. Save up to $800 per year on your electricity bills.",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
-    "email": "support@powerscouts.com",
+    "email": "support@electricscouts.com",
     "areaServed": ["US"],
     "availableLanguage": ["English"]
   },
   "sameAs": [
-    "https://facebook.com/powerscouts",
-    "https://twitter.com/powerscouts"
+    "https://facebook.com/electricscouts",
+    "https://twitter.com/electricscouts"
   ]
 });
 
@@ -133,7 +133,7 @@ export const getServiceSchema = (state) => ({
   "serviceType": "Electricity Rate Comparison",
   "provider": {
     "@type": "Organization",
-    "name": "Power Scouts"
+    "name": "ElectricScouts"
   },
   "areaServed": {
     "@type": "State",
@@ -193,11 +193,11 @@ export const getArticleSchema = (article) => ({
   "dateModified": article.dateModified || article.datePublished,
   "author": {
     "@type": "Organization",
-    "name": "Power Scouts"
+    "name": "ElectricScouts"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Power Scouts",
+    "name": "ElectricScouts",
     "logo": {
       "@type": "ImageObject",
       "url": `${window.location.origin}/logo.png`
@@ -221,7 +221,7 @@ export const getBreadcrumbSchema = (items) => ({
 export const getLocalBusinessSchema = (cityName, stateName, countyName) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": `Power Scouts - ${cityName} Electricity Comparison`,
+  "name": `ElectricScouts - ${cityName} Electricity Comparison`,
   "description": `Compare electricity rates and save money in ${cityName}, ${stateName}`,
   "url": window.location.origin,
   "areaServed": {
@@ -281,7 +281,7 @@ export const getWebPageSchema = (title, description, url) => ({
   "url": url || window.location.href,
   "publisher": {
     "@type": "Organization",
-    "name": "Power Scouts"
+    "name": "ElectricScouts"
   }
 });
 

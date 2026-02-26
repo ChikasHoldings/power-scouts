@@ -116,7 +116,7 @@ export default function TexasElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Texas Electricity Rates - Compare 45+ Providers & Save $800/Year | Power Scouts TX"
+        title="Texas Electricity Rates - Compare 45+ Providers & Save $800/Year | ElectricScouts TX"
         description="Compare Texas electricity rates from TXU, Reliant, Gexa & 40+ providers. Serving Houston, Dallas, Austin, San Antonio. Find cheap electricity plans for your home. Fixed & variable rates. 100% renewable options. Switch in minutes & save up to $800 annually. Free comparison, instant results."
         keywords="Texas electricity rates, cheap electricity Texas, Houston electricity rates, Dallas electricity providers, Austin energy plans, Texas power companies, compare electricity Texas, TXU Energy rates, Reliant Energy, Gexa Energy, best electricity rates Texas, fixed rate electricity Texas, variable rate plans Texas, renewable energy Texas, deregulated electricity market Texas"
         canonical="/texas-electricity"

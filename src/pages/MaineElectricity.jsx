@@ -46,7 +46,7 @@ export default function MaineElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Maine Electricity Rates - Compare 22+ Competitive Suppliers & Save $620/Year | Power Scouts ME"
+        title="Maine Electricity Rates - Compare 22+ Competitive Suppliers & Save $620/Year | ElectricScouts ME"
         description="Compare Maine electricity rates from Constellation, Direct Energy, Verde Energy & 20+ competitive suppliers. Serving Portland, Lewiston, Bangor, Auburn, South Portland. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from CMP, Versant Power & save up to $620 annually. Free Maine electricity comparison tool."
         keywords="Maine electricity rates, Portland electricity providers, CMP alternatives, Central Maine Power alternatives, Versant Power alternatives, compare electricity Maine, cheap electricity ME, Maine energy suppliers, best electricity rates Maine, competitive electricity suppliers Maine, deregulated electricity ME, fixed rate electricity Maine, renewable energy Maine, green energy plans ME, Maine power companies"
         canonical="/maine-electricity"

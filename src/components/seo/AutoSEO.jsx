@@ -16,37 +16,37 @@ import SEOHead, { getOrganizationSchema, getServiceSchema, getBreadcrumbSchema }
 // SEO Templates for different page types
 const seoTemplates = {
   home: {
-    title: "Compare Electricity Rates - Save Up to $800/Year | Power Scouts",
+    title: "Compare Electricity Rates - Save Up to $800/Year | ElectricScouts",
     description: "Compare electricity rates from 40+ providers in 12 deregulated states. Find the best electricity plan - fixed rates, renewable energy, variable plans. Free comparison tool.",
     keywords: "compare electricity rates, electricity providers, energy comparison, electricity plans, power companies, cheap electricity",
   },
   
   state: {
-    titleTemplate: (state) => `${state} Electricity Rates - Compare Plans & Save | Power Scouts`,
+    titleTemplate: (state) => `${state} Electricity Rates - Compare Plans & Save | ElectricScouts`,
     descriptionTemplate: (state, data) => `Compare ${state} electricity rates from ${data?.providers || '40+'} providers. Find cheap electricity plans in ${state}. Fixed rates, renewable energy, and variable plans. Save up to $${data?.avgSavings || '800'}/year.`,
     keywordsTemplate: (state) => `${state} electricity rates, ${state} electricity providers, ${state} energy plans, ${state} power companies, cheap electricity ${state}`,
   },
   
   city: {
-    titleTemplate: (city, state) => `${city} Electricity Rates - Compare ${city}, ${state} Plans | Power Scouts`,
+    titleTemplate: (city, state) => `${city} Electricity Rates - Compare ${city}, ${state} Plans | ElectricScouts`,
     descriptionTemplate: (city, state, data) => `Compare electricity rates in ${city}, ${state} from ${data?.providers || '40+'} providers. Average rates from ${data?.avgRate || '8.9¢/kWh'}. Find cheap electricity plans in ${city}. Free comparison.`,
     keywordsTemplate: (city, state) => `${city} electricity rates, ${city} ${state} electricity, ${city} power companies, electricity providers ${city}`,
   },
   
   provider: {
-    titleTemplate: (provider) => `${provider} Electricity Plans & Rates - Reviews & Comparison | Power Scouts`,
+    titleTemplate: (provider) => `${provider} Electricity Plans & Rates - Reviews & Comparison | ElectricScouts`,
     descriptionTemplate: (provider, data) => `Compare ${provider} electricity plans and rates. Read reviews, check availability in your area, and find the best ${provider} plan. Starting rates from ${data?.minRate || '8.9¢/kWh'}.`,
     keywordsTemplate: (provider) => `${provider} electricity, ${provider} rates, ${provider} plans, ${provider} reviews, ${provider} energy`,
   },
   
   comparison: {
-    title: "Compare Electricity Rates - Free Instant Comparison | Power Scouts",
+    title: "Compare Electricity Rates - Free Instant Comparison | ElectricScouts",
     description: "Compare electricity rates from 40+ providers instantly. Enter your ZIP code to see available plans, rates, and estimated bills. 100% free, no credit card required.",
     keywords: "compare electricity rates, electricity comparison tool, compare energy plans, electricity rate comparison",
   },
   
   resource: {
-    titleTemplate: (topic) => `${topic} - Electricity Guide & Resources | Power Scouts`,
+    titleTemplate: (topic) => `${topic} - Electricity Guide & Resources | ElectricScouts`,
     descriptionTemplate: (topic) => `Learn about ${topic.toLowerCase()} with our comprehensive electricity guide. Expert advice, tips, and resources to help you save on your electricity bills.`,
     keywordsTemplate: (topic) => `${topic.toLowerCase()}, electricity guide, energy tips, electricity resources`,
   }

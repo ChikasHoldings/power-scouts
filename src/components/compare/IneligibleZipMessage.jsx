@@ -30,7 +30,7 @@ export default function IneligibleZipMessage({ zipCode, onTryAgain }) {
               <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-gray-700 leading-relaxed mb-3">
-                  <strong>PowerScouts is not available in ZIP code {zipCode} yet.</strong> 
+                  <strong>ElectricScouts is not available in ZIP code {zipCode} yet.</strong> 
                   Electricity choice is currently not deregulated in this area.
                 </p>
                 <p className="text-gray-600 text-sm">
@@ -66,7 +66,7 @@ export default function IneligibleZipMessage({ zipCode, onTryAgain }) {
           {/* Additional Info */}
           <div className="mt-8 pt-6 border-t border-orange-200">
             <p className="text-sm text-gray-600 mb-3">
-              Want to know when PowerScouts expands to your area?
+              Want to know when ElectricScouts expands to your area?
             </p>
             <Link to={createPageUrl("AboutUs")}>
               <Button variant="link" className="text-[#0A5C8C] font-semibold">

@@ -11,8 +11,8 @@ export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Terms of Service - Power Scouts | User Agreement & Guidelines"
-        description="Power Scouts terms of service and user agreement. Understand your rights, responsibilities, and legal terms when using our free electricity rate comparison platform."
+        title="Terms of Service - ElectricScouts | User Agreement & Guidelines"
+        description="ElectricScouts terms of service and user agreement. Understand your rights, responsibilities, and legal terms when using our free electricity rate comparison platform."
         keywords="terms of service, user agreement, electricity comparison terms, service guidelines, legal terms"
         canonical="/terms-of-service"
         structuredData={breadcrumbData}
@@ -30,12 +30,12 @@ export default function TermsOfService() {
           <CardContent className="p-8 prose prose-sm max-w-none">
             <h2>1. Acceptance of Terms</h2>
             <p>
-              By accessing and using Power Scouts, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our service.
+              By accessing and using ElectricScouts, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our service.
             </p>
 
             <h2>2. Service Description</h2>
             <p>
-              Power Scouts is a free electricity rate comparison platform that helps users compare electricity plans from multiple providers. We are not an electricity provider and do not supply electricity directly to consumers.
+              ElectricScouts is a free electricity rate comparison platform that helps users compare electricity plans from multiple providers. We are not an electricity provider and do not supply electricity directly to consumers.
             </p>
 
             <h2>3. Accuracy of Information</h2>
@@ -45,7 +45,7 @@ export default function TermsOfService() {
 
             <h2>4. No Guarantee of Savings</h2>
             <p>
-              Savings estimates are based on average usage and market conditions. Actual savings vary by individual usage, location, credit score, and chosen plan. Power Scouts does not guarantee specific savings amounts.
+              Savings estimates are based on average usage and market conditions. Actual savings vary by individual usage, location, credit score, and chosen plan. ElectricScouts does not guarantee specific savings amounts.
             </p>
 
             <h2>5. User Responsibilities</h2>
@@ -59,7 +59,7 @@ export default function TermsOfService() {
 
             <h2>6. Intellectual Property</h2>
             <p>
-              All content, logos, trademarks, and materials on Power Scouts are owned by Power Scouts or licensed to us. Unauthorized use is prohibited.
+              All content, logos, trademarks, and materials on ElectricScouts are owned by ElectricScouts or licensed to us. Unauthorized use is prohibited.
             </p>
 
             <h2>7. Third-Party Links</h2>
@@ -69,12 +69,12 @@ export default function TermsOfService() {
 
             <h2>8. Limitation of Liability</h2>
             <p>
-              Power Scouts shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our service, including but not limited to reliance on rate information or plan recommendations.
+              ElectricScouts shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our service, including but not limited to reliance on rate information or plan recommendations.
             </p>
 
             <h2>9. Indemnification</h2>
             <p>
-              You agree to indemnify and hold harmless Power Scouts from any claims arising from your use of the service or violation of these terms.
+              You agree to indemnify and hold harmless ElectricScouts from any claims arising from your use of the service or violation of these terms.
             </p>
 
             <h2>10. Changes to Terms</h2>
@@ -89,7 +89,7 @@ export default function TermsOfService() {
 
             <h2>12. Contact Information</h2>
             <p>
-              For questions about these Terms of Service, contact us at: <a href="mailto:legal@powerscouts.com" className="text-[#0A5C8C]">legal@powerscouts.com</a>
+              For questions about these Terms of Service, contact us at: <a href="mailto:legal@electricscouts.com" className="text-[#0A5C8C]">legal@electricscouts.com</a>
             </p>
           </CardContent>
         </Card>

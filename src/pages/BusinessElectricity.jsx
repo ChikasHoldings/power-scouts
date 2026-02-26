@@ -90,7 +90,7 @@ export default function BusinessElectricity() {
       <FAQPageSchema faqs={businessFAQs} />
       
       <SEOHead
-        title="Business Electricity Rates - Commercial & Industrial Power Plans | Power Scouts"
+        title="Business Electricity Rates - Commercial & Industrial Power Plans | ElectricScouts"
         description="Compare business electricity rates for small businesses, large commercial facilities, and industrial operations across 12 states. Get custom quotes for tiered pricing, demand charges, and load management. Save up to $5,000+ annually on commercial energy costs with competitive business electricity plans."
         keywords="business electricity rates, commercial electricity providers, industrial power rates, small business energy plans, commercial electric rates, demand charges, tiered pricing, business energy comparison, industrial electricity rates, commercial power companies"
         canonical="/business-electricity"

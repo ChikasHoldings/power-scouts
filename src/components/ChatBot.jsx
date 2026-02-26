@@ -423,7 +423,7 @@ export default function ChatBot() {
             
             <div className="flex items-start gap-3 pr-4">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/b405070be_ChatGPTImageNov22202501_00_14AM.png"
+                src="/images/icon.png"
                 alt="Nora"
                 className="w-10 h-10 rounded-full object-cover border-2 border-[#0A5C8C] flex-shrink-0"
               />
@@ -467,7 +467,7 @@ export default function ChatBot() {
       <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/b405070be_ChatGPTImageNov22202501_00_14AM.png"
+            src="/images/icon.png"
             alt="Nora"
             className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
           />

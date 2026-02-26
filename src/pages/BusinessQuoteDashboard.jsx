@@ -271,7 +271,7 @@ export default function BusinessQuoteDashboard() {
             <p className="text-gray-600 mb-4">
               Our energy consultants typically respond within 24-48 hours
             </p>
-            <a href="mailto:business@powerscouts.com">
+            <a href="mailto:business@electricscouts.com">
               <Button variant="outline" className="border-2">
                 <Mail className="w-4 h-4 mr-2" />
                 Contact Support

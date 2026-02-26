@@ -46,7 +46,7 @@ export default function ConnecticutElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Connecticut Electricity Rates - Compare 30+ Suppliers & Save $690/Year | Power Scouts CT"
+        title="Connecticut Electricity Rates - Compare 30+ Suppliers & Save $690/Year | ElectricScouts CT"
         description="Compare Connecticut electricity rates from Constellation, Direct Energy, Verde Energy & 28+ competitive suppliers. Serving Hartford, New Haven, Bridgeport, Stamford, Waterbury, Norwalk. Find competitive electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, United Illuminating & save up to $690 annually. Free CT electricity comparison."
         keywords="Connecticut electricity rates, Hartford electricity providers, Bridgeport energy rates, Eversource CT alternatives, United Illuminating alternatives, compare electricity Connecticut, cheap electricity CT, Connecticut energy suppliers, best electricity rates Connecticut, competitive electricity CT, deregulated electricity Connecticut, fixed rate electricity CT, renewable energy Connecticut, green energy plans CT, Connecticut power companies"
         canonical="/connecticut-electricity"

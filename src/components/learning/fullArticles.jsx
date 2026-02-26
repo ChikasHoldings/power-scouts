@@ -4,7 +4,7 @@ import { BookOpen, DollarSign, Leaf, TrendingDown, Shield, Clock, Users, Zap, Ma
 export const fullArticles = {
   1: {
     title: "Understanding Deregulated Electricity Markets: Your Complete Guide",
-    metaTitle: "What is Electricity Deregulation? Complete Guide to Energy Choice | Power Scouts",
+    metaTitle: "What is Electricity Deregulation? Complete Guide to Energy Choice | ElectricScouts",
     metaDescription: "Learn how electricity deregulation works in 12 states. Discover how choosing your energy provider can save you $500-800 annually with this expert guide.",
     tags: ["Electricity Deregulation", "Energy Choice", "Competitive Markets", "Consumer Guide", "Utility Basics"],
     content: `
@@ -230,7 +230,7 @@ A: Yes! Renters have the same right as homeowners to choose electricity provider
 
   2: {
     title: "How to Compare Electricity Rates and Save $500+ Per Year",
-    metaTitle: "How to Compare Electricity Rates: Step-by-Step Guide to Save $500+ | Power Scouts",
+    metaTitle: "How to Compare Electricity Rates: Step-by-Step Guide to Save $500+ | ElectricScouts",
     metaDescription: "Master electricity rate comparison with this expert guide. Learn how to find the lowest rates, avoid hidden fees, and save $500-800 annually. Free tools included.",
     tags: ["Compare Electricity Rates", "Save Money", "Shopping Guide", "Rate Comparison", "Consumer Tips"],
     content: `
@@ -356,7 +356,7 @@ Found rate: 8.2¢/kWh (was paying 10.9¢)<br>
 
 <p>Smart electricity shoppers use the right tools to make informed decisions quickly:</p>
 
-<p><strong>Our Free Comparison Tool:</strong> Enter your ZIP code and usage at <a href="/compare-rates">Power Scouts comparison tool</a> to see personalized rate quotes from all available providers in your area. The tool automatically calculates total costs including TDU charges, base fees, and taxes - giving you the true apples-to-apples comparison you need.</p>
+<p><strong>Our Free Comparison Tool:</strong> Enter your ZIP code and usage at <a href="/compare-rates">ElectricScouts comparison tool</a> to see personalized rate quotes from all available providers in your area. The tool automatically calculates total costs including TDU charges, base fees, and taxes - giving you the true apples-to-apples comparison you need.</p>
 
 <p><strong>State Regulatory Websites:</strong> Every deregulated state maintains official comparison tools and provider directories. <a href="/texas-electricity">Texas PUC Power to Choose</a>, <a href="/pennsylvania-electricity">PA PUC</a>, and <a href="/ohio-electricity">Ohio PUCO</a> sites verify provider licensing and show complaint ratios - critical for avoiding problem companies.</p>
 
@@ -390,7 +390,7 @@ Found rate: 8.2¢/kWh (was paying 10.9¢)<br>
 
   3: {
     title: "Fixed Rate vs Variable Rate: Which Saves You More Money?",
-    metaTitle: "Fixed vs Variable Rate Electricity: Which Saves More Money? | Power Scouts",
+    metaTitle: "Fixed vs Variable Rate Electricity: Which Saves More Money? | ElectricScouts",
     metaDescription: "Compare fixed rate and variable rate electricity plans with real customer examples. Discover which option saves the most money for your situation.",
     tags: ["Fixed Rate Plans", "Variable Rate Plans", "Plan Types", "Rate Comparison", "Consumer Guide"],
     content: `
@@ -550,7 +550,7 @@ Bill predictability: None</p>
 
   4: {
     title: "Green Energy Plans: Save Money While Saving the Planet",
-    metaTitle: "100% Renewable Energy Plans: Go Green Without Paying Extra | Power Scouts",
+    metaTitle: "100% Renewable Energy Plans: Go Green Without Paying Extra | ElectricScouts",
     metaDescription: "100% renewable electricity plans cost the same or less than traditional power. Learn how wind and solar plans work, costs, and environmental impact.",
     tags: ["Renewable Energy Plans", "Green Electricity", "100% Renewable Energy", "Wind Power", "Solar Energy"],
     content: `
@@ -701,7 +701,7 @@ Switching takes 5-10 minutes online. Service typically activates within 1-2 bill
 
   5: {
     title: "Business Electricity Rates: Complete Commercial Power Guide 2026",
-    metaTitle: "Business Electricity Rates 2026: Commercial Power Guide | Save $5,000+ | Power Scouts",
+    metaTitle: "Business Electricity Rates 2026: Commercial Power Guide | Save $5,000+ | ElectricScouts",
     metaDescription: "Complete guide to business electricity rates, commercial power plans, and demand charges. Small businesses save $2,000-15,000 annually in deregulated markets.",
     tags: ["Business Electricity Rates", "Commercial Power", "Small Business Energy", "Demand Charges", "Commercial Plans"],
     content: `
@@ -839,7 +839,7 @@ Annual cost: $33,744<br>
 
   106: {
     title: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually",
-    metaTitle: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually | Power Scouts",
+    metaTitle: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually | ElectricScouts",
     metaDescription: "Compare Nashua NH electricity rates from 16+ competitive suppliers. Find cheapest Eversource power in Hillsborough County. Save $550+ annually with expert guide.",
     tags: ["Nashua NH Electricity", "Hillsborough County Power", "Eversource Nashua", "New Hampshire Electricity Rates", "Nashua Energy Suppliers"],
     content: `
@@ -1004,7 +1004,7 @@ Competitive rate: ~$1,068/month<br>
 
   107: {
     title: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+",
-    metaTitle: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+ | Power Scouts",
+    metaTitle: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+ | ElectricScouts",
     metaDescription: "Compare Concord NH electricity rates from 16+ Eversource suppliers. Find cheapest power in Merrimack County. Complete capital city electricity guide.",
     tags: ["Concord NH Electricity", "Merrimack County Power", "Eversource Concord", "New Hampshire Capital", "Concord Energy Rates"],
     content: `
@@ -1194,7 +1194,7 @@ Calendar reminder 90 days before contract expiration to shop again and avoid exp
 
   108: {
     title: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+",
-    metaTitle: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+ | Power Scouts",
+    metaTitle: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+ | ElectricScouts",
     metaDescription: "Compare Warwick RI electricity rates from 15+ National Grid suppliers. Find cheapest power in Kent County. Complete Rhode Island electricity shopping guide.",
     tags: ["Warwick RI Electricity", "Kent County Power", "National Grid Warwick", "Rhode Island Electricity", "Warwick Energy Rates"],
     content: `

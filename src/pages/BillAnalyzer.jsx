@@ -417,7 +417,7 @@ export default function BillAnalyzer() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Free Electricity Bill Analyzer - Find Instant Savings | Power Scouts"
+        title="Free Electricity Bill Analyzer - Find Instant Savings | ElectricScouts"
         description="Upload your electricity bill and get instant AI-powered analysis. Discover better rates, calculate exact savings, find personalized plan recommendations. Free bill analysis for TX, PA, NY, OH, IL & more. Compare your current rate with 40+ providers. See how much you can save."
         keywords="electricity bill analyzer, analyze electricity bill, electricity savings calculator, bill comparison tool, find cheaper electricity, electricity rate analyzer, power bill analysis, energy bill savings"
         canonical="/bill-analyzer"

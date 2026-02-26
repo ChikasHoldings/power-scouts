@@ -160,7 +160,7 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Why Choose Power Scouts
+              Why Choose ElectricScouts
             </h2>
             <p className="text-base text-gray-600">
               The fastest, easiest way to compare electricity rates and save money
@@ -281,7 +281,7 @@ export default function Landing() {
               {
                 name: "Jessica M.",
                 location: "Houston, TX",
-                text: "I was paying $180/month for electricity. After using Power Scouts, I'm now paying $115. That's $780 saved per year!",
+                text: "I was paying $180/month for electricity. After using ElectricScouts, I'm now paying $115. That's $780 saved per year!",
                 savings: "$780/year"
               },
               {

@@ -139,8 +139,8 @@ export default function Layout({ children, currentPageName }) {
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png"
-                alt="Power Scouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
+                src="/images/logo-header.png"
+                alt="ElectricScouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
                 className="h-12 sm:h-14 lg:h-16"
               />
             </Link>
@@ -303,8 +303,8 @@ export default function Layout({ children, currentPageName }) {
             {/* Menu Header */}
             <div className="flex items-center justify-between p-5 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/100c53ddb_ChatGPTImageNov12202509_09_31PM.png"
-                alt="Power Scouts - Mobile Menu Logo for Electricity Rate Comparison Service"
+                src="/images/logo-footer.png"
+                alt="ElectricScouts - Mobile Menu Logo for Electricity Rate Comparison Service"
                 className="h-14"
               />
               <button
@@ -410,7 +410,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Menu Footer */}
             <div className="p-4 mt-auto border-t border-gray-200 bg-gray-50">
               <p className="text-xs text-gray-600 text-center mb-2">
-                © {new Date().getFullYear()} Power Scouts
+                © {new Date().getFullYear()} ElectricScouts
               </p>
               <div className="flex items-center justify-center gap-3 text-xs">
                 <Link 
@@ -460,8 +460,8 @@ export default function Layout({ children, currentPageName }) {
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-1">
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/f61f9bbae_ChatGPTImageNov12202509_09_31PM.png"
-                alt="Power Scouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
+                src="/images/logo-footer.png"
+                alt="ElectricScouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
                 className="h-12 sm:h-14 mb-4"
               />
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -624,9 +624,9 @@ export default function Layout({ children, currentPageName }) {
           {/* SEO Text */}
           <div className="border-t border-gray-800 pt-6 pb-6">
             <div className="mb-6">
-              <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">About Power Scouts</h3>
+              <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">About ElectricScouts</h3>
               <p className="text-gray-400 text-xs leading-relaxed max-w-5xl">
-                Power Scouts is America's leading electricity comparison platform, helping residents and businesses across 12 deregulated states find the best electricity rates. We serve Texas (Houston, Dallas, Austin, San Antonio, Fort Worth), Illinois (Chicago, Aurora, Naperville), Ohio (Columbus, Cleveland, Cincinnati), Pennsylvania (Philadelphia, Pittsburgh, Allentown), New York (NYC, Buffalo, Rochester), New Jersey (Newark, Jersey City), Maryland (Baltimore), Massachusetts (Boston, Worcester), Maine (Portland), New Hampshire (Manchester), Rhode Island (Providence), and Connecticut (Hartford, New Haven, Bridgeport).
+                ElectricScouts is America's leading electricity comparison platform, helping residents and businesses across 12 deregulated states find the best electricity rates. We serve Texas (Houston, Dallas, Austin, San Antonio, Fort Worth), Illinois (Chicago, Aurora, Naperville), Ohio (Columbus, Cleveland, Cincinnati), Pennsylvania (Philadelphia, Pittsburgh, Allentown), New York (NYC, Buffalo, Rochester), New Jersey (Newark, Jersey City), Maryland (Baltimore), Massachusetts (Boston, Worcester), Maine (Portland), New Hampshire (Manchester), Rhode Island (Providence), and Connecticut (Hartford, New Haven, Bridgeport).
               </p>
             </div>
             <div className="mb-6">
@@ -645,10 +645,10 @@ export default function Layout({ children, currentPageName }) {
 
           <div className="border-t border-gray-700 pt-6">
             <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-5xl mx-auto">
-              <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. Power Scouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
+              <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. ElectricScouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
             </p>
             <p className="text-gray-400 text-xs text-center">
-              © {new Date().getFullYear()} Power Scouts. All rights reserved. | 
+              © {new Date().getFullYear()} ElectricScouts. All rights reserved. | 
               <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white transition-colors ml-1">Privacy Policy</Link> | 
               <Link to={createPageUrl("TermsOfService")} className="hover:text-white transition-colors ml-1">Terms of Service</Link> | 
               <Link to={createPageUrl("AboutUs")} className="hover:text-white transition-colors ml-1">About Us</Link>

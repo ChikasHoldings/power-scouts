@@ -1,7 +1,7 @@
 # Data Accuracy & Consistency Guide
 
 ## Overview
-This folder contains utilities to ensure accurate electricity rate comparisons across the Power Scouts platform.
+This folder contains utilities to ensure accurate electricity rate comparisons across the ElectricScouts platform.
 
 ## Key Files
 

@@ -14,9 +14,9 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="About Power Scouts - America's Electricity Comparison Platform | Our Story"
-        description="Learn about Power Scouts, the leading electricity rate comparison platform serving 12 states. Our mission: simplify energy shopping and help millions save on electricity. Founded to bring transparency to deregulated energy markets. Compare 40+ providers, save up to $800/year. Trusted by thousands nationwide."
-        keywords="about power scouts, electricity comparison platform, energy comparison service, who we are, our mission, electricity shopping help, trusted energy comparison"
+        title="About ElectricScouts - America's Electricity Comparison Platform | Our Story"
+        description="Learn about ElectricScouts, the leading electricity rate comparison platform serving 12 states. Our mission: simplify energy shopping and help millions save on electricity. Founded to bring transparency to deregulated energy markets. Compare 40+ providers, save up to $800/year. Trusted by thousands nationwide."
+        keywords="about electricscouts, electricity comparison platform, energy comparison service, who we are, our mission, electricity shopping help, trusted energy comparison"
         canonical="/about-us"
         structuredData={[breadcrumbData, getOrganizationSchema()]}
       />
@@ -25,7 +25,7 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl lg:text-4xl font-bold mb-3">
-              About Power Scouts
+              About ElectricScouts
             </h1>
             <p className="text-lg text-blue-100">
               Empowering Americans to make smarter energy choices since 2019
@@ -75,7 +75,7 @@ export default function AboutUs() {
           <div className="bg-white rounded-2xl shadow-lg p-12">
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                Founded in 2019, Power Scouts was created to solve a simple problem: finding the 
+                Founded in 2019, ElectricScouts was created to solve a simple problem: finding the 
                 right electricity plan in competitive energy markets shouldn't be complicated or 
                 time-consuming.
               </p>
@@ -176,7 +176,7 @@ export default function AboutUs() {
 
         {/* Why Choose Us Section */}
         <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Why Choose Power Scouts?</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Why Choose ElectricScouts?</h2>
           <div className="bg-white rounded-2xl shadow-lg p-12">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
@@ -254,7 +254,7 @@ export default function AboutUs() {
             Ready to Start Saving on Electricity?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of households nationwide who trust Power Scouts to find the best electricity rates
+            Join thousands of households nationwide who trust ElectricScouts to find the best electricity rates
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -264,7 +264,7 @@ export default function AboutUs() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <a href="mailto:support@powerscouts.com">
+            <a href="mailto:support@electricscouts.com">
               <Button variant="outline" className="bg-white hover:bg-gray-100 text-[#0A5C8C] border-2 border-white px-8 py-6 text-lg font-bold rounded-lg">
                 <Mail className="w-5 h-5 mr-2" />
                 Email Us

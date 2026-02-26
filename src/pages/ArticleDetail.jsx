@@ -271,11 +271,11 @@ export default function ArticleDetail() {
   
   // Optimized meta title with category and brand
   const optimizedTitle = fullArticle?.metaTitle || 
-    `${article.title} | ${article.category} Guide | Power Scouts`;
+    `${article.title} | ${article.category} Guide | ElectricScouts`;
   
   // Optimized meta description with excerpt and CTA
   const optimizedDescription = fullArticle?.metaDescription || 
-    `${article.excerpt || article.description} Compare electricity rates and save up to $800/year. Free guide from Power Scouts.`;
+    `${article.excerpt || article.description} Compare electricity rates and save up to $800/year. Free guide from ElectricScouts.`;
   
   // Combine article keywords with tags for better SEO
   const optimizedKeywords = [
@@ -283,7 +283,7 @@ export default function ArticleDetail() {
     ...article.keywords,
     `${article.category.toLowerCase()} electricity`,
     'compare electricity rates',
-    'power scouts',
+    'electricscouts',
     'save money electricity'
   ].filter((v, i, a) => a.indexOf(v) === i).slice(0, 15).join(", ");
 

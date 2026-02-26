@@ -3,7 +3,7 @@
  * Generates XML sitemap data for all pages, states, cities, and content
  */
 
-const SITE_URL = 'https://powerscouts.com';
+const SITE_URL = 'https://electricscouts.com';
 
 // Priority levels
 const PRIORITY = {
@@ -88,7 +88,7 @@ ${urls}
 
 // Generate robots.txt content
 export function generateRobotsTxt() {
-  return `# Power Scouts - Robots.txt
+  return `# ElectricScouts - Robots.txt
 User-agent: *
 Allow: /
 Disallow: /admin/

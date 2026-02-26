@@ -11,8 +11,8 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Privacy Policy - Power Scouts | How We Protect Your Data"
-        description="Power Scouts privacy policy. Learn how we protect your personal information and data when you compare electricity rates. We do not sell your information. Industry-standard security measures."
+        title="Privacy Policy - ElectricScouts | How We Protect Your Data"
+        description="ElectricScouts privacy policy. Learn how we protect your personal information and data when you compare electricity rates. We do not sell your information. Industry-standard security measures."
         keywords="privacy policy, data protection, electricity comparison privacy, personal information security"
         canonical="/privacy-policy"
         structuredData={breadcrumbData}
@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
           <CardContent className="p-8 prose prose-sm max-w-none">
             <h2>1. Information We Collect</h2>
             <p>
-              When you use Power Scouts to compare electricity rates, we collect:
+              When you use ElectricScouts to compare electricity rates, we collect:
             </p>
             <ul>
               <li>ZIP code for rate comparison</li>
@@ -84,7 +84,7 @@ export default function PrivacyPolicy() {
 
             <h2>8. Contact Us</h2>
             <p>
-              For privacy questions or concerns, contact us at: <a href="mailto:privacy@powerscouts.com" className="text-[#0A5C8C]">privacy@powerscouts.com</a>
+              For privacy questions or concerns, contact us at: <a href="mailto:privacy@electricscouts.com" className="text-[#0A5C8C]">privacy@electricscouts.com</a>
             </p>
           </CardContent>
         </Card>

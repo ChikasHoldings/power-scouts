@@ -276,7 +276,7 @@ export default function LearningCenter() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Electricity Learning Center - Expert Guides to Save $500+ Per Year | Power Scouts"
+        title="Electricity Learning Center - Expert Guides to Save $500+ Per Year | ElectricScouts"
         description="Master electricity shopping with expert guides on deregulation, rate comparison, plan types, and money-saving strategies. Serving TX, PA, NY, OH, IL, NJ, MD & 5 more states. Real examples, actionable tips, and step-by-step tutorials to lower your electricity bills."
         keywords="electricity guides, energy saving tips, electricity deregulation, compare electricity plans, fixed vs variable rates, switch electricity provider, lower electricity bill, Texas electricity guide, Houston electricity rates, electricity FAQs"
         canonical="/learning-center"

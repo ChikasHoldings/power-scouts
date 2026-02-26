@@ -1,6 +1,6 @@
 # SEO Components & Utilities
 
-This directory contains SEO optimization components and utilities for the Power Scouts app.
+This directory contains SEO optimization components and utilities for the ElectricScouts app.
 
 ## Components
 
@@ -103,7 +103,7 @@ import SEOHead, {
 } from "@/components/SEOHead";
 
 <SEOHead
-  title="Page Title | Power Scouts"
+  title="Page Title | ElectricScouts"
   description="Page description for SEO"
   keywords="keyword1, keyword2, keyword3"
   canonical="/page-url"

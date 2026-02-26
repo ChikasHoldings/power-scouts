@@ -142,10 +142,10 @@ export default function HomeConcierge() {
               <p className="text-lg font-semibold text-gray-900">Ready to simplify your move?</p>
               <p className="text-gray-600">Email us with your move details and we'll handle everything</p>
             </div>
-            <a href="mailto:support@powerscouts.com?subject=Home Concierge Service Request" className="inline-block">
+            <a href="mailto:support@electricscouts.com?subject=Home Concierge Service Request" className="inline-block">
               <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-8 py-6 text-lg font-bold whitespace-nowrap">
                 <Mail className="w-5 h-5 mr-2" />
-                Email: support@powerscouts.com
+                Email: support@electricscouts.com
               </Button>
             </a>
           </div>
@@ -245,7 +245,7 @@ export default function HomeConcierge() {
                   ))}
                 </div>
                 <p className="text-gray-700 italic mb-4">
-                  "Moving to Texas was stressful enough. Having Power Scouts handle all my utility setup was a lifesaver. They got me great electricity rates and had everything ready when I moved in!"
+                  "Moving to Texas was stressful enough. Having ElectricScouts handle all my utility setup was a lifesaver. They got me great electricity rates and had everything ready when I moved in!"
                 </p>
                 <p className="font-semibold text-gray-900">- Sarah M., Houston</p>
               </CardContent>
@@ -331,7 +331,7 @@ export default function HomeConcierge() {
                       className="border-0 bg-transparent focus-visible:ring-0 text-gray-900 text-lg p-0 h-auto font-semibold"
                     />
                   </div>
-                  <a href={`mailto:support@powerscouts.com?subject=Home Concierge Request&body=My email: ${userEmail}%0D%0A%0D%0ANew Address:%0D%0AMove-in Date:%0D%0AUtilities Needed:%0D%0A`} className="inline-block">
+                  <a href={`mailto:support@electricscouts.com?subject=Home Concierge Request&body=My email: ${userEmail}%0D%0A%0D%0ANew Address:%0D%0AMove-in Date:%0D%0AUtilities Needed:%0D%0A`} className="inline-block">
                     <Button className="w-full sm:w-auto px-10 py-6 text-lg font-bold rounded-lg bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-full">
                       Request Service
                     </Button>
@@ -340,7 +340,7 @@ export default function HomeConcierge() {
               </div>
 
               <p className="text-sm text-blue-200 mb-6">
-                Or email us directly at <a href="mailto:support@powerscouts.com" className="underline font-semibold hover:text-white">support@powerscouts.com</a>
+                Or email us directly at <a href="mailto:support@electricscouts.com" className="underline font-semibold hover:text-white">support@electricscouts.com</a>
               </p>
 
               <div className="flex items-center justify-center gap-6 flex-wrap text-sm">

@@ -18,7 +18,7 @@ export default function EnhancedSEOHead({
   structuredData = null,
   alternates = null
 }) {
-  const fullTitle = title.includes('Power Scouts') ? title : `${title} | Power Scouts`;
+  const fullTitle = title.includes('ElectricScouts') ? title : `${title} | ElectricScouts`;
   const canonicalURL = canonical ? generateCanonicalURL(canonical) : null;
   const robotsTag = noindex ? getRobotsTag('noindex') : getRobotsTag('public');
   
@@ -26,7 +26,7 @@ export default function EnhancedSEOHead({
     title: fullTitle,
     description,
     url: canonicalURL,
-    image: ogImage || 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69141a7199585b6c94026f23/54a98288c_ChatGPTImageNov12202508_20_04PM.png',
+    image: ogImage || '/images/og-image.png',
     type: ogType
   });
   
@@ -93,18 +93,18 @@ export default function EnhancedSEOHead({
       {/* PWA / App Links */}
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="apple-mobile-web-app-title" content="Power Scouts" />
+      <meta name="apple-mobile-web-app-title" content="ElectricScouts" />
       
       {/* Geo Tags */}
       <meta name="geo.region" content="US" />
       <meta name="geo.placename" content="United States" />
       
       {/* Author & Publisher */}
-      <meta name="author" content="Power Scouts" />
-      <meta name="publisher" content="Power Scouts" />
+      <meta name="author" content="ElectricScouts" />
+      <meta name="publisher" content="ElectricScouts" />
       
       {/* Copyright */}
-      <meta name="copyright" content={`© ${new Date().getFullYear()} Power Scouts. All rights reserved.`} />
+      <meta name="copyright" content={`© ${new Date().getFullYear()} ElectricScouts. All rights reserved.`} />
       
       {/* Structured Data */}
       {structuredData && (

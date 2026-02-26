@@ -123,7 +123,7 @@ export default function ProviderDetails() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title={`${providerName} Electricity Rates & Reviews - Compare Plans | Power Scouts`}
+        title={`${providerName} Electricity Rates & Reviews - Compare Plans | ElectricScouts`}
         description={`Compare ${providerName} electricity rates and plans. Read reviews, check availability, find best ${providerName} deals. Serving multiple states with fixed, variable & renewable energy options. Starting at ${lowestRate}¢/kWh. Switch and save today.`}
         keywords={`${providerName} electricity rates, ${providerName} reviews, ${providerName} plans, ${providerName} energy, best ${providerName} deals, ${providerName} renewable energy, compare ${providerName} rates`}
         canonical={`/provider-details?provider=${providerName}`}
