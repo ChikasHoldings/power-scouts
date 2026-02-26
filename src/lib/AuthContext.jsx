@@ -152,8 +152,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const navigateToLogin = () => {
-    // Navigate to the login page (will be created in admin panel phase)
-    window.location.href = '/login';
+    window.location.href = '/admin';
   };
 
   const resetPassword = async (email) => {
