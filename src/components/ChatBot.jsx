@@ -368,7 +368,7 @@ export default function ChatBot() {
                 src="/images/icon.png"
                 alt="Nora"
                 className="w-10 h-10 rounded-full object-cover border-2 border-[#0A5C8C] flex-shrink-0"
-              />
+              loading="lazy" />
               <div>
                 <p className="font-bold text-gray-900 text-sm mb-1">Still looking for energy savings?</p>
                 <p className="text-xs text-gray-600 mb-3">I can help find the best rates for your ZIP code! 💡</p>
@@ -412,7 +412,7 @@ export default function ChatBot() {
             src="/images/icon.png"
             alt="Nora"
             className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-          />
+          loading="lazy" />
           <div>
             <h3 className="font-bold text-sm">Nora - Energy Advisor</h3>
             <p className="text-xs text-blue-100">Online • Ready to help 😊</p>

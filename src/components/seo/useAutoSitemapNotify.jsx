@@ -14,7 +14,6 @@ export function useAutoSitemapNotify(trigger = false, delay = 2000) {
       
       // Delay to ensure content is saved first
       const timeoutId = setTimeout(async () => {
-        console.log('🔔 Auto-triggering sitemap notification...');
         await notifySearchEnginesOfUpdate();
       }, delay);
 
@@ -27,6 +26,5 @@ export function useAutoSitemapNotify(trigger = false, delay = 2000) {
  * Direct function to call after article operations
  */
 export async function notifyAfterArticlePublish() {
-  console.log('📝 New article published - notifying search engines...');
   await notifySearchEnginesOfUpdate();
 }

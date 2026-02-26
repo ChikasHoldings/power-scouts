@@ -28,27 +28,21 @@ export function clearProviderCache() {
 
 // Function to get providers available for a specific ZIP code
 export const getProvidersForZipCode = async (zipCode) => {
-  console.log("🔍 getProvidersForZipCode - Start:", zipCode);
   
   if (!zipCode || zipCode.length !== 5) {
-    console.log("❌ Invalid ZIP code length");
     return [];
   }
   
   const stateCode = getStateFromZip(zipCode);
-  console.log("State code resolved:", stateCode);
   
   if (!stateCode) {
-    console.log("❌ No state code for ZIP");
     return [];
   }
   
   const providers = await fetchProviders();
-  console.log("Total providers fetched:", providers.length);
   
   // Log provider structure
   if (providers.length > 0) {
-    console.log("Sample provider structure:", {
       id: providers[0].id,
       hasData: !!providers[0].data,
       dataKeys: providers[0].data ? Object.keys(providers[0].data) : [],
@@ -63,7 +57,6 @@ export const getProvidersForZipCode = async (zipCode) => {
     const supportedStates = provider.supported_states || [];
     const isActive = provider.data?.is_active ?? provider.is_active ?? true;
     const matches = supportedStates.includes(stateCode);
-    console.log(`Provider ${name}: supports ${stateCode}? ${matches}`, supportedStates);
     return matches && isActive;
   }).map(provider => {
     return {
@@ -76,7 +69,6 @@ export const getProvidersForZipCode = async (zipCode) => {
     };
   });
   
-  console.log("✅ Available providers for state:", availableProviders.length, availableProviders.map(p => p.name));
   
   // Sort: recommended first
   return availableProviders.sort((a, b) => {

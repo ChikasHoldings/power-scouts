@@ -205,8 +205,6 @@ export function logValidationResults(schemas) {
     console.group(`${icon} Schema ${index + 1}: ${schema['@type']}`);
     
     if (validation.valid) {
-      console.log('Valid schema');
-      console.log('Test URL:', getGoogleTestUrl(schema));
     } else {
       console.error('Validation errors:', validation.errors);
     }

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/lib/AuthContext";
-import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,
   Building2,
@@ -16,6 +15,9 @@ import {
   Shield,
   ExternalLink,
   Link2,
+  Settings,
+  User,
+  ChevronDown,
 } from "lucide-react";
 
 const navItems = [
@@ -26,6 +28,7 @@ const navItems = [
   { label: "Quotes", path: "/admin/quotes", icon: MessageSquare },
   { label: "Users", path: "/admin/users", icon: Users },
   { label: "Affiliates", path: "/admin/affiliates", icon: Link2 },
+  { label: "Settings", path: "/admin/settings", icon: Settings },
 ];
 
 export default function AdminLayout({ children }) {
@@ -33,17 +36,43 @@ export default function AdminLayout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = async () => {
     await logout(false);
     navigate("/");
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setAvatarDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setAvatarDropdownOpen(false);
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
   const currentPage = navItems.find(
     (item) =>
       location.pathname === item.path ||
       (item.path !== "/admin" && location.pathname.startsWith(item.path))
   ) || navItems[0];
+
+  const initials = (profile?.full_name || user?.email || "A")
+    .split(" ")
+    .map((n) => n.charAt(0))
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -59,7 +88,37 @@ export default function AdminLayout({ children }) {
           <Shield className="w-5 h-5 text-[#0A5C8C]" />
           <span className="font-bold text-gray-900">Admin Panel</span>
         </div>
-        <div className="w-9" />
+        {/* Mobile avatar */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setAvatarDropdownOpen(!avatarDropdownOpen)}
+            className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-xs font-bold"
+          >
+            {initials}
+          </button>
+          {avatarDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]">
+              <div className="px-4 py-3 border-b border-gray-100">
+                <p className="text-sm font-semibold text-gray-900 truncate">{profile?.full_name || "Admin"}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
+              <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <User className="w-4 h-4" /> Profile
+              </Link>
+              <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <Settings className="w-4 h-4" /> Settings
+              </Link>
+              <Link to="/" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                <ExternalLink className="w-4 h-4" /> View Site
+              </Link>
+              <div className="border-t border-gray-100 mt-1 pt-1">
+                <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                  <LogOut className="w-4 h-4" /> Sign Out
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Mobile overlay */}
@@ -94,7 +153,7 @@ export default function AdminLayout({ children }) {
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-1 flex-1">
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
           {navItems.map((item) => {
             const isActive =
               location.pathname === item.path ||
@@ -131,7 +190,7 @@ export default function AdminLayout({ children }) {
           </Link>
           <div className="flex items-center gap-3 px-3 py-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-xs font-bold">
-              {(profile?.full_name || user?.email || "A").charAt(0).toUpperCase()}
+              {initials}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">
@@ -152,7 +211,7 @@ export default function AdminLayout({ children }) {
 
       {/* Main content */}
       <main className="lg:ml-64 min-h-screen pt-16 lg:pt-0">
-        {/* Top bar */}
+        {/* Top bar with avatar dropdown */}
         <div className="hidden lg:flex items-center justify-between bg-white border-b border-gray-200 px-8 py-4">
           <div>
             <h1 className="text-xl font-bold text-gray-900">{currentPage.label}</h1>
@@ -168,6 +227,44 @@ export default function AdminLayout({ children }) {
               <ExternalLink className="w-4 h-4" />
               View Site
             </Link>
+            {/* Profile Avatar Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setAvatarDropdownOpen(!avatarDropdownOpen)}
+                className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-xs font-bold">
+                  {initials}
+                </div>
+                <div className="text-left hidden xl:block">
+                  <p className="text-sm font-medium text-gray-900 leading-tight">{profile?.full_name || "Admin"}</p>
+                  <p className="text-xs text-gray-500 leading-tight">{profile?.role || "admin"}</p>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${avatarDropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+              {avatarDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]">
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-semibold text-gray-900 truncate">{profile?.full_name || "Admin"}</p>
+                    <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                  </div>
+                  <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                    <User className="w-4 h-4" /> Profile
+                  </Link>
+                  <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                    <Settings className="w-4 h-4" /> Settings
+                  </Link>
+                  <Link to="/" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                    <ExternalLink className="w-4 h-4" /> View Site
+                  </Link>
+                  <div className="border-t border-gray-100 mt-1 pt-1">
+                    <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+                      <LogOut className="w-4 h-4" /> Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

@@ -46,12 +46,12 @@ export default function HeroSection({ zipCode, setZipCode }) {
                     onValidationChange={setIsZipValid}
                   />
                 </div>
-                <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')} className="w-full sm:w-auto">
-                  <Button
-                    disabled={!isZipValid}
-                    className="w-full sm:w-auto px-10 py-4 h-auto text-lg sm:text-xl font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 touch-manipulation active:scale-95">
-                    Compare Now
-                  </Button>
+                <Link 
+                  to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')} 
+                  className={`w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 text-lg sm:text-xl font-bold rounded-xl bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation active:scale-95 ${!isZipValid ? 'opacity-50 pointer-events-none' : ''}`}
+                  onClick={(e) => { if (!isZipValid) e.preventDefault(); }}
+                >
+                  Compare Now
                 </Link>
               </div>
             </div>

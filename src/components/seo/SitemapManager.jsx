@@ -91,7 +91,6 @@ export async function pingGoogleSearchConsole(sitemapUrl = `${SITE_URL}/sitemap.
       mode: 'no-cors'
     });
     
-    console.log('✅ Google Search Console pinged successfully');
     return { success: true, message: 'Sitemap submitted to Google' };
   } catch (error) {
     console.error('❌ Failed to ping Google Search Console:', error);
@@ -109,7 +108,6 @@ export async function pingBingWebmaster(sitemapUrl = `${SITE_URL}/sitemap.xml`) 
       mode: 'no-cors'
     });
     
-    console.log('✅ Bing Webmaster Tools pinged successfully');
     return { success: true, message: 'Sitemap submitted to Bing' };
   } catch (error) {
     console.error('❌ Failed to ping Bing:', error);
@@ -132,13 +130,10 @@ export async function pingAllSearchEngines(sitemapUrl = `${SITE_URL}/sitemap.xml
 
 // Auto-trigger on content changes (call this after creating/updating articles)
 export async function notifySearchEnginesOfUpdate() {
-  console.log('🔔 Notifying search engines of content update...');
   const results = await pingAllSearchEngines();
   
   if (results.google.success || results.bing.success) {
-    console.log('✅ Search engines notified successfully');
   } else {
-    console.log('⚠️ Some search engines could not be notified');
   }
   
   return results;

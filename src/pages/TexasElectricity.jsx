@@ -266,7 +266,7 @@ export default function TexasElectricity() {
                           src={provider.logo_url} 
                           alt={provider.name}
                           className="h-10 w-auto object-contain"
-                        />
+                        loading="lazy" />
                       ) : (
                         <div className="h-10 flex items-center">
                           <span className="text-base font-bold text-gray-900">{provider.name}</span>

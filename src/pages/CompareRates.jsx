@@ -143,12 +143,9 @@ export default function CompareRates() {
   const { data: plans = [], isLoading: plansLoading, error: plansError } = useQuery({
     queryKey: ['electricityPlans'],
     queryFn: async () => {
-      console.log("🔍 Fetching plans from database...");
       try {
         const result = await ElectricityPlan.list();
-        console.log("✅ Plans fetched successfully:", result?.length || 0);
         if (result && result.length > 0) {
-          console.log("Sample plan structure:", result[0]);
         }
         return result || [];
       } catch (error) {
@@ -163,7 +160,6 @@ export default function CompareRates() {
   });
 
   const handleZipSubmit = async () => {
-    console.log("🔍 ZIP SUBMIT - Start");
     setZipError("");
     
     if (zipCode.length !== 5) {
@@ -172,7 +168,6 @@ export default function CompareRates() {
     }
 
     const validation = validateZipCode(zipCode);
-    console.log("ZIP Validation:", validation);
     if (!validation.valid) {
       setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
       return;
@@ -180,10 +175,8 @@ export default function CompareRates() {
 
     const city = getCityFromZip(zipCode);
     const stateCode = getStateFromZip(zipCode);
-    console.log("ZIP Resolution:", { zipCode, city, stateCode });
     
     const providers = await getProvidersForZipCode(zipCode);
-    console.log("Providers for ZIP:", providers.length, providers);
     
     setCityName(city);
     setAvailableProviders(providers);
@@ -238,14 +231,9 @@ export default function CompareRates() {
 
   const filteredPlans = React.useMemo(() => {
     if (!plans || plans.length === 0) {
-      console.log("⚠️ No plans data available yet");
       return [];
     }
 
-    console.log("🔍 FILTERING PLANS - Start");
-    console.log("Total plans:", plans.length);
-    console.log("ZIP Code:", zipCode);
-    console.log("Available Providers:", availableProviders.length, availableProviders.map(p => p.name));
 
     const filtered = plans.filter(plan => {
       const providerName = plan.provider_name;
@@ -276,7 +264,6 @@ export default function CompareRates() {
       return true;
     });
 
-    console.log("✅ Filtered to", filtered.length, "plans");
     return filtered;
   }, [plans, zipCode, availableProviders, preferences]);
 
@@ -329,11 +316,8 @@ export default function CompareRates() {
   const { data: providers = [], isLoading: providersLoading } = useQuery({
     queryKey: ['providers'],
     queryFn: async () => {
-      console.log("🔍 Fetching providers from database...");
       const result = await ElectricityProvider.filter({ is_active: true });
-      console.log("Providers fetched:", result?.length || 0);
       if (result && result.length > 0) {
-        console.log("Sample provider:", result[0]);
       }
       return result || [];
     },
@@ -504,7 +488,7 @@ export default function CompareRates() {
                             src={getProviderLogo(plan.provider_name)} 
                             alt={plan.provider_name}
                             className="h-8 w-auto object-contain"
-                          />
+                          loading="lazy" />
                         ) : (
                           <span className="text-sm font-semibold text-gray-900">{plan.provider_name}</span>
                         )}

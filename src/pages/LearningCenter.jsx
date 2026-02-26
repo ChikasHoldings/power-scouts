@@ -142,7 +142,6 @@ export default function LearningCenter() {
     queryFn: async () => {
       try {
         const articles = await Article.filter({ published: true }, '-created_date', 1000);
-        console.log('Fetched published articles:', articles.length, articles);
         return articles || [];
       } catch (err) {
         console.error('Failed to fetch articles:', err);
@@ -189,12 +188,9 @@ export default function LearningCenter() {
   };
 
   const articles = React.useMemo(() => {
-    console.log('Database articles raw:', dbArticles);
     if (!dbArticles || dbArticles.length === 0) {
-      console.log('Using fallback articles, db count:', dbArticles?.length);
       return fallbackArticles;
     }
-    console.log('Mapping database articles:', dbArticles.length);
     const mapped = dbArticles.map(article => {
       // Handle both nested and flat data structures
       const data = article.data || article;
@@ -213,10 +209,8 @@ export default function LearningCenter() {
         keywords: data.keywords || [],
         relatedArticles: data.related_articles || []
       };
-      console.log('Mapped article:', articleId, mapped.title);
       return mapped;
     });
-    console.log('Total mapped articles:', mapped.length);
     return mapped;
   }, [dbArticles]);
 
@@ -224,7 +218,6 @@ export default function LearningCenter() {
 
   // Update search results when articles change
   React.useEffect(() => {
-    console.log('Articles updated, count:', articles.length);
     setSearchResults(articles);
   }, [articles]);
 
@@ -523,7 +516,7 @@ export default function LearningCenter() {
                               src={featured.image} 
                               alt={featured.title}
                               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                            />
+                            loading="lazy" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div className={`absolute top-4 left-4 px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase`}>
                               {featured.category}
@@ -572,7 +565,7 @@ export default function LearningCenter() {
                             src={article.image} 
                             alt={article.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
+                          loading="lazy" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                           <div className={`absolute top-3 left-3 px-2.5 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase`}>
                             {article.category}

@@ -155,7 +155,7 @@ export default function ProviderDetails() {
                     src={providerInfo.logo} 
                     alt={`${providerName} logo`}
                     className="h-16 w-32 object-contain"
-                  />
+                  loading="lazy" />
                 ) : (
                   <div className="h-16 w-32 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center">
                     <span className="text-xl font-bold text-[#0A5C8C]">

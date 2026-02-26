@@ -52,14 +52,9 @@ export default function IneligibleZipMessage({ zipCode, onTryAgain }) {
               Try Another ZIP Code
             </Button>
             
-            <Link to={createPageUrl("LearningCenter")}>
-              <Button
-                variant="outline"
-                className="border-2 border-[#0A5C8C] text-[#0A5C8C] hover:bg-blue-50 font-semibold px-6 w-full"
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Explore Energy Guides
-              </Button>
+            <Link to={createPageUrl("LearningCenter")} className="inline-flex items-center justify-center border-2 border-[#0A5C8C] text-[#0A5C8C] hover:bg-blue-50 font-semibold px-6 h-9 rounded-md w-full sm:w-auto">
+              <BookOpen className="w-4 h-4 mr-2" />
+              Explore Energy Guides
             </Link>
           </div>
 
@@ -68,10 +63,8 @@ export default function IneligibleZipMessage({ zipCode, onTryAgain }) {
             <p className="text-sm text-gray-600 mb-3">
               Want to know when ElectricScouts expands to your area?
             </p>
-            <Link to={createPageUrl("AboutUs")}>
-              <Button variant="link" className="text-[#0A5C8C] font-semibold">
-                Contact Us for Updates
-              </Button>
+            <Link to={createPageUrl("AboutUs")} className="text-[#0A5C8C] font-semibold hover:underline">
+              Contact Us for Updates
             </Link>
           </div>
         </CardContent>

@@ -36,7 +36,6 @@ export function useZipDetection() {
         }
       }
     } catch (error) {
-      console.log('ZIP detection unavailable');
     } finally {
       setIsDetecting(false);
     }

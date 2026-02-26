@@ -146,7 +146,6 @@ export default function ArticleDetail() {
     queryFn: async () => {
       try {
         const articles = await Article.filter({ published: true }, '-created_date', 1000);
-        console.log('Fetched published articles for detail:', articles.length);
         return articles || [];
       } catch (err) {
         console.error('Failed to fetch articles:', err);
@@ -331,7 +330,7 @@ export default function ArticleDetail() {
               src={article.image} 
               alt={article.title}
               className="w-full h-full object-cover"
-            />
+            loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
               <div className={`inline-flex px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-bold uppercase mb-3`}>

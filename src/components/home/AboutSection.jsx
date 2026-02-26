@@ -85,12 +85,8 @@ export default function AboutSection() {
             </div>
 
             <div className="pt-3 px-4 lg:px-0">
-              <Link to={createPageUrl("AboutUs")}>
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold px-8 py-5 text-base rounded-xl transition-all duration-300 touch-manipulation">
-                  Learn More About Us
-                </Button>
+              <Link to={createPageUrl("AboutUs")} className="w-full sm:w-auto inline-flex items-center justify-center bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold px-8 py-5 text-base rounded-xl transition-all duration-300 touch-manipulation">
+                Learn More About Us
               </Link>
             </div>
           </div>

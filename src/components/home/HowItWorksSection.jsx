@@ -56,10 +56,8 @@ export default function HowItWorksSection() {
 
         {/* CTA */}
         <div className="text-center px-4">
-          <Link to={createPageUrl("CompareRates")}>
-            <Button className="w-full sm:w-auto bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-10 py-5 text-base sm:text-lg rounded-xl transition-all duration-300 touch-manipulation shadow-lg hover:shadow-xl active:scale-95">
-              Compare Rates Now
-            </Button>
+          <Link to={createPageUrl("CompareRates")} className="w-full sm:w-auto inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-10 py-5 text-base sm:text-lg rounded-xl transition-all duration-300 touch-manipulation shadow-lg hover:shadow-xl active:scale-95">
+            Compare Rates Now
           </Link>
         </div>
       </div>

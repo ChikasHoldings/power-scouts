@@ -52,11 +52,9 @@ class ErrorBoundary extends React.Component {
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Try Again
               </Button>
-              <Link to={createPageUrl("Home")}>
-                <Button className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white h-12 font-semibold px-6">
-                  <Home className="w-4 h-4 mr-2" />
-                  Go Home
-                </Button>
+              <Link to={createPageUrl("Home")} className="inline-flex items-center justify-center bg-[#0A5C8C] hover:bg-[#084a6f] text-white h-12 font-semibold px-6 rounded-md transition-colors">
+                <Home className="w-4 h-4 mr-2" />
+                Go Home
               </Link>
             </div>
 

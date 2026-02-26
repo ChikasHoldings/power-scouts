@@ -142,6 +142,7 @@ export default function Layout({ children, currentPageName }) {
                 src="/images/logo-header.png"
                 alt="ElectricScouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
                 className="h-8 sm:h-9 lg:h-10"
+                loading="eager"
               />
             </Link>
 
@@ -266,10 +267,8 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Compare Rates Button */}
             <div className="hidden lg:block">
-              <Link to={createPageUrl("CompareRates")}>
-                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-5 xl:px-6 py-2 text-base xl:text-lg rounded-lg transition-all duration-300 touch-manipulation">
-                  Compare Rates
-                </Button>
+              <Link to={createPageUrl("CompareRates")} className="inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold px-5 xl:px-6 py-2 text-base xl:text-lg rounded-lg transition-all duration-300 touch-manipulation">
+                Compare Rates
               </Link>
             </div>
 
@@ -305,8 +304,8 @@ export default function Layout({ children, currentPageName }) {
               <img 
                 src="/images/logo-footer.png"
                 alt="ElectricScouts - Mobile Menu Logo for Electricity Rate Comparison Service"
-                className="h-14"
-              />
+                className="h-10"
+              loading="lazy" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 rounded-lg hover:bg-white/10 transition-colors"
@@ -399,11 +398,9 @@ export default function Layout({ children, currentPageName }) {
               <Link 
                 to={createPageUrl("CompareRates")} 
                 onClick={() => setMobileMenuOpen(false)}
-                className="block mt-4 mb-3"
+                className="block mt-4 mb-3 w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-3.5 text-base rounded-lg text-center"
               >
-                <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold py-3.5 text-base rounded-lg">
-                  Compare Rates Now
-                </Button>
+                Compare Rates Now
               </Link>
             </div>
 
@@ -459,11 +456,13 @@ export default function Layout({ children, currentPageName }) {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-10">
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-1">
-              <img 
-                src="/images/logo-footer.png"
-                alt="ElectricScouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
-                className="h-9 sm:h-10 mb-4"
-              />
+              <Link to="/" className="inline-block mb-4">
+                <img 
+                  src="/images/logo-footer.png"
+                  alt="ElectricScouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
+                  className="h-9 sm:h-10"
+                loading="lazy" />
+              </Link>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 Compare electricity rates from 40+ providers nationwide. Save up to $800/year.
               </p>

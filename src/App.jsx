@@ -21,6 +21,7 @@ const AdminArticles = lazy(() => import('@/pages/admin/AdminArticles'));
 const AdminQuotes = lazy(() => import('@/pages/admin/AdminQuotes'));
 const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'));
 const AdminAffiliates = lazy(() => import('@/pages/admin/AdminAffiliates'));
+const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -104,6 +105,11 @@ const AuthenticatedApp = () => {
       <Route path="/admin/affiliates" element={
         <Suspense fallback={<AdminLoading />}>
           <AdminRoute><AdminAffiliates /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/settings" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminSettings /></AdminRoute>
         </Suspense>
       } />
 

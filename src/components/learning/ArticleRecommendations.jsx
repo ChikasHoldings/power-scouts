@@ -289,7 +289,7 @@ Return ONLY a JSON array of recommended article IDs in order of relevance, like:
                     src={article.image} 
                     alt={article.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
+                  loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                   <div className={`absolute top-2 left-2 px-2 py-0.5 ${colors.bg} ${colors.text} rounded-full text-xs font-bold`}>
                     {article.category}
