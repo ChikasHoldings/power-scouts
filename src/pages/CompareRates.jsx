@@ -918,7 +918,7 @@ export default function CompareRates() {
                 plans={[...topPlans, ...filteredPlans].slice(0, 6)}
                 zipCode={zipCode}
                 cityName={cityName}
-                monthlyUsage={usage}
+                monthlyUsage={preferences.monthlyUsage || 1000}
                 comparisonType="residential"
                 accentColor="#0A5C8C"
                 getAffiliateUrl={(plan) => getProviderWebsite(plan.provider_name, plan.id)}
