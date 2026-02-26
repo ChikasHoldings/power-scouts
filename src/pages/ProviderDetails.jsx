@@ -10,6 +10,7 @@ import { Star, MapPin, Zap, CheckCircle, ArrowRight, Leaf, ExternalLink, Award, 
 import { getProviderDetails } from "../components/compare/providerAvailability";
 import { calculateMonthlyBill } from "../components/compare/dataValidation";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 
 export default function ProviderDetails() {
   const [zipCode, setZipCode] = useState("");
@@ -35,11 +36,16 @@ export default function ProviderDetails() {
     initialData: [],
   });
 
+  const { getAffiliateUrl } = useAffiliateLinks();
+
   const providerFromDB = providers.find(p => p.name === providerName);
   const providerInfo = providerFromDB ? {
     name: providerFromDB.name,
     logo: providerFromDB.logo_url,
-    website: providerFromDB.affiliate_url || providerFromDB.website_url,
+    website: getAffiliateUrl({
+      providerId: providerFromDB.id,
+      fallbackUrl: providerFromDB.affiliate_url || providerFromDB.website_url || "#"
+    }),
     states: providerFromDB.supported_states || [],
     isRecommended: providerFromDB.is_recommended || false
   } : null;

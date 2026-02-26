@@ -187,3 +187,13 @@ export const Profile = createEntity('profiles', {
   defaultOrder: 'created_at',
   defaultDirection: 'desc',
 });
+
+export const AffiliateLink = createEntity('affiliate_links', {
+  defaultOrder: 'created_at',
+  defaultDirection: 'desc',
+});
+
+export const ClickTracking = createEntity('click_tracking', {
+  defaultOrder: 'clicked_at',
+  defaultDirection: 'desc',
+});

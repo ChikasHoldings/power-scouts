@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Shield,
   ExternalLink,
+  Link2,
 } from "lucide-react";
 
 const navItems = [
@@ -24,6 +25,7 @@ const navItems = [
   { label: "Articles", path: "/admin/articles", icon: FileText },
   { label: "Quotes", path: "/admin/quotes", icon: MessageSquare },
   { label: "Users", path: "/admin/users", icon: Users },
+  { label: "Affiliates", path: "/admin/affiliates", icon: Link2 },
 ];
 
 export default function AdminLayout({ children }) {

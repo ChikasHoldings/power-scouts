@@ -8,10 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
 import { ElectricityProvider, ElectricityPlan } from "@/api/supabaseEntities";
 import { useQuery } from "@tanstack/react-query";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 
 export default function AllProviders() {
   const [searchTerm, setSearchTerm] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const { getAffiliateUrl } = useAffiliateLinks();
 
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
@@ -210,7 +212,7 @@ export default function AllProviders() {
                       Learn More
                     </Button>
                   </Link>
-                  <a href={providers.find(p => p.name === provider.name)?.affiliate_url || providers.find(p => p.name === provider.name)?.website_url || '#'} target="_blank" rel="noopener noreferrer">
+                  <a href={getAffiliateUrl({ providerId: providers.find(p => p.name === provider.name)?.id, fallbackUrl: providers.find(p => p.name === provider.name)?.affiliate_url || providers.find(p => p.name === provider.name)?.website_url || '#' })} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
                       View Plans
                     </Button>

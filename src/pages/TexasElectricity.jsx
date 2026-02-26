@@ -9,10 +9,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, CheckCircle, Zap, DollarSign, Users, Award, TrendingDown, ChevronDown, ArrowRight, Building2, ExternalLink } from "lucide-react";
 import SEOHead, { getBreadcrumbSchema, getServiceSchema, getFAQSchema } from "../components/SEOHead";
 import { getProvidersForZipCode } from "../components/compare/providerAvailability";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 
 export default function TexasElectricity() {
   const [zipCode, setZipCode] = useState("");
   const [openFaq, setOpenFaq] = useState(null);
+  const { getAffiliateUrl } = useAffiliateLinks();
 
   // Fetch real plans from database
   const { data: allPlans, isLoading } = useQuery({
@@ -303,7 +305,7 @@ export default function TexasElectricity() {
                         </Button>
                       </Link>
                       <a 
-                        href={provider.affiliate_url || provider.website_url || '#'} 
+                        href={getAffiliateUrl({ providerId: provider.id, fallbackUrl: provider.affiliate_url || provider.website_url || '#' })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex-1"

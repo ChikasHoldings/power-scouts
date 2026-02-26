@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import SEOHead, { getBreadcrumbSchema } from "../components/SEOHead";
 import { getProvidersForZipCode, getStateFromZip } from "../components/compare/providerAvailability";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 
 export default function BillAnalyzer() {
   const [file, setFile] = useState(null);
@@ -22,6 +23,7 @@ export default function BillAnalyzer() {
   const [showResults, setShowResults] = useState(false);
   const [showManualInput, setShowManualInput] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const { getAffiliateUrl } = useAffiliateLinks();
   const [manualForm, setManualForm] = useState({
     provider_name: '',
     monthly_usage_kwh: '',
@@ -460,7 +462,8 @@ export default function BillAnalyzer() {
                           });
                           if (!provider) return "#";
                           const pData = provider.data || provider;
-                          return pData.affiliate_url || provider.affiliate_url || pData.website_url || provider.website_url || "#";
+                          const fallback = pData.affiliate_url || provider.affiliate_url || pData.website_url || provider.website_url || "#";
+                          return getAffiliateUrl({ providerId: provider.id, offerId: plan.id, fallbackUrl: fallback });
                         })()}
                         target="_blank"
                         rel="noopener noreferrer"

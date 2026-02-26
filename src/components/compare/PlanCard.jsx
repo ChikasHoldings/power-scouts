@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Zap, Clock, Leaf, DollarSign, ExternalLink, Heart } from "lucide-react";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 
 export default function PlanCard({ plan, usage, estimatedMonthlyCost, isSaved, onToggleSave, rank, isTopPick, monthlyUsage }) {
   const usageValue = parseInt(usage || monthlyUsage || 1000);
@@ -16,7 +17,12 @@ export default function PlanCard({ plan, usage, estimatedMonthlyCost, isSaved, o
   });
 
   const provider = providers.find(p => p.name === plan.provider_name);
-  const affiliateLink = provider?.affiliate_url || provider?.website_url || "#";
+  const { getAffiliateUrl } = useAffiliateLinks();
+  const affiliateLink = getAffiliateUrl({
+    providerId: provider?.id,
+    offerId: plan.id,
+    fallbackUrl: provider?.affiliate_url || provider?.website_url || "#"
+  });
 
   return (
     <div className="bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#0A5C8C] relative group">

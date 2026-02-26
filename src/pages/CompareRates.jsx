@@ -21,6 +21,7 @@ import {
   validateZipForComparison 
 } from "../components/compare/dataValidation";
 import { calculateMatchScore, calculateSavings, generatePlanSummary } from "../components/compare/matchScore";
+import { useAffiliateLinks } from "@/hooks/useAffiliateLink";
 import BillUploadStep from "../components/compare/BillUploadStep";
 import { useZipDetection } from "../components/hooks/useZipDetection";
 import { debugCompareRatesPipeline, validateDataStructures } from "../components/compare/debugPipeline";
@@ -294,10 +295,13 @@ export default function CompareRates() {
     initialData: [],
   });
 
-  const getProviderWebsite = (providerName) => {
+  const { getAffiliateUrl } = useAffiliateLinks();
+
+  const getProviderWebsite = (providerName, planId) => {
     const provider = providers.find(p => p.name === providerName);
     if (!provider) return "#";
-    return provider.affiliate_url || provider.website_url || "#";
+    const fallback = provider.affiliate_url || provider.website_url || "#";
+    return getAffiliateUrl({ providerId: provider.id, offerId: planId, fallbackUrl: fallback });
   };
 
   const getFilteredOtherPlans = () => {
@@ -519,7 +523,7 @@ export default function CompareRates() {
                     </div>
 
                     {/* CTA */}
-                    <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
+                    <a href={getProviderWebsite(plan.provider_name, plan.id)} target="_blank" rel="noopener noreferrer" className="block">
                       <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm font-semibold py-2.5 rounded-lg transition-all">
                         Get This Plan
                         <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
@@ -767,7 +771,7 @@ export default function CompareRates() {
                           </div>
                         </td>
                         <td className="px-4 py-3 text-center">
-                          <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer">
+                          <a href={getProviderWebsite(plan.provider_name, plan.id)} target="_blank" rel="noopener noreferrer">
                             <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-5 py-1.5 rounded-lg font-medium text-sm">
                               View Plan
                             </Button>
@@ -850,7 +854,7 @@ export default function CompareRates() {
                         </div>
                       </div>
 
-                      <a href={getProviderWebsite(plan.provider_name)} target="_blank" rel="noopener noreferrer" className="block">
+                      <a href={getProviderWebsite(plan.provider_name, plan.id)} target="_blank" rel="noopener noreferrer" className="block">
                         <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm font-medium py-2 rounded-lg">
                           View Plan Details
                         </Button>
