@@ -61,10 +61,10 @@ export default function AdminLogin() {
     setResetLoading(true);
 
     try {
-      const resp = await fetch("/api/admin/reset/request", {
+      const resp = await fetch("/api/admin/reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: resetEmail }),
+        body: JSON.stringify({ action: "request", email: resetEmail }),
       });
       const data = await resp.json();
 
@@ -128,10 +128,10 @@ export default function AdminLogin() {
     }
 
     try {
-      const resp = await fetch("/api/admin/reset/verify", {
+      const resp = await fetch("/api/admin/reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: resetEmail, code }),
+        body: JSON.stringify({ action: "verify", email: resetEmail, code }),
       });
       const data = await resp.json();
 
@@ -165,10 +165,11 @@ export default function AdminLogin() {
     setResetLoading(true);
 
     try {
-      const resp = await fetch("/api/admin/reset/confirm", {
+      const resp = await fetch("/api/admin/reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          action: "confirm",
           email: resetEmail,
           verification_token: verificationToken,
           new_password: newPassword,
