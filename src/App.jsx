@@ -1,4 +1,5 @@
 import './App.css'
+import React, { Suspense, lazy } from 'react';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -10,6 +11,16 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
+// Admin imports — lazy-loaded for code-splitting
+const AdminRoute = lazy(() => import('@/components/admin/AdminRoute'));
+const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'));
+const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
+const AdminProviders = lazy(() => import('@/pages/admin/AdminProviders'));
+const AdminPlans = lazy(() => import('@/pages/admin/AdminPlans'));
+const AdminArticles = lazy(() => import('@/pages/admin/AdminArticles'));
+const AdminQuotes = lazy(() => import('@/pages/admin/AdminQuotes'));
+const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'));
+
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
@@ -17,6 +28,15 @@ const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
 const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   <Layout currentPageName={currentPageName}>{children}</Layout>
   : <>{children}</>;
+
+const AdminLoading = () => (
+  <div className="fixed inset-0 flex items-center justify-center bg-gray-50">
+    <div className="text-center">
+      <div className="w-8 h-8 border-4 border-gray-200 border-t-[#0A5C8C] rounded-full animate-spin mx-auto mb-3" />
+      <p className="text-sm text-gray-500">Loading admin panel...</p>
+    </div>
+  </div>
+);
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, navigateToLogin } = useAuth();
@@ -41,9 +61,47 @@ const AuthenticatedApp = () => {
     }
   }
 
-  // Render the main app
+  // Render the main app with both public and admin routes
   return (
     <Routes>
+      {/* ── Admin Routes (lazy-loaded) ── */}
+      <Route path="/admin/login" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminLogin />
+        </Suspense>
+      } />
+      <Route path="/admin" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminDashboard /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/providers" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminProviders /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/plans" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminPlans /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/articles" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminArticles /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/quotes" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminQuotes /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/users" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminUsers /></AdminRoute>
+        </Suspense>
+      } />
+
+      {/* ── Public Routes ── */}
       <Route path="/" element={
         <LayoutWrapper currentPageName={mainPageKey}>
           <MainPage />
