@@ -23,13 +23,14 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Main Headline with Gradient */}
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#084a6f] leading-tight mb-3 sm:mb-5 tracking-tight">
-                Stop Overpaying for{" "}
+                We Scout the Best{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]">
-                  Electricity
+                  Electricity Rates
                 </span>
+                {" "}So You Don't Have To
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
-                Your neighbors are already saving hundreds. Compare rates from 40+ trusted providers across 12 states in seconds — no signup, no spam, just real savings.
+                Why spend hours comparing plans yourself? We scan 40+ providers across 12 states to surface the rates that actually save you money. Just enter your ZIP code and let us do the scouting.
               </p>
             </div>
 
