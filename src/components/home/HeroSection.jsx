@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Star, Sparkles, CheckCircle, Shield } from "lucide-react";
+import { Star, Sparkles, CheckCircle, Shield, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import ValidatedZipInput from "../ValidatedZipInput";
@@ -53,6 +53,26 @@ export default function HeroSection({ zipCode, setZipCode }) {
                     Compare Now
                   </Button>
                 </Link>
+              </div>
+            </div>
+
+            {/* Social Proof */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#084a6f] flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">S</div>
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FF6B35] flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">M</div>
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">J</div>
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold ring-2 ring-white">R</div>
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-[10px] font-bold ring-2 ring-white">+50K</div>
+              </div>
+              <div className="text-sm sm:text-base">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                  <span className="text-gray-500 font-medium ml-1 text-xs sm:text-sm">4.8/5</span>
+                </div>
+                <p className="text-gray-600 text-xs sm:text-sm font-medium leading-tight">Trusted by <span className="text-[#084a6f] font-bold">50,000+</span> households saving an avg of <span className="text-[#FF6B35] font-bold">$600/yr</span></p>
               </div>
             </div>
 
