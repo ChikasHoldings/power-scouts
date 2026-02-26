@@ -101,10 +101,25 @@ export default function RenewableCompareRates() {
 
   // Filter plans for renewable energy only (>= 90% renewable)
   const renewablePlans = allPlans.filter(plan => {
-    const matchesZip = plan.zip_codes?.includes(zipCode);
+    const providerName = plan.provider_name;
+    const planName = (plan.plan_name || '').toLowerCase();
+    
+    // Exclude business plans
+    if (planName.includes('business') || planName.includes('commercial')) {
+      return false;
+    }
+    
+    // Filter by provider availability for current ZIP
+    if (zipCode && availableProviders.length > 0) {
+      const provider = availableProviders.find(p => p.name === providerName);
+      if (!provider) {
+        return false;
+      }
+    }
+    
     const isRenewable = plan.renewable_percentage && plan.renewable_percentage >= 90;
     const matchesContract = !contractLength || plan.contract_length?.toString() === contractLength;
-    return matchesZip && isRenewable && matchesContract;
+    return isRenewable && matchesContract;
   });
 
   // Sort plans
