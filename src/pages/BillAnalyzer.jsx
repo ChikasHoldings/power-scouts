@@ -324,6 +324,14 @@ export default function BillAnalyzer() {
   };
 
   // ─── Upload and analyze handler ────────────────────────────
+  // Helper: wrap a promise with a timeout
+  const withTimeout = (promise, ms, label = 'Operation') => {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error(`${label} timed out after ${ms / 1000}s. Please try again or enter details manually.`)), ms))
+    ]);
+  };
+
   const handleUploadAndAnalyze = async () => {
     if (!file) return;
 
@@ -353,7 +361,7 @@ export default function BillAnalyzer() {
       // Step 2: Upload the file to Supabase storage
       let uploadResult;
       try {
-        uploadResult = await UploadFile({ file: fileToUpload });
+        uploadResult = await withTimeout(UploadFile({ file: fileToUpload }), 30000, 'File upload');
       } catch (uploadErr) {
         console.error('File upload failed:', uploadErr);
         setIsUploading(false);
@@ -379,7 +387,7 @@ export default function BillAnalyzer() {
 
       for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
         try {
-          extractResult = await ExtractDataFromUploadedFile({
+          extractResult = await withTimeout(ExtractDataFromUploadedFile({
             file_url: fileUrl,
             json_schema: {
               type: "object",
@@ -397,7 +405,7 @@ export default function BillAnalyzer() {
                 billing_period: { type: "string", description: "Billing period dates" }
               }
             }
-          });
+          }), 45000, 'Bill analysis');
 
           // Validate the extracted data has meaningful values
           if (extractResult?.status === 'success' && extractResult?.output) {
