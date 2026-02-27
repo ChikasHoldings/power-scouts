@@ -763,21 +763,193 @@ export const PROVIDER_SEED_DATA = [
   },
 ];
 
-/**
- * Providers with known affiliate programs
- */
+// ═══════════════════════════════════════════════════════════════
+// PLAN SEED DATA — Accurate rates as of February 2026
+// Sources: TexasElectricityRatings.com, ChooseEnergy.com, ComparePower.com
+// ═══════════════════════════════════════════════════════════════
+export const PLAN_SEED_DATA = [
+  // ─── TXU Energy Plans ─────────────────────────────────────
+  { provider_name: "TXU Energy", plan_name: "Clear Deal 12", rate_per_kwh: 15.1, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 150, renewable_percentage: 0, features: ["Bill credit at 1000 kWh"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "Clear Deal 24", rate_per_kwh: 16.1, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 150, renewable_percentage: 0, features: ["Bill credit at 1000 kWh"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "Solar Value 12", rate_per_kwh: 16.1, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 150, renewable_percentage: 30, features: ["Solar energy blend"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "Simple Rate 12", rate_per_kwh: 18.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 150, renewable_percentage: 0, features: ["Simple fixed rate"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "Free Nights & Solar Days 12", rate_per_kwh: 20.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 150, renewable_percentage: 30, features: ["Free electricity 8pm-6am", "Solar during day"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "Flex Forward", rate_per_kwh: 20.5, contract_length: 1, plan_type: "variable", customer_type: "residential", state: "TX", monthly_base_charge: 9.95, early_termination_fee: 0, renewable_percentage: 0, features: ["Month-to-month", "No commitment"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "TXU Business Fixed 12", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 14.95, early_termination_fee: 250, renewable_percentage: 0, features: ["Business fixed rate"], is_active: true },
+  { provider_name: "TXU Energy", plan_name: "TXU Business Fixed 24", rate_per_kwh: 13.8, contract_length: 24, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 14.95, early_termination_fee: 250, renewable_percentage: 0, features: ["Long-term business rate"], is_active: true },
+
+  // ─── Reliant Energy Plans ─────────────────────────────────
+  { provider_name: "Reliant Energy", plan_name: "Reliant Power Savings 12", rate_per_kwh: 12.9, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 0, features: ["$50 bill credit at 1000 kWh"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Power Savings 24", rate_per_kwh: 12.9, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 0, features: ["$50 bill credit at 1000 kWh"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Pure Power 12", rate_per_kwh: 16.4, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 100, features: ["100% renewable", "Wind energy"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Pure Power 24", rate_per_kwh: 16.4, contract_length: 24, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 100, features: ["100% renewable", "Wind energy"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Basic Power 12", rate_per_kwh: 17.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 0, features: ["Simple fixed rate"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Conservation 12", rate_per_kwh: 17.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 295, renewable_percentage: 50, features: ["50% renewable", "Conservation plan"], is_active: true },
+  { provider_name: "Reliant Energy", plan_name: "Reliant Business Power 12", rate_per_kwh: 13.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 500, renewable_percentage: 0, features: ["Business fixed rate"], is_active: true },
+
+  // ─── Gexa Energy Plans ────────────────────────────────────
+  { provider_name: "Gexa Energy", plan_name: "Gexa Eco Saver Plus 12", rate_per_kwh: 9.1, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Bill credit plan", "Lowest Gexa rate"], is_active: true },
+  { provider_name: "Gexa Energy", plan_name: "Gexa Eco Saver Plus 24", rate_per_kwh: 8.9, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Bill credit plan", "24-month lock"], is_active: true },
+  { provider_name: "Gexa Energy", plan_name: "Gexa Saver Edge 12", rate_per_kwh: 14.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Simple pricing"], is_active: true },
+  { provider_name: "Gexa Energy", plan_name: "Gexa Green Saver 12", rate_per_kwh: 11.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable", "Wind energy"], is_active: true },
+
+  // ─── Frontier Utilities Plans ─────────────────────────────
+  { provider_name: "Frontier Utilities", plan_name: "Frontier Saver 12", rate_per_kwh: 8.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Lowest rate tier", "Bill credit"], is_active: true },
+  { provider_name: "Frontier Utilities", plan_name: "Frontier Saver Deluxe 12", rate_per_kwh: 10.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Tiered pricing", "Bill credit"], is_active: true },
+
+  // ─── Green Mountain Energy Plans ──────────────────────────
+  { provider_name: "Green Mountain Energy", plan_name: "Pollution Free e-Plus 12", rate_per_kwh: 15.8, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% wind", "Pollution Free guarantee"], is_active: true },
+  { provider_name: "Green Mountain Energy", plan_name: "Pollution Free e-Plus 24", rate_per_kwh: 15.2, contract_length: 24, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% wind", "24-month lock"], is_active: true },
+  { provider_name: "Green Mountain Energy", plan_name: "Renewable Rewards 12", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable", "Rewards program"], is_active: true },
+  { provider_name: "Green Mountain Energy", plan_name: "Green Mountain PA Fixed 12", rate_per_kwh: 12.9, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "PA", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 100, features: ["100% renewable", "PA market"], is_active: true },
+  { provider_name: "Green Mountain Energy", plan_name: "Green Mountain NY Fixed 12", rate_per_kwh: 14.2, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "NY", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 100, features: ["100% renewable", "NY market"], is_active: true },
+
+  // ─── Constellation Energy Plans ───────────────────────────
+  { provider_name: "Constellation Energy", plan_name: "12 Month Home Power Plan", rate_per_kwh: 14.9, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Price protection"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "24 Month Home Power Plan", rate_per_kwh: 14.5, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Long-term savings"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "Green Home Power 12", rate_per_kwh: 16.2, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable", "Green-e certified"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "Business Fixed 12", rate_per_kwh: 12.8, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate", "Dedicated support"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "6 Month Home Power Plan (NJ)", rate_per_kwh: 19.3, contract_length: 6, plan_type: "fixed", customer_type: "residential", state: "NJ", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Short term", "NJ market"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "12 Month Home Power (PA)", rate_per_kwh: 11.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "PA", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "PA market"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "12 Month Home Power (OH)", rate_per_kwh: 10.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "12 Month Home Power (IL)", rate_per_kwh: 10.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "IL", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "IL market"], is_active: true },
+  { provider_name: "Constellation Energy", plan_name: "Business Fixed 12 (PA)", rate_per_kwh: 10.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "PA", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate", "PA market"], is_active: true },
+
+  // ─── Direct Energy Plans ──────────────────────────────────
+  { provider_name: "Direct Energy", plan_name: "Live Brighter 12", rate_per_kwh: 15.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 175, renewable_percentage: 0, features: ["Fixed rate", "Plenti rewards"], is_active: true },
+  { provider_name: "Direct Energy", plan_name: "Free Weekends 12", rate_per_kwh: 18.9, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 175, renewable_percentage: 0, features: ["Free weekends"], is_active: true },
+  { provider_name: "Direct Energy", plan_name: "Direct Business Fixed 12", rate_per_kwh: 13.2, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+  { provider_name: "Direct Energy", plan_name: "Direct Energy Fixed 12 (PA)", rate_per_kwh: 11.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "PA", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "PA market"], is_active: true },
+  { provider_name: "Direct Energy", plan_name: "Direct Energy Fixed 12 (OH)", rate_per_kwh: 10.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+
+  // ─── Champion Energy Plans ────────────────────────────────
+  { provider_name: "Champion Energy", plan_name: "Champ Saver 12", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Simple pricing"], is_active: true },
+  { provider_name: "Champion Energy", plan_name: "Champ Saver 24", rate_per_kwh: 14.2, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "24-month lock"], is_active: true },
+  { provider_name: "Champion Energy", plan_name: "Champion Business 12", rate_per_kwh: 12.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── Ambit Energy Plans ───────────────────────────────────
+  { provider_name: "Ambit Energy", plan_name: "Ambit Lone Star Fixed 12", rate_per_kwh: 16.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Travel rewards"], is_active: true },
+  { provider_name: "Ambit Energy", plan_name: "Ambit Fixed 12 (IL)", rate_per_kwh: 10.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "IL", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "IL market"], is_active: true },
+  { provider_name: "Ambit Energy", plan_name: "Ambit Business Fixed 12", rate_per_kwh: 14.2, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── Spark Energy Plans ───────────────────────────────────
+  { provider_name: "Spark Energy", plan_name: "Spark Fixed 12", rate_per_kwh: 15.9, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate"], is_active: true },
+  { provider_name: "Spark Energy", plan_name: "Spark Green 12", rate_per_kwh: 17.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable"], is_active: true },
+  { provider_name: "Spark Energy", plan_name: "Spark Business Fixed 12", rate_per_kwh: 13.8, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── Cirro Energy Plans ───────────────────────────────────
+  { provider_name: "Cirro Energy", plan_name: "Cirro Simple 12", rate_per_kwh: 8.4, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Lowest rate", "Simple fixed"], is_active: true },
+  { provider_name: "Cirro Energy", plan_name: "Cirro Simple 24", rate_per_kwh: 9.2, contract_length: 24, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["24-month lock", "Simple fixed"], is_active: true },
+
+  // ─── Discount Power Plans ─────────────────────────────────
+  { provider_name: "Discount Power", plan_name: "Discount Power Saver 12", rate_per_kwh: 8.6, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Budget rate", "Fixed price"], is_active: true },
+
+  // ─── Chariot Energy Plans ─────────────────────────────────
+  { provider_name: "Chariot Energy", plan_name: "Solarize 24", rate_per_kwh: 14.6, contract_length: 24, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% solar", "24-month lock"], is_active: true },
+  { provider_name: "Chariot Energy", plan_name: "Solar Buyback 24", rate_per_kwh: 15.5, contract_length: 24, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["Solar buyback", "Net metering"], is_active: true },
+
+  // ─── 4Change Energy Plans ─────────────────────────────────
+  { provider_name: "4Change Energy", plan_name: "Power Savvy Saver 12", rate_per_kwh: 17.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Charitable giving", "Fixed rate"], is_active: true },
+
+  // ─── Rhythm Energy Plans ──────────────────────────────────
+  { provider_name: "Rhythm Energy", plan_name: "Rhythm Fixed 12", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Transparent pricing", "App management"], is_active: true },
+  { provider_name: "Rhythm Energy", plan_name: "Rhythm Green 12", rate_per_kwh: 16.2, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable", "Time-of-use"], is_active: true },
+
+  // ─── Octopus Energy Plans ─────────────────────────────────
+  { provider_name: "Octopus Energy", plan_name: "Octopus Green 12", rate_per_kwh: 15.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 0, renewable_percentage: 100, features: ["100% renewable", "Smart tariff"], is_active: true },
+
+  // ─── Pulse Power Plans ────────────────────────────────────
+  { provider_name: "Pulse Power", plan_name: "Pulse Power Fixed 12", rate_per_kwh: 14.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Simple plan"], is_active: true },
+
+  // ─── Eligo Energy Plans ───────────────────────────────────
+  { provider_name: "Eligo Energy", plan_name: "Eligo Fixed 12 (IL)", rate_per_kwh: 9.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "IL", monthly_base_charge: 0, early_termination_fee: 50, renewable_percentage: 0, features: ["Fixed rate", "IL market"], is_active: true },
+  { provider_name: "Eligo Energy", plan_name: "Eligo Fixed 12 (OH)", rate_per_kwh: 9.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 50, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "Eligo Energy", plan_name: "Eligo Business Fixed 12 (IL)", rate_per_kwh: 8.9, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "IL", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Business rate", "IL market"], is_active: true },
+
+  // ─── AEP Energy Plans ─────────────────────────────────────
+  { provider_name: "AEP Energy", plan_name: "AEP Fixed 12 (OH)", rate_per_kwh: 10.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "AEP Energy", plan_name: "AEP Green 12 (OH)", rate_per_kwh: 11.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "OH", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 100, features: ["100% renewable", "OH market"], is_active: true },
+  { provider_name: "AEP Energy", plan_name: "AEP Business Fixed 12 (OH)", rate_per_kwh: 9.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "OH", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Business rate", "OH market"], is_active: true },
+
+  // ─── IGS Energy Plans ─────────────────────────────────────
+  { provider_name: "IGS Energy", plan_name: "IGS Fixed 12 (OH)", rate_per_kwh: 9.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "IGS Energy", plan_name: "IGS Green 12 (OH)", rate_per_kwh: 11.2, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "OH", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 100, features: ["100% renewable", "OH market"], is_active: true },
+
+  // ─── Clearview Energy Plans ───────────────────────────────
+  { provider_name: "Clearview Energy", plan_name: "Clearview Fixed 12 (PA)", rate_per_kwh: 11.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "PA", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "PA market"], is_active: true },
+  { provider_name: "Clearview Energy", plan_name: "Clearview Fixed 12 (OH)", rate_per_kwh: 9.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "Clearview Energy", plan_name: "Clearview Fixed 12 (MA)", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "MA", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "MA market"], is_active: true },
+
+  // ─── CleanChoice Energy Plans ─────────────────────────────
+  { provider_name: "CleanChoice Energy", plan_name: "CleanChoice 100% Wind (NY)", rate_per_kwh: 15.5, contract_length: 0, plan_type: "variable", customer_type: "renewable", state: "NY", monthly_base_charge: 0, early_termination_fee: 0, renewable_percentage: 100, features: ["100% wind", "No contract"], is_active: true },
+  { provider_name: "CleanChoice Energy", plan_name: "CleanChoice 100% Wind (PA)", rate_per_kwh: 13.2, contract_length: 0, plan_type: "variable", customer_type: "renewable", state: "PA", monthly_base_charge: 0, early_termination_fee: 0, renewable_percentage: 100, features: ["100% wind", "No contract"], is_active: true },
+  { provider_name: "CleanChoice Energy", plan_name: "CleanChoice 100% Solar (MD)", rate_per_kwh: 14.8, contract_length: 0, plan_type: "variable", customer_type: "renewable", state: "MD", monthly_base_charge: 0, early_termination_fee: 0, renewable_percentage: 100, features: ["100% solar", "No contract"], is_active: true },
+
+  // ─── Just Energy Plans ────────────────────────────────────
+  { provider_name: "Just Energy", plan_name: "JustGreen 12 (TX)", rate_per_kwh: 17.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 175, renewable_percentage: 100, features: ["100% green", "Fixed rate"], is_active: true },
+  { provider_name: "Just Energy", plan_name: "Just Energy Fixed 12 (IL)", rate_per_kwh: 10.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "IL", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "IL market"], is_active: true },
+  { provider_name: "Just Energy", plan_name: "Just Energy Business 12 (TX)", rate_per_kwh: 14.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── Xoom Energy Plans ────────────────────────────────────
+  { provider_name: "Xoom Energy", plan_name: "Xoom SureLock 12 (TX)", rate_per_kwh: 15.2, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate", "Rewards"], is_active: true },
+  { provider_name: "Xoom Energy", plan_name: "Xoom SureLock 12 (OH)", rate_per_kwh: 10.5, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "OH", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 0, features: ["Fixed rate", "OH market"], is_active: true },
+  { provider_name: "Xoom Energy", plan_name: "Xoom Business Fixed 12 (TX)", rate_per_kwh: 13.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── Tomorrow Energy Plans ────────────────────────────────
+  { provider_name: "Tomorrow Energy", plan_name: "Tomorrow Green 12 (OH)", rate_per_kwh: 10.8, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "OH", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 100, features: ["100% renewable", "Carbon offset"], is_active: true },
+  { provider_name: "Tomorrow Energy", plan_name: "Tomorrow Green 12 (PA)", rate_per_kwh: 12.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "PA", monthly_base_charge: 0, early_termination_fee: 75, renewable_percentage: 100, features: ["100% renewable", "Carbon offset"], is_active: true },
+
+  // ─── Think Energy Plans ───────────────────────────────────
+  { provider_name: "Think Energy", plan_name: "Think Green 12 (TX)", rate_per_kwh: 16.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable"], is_active: true },
+  { provider_name: "Think Energy", plan_name: "Think Business 12 (TX)", rate_per_kwh: 13.9, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+
+  // ─── ENGIE Plans ──────────────────────────────────────────
+  { provider_name: "ENGIE", plan_name: "ENGIE Fixed 12 (TX)", rate_per_kwh: 14.8, contract_length: 12, plan_type: "fixed", customer_type: "residential", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 0, features: ["Fixed rate"], is_active: true },
+  { provider_name: "ENGIE", plan_name: "ENGIE Business 12 (TX)", rate_per_kwh: 12.5, contract_length: 12, plan_type: "fixed", customer_type: "business", state: "TX", monthly_base_charge: 0, early_termination_fee: 250, renewable_percentage: 0, features: ["Business rate"], is_active: true },
+  { provider_name: "ENGIE", plan_name: "ENGIE Green 12 (TX)", rate_per_kwh: 16.8, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable"], is_active: true },
+
+  // ─── Verde Energy Plans ───────────────────────────────────
+  { provider_name: "Verde Energy", plan_name: "Verde Green 12 (TX)", rate_per_kwh: 16.9, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "TX", monthly_base_charge: 0, early_termination_fee: 150, renewable_percentage: 100, features: ["100% renewable"], is_active: true },
+  { provider_name: "Verde Energy", plan_name: "Verde Green 12 (PA)", rate_per_kwh: 13.5, contract_length: 12, plan_type: "fixed", customer_type: "renewable", state: "PA", monthly_base_charge: 0, early_termination_fee: 100, renewable_percentage: 100, features: ["100% renewable", "PA market"], is_active: true },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// CONSTANTS & HELPERS
+// ═══════════════════════════════════════════════════════════════
+
+export const DEREGULATED_STATES = [
+  { code: "TX", name: "Texas" },
+  { code: "IL", name: "Illinois" },
+  { code: "OH", name: "Ohio" },
+  { code: "PA", name: "Pennsylvania" },
+  { code: "NY", name: "New York" },
+  { code: "NJ", name: "New Jersey" },
+  { code: "MD", name: "Maryland" },
+  { code: "CT", name: "Connecticut" },
+  { code: "MA", name: "Massachusetts" },
+  { code: "NH", name: "New Hampshire" },
+  { code: "ME", name: "Maine" },
+  { code: "DE", name: "Delaware" },
+];
+
 export const AFFILIATE_PROVIDERS = PROVIDER_SEED_DATA.filter(p => p.has_affiliate_program);
 
-/**
- * Get providers by state
- */
 export function getProvidersByState(stateCode) {
   return PROVIDER_SEED_DATA.filter(p => p.supported_states.includes(stateCode));
 }
 
-/**
- * Get providers by category
- */
 export function getProvidersByCategory(category) {
   return PROVIDER_SEED_DATA.filter(p => p.offer_categories.includes(category));
+}
+
+export function getPlansByCategory(category) {
+  return PLAN_SEED_DATA.filter(p => p.customer_type === category);
+}
+
+export function getPlansByProvider(providerName) {
+  return PLAN_SEED_DATA.filter(p => p.provider_name === providerName);
+}
+
+export function getPlansByState(stateCode) {
+  return PLAN_SEED_DATA.filter(p => p.state === stateCode);
 }
