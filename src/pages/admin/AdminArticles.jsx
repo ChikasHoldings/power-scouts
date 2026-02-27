@@ -276,7 +276,7 @@ export default function AdminArticles() {
                           {article.featured_image ? (
                             <img
                               src={article.featured_image}
-                              alt=""
+                              alt={`${article.title} featured image`}
                               className="w-12 h-8 rounded object-cover bg-gray-100 flex-shrink-0"
                             />
                           ) : (

@@ -8,7 +8,7 @@ import ValidatedZipInput from "../ValidatedZipInput";
 export default function HeroSection({ zipCode, setZipCode }) {
   const [isZipValid, setIsZipValid] = useState(false);
   return (
-    <section className="bg-slate-50 pt-16 pb-10 relative overflow-hidden sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-20">
+    <section className="bg-slate-50 pt-14 pb-10 relative overflow-hidden sm:pt-20 sm:pb-16 lg:pt-26 lg:pb-18">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -19,7 +19,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className="space-y-4 sm:space-y-6 lg:space-y-7 animate-fade-in-up">
+          <div className="space-y-3 sm:space-y-5 lg:space-y-6 animate-fade-in-up">
             {/* Main Headline with Gradient */}
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#084a6f] leading-tight mb-3 sm:mb-5 tracking-tight">
@@ -30,7 +30,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
                 {" "}So You Don't Have To
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
-                Why spend hours comparing plans yourself? We scan 40+ providers across 12 states to surface the rates that actually save you money. Just enter your ZIP code and let us do the scouting.
+                We scan 40+ providers across 12 states to find the rates that actually save you money. Just enter your ZIP code.
               </p>
             </div>
 
