@@ -606,7 +606,7 @@ export default function ChatBot() {
           <Button
             onClick={handleSend}
             disabled={!input.trim() || isLoading || uploadingFile}
-            className="rounded-full w-10 h-10 p-0 bg-[#0A5C8C] hover:bg-[#084a6f]"
+            className="rounded-full w-10 h-10 p-0 bg-[#0A5C8C] hover:bg-[#084a6f] text-white"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />

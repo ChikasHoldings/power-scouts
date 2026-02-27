@@ -465,7 +465,7 @@ export default function CompareRates() {
                 <p className="text-gray-600 mb-6">
                   We're working on adding plans for {cityName} (ZIP: {zipCode}). Try searching with a different ZIP code.
                 </p>
-                <Button onClick={() => { setShowResults(false); setStep(1); setZipCode(""); }} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+                <Button onClick={() => { setShowResults(false); setStep(1); setZipCode(""); }} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                   Try Another ZIP Code
                 </Button>
               </div>
@@ -501,11 +501,16 @@ export default function CompareRates() {
                     <div className="mb-4">
                       <div className="h-10 flex items-center justify-center mb-2">
                         {getProviderLogo(plan.provider_name) ? (
-                          <img 
-                            src={getProviderLogo(plan.provider_name)} 
-                            alt={plan.provider_name}
-                            className="h-8 w-auto object-contain"
-                          loading="lazy" />
+                          <>
+                            <img 
+                              src={getProviderLogo(plan.provider_name)} 
+                              alt={plan.provider_name}
+                              className="h-8 w-auto object-contain"
+                              loading="lazy"
+                              onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling && (e.target.nextElementSibling.style.display = 'inline'); }}
+                            />
+                            <span className="text-sm font-semibold text-gray-900" style={{display:'none'}}>{plan.provider_name}</span>
+                          </>
                         ) : (
                           <span className="text-sm font-semibold text-gray-900">{plan.provider_name}</span>
                         )}
@@ -761,12 +766,16 @@ export default function CompareRates() {
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2.5">
                             {getProviderLogo(plan.provider_name) ? (
-                              <img 
-                                src={getProviderLogo(plan.provider_name)} 
-                                alt={plan.provider_name}
-                                className="h-7 w-auto object-contain"
-                                loading="lazy"
-                              />
+                              <>
+                                <img 
+                                  src={getProviderLogo(plan.provider_name)} 
+                                  alt={plan.provider_name}
+                                  className="h-7 w-auto object-contain"
+                                  loading="lazy"
+                                  onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling && (e.target.nextElementSibling.style.display = 'inline'); }}
+                                />
+                                <span className="text-xs font-semibold text-gray-900" style={{display:'none'}}>{plan.provider_name.substring(0, 2)}</span>
+                              </>
                             ) : (
                               <span className="text-xs font-semibold text-gray-900">{plan.provider_name.substring(0, 2)}</span>
                             )}
@@ -832,12 +841,16 @@ export default function CompareRates() {
                     <CardContent className="p-3.5">
                       <div className="flex items-center gap-2.5 mb-2.5">
                         {getProviderLogo(plan.provider_name) ? (
-                          <img 
-                            src={getProviderLogo(plan.provider_name)} 
-                            alt={plan.provider_name}
-                            className="h-7 w-auto object-contain"
-                            loading="lazy"
-                          />
+                          <>
+                            <img 
+                              src={getProviderLogo(plan.provider_name)} 
+                              alt={plan.provider_name}
+                              className="h-7 w-auto object-contain"
+                              loading="lazy"
+                              onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling && (e.target.nextElementSibling.style.display = 'inline'); }}
+                            />
+                            <span className="text-xs font-semibold text-gray-900" style={{display:'none'}}>{plan.provider_name.substring(0, 3)}</span>
+                          </>
                         ) : (
                           <span className="text-xs font-semibold text-gray-900">{plan.provider_name.substring(0, 3)}</span>
                         )}
@@ -920,7 +933,7 @@ export default function CompareRates() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">No plans match your preferences</h3>
               <p className="text-gray-600 mb-6">Try adjusting your preferences to see more options</p>
-              <Button onClick={() => { setShowResults(false); setStep(3); }} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+              <Button onClick={() => { setShowResults(false); setStep(3); }} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                 Adjust Preferences
               </Button>
             </div>

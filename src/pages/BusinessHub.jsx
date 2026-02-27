@@ -263,7 +263,7 @@ export default function BusinessHub() {
                   </div>
                 </div>
                 <Link to={createPageUrl("BusinessCompareRates")}>
-                  <Button className="w-full bg-[#0A5C8C] hover:bg-[#084a6f]">
+                  <Button className="w-full bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                     View Medium Business Plans
                   </Button>
                 </Link>

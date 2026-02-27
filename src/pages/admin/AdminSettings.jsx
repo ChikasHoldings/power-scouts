@@ -256,7 +256,7 @@ export default function AdminSettings() {
             </div>
 
             <div className="flex justify-end pt-2">
-              <Button onClick={handleProfileSave} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+              <Button onClick={handleProfileSave} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
                 Save Profile
               </Button>
@@ -331,7 +331,7 @@ export default function AdminSettings() {
                 Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character.
               </p>
               <div className="flex justify-end pt-2">
-                <Button onClick={handlePasswordChange} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+                <Button onClick={handlePasswordChange} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                   {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Shield className="w-4 h-4 mr-2" />}
                   Update Password
                 </Button>
@@ -409,7 +409,7 @@ export default function AdminSettings() {
             </div>
 
             <div className="flex justify-end pt-2">
-              <Button onClick={handleNotificationsSave} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+              <Button onClick={handleNotificationsSave} disabled={saving} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
                 Save Preferences
               </Button>

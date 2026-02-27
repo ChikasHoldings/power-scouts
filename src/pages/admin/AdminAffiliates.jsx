@@ -339,7 +339,7 @@ export default function AdminAffiliates() {
             <SelectItem value="inactive">Inactive</SelectItem>
           </SelectContent>
         </Select>
-        <Button onClick={openCreate} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+        <Button onClick={openCreate} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
           <Plus className="w-4 h-4 mr-2" />
           Add Affiliate Link
         </Button>
@@ -568,7 +568,7 @@ export default function AdminAffiliates() {
               <Button
                 type="submit"
                 disabled={isSaving}
-                className="bg-[#0A5C8C] hover:bg-[#084a6f]"
+                className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white"
               >
                 {isSaving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 {editingLink ? "Save Changes" : "Create Link"}

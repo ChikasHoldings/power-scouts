@@ -103,12 +103,12 @@ export default function Home() {
                     Enter Your ZIP Code
                   </h3>
                   <div className="space-y-5">
-                    <div className="h-14 px-4 py-3 border-2 rounded-xl bg-white">
+                    <div className="h-16 px-4 py-4 border-2 rounded-xl bg-white">
                       <ValidatedZipInput
                         value={zipCode}
                         onChange={handleZipChange}
                         placeholder="Enter ZIP code"
-                        className="text-xl"
+                        className="text-xl [&_input]:text-xl [&_input]:h-8 [&_input]:placeholder:text-gray-400"
                         onValidationChange={setIsZipValid}
                       />
                     </div>

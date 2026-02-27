@@ -202,7 +202,7 @@ export default function AdminPlans() {
             <SelectItem value="prepaid">Prepaid</SelectItem>
           </SelectContent>
         </Select>
-        <Button onClick={openCreate} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+        <Button onClick={openCreate} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
           <Plus className="w-4 h-4 mr-2" />
           Add Plan
         </Button>
@@ -536,7 +536,7 @@ export default function AdminPlans() {
               <Button
                 type="submit"
                 disabled={isSaving}
-                className="bg-[#0A5C8C] hover:bg-[#084a6f]"
+                className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white"
               >
                 {isSaving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 {editingPlan ? "Save Changes" : "Create Plan"}

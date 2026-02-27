@@ -250,7 +250,7 @@ export default function ComparisonWizard({ onComplete }) {
                         key={preset.value}
                         onClick={() => setFormData(prev => ({ ...prev, usage: preset.value }))}
                         variant={formData.usage === preset.value ? "default" : "outline"}
-                        className={formData.usage === preset.value ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={formData.usage === preset.value ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         {preset.label}
                       </Button>

@@ -37,12 +37,12 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Enhanced ZIP Code Input */}
             <div className="bg-white rounded-2xl shadow-xl border-2 border-gray-200 p-1.5 hover:shadow-2xl hover:border-gray-300 transition-all duration-300">
               <div className="flex flex-col sm:flex-row items-stretch gap-4 sm:gap-2.5">
-                <div className="flex-1 px-5 py-3 bg-gray-50 rounded-xl">
+                <div className="flex-1 px-5 py-4 sm:py-5 bg-gray-50 rounded-xl">
                   <ValidatedZipInput
                     value={zipCode}
                     onChange={setZipCode}
                     placeholder="Enter ZIP code"
-                    className="text-xl sm:text-2xl"
+                    className="text-xl sm:text-2xl [&_input]:text-xl [&_input]:sm:text-2xl [&_input]:h-8 [&_input]:sm:h-10 [&_input]:placeholder:text-gray-400"
                     onValidationChange={setIsZipValid}
                   />
                 </div>

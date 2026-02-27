@@ -94,21 +94,21 @@ export default async function handler(req, res) {
     { url: '/renewable-compare-rates', priority: '0.8', changefreq: 'weekly' },
 
     // Learning Center Articles (SEO-optimized)
-    { url: '/article?id=6', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=7', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=8', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=9', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=10', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=11', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=12', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=13', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=14', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=15', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=1', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=2', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=3', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=4', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article?id=5', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=6', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=7', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=8', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=9', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=10', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=11', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=12', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=13', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=14', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=15', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=1', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=2', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=3', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=4', priority: '0.8', changefreq: 'monthly' },
+    { url: '/article-detail?id=5', priority: '0.8', changefreq: 'monthly' },
 
     // Legal
     { url: '/privacy-policy', priority: '0.3', changefreq: 'yearly' },
@@ -133,7 +133,7 @@ export default async function handler(req, res) {
 
     if (articles && articles.length > 0) {
       articlePages = articles.map(article => ({
-        url: `/article/${article.slug || article.id}`,
+        url: `/article-detail?id=${article.slug || article.id}`,
         priority: '0.7',
         changefreq: 'weekly',
         lastmod: (article.updated_at || article.created_at || '').split('T')[0] || lastmod,

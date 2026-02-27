@@ -442,7 +442,7 @@ export default function BusinessCompareRates() {
                         key={usage}
                         variant={monthlyUsage === usage ? "default" : "outline"}
                         onClick={() => setMonthlyUsage(usage)}
-                        className={monthlyUsage === usage ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={monthlyUsage === usage ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         {parseInt(usage).toLocaleString()} kWh
                       </Button>
@@ -471,7 +471,7 @@ export default function BusinessCompareRates() {
                         key={option.value}
                         variant={planType === option.value ? "default" : "outline"}
                         onClick={() => setPlanType(option.value)}
-                        className={planType === option.value ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={planType === option.value ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         {option.label}
                       </Button>
@@ -494,7 +494,7 @@ export default function BusinessCompareRates() {
                         key={option.value}
                         variant={contractLength === option.value ? "default" : "outline"}
                         onClick={() => setContractLength(option.value)}
-                        className={contractLength === option.value ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={contractLength === option.value ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         {option.label}
                       </Button>
@@ -570,7 +570,7 @@ export default function BusinessCompareRates() {
                         size="sm"
                         variant={sortBy === "rate" ? "default" : "outline"}
                         onClick={() => setSortBy("rate")}
-                        className={sortBy === "rate" ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={sortBy === "rate" ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         Lowest Rate
                       </Button>
@@ -578,7 +578,7 @@ export default function BusinessCompareRates() {
                         size="sm"
                         variant={sortBy === "contract" ? "default" : "outline"}
                         onClick={() => setSortBy("contract")}
-                        className={sortBy === "contract" ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={sortBy === "contract" ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         Contract
                       </Button>
@@ -586,7 +586,7 @@ export default function BusinessCompareRates() {
                         size="sm"
                         variant={sortBy === "renewable" ? "default" : "outline"}
                         onClick={() => setSortBy("renewable")}
-                        className={sortBy === "renewable" ? "bg-[#0A5C8C] hover:bg-[#084a6f]" : ""}
+                        className={sortBy === "renewable" ? "bg-[#0A5C8C] hover:bg-[#084a6f] text-white" : ""}
                       >
                         Green
                       </Button>
@@ -617,7 +617,7 @@ export default function BusinessCompareRates() {
                     <Button onClick={() => setStep(1)} variant="outline">
                       Try Different ZIP
                     </Button>
-                    <Button onClick={() => setStep(3)} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+                    <Button onClick={() => setStep(3)} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                       Adjust Preferences
                     </Button>
                   </div>

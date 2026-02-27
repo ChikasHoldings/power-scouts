@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Award, Users, Heart, CheckCircle, ArrowRight, Mail } from "lucide-react";
+import { Award, Users, Heart, CheckCircle, ArrowRight, Mail, Zap, Shield, TrendingDown, Globe, Target, Lightbulb, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import SEOHead, { getBreadcrumbSchema, getOrganizationSchema } from "../components/SEOHead";
 
 export default function AboutUs() {
@@ -14,278 +15,317 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="About ElectricScouts - America's Electricity Comparison Platform | Our Story"
-        description="Learn about ElectricScouts, the leading electricity rate comparison platform serving 12 states. Our mission: simplify energy shopping and help millions save on electricity. Founded to bring transparency to deregulated energy markets. Compare 40+ providers, save up to $800/year. Trusted by thousands nationwide."
+        title="About ElectricScouts - America's Trusted Electricity Comparison Platform"
+        description="ElectricScouts is America's leading free electricity rate comparison platform, serving 12 deregulated states. Compare 40+ providers, find the best rates, and save up to $800/year. Trusted by thousands of households and businesses nationwide."
         keywords="about electricscouts, electricity comparison platform, energy comparison service, who we are, our mission, electricity shopping help, trusted energy comparison"
         canonical="/about-us"
         structuredData={[breadcrumbData, getOrganizationSchema()]}
       />
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-3">
-              About ElectricScouts
-            </h1>
-            <p className="text-lg text-blue-100">
-              Empowering Americans to make smarter energy choices since 2019
-            </p>
+
+      {/* Hero Section with Image */}
+      <div className="relative bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-sm text-blue-100 mb-6">
+                <Zap className="w-4 h-4" />
+                Serving 12 States Across America
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Empowering Smarter <span className="text-[#FF6B35]">Energy Choices</span> for Every American
+              </h1>
+              <p className="text-xl text-blue-100 leading-relaxed mb-8">
+                ElectricScouts is America's trusted free electricity comparison platform. We help households and businesses navigate deregulated energy markets to find the best rates, save money, and take control of their electricity costs.
+              </p>
+              <div className="flex flex-wrap gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                  <span>100% Free</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                  <span>40+ Providers</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                  <span>No Obligations</span>
+                </div>
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              <img 
+                src="/images/about-hero.jpg" 
+                alt="ElectricScouts team analyzing electricity rate comparison data" 
+                className="rounded-2xl shadow-2xl w-full object-cover h-[400px]"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Mission Section */}
-        <section className="bg-white rounded-2xl shadow-xl p-12 mb-16">
+      {/* Trust Indicators */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { value: "12", label: "States Served", icon: Globe, color: "blue" },
+            { value: "40+", label: "Energy Providers", icon: Zap, color: "orange" },
+            { value: "$800", label: "Avg. Annual Savings", icon: TrendingDown, color: "green" },
+            { value: "4.8★", label: "Customer Rating", icon: Award, color: "purple" }
+          ].map((stat, i) => (
+            <Card key={i} className="border-0 shadow-lg">
+              <CardContent className="p-5 text-center">
+                <stat.icon className={`w-8 h-8 mx-auto mb-2 ${
+                  stat.color === 'blue' ? 'text-blue-600' : 
+                  stat.color === 'orange' ? 'text-orange-500' : 
+                  stat.color === 'green' ? 'text-green-600' : 'text-purple-600'
+                }`} />
+                <div className="text-2xl md:text-3xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-sm text-gray-500">{stat.label}</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+
+        {/* Our Mission */}
+        <section>
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Our goal is simple. To empower you by simplifying your search for electricity 
-              companies and plans. Whether you're looking for the cheapest electricity rate 
-              or a plan that fits your needs, we're here to help you make the best choice.
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
+            <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full"></div>
+          </div>
+          <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-8 lg:p-12">
+            <div className="max-w-3xl mx-auto text-center">
+              <Target className="w-12 h-12 text-[#0A5C8C] mx-auto mb-6" />
+              <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
+                "To make electricity shopping simple, transparent, and fair for every American. We believe everyone deserves access to the best energy rates without the confusion, hidden fees, or pressure tactics that have plagued the industry."
+              </p>
+              <p className="text-lg text-gray-600 mt-6 leading-relaxed">
+                In deregulated energy markets, consumers have the power to choose their electricity provider — but with dozens of providers and hundreds of plans, finding the right one can feel overwhelming. ElectricScouts exists to cut through the noise. We aggregate, compare, and present electricity plans side by side so you can make an informed decision in minutes, not hours.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Story */}
+        <section>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
+              <div className="w-20 h-1 bg-[#FF6B35] rounded-full mb-8"></div>
+              <div className="space-y-5 text-lg text-gray-600 leading-relaxed">
+                <p>
+                  ElectricScouts was born from a simple frustration: why is it so hard to find a good electricity plan? Our founders experienced firsthand the confusion of navigating deregulated energy markets — comparing dozens of providers, deciphering complex rate structures, and wondering if they were really getting the best deal.
+                </p>
+                <p>
+                  We built ElectricScouts to solve that problem. Starting in Texas — one of the most competitive energy markets in the country — we created a platform that aggregates plans from every major provider and presents them in a clear, apples-to-apples comparison. No jargon, no hidden fees, no pressure.
+                </p>
+                <p>
+                  Today, ElectricScouts serves 12 deregulated states across America, helping thousands of households and businesses find better electricity rates every month. Our platform compares plans from over 40 providers, and on average, our users save $800 per year by switching through our service.
+                </p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              {[
+                { year: "2019", event: "ElectricScouts founded in Texas", detail: "Launched with a mission to bring transparency to electricity shopping" },
+                { year: "2020", event: "Expanded to 6 states", detail: "Added Pennsylvania, New York, Illinois, Ohio, and New Jersey" },
+                { year: "2022", event: "Reached 10,000+ users", detail: "Milestone of helping thousands of families save on electricity" },
+                { year: "2024", event: "12 states, 40+ providers", detail: "Added Maryland, Massachusetts, Connecticut, and more" },
+                { year: "2025", event: "Business & Renewable tools", detail: "Launched commercial rates comparison and green energy tools" },
+                { year: "2026", event: "AI-powered bill analysis", detail: "Introduced smart bill analyzer for personalized savings recommendations" }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-16 h-16 bg-[#0A5C8C] text-white rounded-xl flex items-center justify-center font-bold text-sm">
+                    {item.year}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900">{item.event}</h4>
+                    <p className="text-sm text-gray-500">{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What We Do */}
+        <section>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">What We Do</h2>
+            <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full mb-4"></div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              ElectricScouts provides a complete suite of free tools to help you find, compare, and switch to better electricity plans.
             </p>
           </div>
-
-          {/* Stats Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <div className="text-center p-6 bg-gradient-to-br from-teal-50 to-blue-50 rounded-xl">
-              <Users className="w-12 h-12 text-teal-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-gray-900 mb-2">10,000+</div>
-              <div className="text-gray-600">Happy Customers</div>
-            </div>
-
-            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
-              <Award className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-gray-900 mb-2">100+</div>
-              <div className="text-gray-600">Years of Experience</div>
-            </div>
-
-            <div className="text-center p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl">
-              <Heart className="w-12 h-12 text-orange-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-gray-900 mb-2">4.8★</div>
-              <div className="text-gray-600">Customer Rating</div>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: BarChart3,
+                color: "bg-blue-100 text-blue-600",
+                title: "Rate Comparison",
+                desc: "Compare electricity rates from 40+ providers across 12 states. Enter your ZIP code and see every available plan ranked by price, term length, and features — all in one place."
+              },
+              {
+                icon: Zap,
+                color: "bg-orange-100 text-orange-600",
+                title: "Bill Analysis",
+                desc: "Upload your electricity bill or enter your details manually. Our analyzer breaks down your costs, identifies overcharges, and recommends plans that could save you hundreds per year."
+              },
+              {
+                icon: Lightbulb,
+                color: "bg-green-100 text-green-600",
+                title: "Green Energy Options",
+                desc: "Find 100% renewable energy plans from certified green providers. Compare solar, wind, and clean energy options without sacrificing savings or convenience."
+              },
+              {
+                icon: Users,
+                color: "bg-purple-100 text-purple-600",
+                title: "Business Solutions",
+                desc: "Specialized comparison tools for small businesses, offices, and commercial properties. Find competitive business electricity rates tailored to your industry and usage."
+              },
+              {
+                icon: Shield,
+                color: "bg-teal-100 text-teal-600",
+                title: "Unbiased Recommendations",
+                desc: "Our comparison algorithm ranks plans objectively based on price and value. We're not owned by any provider, so our recommendations are always in your best interest."
+              },
+              {
+                icon: Heart,
+                color: "bg-red-100 text-red-600",
+                title: "Ongoing Support",
+                desc: "Rate drop alerts, contract renewal reminders, and market updates keep you informed. We help you stay on the best plan — not just today, but every day."
+              }
+            ].map((item, i) => (
+              <Card key={i} className="border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-6">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${item.color}`}>
+                    <item.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
-        {/* Story Section */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Our Story</h2>
-          <div className="bg-white rounded-2xl shadow-lg p-12">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                Founded in 2019, ElectricScouts was created to solve a simple problem: finding the 
-                right electricity plan in competitive energy markets shouldn't be complicated or 
-                time-consuming.
-              </p>
-              <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                With over 100 years of combined industry experience, our team of energy experts 
-                has helped tens of thousands of households across 12 states navigate the complex world of electricity 
-                providers and plans. We're proud to maintain a 4.8-star rating with over 1,200 
-                Google reviews.
-              </p>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Today, we continue to empower residents and businesses in Texas, Pennsylvania, New York, 
-                Illinois, Ohio, New Jersey, Maryland, Massachusetts, and beyond to make informed 
-                decisions about their energy needs, saving them time, money, and hassle along the way.
-              </p>
-            </div>
+        {/* Our Values */}
+        <section>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
+            <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full"></div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: "Transparency",
+                desc: "Every rate, fee, and plan detail is presented clearly. We never hide costs or use misleading comparisons. What you see is what you get.",
+                gradient: "from-blue-500 to-blue-700"
+              },
+              {
+                icon: Heart,
+                title: "Customer First",
+                desc: "We exist to serve you, not providers. Our recommendations are based on what saves you the most money, not what earns us the highest commission.",
+                gradient: "from-orange-500 to-red-500"
+              },
+              {
+                icon: Lightbulb,
+                title: "Innovation",
+                desc: "From AI-powered bill analysis to real-time rate tracking, we continuously invest in technology that makes electricity shopping faster and smarter.",
+                gradient: "from-green-500 to-teal-600"
+              }
+            ].map((item, i) => (
+              <div key={i} className={`bg-gradient-to-br ${item.gradient} rounded-2xl p-8 text-white text-center`}>
+                <item.icon className="w-12 h-12 mx-auto mb-4 opacity-90" />
+                <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+                <p className="text-white/90 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* What We Do Section */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">What We Do</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Comparison Service</h3>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                We provide a completely free electricity plan comparison service across 12 competitive energy markets. 
-                Our platform allows you to instantly compare rates from 40+ electricity providers, 
-                helping you find the perfect plan based on your ZIP code, usage, and preferences.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Guidance</h3>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Our team of energy experts is here to help you understand competitive electricity 
-                markets. From fixed vs. variable rates to renewable energy options, we provide 
-                clear, unbiased information to help you make informed decisions.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Time & Money Savings</h3>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                We save you time by aggregating plans from dozens of providers in one place. 
-                On average, our users save $800 per year by switching to a better plan through 
-                our platform. No hidden fees, no obligations.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Continuous Support</h3>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Our service doesn't end once you choose a plan. We provide ongoing support, 
-                renewal reminders, and market updates to ensure you're always getting the best 
-                electricity rate available in your area.
-              </p>
-            </div>
+        {/* Why Choose ElectricScouts */}
+        <section>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose ElectricScouts?</h2>
+            <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full"></div>
           </div>
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-8 lg:p-12">
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                {[
+                  { title: "100% Free Service", desc: "Our comparison tool is completely free. No hidden costs, no subscriptions, no obligations — ever." },
+                  { title: "Comprehensive Coverage", desc: "Access plans from 40+ providers across 12 deregulated states. The widest selection available anywhere." },
+                  { title: "Real-Time Rates", desc: "Our database is continuously updated with the latest rates so you always see current pricing." },
+                  { title: "Independent & Unbiased", desc: "We're not owned by any electricity provider. Our comparisons are fair, objective, and always in your favor." },
+                  { title: "Easy Switching", desc: "Found a better plan? Switch directly through our platform with same-day or next-day activation." },
+                  { title: "Expert Support", desc: "Our energy experts are available to answer questions and guide you through the comparison process." },
+                  { title: "Proven Track Record", desc: "Thousands of satisfied customers trust ElectricScouts to find them the best electricity rates." },
+                  { title: "Personalized Results", desc: "Our smart algorithms consider your location, usage, and preferences to recommend the best plans for you." }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold text-gray-900 mb-1">{item.title}</div>
+                      <div className="text-gray-600 text-sm">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
-        {/* Our Values Section */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Our Values</h2>
-          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-12">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="bg-white rounded-xl p-6 shadow-md">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Transparency</h3>
-                  <p className="text-gray-600">
-                    We believe in complete transparency. No hidden fees, no misleading offers, 
-                    just honest information to help you make the best choice.
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-white rounded-xl p-6 shadow-md">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Customer First</h3>
-                  <p className="text-gray-600">
-                    Your satisfaction is our priority. We're independent and unbiased, 
-                    always recommending plans that truly benefit you.
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-white rounded-xl p-6 shadow-md">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">Innovation</h3>
-                  <p className="text-gray-600">
-                    We continuously improve our platform with the latest technology to 
-                    make comparing electricity plans faster and easier.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* CTA Section */}
+        <section className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-3xl p-8 lg:p-12 text-center text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-1/2 -translate-x-1/2"></div>
           </div>
-        </section>
+          <div className="relative z-10">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+              Ready to Start Saving on Electricity?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Join thousands of households and businesses across America who trust ElectricScouts to find the best electricity rates.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to={createPageUrl("CompareRates")}>
+                <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-8 py-6 text-lg font-bold rounded-lg shadow-lg">
+                  Compare Rates Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <a href="mailto:support@electricscouts.com">
+                <Button variant="outline" className="bg-white hover:bg-gray-100 text-[#0A5C8C] border-2 border-white px-8 py-6 text-lg font-bold rounded-lg">
+                  <Mail className="w-5 h-5 mr-2" />
+                  Contact Us
+                </Button>
+              </a>
+            </div>
 
-        {/* Why Choose Us Section */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Why Choose ElectricScouts?</h2>
-          <div className="bg-white rounded-2xl shadow-lg p-12">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">100% Free Service</div>
-                      <div className="text-gray-600">Our comparison tool is completely free with no hidden costs or obligations</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Comprehensive Coverage</div>
-                      <div className="text-gray-600">Access to 40+ providers and thousands of electricity plans across 12 states</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Real-Time Rates</div>
-                      <div className="text-gray-600">Up-to-date pricing information ensuring you see the latest available rates</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Independent & Unbiased</div>
-                      <div className="text-gray-600">We're not owned by any electricity provider, ensuring fair comparisons</div>
-                    </div>
-                  </li>
-                </ul>
+            <div className="flex items-center justify-center gap-6 flex-wrap text-sm mt-8">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                <span>100% Free</span>
               </div>
-
-              <div>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Easy Switching Process</div>
-                      <div className="text-gray-600">Streamlined enrollment process with same-day or next-day activation</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Expert Support Team</div>
-                      <div className="text-gray-600">Knowledgeable energy experts available to answer your questions</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Proven Track Record</div>
-                      <div className="text-gray-600">Thousands of satisfied customers and consistent 4.8-star ratings</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                    <div>
-                      <div className="font-semibold text-gray-900 mb-1">Personalized Recommendations</div>
-                      <div className="text-gray-600">Customized plan suggestions based on your specific usage and needs</div>
-                    </div>
-                  </li>
-                </ul>
+              <span className="text-blue-300">•</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                <span>No Obligations</span>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact CTA Section */}
-        <section className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-3xl p-12 text-center text-white">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Ready to Start Saving on Electricity?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of households nationwide who trust ElectricScouts to find the best electricity rates
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link to={createPageUrl("CompareRates")}>
-              <Button className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-8 py-6 text-lg font-bold rounded-lg shadow-lg">
-                Compare Rates Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <a href="mailto:support@electricscouts.com">
-              <Button variant="outline" className="bg-white hover:bg-gray-100 text-[#0A5C8C] border-2 border-white px-8 py-6 text-lg font-bold rounded-lg">
-                <Mail className="w-5 h-5 mr-2" />
-                Email Us
-              </Button>
-            </a>
-          </div>
-
-          <div className="flex items-center justify-center gap-6 flex-wrap text-sm mt-8">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span>100% Free</span>
-            </div>
-            <span className="text-blue-300">•</span>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span>No Obligations</span>
-            </div>
-            <span className="text-blue-300">•</span>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              <span>Expert Support</span>
+              <span className="text-blue-300">•</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                <span>Save Up to $800/Year</span>
+              </div>
             </div>
           </div>
         </section>

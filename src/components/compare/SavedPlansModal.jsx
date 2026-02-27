@@ -41,7 +41,7 @@ export default function SavedPlansModal({ isOpen, onClose, savedPlans, usage, on
               <p className="text-gray-600 mb-6">
                 Start comparing plans and click the heart icon to save your favorites
               </p>
-              <Button onClick={onClose} className="bg-[#0A5C8C] hover:bg-[#084a6f]">
+              <Button onClick={onClose} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
                 Browse Plans
               </Button>
             </div>
