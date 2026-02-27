@@ -9,9 +9,10 @@ const supabase = createClient(
 /**
  * Affiliate redirect handler: /api/go?slug=xxx
  * 1. Looks up the affiliate_links table for a matching active slug
- * 2. Records the click in click_tracking
- * 3. Redirects to the target_url
- * 4. If slug is invalid or inactive, returns a styled fallback page
+ * 2. Validates the target_url is a proper URL
+ * 3. Falls back to the provider's website_url if affiliate URL is invalid
+ * 4. Records the click in click_tracking
+ * 5. Redirects to the resolved URL
  */
 export default async function handler(req, res) {
   const { slug } = req.query;
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
     // Look up the affiliate link
     const { data: link, error } = await supabase
       .from("affiliate_links")
-      .select("*")
+      .select("*, provider:provider_id(name, website_url, affiliate_url)")
       .eq("slug", slug)
       .eq("is_active", true)
       .single();
@@ -33,6 +34,16 @@ export default async function handler(req, res) {
       return res.status(404).send(buildFallbackPage(
         "Link Not Found",
         "This affiliate link is no longer available or has expired."
+      ));
+    }
+
+    // Resolve the best available URL
+    let redirectUrl = resolveRedirectUrl(link);
+
+    if (!redirectUrl) {
+      return res.status(404).send(buildFallbackPage(
+        "Provider Link Unavailable",
+        "We couldn't find a valid link for this provider. Please try again later."
       ));
     }
 
@@ -49,12 +60,13 @@ export default async function handler(req, res) {
         referrer,
         user_agent: userAgent,
         ip_hash: ipHash,
+        resolved_url: redirectUrl,
       })
       .then(() => {})
       .catch(() => {});
 
-    // Redirect to target URL
-    res.setHeader("Location", link.target_url);
+    // Redirect to resolved URL
+    res.setHeader("Location", redirectUrl);
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     return res.status(302).end();
 
@@ -64,6 +76,61 @@ export default async function handler(req, res) {
       "Something Went Wrong",
       "We encountered an error processing this link. Please try again later."
     ));
+  }
+}
+
+/**
+ * Resolve the best redirect URL from the affiliate link and provider data.
+ * Priority: valid target_url > provider affiliate_url > provider website_url
+ */
+function resolveRedirectUrl(link) {
+  // 1. Try the affiliate link's target_url
+  if (link.target_url && isValidRedirectUrl(link.target_url)) {
+    return link.target_url;
+  }
+
+  // 2. Try the provider's affiliate_url
+  if (link.provider?.affiliate_url && isValidRedirectUrl(link.provider.affiliate_url)) {
+    return link.provider.affiliate_url;
+  }
+
+  // 3. Try the provider's website_url
+  if (link.provider?.website_url && isValidRedirectUrl(link.provider.website_url)) {
+    return link.provider.website_url;
+  }
+
+  return null;
+}
+
+/**
+ * Validate that a URL is a proper, non-placeholder redirect target.
+ * Rejects malformed CJ links, placeholder URLs, and invalid formats.
+ */
+function isValidRedirectUrl(url) {
+  if (!url || typeof url !== "string") return false;
+  
+  // Must start with http:// or https://
+  if (!url.startsWith("http://") && !url.startsWith("https://")) return false;
+  
+  // Reject known placeholder/malformed patterns
+  const invalidPatterns = [
+    /sjv\.io\/c\/[^/]+\/[^/]+$/, // CJ Affiliate links without proper article/deal ID
+    /example\.com/,
+    /placeholder/i,
+    /your-affiliate/i,
+    /partner\.example/i,
+  ];
+  
+  for (const pattern of invalidPatterns) {
+    if (pattern.test(url)) return false;
+  }
+  
+  // Try to parse as URL
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
   }
 }
 
