@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Robots() {
-  const robotsTxt = `# ElectricScouts - Robots.txt
+  const robotsTxt = `# Electric Scouts - Robots.txt
 # Updated: ${new Date().toISOString().split('T')[0]}
 
 User-agent: *

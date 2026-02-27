@@ -147,7 +147,7 @@ const allTestimonials = [
   { name: "Gina C.", location: "White Plains, NY", rating: 5, text: "Still happy with the choice I made. Bills are lower every month and service has been solid.", date: "3 months ago", timestamp: 90 },
   
   { name: "Terrence V.", location: "Irving, TX", rating: 5, text: "Process was really smooth. Rate I locked in is much better than what I had. Looking forward to the savings.", date: "1 day ago", timestamp: 1 },
-  { name: "Erica N.", location: "Trenton, NJ", rating: 5, text: "Happy with my new plan. ElectricScouts made the whole thing way less confusing than I expected.", date: "3 weeks ago", timestamp: 21 },
+  { name: "Erica N.", location: "Trenton, NJ", rating: 5, text: "Happy with my new plan. Electric Scouts made the whole thing way less confusing than I expected.", date: "3 weeks ago", timestamp: 21 },
   { name: "Vincent K.", location: "Cambridge, MA", rating: 5, text: "Still satisfied with the plan I picked. Rate is good and service has been reliable.", date: "1 month ago", timestamp: 30 },
   { name: "Phyllis D.", location: "Canton, OH", rating: 5, text: "This is legit. Real savings showing up on every bill. Not some scam or gimmick.", date: "2 months ago", timestamp: 60 },
   { name: "Bernard S.", location: "Danbury, CT", rating: 5, text: "My bills are consistently 25-30% lower. That kind of savings actually makes a dent in the budget.", date: "3 months ago", timestamp: 90 }

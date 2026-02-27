@@ -479,7 +479,7 @@ export default function AdminLogin() {
           <div className="mx-auto mb-4">
             <img
               src="/images/logo-header.png"
-              alt="ElectricScouts"
+              alt="Electric Scouts"
               className="h-10 w-auto mx-auto"
             />
           </div>

@@ -28,7 +28,7 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "ElectricScouts",
+    "name": "Electric Scouts",
     "url": "https://electricscouts.com",
     "logo": "https://electricscouts.com/images/logo-header.png",
     "description": "Compare electricity rates from 40+ providers across 12 deregulated states. Save up to $800/year on your electricity bill.",
@@ -132,7 +132,7 @@ export function LocalBusinessSchema({ location, avgRate, providerCount }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": `ElectricScouts - ${location} Electricity Comparison`,
+    "name": `Electric Scouts - ${location} Electricity Comparison`,
     "description": `Compare electricity rates in ${location} from ${providerCount}+ providers. Average rate: ${avgRate}¢/kWh`,
     "areaServed": {
       "@type": "Place",
@@ -157,11 +157,11 @@ export function ArticleSchema({ article }) {
     "dateModified": article.updated_date,
     "author": {
       "@type": "Organization",
-      "name": article.author || "ElectricScouts Team"
+      "name": article.author || "Electric Scouts Team"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "ElectricScouts",
+      "name": "Electric Scouts",
       "logo": {
         "@type": "ImageObject",
         "url": "https://electricscouts.com/images/logo-header.png"
@@ -181,7 +181,7 @@ export function WebSiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "ElectricScouts",
+    "name": "Electric Scouts",
     "url": "https://electricscouts.com",
     "potentialAction": {
       "@type": "SearchAction",
@@ -204,7 +204,7 @@ export function ServiceSchema({ service }) {
     "serviceType": service.type,
     "provider": {
       "@type": "Organization",
-      "name": "ElectricScouts"
+      "name": "Electric Scouts"
     },
     "areaServed": {
       "@type": "Country",

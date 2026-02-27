@@ -30,7 +30,7 @@ import SEOHead, { getOrganizationSchema, getServiceSchema, getFAQSchema, getBrea
 export default function CompareRates() {
   // SEO meta tags
   useEffect(() => {
-    document.title = "Compare Electricity Rates | Find the Best Plans | ElectricScouts";
+    document.title = "Side-by-Side Rate Comparison | Electric Scouts";
   }, []);
 
   // Lead capture state
@@ -64,8 +64,8 @@ export default function CompareRates() {
 
   const seoBlock = (
     <SEOHead
-      title="Compare Electricity Rates | Find the Best Plans | ElectricScouts"
-      description="Compare electricity rates from 40+ providers across deregulated states. Find the cheapest plans, renewable options, and save up to $800/year on your electric bill."
+      title="Side-by-Side Rate Comparison | Electric Scouts"
+      description="Enter your ZIP code and instantly see side-by-side electricity rates from dozens of providers. Filter by price, term length, or green energy. Free, fast, and built for clarity."
       canonical="/compare-rates"
       keywords="compare electricity rates, electricity plans, cheapest electricity, energy comparison, deregulated electricity"
       structuredData={[
@@ -76,7 +76,7 @@ export default function CompareRates() {
           { question: "How long does it take to switch electricity providers?", answer: "Enrollment takes 5-10 minutes online. Your new service activates within 1-2 billing cycles (14-45 days depending on your utility)." },
           { question: "Can I switch electricity providers anytime?", answer: "Yes, but you may face early termination fees if you're under contract. Wait until your contract expiration for penalty-free switching. Month-to-month plans can be switched anytime." },
           { question: "How much can I save by switching electricity providers?", answer: "The average household saves $200-$800 per year by switching to a more competitive electricity plan. Savings depend on your current rate, usage, and the plans available in your area." },
-          { question: "Is it free to compare electricity rates on ElectricScouts?", answer: "Yes, ElectricScouts is 100% free to use. We compare rates from 40+ providers across 12 deregulated states. There are no hidden fees or obligations." },
+          { question: "Is it free to compare electricity rates on Electric Scouts?", answer: "Yes, Electric Scouts is 100% free to use. We compare rates from 40+ providers across 12 deregulated states. There are no hidden fees or obligations." },
           { question: "What is a deregulated electricity market?", answer: "In deregulated states, you can choose your electricity provider instead of being locked into your local utility. This competition drives prices down and gives you more plan options including fixed-rate, variable-rate, and renewable energy plans." }
         ]),
         getBreadcrumbSchema([
@@ -414,7 +414,7 @@ export default function CompareRates() {
             <div className="absolute inset-0 border-4 border-[#0A5C8C] rounded-full border-t-transparent animate-spin"></div>
             <Zap className="absolute inset-0 m-auto w-7 h-7 text-[#FF6B35]" />
           </div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-1">Finding Your Best Rates</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-1">Searching Available Plans</h2>
           <p className="text-sm text-gray-600">Comparing plans from {availableProviders.length} verified providers...</p>
         </div>
       </div></>
@@ -1112,9 +1112,9 @@ export default function CompareRates() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-5">
             <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-1.5">
-              Find Your Best Electricity Rate
+              See Every Plan at Your Address
             </h1>
-            <p className="text-gray-600 text-base">Enter your ZIP code to get started</p>
+            <p className="text-gray-600 text-base">Enter your ZIP code and we’ll pull up every available plan</p>
           </div>
 
           <Card className="shadow-xl border max-w-lg mx-auto mb-6">

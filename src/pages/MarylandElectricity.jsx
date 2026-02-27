@@ -46,7 +46,7 @@ export default function MarylandElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Maryland Electricity Rates - Compare 32+ Suppliers & Save $680/Year | ElectricScouts MD"
+        title="Maryland Electricity Rates - Compare 32+ Suppliers & Save $680/Year | Electric Scouts MD"
         description="Compare Maryland electricity rates from Constellation, Direct Energy, WGL Energy & 30+ suppliers. Serving Baltimore, Columbia, Germantown, Silver Spring, Annapolis. Find competitive electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from BGE, Pepco, Delmarva Power & save up to $680 annually. Free MD electricity comparison."
         keywords="Maryland electricity rates, Baltimore electricity providers, BGE alternatives, Pepco alternatives, Delmarva Power alternatives, compare electricity Maryland, cheap electricity MD, Maryland energy suppliers, best electricity rates Maryland, competitive electricity Maryland, deregulated electricity Maryland, fixed rate electricity MD, renewable energy Maryland, green energy plans Maryland, Maryland power companies"
         canonical="/maryland-electricity"

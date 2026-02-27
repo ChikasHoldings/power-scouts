@@ -45,7 +45,7 @@ export default function AboutSection() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full">
               <img
                 src="https://iwguavsojnbzveutwzpw.supabase.co/storage/v1/object/public/content/homepage/about-couple-savings.png"
-                alt="Happy couple reviewing electricity savings on tablet in modern living room, representing satisfied ElectricScouts customers"
+                alt="Happy couple reviewing electricity savings on tablet in modern living room, representing satisfied Electric Scouts customers"
                 className="w-full h-full object-cover" />
             </div>
           </div>

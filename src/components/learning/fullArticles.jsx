@@ -4,7 +4,7 @@ import { BookOpen, DollarSign, Leaf, TrendingDown, Shield, Clock, Users, Zap, Ma
 export const fullArticles = {
   1: {
     title: "Understanding Deregulated Electricity Markets: Your Complete Guide",
-    metaTitle: "What is Electricity Deregulation? Complete Guide to Energy Choice | ElectricScouts",
+    metaTitle: "What is Electricity Deregulation? Complete Guide to Energy Choice | Electric Scouts",
     metaDescription: "Learn how electricity deregulation works in 12 states. Discover how choosing your energy provider can save you $500-800 annually with this expert guide.",
     tags: ["Electricity Deregulation", "Energy Choice", "Competitive Markets", "Consumer Guide", "Utility Basics"],
     content: `
@@ -230,7 +230,7 @@ A: Yes! Renters have the same right as homeowners to choose electricity provider
 
   2: {
     title: "How to Compare Electricity Rates and Save $500+ Per Year",
-    metaTitle: "How to Compare Electricity Rates: Step-by-Step Guide to Save $500+ | ElectricScouts",
+    metaTitle: "How to Compare Electricity Rates: Step-by-Step Guide to Save $500+ | Electric Scouts",
     metaDescription: "Master electricity rate comparison with this expert guide. Learn how to find the lowest rates, avoid hidden fees, and save $500-800 annually. Free tools included.",
     tags: ["Compare Electricity Rates", "Save Money", "Shopping Guide", "Rate Comparison", "Consumer Tips"],
     content: `
@@ -356,7 +356,7 @@ Found rate: 8.2¢/kWh (was paying 10.9¢)<br>
 
 <p>Smart electricity shoppers use the right tools to make informed decisions quickly:</p>
 
-<p><strong>Our Free Comparison Tool:</strong> Enter your ZIP code and usage at <a href="/compare-rates">ElectricScouts comparison tool</a> to see personalized rate quotes from all available providers in your area. The tool automatically calculates total costs including TDU charges, base fees, and taxes - giving you the true apples-to-apples comparison you need.</p>
+<p><strong>Our Free Comparison Tool:</strong> Enter your ZIP code and usage at <a href="/compare-rates">Electric Scouts comparison tool</a> to see personalized rate quotes from all available providers in your area. The tool automatically calculates total costs including TDU charges, base fees, and taxes - giving you the true apples-to-apples comparison you need.</p>
 
 <p><strong>State Regulatory Websites:</strong> Every deregulated state maintains official comparison tools and provider directories. <a href="/texas-electricity">Texas PUC Power to Choose</a>, <a href="/pennsylvania-electricity">PA PUC</a>, and <a href="/ohio-electricity">Ohio PUCO</a> sites verify provider licensing and show complaint ratios - critical for avoiding problem companies.</p>
 
@@ -390,7 +390,7 @@ Found rate: 8.2¢/kWh (was paying 10.9¢)<br>
 
   3: {
     title: "Fixed Rate vs Variable Rate: Which Saves You More Money?",
-    metaTitle: "Fixed vs Variable Rate Electricity: Which Saves More Money? | ElectricScouts",
+    metaTitle: "Fixed vs Variable Rate Electricity: Which Saves More Money? | Electric Scouts",
     metaDescription: "Compare fixed rate and variable rate electricity plans with real customer examples. Discover which option saves the most money for your situation.",
     tags: ["Fixed Rate Plans", "Variable Rate Plans", "Plan Types", "Rate Comparison", "Consumer Guide"],
     content: `
@@ -550,7 +550,7 @@ Bill predictability: None</p>
 
   4: {
     title: "Green Energy Plans: Save Money While Saving the Planet",
-    metaTitle: "100% Renewable Energy Plans: Go Green Without Paying Extra | ElectricScouts",
+    metaTitle: "100% Renewable Energy Plans: Go Green Without Paying Extra | Electric Scouts",
     metaDescription: "100% renewable electricity plans cost the same or less than traditional power. Learn how wind and solar plans work, costs, and environmental impact.",
     tags: ["Renewable Energy Plans", "Green Electricity", "100% Renewable Energy", "Wind Power", "Solar Energy"],
     content: `
@@ -701,7 +701,7 @@ Switching takes 5-10 minutes online. Service typically activates within 1-2 bill
 
   5: {
     title: "Business Electricity Rates: Complete Commercial Power Guide 2026",
-    metaTitle: "Business Electricity Rates 2026: Commercial Power Guide | Save $5,000+ | ElectricScouts",
+    metaTitle: "Business Electricity Rates 2026: Commercial Power Guide | Save $5,000+ | Electric Scouts",
     metaDescription: "Complete guide to business electricity rates, commercial power plans, and demand charges. Small businesses save $2,000-15,000 annually in deregulated markets.",
     tags: ["Business Electricity Rates", "Commercial Power", "Small Business Energy", "Demand Charges", "Commercial Plans"],
     content: `
@@ -839,7 +839,7 @@ Annual cost: $33,744<br>
 
   106: {
     title: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually",
-    metaTitle: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually | ElectricScouts",
+    metaTitle: "Nashua NH Electricity Rates 2026: Complete Guide to Save $550+ Annually | Electric Scouts",
     metaDescription: "Compare Nashua NH electricity rates from 16+ competitive suppliers. Find cheapest Eversource power in Hillsborough County. Save $550+ annually with expert guide.",
     tags: ["Nashua NH Electricity", "Hillsborough County Power", "Eversource Nashua", "New Hampshire Electricity Rates", "Nashua Energy Suppliers"],
     content: `
@@ -1004,7 +1004,7 @@ Competitive rate: ~$1,068/month<br>
 
   107: {
     title: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+",
-    metaTitle: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+ | ElectricScouts",
+    metaTitle: "Concord NH Electricity Rates 2026: Capital City Power Guide - Save $540+ | Electric Scouts",
     metaDescription: "Compare Concord NH electricity rates from 16+ Eversource suppliers. Find cheapest power in Merrimack County. Complete capital city electricity guide.",
     tags: ["Concord NH Electricity", "Merrimack County Power", "Eversource Concord", "New Hampshire Capital", "Concord Energy Rates"],
     content: `
@@ -1194,7 +1194,7 @@ Calendar reminder 90 days before contract expiration to shop again and avoid exp
 
   108: {
     title: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+",
-    metaTitle: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+ | ElectricScouts",
+    metaTitle: "Warwick RI Electricity Rates 2026: Kent County Power Guide - Save $520+ | Electric Scouts",
     metaDescription: "Compare Warwick RI electricity rates from 15+ National Grid suppliers. Find cheapest power in Kent County. Complete Rhode Island electricity shopping guide.",
     tags: ["Warwick RI Electricity", "Kent County Power", "National Grid Warwick", "Rhode Island Electricity", "Warwick Energy Rates"],
     content: `
@@ -1390,7 +1390,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
   },
   6: {
     title: "Average Electric Bill by State: Complete 2026 Guide",
-    metaTitle: "Average Electric Bill by State: 2026 Guide | ElectricScouts",
+    metaTitle: "Average Electric Bill by State: 2026 Guide | Electric Scouts",
     metaDescription: "Discover the average electric bill by state in our complete 2026 guide. Compare electricity rates by state and find the average electricity cost per kWh to save on your energy expenses.",
     tags: ["average electric bill", "electricity rates by state", "electricity cost per kwh", "save on energy", "compare electricity"],
     content: `
@@ -1695,7 +1695,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   7: {
     title: "How to Switch Electricity Providers: Step-by-Step Guide 2026",
-    metaTitle: "How to Switch Electricity Providers: 2026 Guide | ElectricScouts",
+    metaTitle: "How to Switch Electricity Providers: 2026 Guide | Electric Scouts",
     metaDescription: "Learn how to switch electricity providers in our comprehensive 2026 guide. Follow our step-by-step process to change your electricity provider and save money.",
     tags: ["how to switch electricity providers", "switch electricity", "change electricity provider", "electricity savings", "texas electricity"],
     content: `
@@ -1771,7 +1771,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   8: {
     title: "Cheapest Electricity Plans in Texas 2026: Find Rates Under 8¢/kWh",
-    metaTitle: "Cheapest Electricity in Texas 2026: Rates Under 8¢/kWh | ElectricScouts",
+    metaTitle: "Cheapest Electricity in Texas 2026: Rates Under 8¢/kWh | Electric Scouts",
     metaDescription: "Looking for the cheapest electricity in Texas? Our 2026 guide helps you find plans under 8¢/kWh. Compare Texas electricity rates and save big on your energy bill.",
     tags: ["Texas Electricity", "Cheap Energy", "Electricity Rates", "Compare Plans", "Energy Savings"],
     content: `
@@ -1779,7 +1779,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 <p>Welcome to the land of opportunity, where everything is bigger – including your power to choose your electricity provider! Thanks to deregulation, the majority of Texans can shop for electricity in the same way they shop for groceries or a new car. This competitive market, overseen by the Public Utility Commission of Texas (PUCT), empowers you to find the <strong>cheapest electricity in Texas</strong> by comparing rates and plans from various providers. To learn more about the specifics of the Texas market, visit our <a href=\"/texas-electricity\">Texas electricity guide</a>.</p>
 
 <h2>How to Find the Cheapest Electricity Rates in Texas</h2>
-<p>Finding the best deal on electricity doesn't have to be a chore. With a little know-how, you can navigate the market like a pro. The single most effective way to secure <strong>cheap electricity in Texas</strong> is by using a comparison tool. Our <a href=\"/compare-rates\">rate comparison tool</a> at ElectricScouts allows you to see all available plans in your area side-by-side. Just enter your zip code to get started. Remember to look beyond the advertised price per kWh and consider other factors, which we'll cover next.</p>
+<p>Finding the best deal on electricity doesn't have to be a chore. With a little know-how, you can navigate the market like a pro. The single most effective way to secure <strong>cheap electricity in Texas</strong> is by using a comparison tool. Our <a href=\"/compare-rates\">rate comparison tool</a> at Electric Scouts allows you to see all available plans in your area side-by-side. Just enter your zip code to get started. Remember to look beyond the advertised price per kWh and consider other factors, which we'll cover next.</p>
 
 <h2>Factors That Affect Your Texas Electricity Rate</h2>
 <p>Your final electricity rate is influenced by several factors. Understanding these can help you make a more informed decision. The most common plan types are fixed-rate, where your price per kWh is locked in for the duration of your contract, and variable-rate, where the price can fluctuate monthly. For a deeper dive into the pros and cons of each, check out our <a href=\"/learning-center\">Learning Center</a>. Contract length, your monthly energy usage, and even the time of day you use electricity can all impact your bill.</p>
@@ -1821,7 +1821,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 <p>Thinking of going green? You're in luck! Texas is a leader in renewable energy, particularly wind power. This means you can find affordable 100% renewable energy plans. Many providers offer green energy options at rates competitive with traditional fossil fuel plans. Learn more about your options on our <a href=\"/renewable-energy\">renewable energy page</a>.</p>
 
 <h2>Tools to Help You Save on Your Electricity Bill</h2>
-<p>At ElectricScouts, we're all about helping you save. That's why we've developed a suite of tools to put the power back in your hands. Use our <a href=\"/bill-analyzer\">Bill Analyzer</a> to get a detailed breakdown of your energy usage and find areas for improvement. Our <a href=\"/savings-calculator\">Savings Calculator</a> can help you estimate how much you could save by switching to a different plan.</p>
+<p>At Electric Scouts, we're all about helping you save. That's why we've developed a suite of tools to put the power back in your hands. Use our <a href=\"/bill-analyzer\">Bill Analyzer</a> to get a detailed breakdown of your energy usage and find areas for improvement. Our <a href=\"/savings-calculator\">Savings Calculator</a> can help you estimate how much you could save by switching to a different plan.</p>
 
 <h2>Your Final Checklist for Switching Providers</h2>
 <p>Ready to make the switch? It's easier than you think. Here’s a quick checklist:</p>
@@ -1836,7 +1836,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   9: {
     title: "No Deposit Electricity Plans: Complete Guide to Getting Power Without a Deposit",
-    metaTitle: "No Deposit Electricity Plans | ElectricScouts",
+    metaTitle: "No Deposit Electricity Plans | Electric Scouts",
     metaDescription: "Get electricity without a deposit or credit check. Our guide explains how no deposit electricity plans work and helps you find the best providers.",
     tags: ["no deposit electricity", "no credit check electricity", "prepaid electricity", "texas electricity", "apartment electricity"],
     content: `
@@ -1927,17 +1927,17 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 
 <h2>Take Control of Your Power Today</h2>
 <p>A <strong>no deposit electricity plan</strong> is more than just a way to avoid an upfront fee; it’s a tool for financial empowerment. It gives you the freedom to get essential services without being tied to your credit score and provides the transparency you need to take control of your energy consumption. By choosing a prepaid plan, you can say goodbye to surprise bills and hello to predictable, manageable energy costs.</p>
-<p>Ready to find a plan that puts you in charge? ElectricScouts makes it easy to compare <strong>no credit check electricity</strong> plans from top providers in your area. Our powerful comparison engine lets you filter options and find the perfect fit for your budget and lifestyle. Stop letting security deposits stand in your way. <a href=\"/compare-rates\"><strong>Compare rates now</strong></a> and get the power you need, on your terms.</p>
+<p>Ready to find a plan that puts you in charge? Electric Scouts makes it easy to compare <strong>no credit check electricity</strong> plans from top providers in your area. Our powerful comparison engine lets you filter options and find the perfect fit for your budget and lifestyle. Stop letting security deposits stand in your way. <a href=\"/compare-rates\"><strong>Compare rates now</strong></a> and get the power you need, on your terms.</p>
 `
 },
   10: {
     title: "How to Read Your Electricity Bill: Find Hidden Charges and Save Money",
-    metaTitle: "How to Read Your Electricity Bill | ElectricScouts",
+    metaTitle: "How to Read Your Electricity Bill | Electric Scouts",
     metaDescription: "Learn how to read your electricity bill, understand charges, and find hidden fees. Our guide explains your electric bill so you can save money on your energy costs.",
     tags: ["electricity bill", "save money", "hidden charges", "understand your bill", "energy costs"],
     content: `
 <h2>Understanding Your Electricity Bill is the First Step to Savings</h2>
-<p>Your monthly electricity bill can often feel like a complex puzzle, filled with confusing jargon, unfamiliar charges, and a bottom line that's higher than you expected. However, learning <strong>how to read your electricity bill</strong> is the single most powerful step you can take towards managing your energy consumption and unlocking significant savings. This guide will provide a comprehensive <strong>electricity bill explained</strong>, breaking down each component so you can <strong>understand your electric bill</strong> with confidence. We'll uncover where your money is going, how to spot hidden fees, and what you can do to lower your costs. At <a href="/compare-rates">ElectricScouts</a>, we believe that knowledge is power—the power to choose a better, cheaper electricity plan.</p>
+<p>Your monthly electricity bill can often feel like a complex puzzle, filled with confusing jargon, unfamiliar charges, and a bottom line that's higher than you expected. However, learning <strong>how to read your electricity bill</strong> is the single most powerful step you can take towards managing your energy consumption and unlocking significant savings. This guide will provide a comprehensive <strong>electricity bill explained</strong>, breaking down each component so you can <strong>understand your electric bill</strong> with confidence. We'll uncover where your money is going, how to spot hidden fees, and what you can do to lower your costs. At <a href="/compare-rates">Electric Scouts</a>, we believe that knowledge is power—the power to choose a better, cheaper electricity plan.</p>
 <h2>Deconstructing the Bill: A Section-by-Section Breakdown</h2>
 <p>While the layout may vary between providers, most electricity bills contain the same fundamental information. Let's dissect a typical bill.</p>
 <h3>1. Account Summary</h3>
@@ -2031,7 +2031,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   11: {
     title: "Best Electricity Plans for Apartments 2026: Renter-Friendly Options",
-    metaTitle: "Best Electricity Plans for Apartments 2026 | ElectricScouts",
+    metaTitle: "Best Electricity Plans for Apartments 2026 | Electric Scouts",
     metaDescription: "Finding the best electricity for apartments is easy with our 2026 guide. We cover renter-friendly options, including no-deposit plans and short-term contracts.",
     tags: ["apartment electricity", "best electricity for apartments", "electricity for renters", "renter-friendly electricity"],
     content: `
@@ -2100,7 +2100,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   12: {
     title: "Solar Energy vs Traditional Electricity: Complete Cost Comparison 2026",
-    metaTitle: "Solar vs Electricity Cost: 2026 Comparison | ElectricScouts",
+    metaTitle: "Solar vs Electricity Cost: 2026 Comparison | Electric Scouts",
     metaDescription: "Is solar energy cheaper than traditional electricity? Our 2026 cost comparison breaks down solar panel savings, long-term value, and helps you decide.",
     tags: ["solar energy", "solar vs electricity cost", "solar panel savings", "renewable energy", "electricity costs"],
     content: `
@@ -2155,7 +2155,7 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   13: {
     title: "Electricity Rates Forecast 2026-2027: What Consumers Should Expect",
-    metaTitle: "Electricity Rates Forecast 2026-2027 | ElectricScouts",
+    metaTitle: "Electricity Rates Forecast 2026-2027 | Electric Scouts",
     metaDescription: "Stay ahead of rising electricity prices with our 2026-2027 electricity rates forecast. Learn what to expect and how to save on your energy bills.",
     tags: ["Electricity Rates", "Energy Prices", "Market Forecast", "Renewable Energy", "Saving Tips"],
     content: `
@@ -2181,15 +2181,15 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 <p>It is important to remember that electricity prices vary significantly by state and even by city. Deregulated markets like Texas offer both unique challenges and opportunities for consumers. The Texas electricity market is highly competitive, with numerous providers vying for customers. This competition can lead to innovative pricing plans and lower rates for savvy shoppers. However, the state is also susceptible to price volatility, as seen during extreme weather events. For residents of the Lone Star State, it is especially important to stay on top of market trends and compare rates frequently. For example, residents of Houston can find specific information on our <a href="/city-rates?city=houston-tx">Houston electricity rates</a> page. To learn more about the specifics of the Texas market, visit our dedicated <a href="/texas-electricity">Texas electricity</a> page.</p>
 
 <h2>Actionable Steps for Consumers to Mitigate Costs</h2>
-<p>While the <strong>electricity rates forecast</strong> indicates a challenging period ahead, consumers are not powerless. There are several practical steps you can take to manage and reduce your electricity bills. Start by implementing energy efficiency measures in your home, such as sealing air leaks, upgrading to energy-efficient appliances, and using a programmable thermostat. Our <a href="/savings-calculator">Savings Calculator</a> can help you estimate your potential savings from these actions. Most importantly, take advantage of your power to choose your electricity provider in deregulated markets. By regularly comparing rates and plans, you can ensure you are not overpaying for electricity. ElectricScouts makes this easy with our powerful comparison engine.</p>
+<p>While the <strong>electricity rates forecast</strong> indicates a challenging period ahead, consumers are not powerless. There are several practical steps you can take to manage and reduce your electricity bills. Start by implementing energy efficiency measures in your home, such as sealing air leaks, upgrading to energy-efficient appliances, and using a programmable thermostat. Our <a href="/savings-calculator">Savings Calculator</a> can help you estimate your potential savings from these actions. Most importantly, take advantage of your power to choose your electricity provider in deregulated markets. By regularly comparing rates and plans, you can ensure you are not overpaying for electricity. Electric Scouts makes this easy with our powerful comparison engine.</p>
 
 <p>Ready to take control of your electricity costs? The best way to fight back against rising rates is to find a cheaper plan. <strong><a href="/compare-rates">Compare competitive electricity rates</a></strong> in your area today and lock in a lower price before the next wave of increases hits.</p>
 `
 },
   14: {
     title: "How to Lower Your Electric Bill: 25 Proven Tips That Save $500+ Per Year",
-    metaTitle: "How to Lower Your Electric Bill: 25 Proven Tips | ElectricScouts",
-    metaDescription: "Learn how to lower your electric bill and save over $500 a year with these 25 proven tips. Reduce your electricity consumption and save money with ElectricScouts.",
+    metaTitle: "How to Lower Your Electric Bill: 25 Proven Tips | Electric Scouts",
+    metaDescription: "Learn how to lower your electric bill and save over $500 a year with these 25 proven tips. Reduce your electricity consumption and save money with Electric Scouts.",
     tags: ["how to lower electric bill", "save money on electricity", "reduce electric bill", "energy savings", "home energy tips"],
     content: `
 <p>With electricity prices on the rise, finding ways to <strong>reduce your electric bill</strong> is more important than ever. Many homeowners are surprised to learn how much electricity they waste without even realizing it. The good news is that with a few simple changes, you can significantly <strong>save money on electricity</strong> and lower your carbon footprint. In this guide, we'll walk you through 25 proven tips to help you <strong>lower your electric bill</strong> by $500 or more per year.</p>
@@ -2364,8 +2364,8 @@ Set a reminder 90 days before contract end to shop again and avoid expensive aut
 },
   15: {
     title: "Electricity Deregulation Explained: Which States Let You Choose Your Provider?",
-    metaTitle: "Electricity Deregulation Explained | ElectricScouts",
-    metaDescription: "Learn about electricity deregulation and which states let you choose your energy provider. Compare rates and save on your electricity bill with ElectricScouts.",
+    metaTitle: "Electricity Deregulation Explained | Electric Scouts",
+    metaDescription: "Learn about electricity deregulation and which states let you choose your energy provider. Compare rates and save on your electricity bill with Electric Scouts.",
     tags: ["electricity deregulation", "deregulated electricity states", "energy choice", "compare electricity rates", "electric providers"],
     content: `
 <h2>What is Electricity Deregulation?</h2>

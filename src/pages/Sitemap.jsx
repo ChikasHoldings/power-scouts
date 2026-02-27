@@ -64,7 +64,7 @@ export default function Sitemap() {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
         title="Sitemap - All Pages & Resources"
-        description="Complete sitemap of ElectricScouts electricity rate comparison platform. Find all pages, states, cities, providers, and resources."
+        description="Complete sitemap of Electric Scouts electricity rate comparison platform. Find all pages, states, cities, providers, and resources."
         keywords="electricscouts sitemap, electricity comparison pages, all states electricity rates"
         canonical="/sitemap"
       />
@@ -73,7 +73,7 @@ export default function Sitemap() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl lg:text-4xl font-bold mb-3">Site Map</h1>
           <p className="text-lg text-blue-100">
-            Navigate all ElectricScouts pages and resources
+            Navigate all Electric Scouts pages and resources
           </p>
         </div>
       </div>

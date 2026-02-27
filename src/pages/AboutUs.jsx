@@ -15,8 +15,8 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="About ElectricScouts - America's Trusted Electricity Comparison Platform"
-        description="ElectricScouts is America's leading free electricity rate comparison platform, serving 12 deregulated states. Compare 40+ providers, find the best rates, and save up to $800/year. Trusted by thousands of households and businesses nationwide."
+        title="About Electric Scouts | Who We Are & Why We Built This"
+        description="Electric Scouts was built with one goal: make it dead simple to find a better electricity deal. We are an independent comparison platform covering 12 deregulated states, 40+ providers, and hundreds of plans. No hidden fees, no bias — just clarity."
         keywords="about electricscouts, electricity comparison platform, energy comparison service, who we are, our mission, electricity shopping help, trusted energy comparison"
         canonical="/about-us"
         structuredData={[breadcrumbData, getOrganizationSchema()]}
@@ -36,10 +36,10 @@ export default function AboutUs() {
                 Serving 12 States Across America
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Empowering Smarter <span className="text-[#FF6B35]">Energy Choices</span> for Every American
+                We Built the <span className="text-[#FF6B35]">Electricity Tool</span> We Wished Existed
               </h1>
               <p className="text-xl text-blue-100 leading-relaxed mb-8">
-                ElectricScouts is America's trusted free electricity comparison platform. We help households and businesses navigate deregulated energy markets to find the best rates, save money, and take control of their electricity costs.
+                Electric Scouts is an independent platform that makes it simple to find a better electricity deal. We pull live rates from 40+ providers across 12 deregulated states so you can compare, decide, and switch — all without the sales pressure.
               </p>
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export default function AboutUs() {
             <div className="hidden lg:block">
               <img 
                 src="/images/about-hero.jpg" 
-                alt="ElectricScouts team analyzing electricity rate comparison data" 
+                alt="Electric Scouts team analyzing electricity rate comparison data" 
                 className="rounded-2xl shadow-2xl w-full object-cover h-[400px]"
               />
             </div>
@@ -103,10 +103,10 @@ export default function AboutUs() {
             <div className="max-w-3xl mx-auto text-center">
               <Target className="w-12 h-12 text-[#0A5C8C] mx-auto mb-6" />
               <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
-                "To make electricity shopping simple, transparent, and fair for every American. We believe everyone deserves access to the best energy rates without the confusion, hidden fees, or pressure tactics that have plagued the industry."
+                "We believe picking an electricity plan should be as easy as choosing a streaming service. Our mission is to strip away the complexity, lay out every option side by side, and let you decide what’s best for your wallet and your values."
               </p>
               <p className="text-lg text-gray-600 mt-6 leading-relaxed">
-                In deregulated energy markets, consumers have the power to choose their electricity provider — but with dozens of providers and hundreds of plans, finding the right one can feel overwhelming. ElectricScouts exists to cut through the noise. We aggregate, compare, and present electricity plans side by side so you can make an informed decision in minutes, not hours.
+                In states with energy choice, you have the freedom to pick your provider — but freedom without clarity is just confusion. Electric Scouts organizes the chaos: we gather every available plan, normalize the fine print, and present your options in a format that actually makes sense. No jargon, no upsells, just the facts you need to make a smart call.
               </p>
             </div>
           </div>
@@ -120,19 +120,19 @@ export default function AboutUs() {
               <div className="w-20 h-1 bg-[#FF6B35] rounded-full mb-8"></div>
               <div className="space-y-5 text-lg text-gray-600 leading-relaxed">
                 <p>
-                  ElectricScouts was born from a simple frustration: why is it so hard to find a good electricity plan? Our founders experienced firsthand the confusion of navigating deregulated energy markets — comparing dozens of providers, deciphering complex rate structures, and wondering if they were really getting the best deal.
+                  It started with a frustrating afternoon spent comparing electricity plans in a spreadsheet. Dozens of tabs, confusing rate structures, hidden fees buried in fine print — and still no confidence we were getting a fair deal. That’s when we decided to build something better.
                 </p>
                 <p>
-                  We built ElectricScouts to solve that problem. Starting in Texas — one of the most competitive energy markets in the country — we created a platform that aggregates plans from every major provider and presents them in a clear, apples-to-apples comparison. No jargon, no hidden fees, no pressure.
+                  Electric Scouts launched in Texas — one of the most competitive energy markets in the country — with a simple idea: pull every available plan into one place and let people see the real numbers. No jargon, no sponsored rankings, no pressure to sign up.
                 </p>
                 <p>
-                  Today, ElectricScouts serves 12 deregulated states across America, helping thousands of households and businesses find better electricity rates every month. Our platform compares plans from over 40 providers, and on average, our users save $800 per year by switching through our service.
+                  Today we cover 12 deregulated states, 40+ providers, and hundreds of plans. Thousands of households and businesses use Electric Scouts every month to find rates that actually fit their needs — and on average, switchers save around $800 a year.
                 </p>
               </div>
             </div>
             <div className="space-y-4">
               {[
-                { year: "2019", event: "ElectricScouts founded in Texas", detail: "Launched with a mission to bring transparency to electricity shopping" },
+                { year: "2019", event: "Electric Scouts founded in Texas", detail: "Launched with a mission to bring transparency to electricity shopping" },
                 { year: "2020", event: "Expanded to 6 states", detail: "Added Pennsylvania, New York, Illinois, Ohio, and New Jersey" },
                 { year: "2022", event: "Reached 10,000+ users", detail: "Milestone of helping thousands of families save on electricity" },
                 { year: "2024", event: "12 states, 40+ providers", detail: "Added Maryland, Massachusetts, Connecticut, and more" },
@@ -159,7 +159,7 @@ export default function AboutUs() {
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">What We Do</h2>
             <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full mb-4"></div>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              ElectricScouts provides a complete suite of free tools to help you find, compare, and switch to better electricity plans.
+              Electric Scouts provides a complete suite of free tools to help you find, compare, and switch to better electricity plans.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -250,10 +250,10 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Why Choose ElectricScouts */}
+        {/* Why Choose Electric Scouts */}
         <section>
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose ElectricScouts?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose Electric Scouts?</h2>
             <div className="w-20 h-1 bg-[#FF6B35] mx-auto rounded-full"></div>
           </div>
           <Card className="border-0 shadow-lg">
@@ -266,7 +266,7 @@ export default function AboutUs() {
                   { title: "Independent & Unbiased", desc: "We're not owned by any electricity provider. Our comparisons are fair, objective, and always in your favor." },
                   { title: "Easy Switching", desc: "Found a better plan? Switch directly through our platform with same-day or next-day activation." },
                   { title: "Expert Support", desc: "Our energy experts are available to answer questions and guide you through the comparison process." },
-                  { title: "Proven Track Record", desc: "Thousands of satisfied customers trust ElectricScouts to find them the best electricity rates." },
+                  { title: "Proven Track Record", desc: "Thousands of satisfied customers trust Electric Scouts to find them the best electricity rates." },
                   { title: "Personalized Results", desc: "Our smart algorithms consider your location, usage, and preferences to recommend the best plans for you." }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -293,7 +293,7 @@ export default function AboutUs() {
               Ready to Start Saving on Electricity?
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of households and businesses across America who trust ElectricScouts to find the best electricity rates.
+              Join thousands of households and businesses across America who trust Electric Scouts to find the best electricity rates.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

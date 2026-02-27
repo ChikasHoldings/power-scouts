@@ -72,7 +72,7 @@ export const articles = [
         },
         {
           heading: "Real Houston Example: Summer Savings",
-          content: "Marcus in Houston was paying Reliant Energy 13.9¢ per kWh. During summer, his AC ran constantly, and his bills hit $380 per month.\n\nHe spent 15 minutes comparing plans on ElectricScouts and found a Gexa Energy plan at 9.6¢ per kWh with a 12-month contract. His summer bills dropped to $265. That's $115 savings per month during peak season, or $690 saved over the summer.\n\nThe switch was free, took 10 minutes online, and his power never went off. He's now a believer in comparing rates every year."
+          content: "Marcus in Houston was paying Reliant Energy 13.9¢ per kWh. During summer, his AC ran constantly, and his bills hit $380 per month.\n\nHe spent 15 minutes comparing plans on Electric Scouts and found a Gexa Energy plan at 9.6¢ per kWh with a 12-month contract. His summer bills dropped to $265. That's $115 savings per month during peak season, or $690 saved over the summer.\n\nThe switch was free, took 10 minutes online, and his power never went off. He's now a believer in comparing rates every year."
         },
         {
           heading: "Best Times to Lock in Low Rates",

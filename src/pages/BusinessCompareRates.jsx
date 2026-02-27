@@ -186,7 +186,7 @@ export default function BusinessCompareRates() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
-        title="Compare Business Electricity Rates - Commercial Energy Plans | ElectricScouts"
+        title="Business Rate Finder | Commercial Electricity Plans | Electric Scouts"
         description="Find the best electricity rates for your business. Compare commercial energy plans from 40+ providers. Fixed rates, volume discounts, and dedicated business support."
         keywords="business electricity rates, commercial energy plans, business energy comparison, commercial electricity"
         canonical="/business-compare-rates"
@@ -279,7 +279,7 @@ export default function BusinessCompareRates() {
                 <span className="text-sm font-semibold">Business Electricity</span>
               </div>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-                Compare Business Electricity Rates
+                Find the Right Plan for Your Business
               </h1>
               <p className="text-lg text-gray-600">
                 Find competitive commercial energy plans for your business

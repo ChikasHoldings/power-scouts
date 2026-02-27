@@ -52,7 +52,7 @@ export default function OhioElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Ohio Electricity Rates - Compare 40+ Suppliers & Save $760/Year | ElectricScouts OH"
+        title="Ohio Electricity Rates - Compare 40+ Suppliers & Save $760/Year | Electric Scouts OH"
         description="Compare Ohio electricity rates from Constellation, Direct Energy, IGS Energy & 38+ suppliers. Serving Cleveland, Columbus, Cincinnati, Toledo, Akron. Find competitive electricity plans for your home. Fixed & variable rates. Renewable energy options. Switch & save up to $760 annually. Free Ohio electricity comparison tool."
         keywords="Ohio electricity rates, Cleveland electricity providers, Columbus energy rates, Cincinnati electricity comparison, Ohio power companies, compare electricity Ohio, AEP Ohio alternatives, Duke Energy Ohio alternatives, FirstEnergy alternatives, cheap electricity Ohio, best electricity rates Ohio, Ohio electricity suppliers, deregulated electricity Ohio, fixed rate electricity Ohio, green energy Ohio, renewable electricity plans Ohio"
         canonical="/ohio-electricity"

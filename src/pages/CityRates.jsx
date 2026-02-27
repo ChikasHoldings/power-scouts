@@ -1142,7 +1142,7 @@ function CityRatesInner() {
   };
 
   // Generate dynamic SEO data with city-specific details
-  const seoTitle = `${displayCityName}, ${city.stateCode} Electricity Rates 2025 - Compare ${city.providers}+ Providers | ElectricScouts`;
+  const seoTitle = `${displayCityName}, ${city.stateCode} Electricity Rates 2025 - Compare ${city.providers}+ Providers | Electric Scouts`;
   const seoDescription = `Compare ${displayCityName} electricity rates from ${city.providers}+ providers. Average ${city.avgRate} (est. ${city.avgMonthlyBill}/mo). Serving ${city.county}, population ${city.population}. ${city.description.substring(0, 100)}... Switch & save today - 100% free comparison.`;
   const seoKeywords = `${displayCityName} electricity rates, ${displayCityName} ${city.stateCode} electricity providers, cheap electricity ${displayCityName}, ${displayCityName} power companies, electricity rates ${city.county}, best electricity rates ${displayCityName}, compare electricity ${displayCityName}, ${displayCityName} energy plans, ${displayCityName.toLowerCase()} electric rates, ${city.state.toLowerCase()} electricity, ${displayCityName} fixed rate electricity, ${displayCityName} variable rate plans, renewable energy ${displayCityName}, ${city.neighborhoods.slice(0, 3).join(' electricity, ')} electricity`;
 
@@ -1157,11 +1157,11 @@ function CityRatesInner() {
   const cityFaqs = [
     {
       question: `What is the average electricity rate in ${displayCityName}, ${city.stateCode}?`,
-      answer: `The average electricity rate in ${displayCityName} is approximately ${city.avgRate}, though rates vary by provider, plan type, and usage level. With ElectricScouts, you can compare rates from all ${city.providers}+ providers serving ${city.county} to find the best deal for your home.`
+      answer: `The average electricity rate in ${displayCityName} is approximately ${city.avgRate}, though rates vary by provider, plan type, and usage level. With Electric Scouts, you can compare rates from all ${city.providers}+ providers serving ${city.county} to find the best deal for your home.`
     },
     {
       question: `How do I switch electricity providers in ${displayCityName}?`,
-      answer: `Switching electricity providers in ${displayCityName} is easy. Simply compare plans on ElectricScouts, select your preferred plan, and sign up online or by phone. Your new provider will handle the switch with your current provider, and your power will never be interrupted during the transition.`
+      answer: `Switching electricity providers in ${displayCityName} is easy. Simply compare plans on Electric Scouts, select your preferred plan, and sign up online or by phone. Your new provider will handle the switch with your current provider, and your power will never be interrupted during the transition.`
     },
     {
       question: `Are there renewable energy options in ${displayCityName}?`,
@@ -1302,7 +1302,7 @@ function CityRatesInner() {
           <div className="prose prose-lg max-w-none text-gray-600">
             <p className="text-lg leading-relaxed mb-4">
               {city.description} Finding the best electricity plan in {displayCityName} is easier than ever 
-              with ElectricScouts' free comparison tool.
+              with Electric Scouts' free comparison tool.
             </p>
             <p className="text-lg leading-relaxed">
               Whether you're moving to {displayCityName}, looking to switch providers, or simply want to reduce your 
@@ -1534,7 +1534,7 @@ function CityRatesInner() {
           </h2>
           <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-8">
             <p className="text-gray-700 mb-4">
-              ElectricScouts helps residents across all {displayCityName} neighborhoods find the best electricity rates:
+              Electric Scouts helps residents across all {displayCityName} neighborhoods find the best electricity rates:
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               {city.neighborhoods.map((neighborhood, index) => (
@@ -1647,7 +1647,7 @@ function CityRatesInner() {
             <p>
               As a resident of {displayCityName}, {city.county}, you have the power to choose your electricity provider 
               thanks to {city.state}'s deregulated energy market. This means you're not stuck with one utility company – 
-              you can shop around and find the electricity plan that best fits your needs and budget. ElectricScouts 
+              you can shop around and find the electricity plan that best fits your needs and budget. Electric Scouts 
               makes this process simple by allowing you to compare rates from {city.providers}+ providers in minutes.
             </p>
             <p>

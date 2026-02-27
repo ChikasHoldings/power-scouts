@@ -1,4 +1,4 @@
-# ElectricScouts - Robots.txt
+# Electric Scouts - Robots.txt
 # https://electricscouts.com
 
 User-agent: *

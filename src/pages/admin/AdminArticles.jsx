@@ -64,7 +64,7 @@ const emptyArticle = {
   excerpt: "",
   content: "",
   featured_image: "",
-  author: "ElectricScouts Team",
+  author: "Electric Scouts Team",
   published: false,
   tags: [],
   meta_title: "",
@@ -431,7 +431,7 @@ export default function AdminArticles() {
                 <Input
                   value={form.author || ""}
                   onChange={(e) => setForm({ ...form, author: e.target.value })}
-                  placeholder="ElectricScouts Team"
+                  placeholder="Electric Scouts Team"
                 />
               </div>
             </div>

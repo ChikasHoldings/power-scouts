@@ -400,11 +400,11 @@ export default function ArticleDetail() {
   
   // Optimized meta title with category and brand
   const optimizedTitle = fullArticle?.metaTitle || 
-    `${article.title} | ${article.category} Guide | ElectricScouts`;
+    `${article.title} | ${article.category} Guide | Electric Scouts`;
   
   // Optimized meta description with excerpt and CTA
   const optimizedDescription = fullArticle?.metaDescription || 
-    `${article.excerpt || article.description} Compare electricity rates and save up to $800/year. Free guide from ElectricScouts.`;
+    `${article.excerpt || article.description} Compare electricity rates and save up to $800/year. Free guide from Electric Scouts.`;
   
   // Combine article keywords with tags for better SEO
   const optimizedKeywords = [

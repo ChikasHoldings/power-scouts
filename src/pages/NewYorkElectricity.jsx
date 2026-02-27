@@ -46,7 +46,7 @@ export default function NewYorkElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="New York Electricity Rates - Compare 42+ ESCOs & Save $740/Year | ElectricScouts NY"
+        title="New York Electricity Rates - Compare 42+ ESCOs & Save $740/Year | Electric Scouts NY"
         description="Compare New York electricity rates from Constellation, Direct Energy, Verde Energy & 40+ ESCOs. Serving NYC, Buffalo, Rochester, Albany, Syracuse. Find competitive electricity plans for your home or business. Fixed & variable rates. 100% renewable energy options. Switch from Con Edison, National Grid & save up to $740 annually. Free NY ESCO comparison."
         keywords="New York electricity rates, NYC electricity providers, ESCO comparison New York, Con Edison alternatives, National Grid alternatives, New York energy service companies, cheap electricity New York, compare electricity rates NY, best ESCOs New York, Buffalo electricity rates, Rochester energy providers, Albany electricity, fixed rate electricity New York, renewable energy New York, green energy plans NY, deregulated electricity New York, New York power suppliers"
         canonical="/new-york-electricity"

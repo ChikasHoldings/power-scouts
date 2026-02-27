@@ -144,7 +144,7 @@ export default function AdminLayout({ children }) {
           <Link to="/" className="flex items-center gap-3 group">
             <img
               src="/images/logo-footer.png"
-              alt="ElectricScouts"
+              alt="Electric Scouts"
               className="h-8 w-auto"
             />
           </Link>
@@ -220,7 +220,7 @@ export default function AdminLayout({ children }) {
           <div>
             <h1 className="text-xl font-bold text-gray-900">{currentPage.label}</h1>
             <p className="text-sm text-gray-500">
-              ElectricScouts Administration
+              Electric Scouts Administration
             </p>
           </div>
           <div className="flex items-center gap-4">

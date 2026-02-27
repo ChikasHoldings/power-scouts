@@ -140,7 +140,7 @@ export default function SavingsCalculator() {
       />
       
       <SEOHead
-        title="Electricity Savings Calculator - Predict Your Annual Savings | ElectricScouts"
+        title="Electricity Savings Calculator - Predict Your Annual Savings | Electric Scouts"
         description="Calculate how much you can save on electricity bills. Input your current rate and usage to get personalized savings estimates and plan recommendations for your state."
         keywords="electricity savings calculator, energy bill calculator, electricity cost calculator, power savings estimator, electricity rate comparison calculator"
         canonical="/savings-calculator"

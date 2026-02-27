@@ -28,7 +28,7 @@ export default function DataDisclaimer({ variant = "default" }) {
               may not reflect the most current rates or offerings. Actual rates, plan availability, terms, and conditions 
               vary by location, usage level, credit score, and provider. All rates are subject to change without notice. 
               We strongly recommend verifying all plan details, pricing, and availability directly with electricity providers 
-              before making enrollment decisions. ElectricScouts does not guarantee the accuracy of displayed rates or the 
+              before making enrollment decisions. Electric Scouts does not guarantee the accuracy of displayed rates or the 
               availability of specific plans in your area.
             </p>
           </div>
@@ -44,7 +44,7 @@ export function FooterDisclaimer() {
     <div className="bg-gray-100 border-t border-gray-200 py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-xs text-gray-600 text-center leading-relaxed">
-          <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. ElectricScouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
+          <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. Electric Scouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
         </p>
       </div>
     </div>

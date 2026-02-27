@@ -137,7 +137,7 @@ export default function RenewableEnergy() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="100% Renewable Energy Plans - Green Electricity Rates Across 12 States | ElectricScouts"
+        title="Renewable Energy Plans | Clean Power Options in 12 States | Electric Scouts"
         description="Compare 100% renewable energy plans from wind and solar in TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT. Green electricity at competitive rates. 50+ clean energy plans. Reduce carbon footprint. Save money while supporting renewable energy. Fixed & variable green energy rates. Switch to solar and wind power today."
         keywords="renewable energy plans, 100% green energy, renewable electricity, solar energy plans, wind energy plans, clean energy, green electricity providers, renewable energy rates, eco-friendly electricity, sustainable energy plans, carbon-free electricity, green power, renewable energy Texas, renewable energy Pennsylvania, renewable energy New York, wind power plans, solar power plans"
         canonical="/renewable-energy"

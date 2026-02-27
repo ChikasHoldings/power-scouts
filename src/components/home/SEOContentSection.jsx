@@ -28,7 +28,7 @@ export default function SEOContentSection() {
             Compare Electricity Rates Across 12 Deregulated States
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
-            ElectricScouts helps you find the best electricity plans from over 40 trusted providers. 
+            Electric Scouts helps you find the best electricity plans from over 40 trusted providers. 
             Whether you need a <Link to={createPageUrl("CompareRates") + "?planType=fixed"} className="text-[#0A5C8C] hover:underline font-medium">fixed-rate plan</Link> for price stability, 
             a <Link to={createPageUrl("CompareRates") + "?planType=variable"} className="text-[#0A5C8C] hover:underline font-medium">variable-rate plan</Link> for flexibility, 
             or a <Link to={createPageUrl("RenewableEnergy")} className="text-[#0A5C8C] hover:underline font-medium">100% renewable energy plan</Link>, 
@@ -119,7 +119,7 @@ export default function SEOContentSection() {
             Comparing electricity rates is the most effective way to lower your energy bill. In deregulated electricity markets across Texas, Illinois, Ohio, Pennsylvania, New York, New Jersey, Maryland, Massachusetts, Maine, New Hampshire, Rhode Island, and Connecticut, consumers have the power to choose their electricity provider. This competition among providers means you can find rates significantly lower than your current plan.
           </p>
           <p className="leading-relaxed">
-            The average American household uses about 10,500 kWh of electricity per year. Even a small difference of 1-2 cents per kWh can translate to savings of $100-$200 annually. By using ElectricScouts to compare plans from providers like TXU Energy, Reliant Energy, Constellation, Direct Energy, and dozens more, you can find the best rate for your usage pattern and preferences.
+            The average American household uses about 10,500 kWh of electricity per year. Even a small difference of 1-2 cents per kWh can translate to savings of $100-$200 annually. By using Electric Scouts to compare plans from providers like TXU Energy, Reliant Energy, Constellation, Direct Energy, and dozens more, you can find the best rate for your usage pattern and preferences.
           </p>
           <p className="leading-relaxed">
             When comparing electricity plans, consider these key factors: the <strong>rate per kWh</strong> (the primary cost driver), <strong>contract length</strong> (longer contracts often offer lower rates), <strong>early termination fees</strong> (important if you may need to switch before the contract ends), <strong>renewable energy percentage</strong> (for environmentally conscious consumers), and <strong>monthly base charges</strong> (fixed fees added to every bill regardless of usage).

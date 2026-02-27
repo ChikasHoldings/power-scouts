@@ -46,7 +46,7 @@ export default function NewHampshireElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="New Hampshire Electricity Rates - Compare 25+ Suppliers & Save $640/Year | ElectricScouts NH"
+        title="New Hampshire Electricity Rates - Compare 25+ Suppliers & Save $640/Year | Electric Scouts NH"
         description="Compare New Hampshire electricity rates from Constellation, Direct Energy, Verde Energy & 23+ competitive suppliers. Serving Manchester, Nashua, Concord, Derry, Rochester, Salem. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, Liberty Utilities & save up to $640 annually. Free NH electricity comparison."
         keywords="New Hampshire electricity rates, Manchester electricity providers, Nashua energy rates, Eversource NH alternatives, Liberty Utilities alternatives, compare electricity New Hampshire, cheap electricity NH, New Hampshire energy suppliers, best electricity rates NH, competitive electricity New Hampshire, deregulated electricity NH, fixed rate electricity New Hampshire, renewable energy NH, green energy plans New Hampshire"
         canonical="/new-hampshire-electricity"

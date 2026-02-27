@@ -115,7 +115,7 @@ export function HeroImage({
   return (
     <ImageOptimizer
       src={imageUrl}
-      alt={alt || "ElectricScouts - Compare electricity rates and save money"}
+      alt={alt || "Electric Scouts - Compare electricity rates and save money"}
       context="Hero banner - electricity comparison service"
       className={className}
       priority={true} // Load immediately for LCP

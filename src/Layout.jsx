@@ -143,7 +143,7 @@ export default function Layout({ children, currentPageName }) {
             <Link to={createPageUrl("Home")} className="flex items-center">
               <img 
                 src="/images/logo-header.png"
-                alt="ElectricScouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
+                alt="Electric Scouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
                 className="h-8 sm:h-9 lg:h-10"
                 loading="eager"
               />
@@ -306,7 +306,7 @@ export default function Layout({ children, currentPageName }) {
             <div className="flex items-center justify-between p-5 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
               <img 
                 src="/images/logo-footer.png"
-                alt="ElectricScouts - Mobile Menu Logo for Electricity Rate Comparison Service"
+                alt="Electric Scouts - Mobile Menu Logo for Electricity Rate Comparison Service"
                 className="h-10"
               loading="lazy" />
               <button
@@ -410,7 +410,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Menu Footer */}
             <div className="p-4 mt-auto border-t border-gray-200 bg-gray-50">
               <p className="text-xs text-gray-600 text-center mb-2">
-                © {new Date().getFullYear()} ElectricScouts
+                © {new Date().getFullYear()} Electric Scouts
               </p>
               <div className="flex items-center justify-center gap-3 text-xs">
                 <Link 
@@ -462,7 +462,7 @@ export default function Layout({ children, currentPageName }) {
               <Link to="/" className="inline-block mb-4">
                 <img 
                   src="/images/logo-footer.png"
-                  alt="ElectricScouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
+                  alt="Electric Scouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
                   className="h-9 sm:h-10"
                 loading="lazy" />
               </Link>
@@ -626,31 +626,31 @@ export default function Layout({ children, currentPageName }) {
           {/* SEO Text */}
           <div className="border-t border-gray-800 pt-6 pb-6">
             <div className="mb-6">
-              <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">About ElectricScouts</h3>
+              <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">About Electric Scouts</h3>
               <p className="text-gray-400 text-xs leading-relaxed max-w-5xl">
-                ElectricScouts is America's leading electricity comparison platform, helping residents and businesses across 12 deregulated states find the best electricity rates. We serve Texas (Houston, Dallas, Austin, San Antonio, Fort Worth), Illinois (Chicago, Aurora, Naperville), Ohio (Columbus, Cleveland, Cincinnati), Pennsylvania (Philadelphia, Pittsburgh, Allentown), New York (NYC, Buffalo, Rochester), New Jersey (Newark, Jersey City), Maryland (Baltimore), Massachusetts (Boston, Worcester), Maine (Portland), New Hampshire (Manchester), Rhode Island (Providence), and Connecticut (Hartford, New Haven, Bridgeport).
+                Electric Scouts is a free, independent electricity comparison platform. We help people in 12 deregulated states — Texas, Illinois, Ohio, Pennsylvania, New York, New Jersey, Maryland, Massachusetts, Maine, New Hampshire, Rhode Island, and Connecticut — find plans that actually fit their budget. No sponsored rankings, no hidden agendas. Just real rates from real providers, organized so you can make a confident choice.
               </p>
             </div>
             <div className="mb-6">
               <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">Compare Electricity Providers</h3>
               <p className="text-gray-400 text-xs leading-relaxed max-w-5xl">
-                Compare plans from top electricity companies including TXU Energy, Reliant Energy, Gexa Energy, Direct Energy, Constellation Energy, Green Mountain Energy, Pulse Power, Champion Energy, Frontier Utilities, Rhythm Energy, and 40+ other trusted providers. Find fixed rate electricity plans, variable rate plans, renewable energy options, prepaid electricity, month-to-month plans, and long-term contracts. Our platform helps you compare electricity rates per kWh, estimated monthly bills, contract terms, renewable percentages, early termination fees, and customer reviews all in one place.
+                Our directory includes 40+ energy providers — from household names like TXU Energy, Reliant, and Constellation to competitive newcomers like Rhythm Energy, Chariot Energy, and Octopus Energy. Browse fixed-rate plans, variable options, 100% renewable offerings, and month-to-month contracts. Every listing shows the rate per kWh, estimated monthly cost, contract length, green energy percentage, and real customer ratings — all in a single view.
               </p>
             </div>
             <div>
               <h3 className="text-white text-sm font-bold mb-3 uppercase tracking-wider">Why Choose Your Electricity Provider</h3>
               <p className="text-gray-400 text-xs leading-relaxed max-w-5xl">
-                In deregulated electricity markets, competition among providers creates lower rates and better service. Whether you're looking for the cheapest electricity rates, 100% renewable green energy plans, fixed rate protection, flexible month-to-month options, or plans with no deposit requirements, our free comparison service makes it easy to find and switch to better electricity plans. Save up to $800 per year on your electricity bill by comparing rates today. Our instant comparison tool is completely free with no credit card required, no hidden fees, and no obligations. Start saving on electricity now.
+                Energy deregulation gives you the power to choose — but only if you can see what’s available. Electric Scouts puts every option on the table: budget-friendly fixed rates, flexible month-to-month plans, green energy from certified renewable sources, and business-grade contracts for commercial properties. Our comparison tool is 100% free, requires no credit card, and carries zero obligation. On average, people who switch through Electric Scouts save around $800 per year.
               </p>
             </div>
           </div>
 
           <div className="border-t border-gray-700 pt-6">
             <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-5xl mx-auto">
-              <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. ElectricScouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
+              <strong>Disclaimer:</strong> Electricity rates, plan details, and provider actual rates vary by ZIP code, usage, credit, and are subject to change. Verify all details with providers before enrollment. Electric Scouts is a comparison service and does not guarantee rate accuracy or plan availability. Savings estimates are based on average usage and market conditions.
             </p>
             <p className="text-gray-400 text-xs text-center">
-              © {new Date().getFullYear()} ElectricScouts. All rights reserved. | 
+              © {new Date().getFullYear()} Electric Scouts. All rights reserved. | 
               <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white transition-colors ml-1">Privacy Policy</Link> | 
               <Link to={createPageUrl("TermsOfService")} className="hover:text-white transition-colors ml-1">Terms of Service</Link> | 
               <Link to={createPageUrl("AboutUs")} className="hover:text-white transition-colors ml-1">About Us</Link>

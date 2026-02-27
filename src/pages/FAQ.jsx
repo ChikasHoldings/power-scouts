@@ -19,7 +19,7 @@ const faqCategories = [
       },
       {
         id: 2,
-        question: "Is ElectricScouts really free to use?",
+        question: "Is Electric Scouts really free to use?",
         answer: "Yes! Our service is 100% free with no hidden fees, no obligations, and no credit card required. We're compensated by electricity providers when customers sign up through our platform, so you never pay anything to compare rates or switch providers."
       },
       {
@@ -70,7 +70,7 @@ const faqCategories = [
       {
         id: 10,
         question: "How do I switch electricity providers?",
-        answer: "Switching is easy! Compare plans on ElectricScouts, select your preferred plan, and sign up online or by phone. Your new provider handles the switch with your old provider. There's no interruption to your service, and the entire process typically takes 1-3 business days."
+        answer: "Switching is easy! Compare plans on Electric Scouts, select your preferred plan, and sign up online or by phone. Your new provider handles the switch with your old provider. There's no interruption to your service, and the entire process typically takes 1-3 business days."
       },
       {
         id: 11,
@@ -110,7 +110,7 @@ const faqCategories = [
       {
         id: 17,
         question: "Are there any hidden fees?",
-        answer: "Reputable providers disclose all fees in the Electricity Facts Label (EFL). Common fees include base charges, early termination fees, and late payment fees. ElectricScouts shows you the estimated total monthly cost, including all fees, so you can make informed comparisons."
+        answer: "Reputable providers disclose all fees in the Electricity Facts Label (EFL). Common fees include base charges, early termination fees, and late payment fees. Electric Scouts shows you the estimated total monthly cost, including all fees, so you can make informed comparisons."
       },
       {
         id: 18,
@@ -180,7 +180,7 @@ export default function FAQ() {
       <FAQPageSchema faqs={allFAQs} />
       
       <SEOHead
-        title="Electricity FAQ - 22+ Common Questions Answered | ElectricScouts"
+        title="Electricity FAQ | Honest Answers from Electric Scouts"
         description="Get answers to frequently asked questions about electricity deregulation, switching providers, plan types, rates, billing, contracts & saving money. Expert guidance for TX, PA, NY, OH, IL, NJ, MD, MA & more. Learn about fixed vs variable rates, kWh usage, early termination fees, renewable energy, deposits & more."
         keywords="electricity FAQ, energy questions, electricity rates FAQ, switching providers FAQ, electricity deregulation questions, how to switch electricity, electricity bill questions, kWh explained, contract length guide, early termination fee, renewable energy FAQ, electricity deposit requirements"
         canonical="/faq"
@@ -194,7 +194,7 @@ export default function FAQ() {
               Frequently Asked Questions
             </h1>
             <p className="text-lg text-blue-100">
-              Everything you need to know about choosing your electricity provider
+              Straight answers to the questions we hear most about switching providers and saving on electricity
             </p>
           </div>
         </div>

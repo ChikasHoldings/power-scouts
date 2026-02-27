@@ -165,7 +165,7 @@ export default function RenewableCompareRates() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       <SEOHead
-        title="Compare 100% Renewable Energy Plans - Green Electricity Rates | ElectricScouts"
+        title="Go Green | Compare Renewable Electricity Plans | Electric Scouts"
         description="Find the best renewable energy electricity plans in your area. Compare 100% green energy rates from wind and solar providers. Support clean energy while saving money."
         keywords="renewable energy plans, green electricity, 100% renewable, wind energy, solar power, clean energy rates"
         canonical="/renewable-compare-rates"
@@ -179,7 +179,7 @@ export default function RenewableCompareRates() {
           getBreadcrumbSchema([
             { name: "Home", url: "/" },
             { name: "Renewable Energy", url: "/renewable-energy" },
-            { name: "Compare Green Energy Plans", url: "/renewable-compare-rates" }
+            { name: "Explore Clean Energy Options", url: "/renewable-compare-rates" }
           ])
         ]}
       />
@@ -225,7 +225,7 @@ export default function RenewableCompareRates() {
                 <span className="text-sm font-semibold">100% Renewable Energy</span>
               </div>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-                Compare Green Energy Plans
+                Explore Clean Energy Options
               </h1>
               <p className="text-lg text-gray-600">
                 Find 100% renewable electricity plans from wind and solar sources

@@ -42,7 +42,7 @@ export default function Home() {
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "ElectricScouts",
+      "name": "Electric Scouts",
       "url": window.location.origin,
       "potentialAction": {
         "@type": "SearchAction",
@@ -55,8 +55,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Compare Electricity Rates - Save Up to $800/Year in 12 States | ElectricScouts"
-        description="Compare electricity rates from 40+ providers in TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT. Find the best electricity plan for your home - fixed rates, renewable energy, variable plans. Free comparison tool, instant results. Serving Houston, Dallas, Chicago, Philadelphia, NYC & 100+ cities. Switch & save today."
+        title="Find Your Best Electricity Rate | Electric Scouts - Smart Energy Comparison"
+        description="Your smart guide to lower electricity bills. Electric Scouts searches 40+ energy providers across TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT to find the plan that fits your home or business. Fixed, variable, and green plans — all in one place. Free, fast, unbiased."
         keywords="compare electricity rates, best electricity rates, electricity providers, energy comparison, electricity plans, power companies, cheap electricity, fixed rate electricity, variable rate plans, renewable energy plans, electricity rates by zip code, switch electricity provider, deregulated electricity markets"
         canonical="/"
         structuredData={structuredData}
@@ -77,10 +77,10 @@ export default function Home() {
               <div className="grid md:grid-cols-2">
                 <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-center">
                   <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
-                    Start Saving on Electricity Today
+                    Ready to Cut Your Electricity Bill?
                   </h2>
                   <p className="text-sm sm:text-lg opacity-90 mb-4 sm:mb-6">
-                    Compare plans from 40+ providers in minutes
+                    See real plans from real providers in under 60 seconds
                   </p>
                   <ul className="space-y-2.5 sm:space-y-3">
                     <li className="flex items-center gap-2.5 sm:gap-3">

@@ -54,7 +54,7 @@ export default function IllinoisElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Illinois Electricity Rates - Compare 36+ Providers & Save $700/Year | ElectricScouts IL"
+        title="Illinois Electricity Rates - Compare 36+ Providers & Save $700/Year | Electric Scouts IL"
         description="Compare Illinois electricity rates from Constellation, Direct Energy & 35+ providers. Serving Chicago, Aurora, Naperville, Rockford. Find affordable electricity plans for your home. Fixed & variable rates. 100% green energy options. Switch easily & save up to $700 annually. Free IL electricity comparison."
         keywords="Illinois electricity rates, Chicago electricity providers, Illinois energy comparison, ComEd alternatives, Ameren alternatives, cheap electricity Illinois, compare electricity rates Illinois, Illinois power companies, best electricity rates Chicago, fixed rate electricity Illinois, renewable energy Illinois, green energy plans Illinois, deregulated electricity Illinois, Illinois electricity suppliers"
         canonical="/illinois-electricity"

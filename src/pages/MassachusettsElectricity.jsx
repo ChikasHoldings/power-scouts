@@ -46,7 +46,7 @@ export default function MassachusettsElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Massachusetts Electricity Rates - Compare 34+ Suppliers & Save $710/Year | ElectricScouts MA"
+        title="Massachusetts Electricity Rates - Compare 34+ Suppliers & Save $710/Year | Electric Scouts MA"
         description="Compare Massachusetts electricity rates from Constellation, Direct Energy, Verde Energy & 32+ competitive suppliers. Serving Boston, Worcester, Springfield, Cambridge, Lowell. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Eversource, National Grid & save up to $710 annually. Free MA electricity comparison."
         keywords="Massachusetts electricity rates, Boston electricity providers, Eversource alternatives, National Grid MA alternatives, compare electricity Massachusetts, cheap electricity MA, Massachusetts energy suppliers, best electricity rates Boston, competitive electricity Massachusetts, deregulated electricity MA, fixed rate electricity Massachusetts, renewable energy Massachusetts, green energy plans MA, Massachusetts power companies, competitive suppliers Massachusetts"
         canonical="/massachusetts-electricity"

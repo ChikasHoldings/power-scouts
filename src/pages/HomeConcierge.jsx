@@ -118,8 +118,8 @@ export default function HomeConcierge() {
   return (
     <>
     <SEOHead
-      title="Home Concierge | Set Up All Utilities in One Place | ElectricScouts"
-      description="Let ElectricScouts handle your electricity, internet, water, and phone setup. One-stop home concierge service for new movers and homeowners."
+      title="Home Concierge | Set Up All Utilities in One Place | Electric Scouts"
+      description="Let Electric Scouts handle your electricity, internet, water, and phone setup. One-stop home concierge service for new movers and homeowners."
       canonical="/home-concierge"
       keywords="home concierge, utility setup, new home utilities, electricity setup service"
       structuredData={getOrganizationSchema()}
@@ -254,7 +254,7 @@ export default function HomeConcierge() {
                   ))}
                 </div>
                 <p className="text-gray-700 italic mb-4">
-                  "Moving to Texas was stressful enough. Having ElectricScouts handle all my utility setup was a lifesaver. They got me great electricity rates and had everything ready when I moved in!"
+                  "Moving to Texas was stressful enough. Having Electric Scouts handle all my utility setup was a lifesaver. They got me great electricity rates and had everything ready when I moved in!"
                 </p>
                 <p className="font-semibold text-gray-900">- Sarah M., Houston</p>
               </CardContent>

@@ -46,7 +46,7 @@ export default function RhodeIslandElectricity() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title="Rhode Island Electricity Rates - Compare 26+ Suppliers & Save $660/Year | ElectricScouts RI"
+        title="Rhode Island Electricity Rates - Compare 26+ Suppliers & Save $660/Year | Electric Scouts RI"
         description="Compare Rhode Island electricity rates from Constellation, Direct Energy, Verde Energy & 24+ competitive suppliers. Serving Providence, Warwick, Cranston, Pawtucket, East Providence. Find affordable electricity plans for your home. Fixed & variable rates. 100% renewable energy options. Switch from Rhode Island Energy, National Grid & save up to $660 annually. Free RI electricity comparison."
         keywords="Rhode Island electricity rates, Providence electricity providers, Warwick energy rates, Rhode Island Energy alternatives, National Grid RI alternatives, compare electricity Rhode Island, cheap electricity RI, Rhode Island energy suppliers, best electricity rates RI, competitive electricity Rhode Island, deregulated electricity RI, fixed rate electricity Rhode Island, renewable energy RI, green energy plans Rhode Island"
         canonical="/rhode-island-electricity"

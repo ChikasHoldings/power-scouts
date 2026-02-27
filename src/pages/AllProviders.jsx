@@ -73,8 +73,8 @@ export default function AllProviders() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Top Electricity Providers - Compare 40+ Companies | ElectricScouts"
-        description="Compare electricity providers across 12 states. TXU Energy, Reliant, Gexa, Constellation, Direct Energy & 35+ more. Read reviews, compare rates, find best electricity company for your home. Fixed rates, renewable energy, flexible terms. Free provider comparison."
+        title="Browse All Energy Providers | Electric Scouts Directory"
+        description="Explore our full directory of energy providers across 12 deregulated states. Filter by state, plan type, or rating to find the right fit for your home or business. Transparent details, real reviews, no sales pressure."
         keywords="electricity providers, energy companies, power companies, best electricity provider, TXU Energy, Reliant Energy, Gexa Energy, Constellation Energy, electricity company reviews, energy provider comparison, electric companies near me"
         canonical="/all-providers"
         structuredData={breadcrumbData}
@@ -84,10 +84,10 @@ export default function AllProviders() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
-              Compare Top Electricity Providers
+              Browse All Energy Providers
             </h1>
             <p className="text-base sm:text-lg text-blue-100 mb-6 sm:mb-8">
-              Explore plans from trusted electricity providers across 12 states. Find the best rates and switch in minutes.
+              Our full directory of energy providers across 12 deregulated states. Filter by state, plan type, or customer rating.
             </p>
             
             {/* Search Bar */}

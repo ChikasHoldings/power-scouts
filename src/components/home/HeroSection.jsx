@@ -23,14 +23,14 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Main Headline with Gradient */}
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#084a6f] leading-tight mb-3 sm:mb-5 tracking-tight">
-                We Scout the Best{" "}
+                Your Shortcut to{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]">
-                  Electricity Rates
+                  Lower Electricity Bills
                 </span>
-                {" "}So You Don't Have To
+                {" "}Starts Here
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
-                We scan 40+ providers across 12 states to find the rates that actually save you money. Just enter your ZIP code.
+                Electric Scouts does the legwork — searching 40+ providers in 12 states so you get the rate you deserve. Enter your ZIP to start.
               </p>
             </div>
 

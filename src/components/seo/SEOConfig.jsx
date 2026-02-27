@@ -103,7 +103,7 @@ export const STATE_SEO_DATA = {
 export function generateSEOTitle(page, location, customTitle) {
   if (customTitle) return customTitle;
   
-  const base = 'ElectricScouts';
+  const base = 'Electric Scouts';
   const suffix = '| Compare Electricity Rates';
   
   const titles = {
@@ -131,7 +131,7 @@ export function generateMetaDescription(page, stats) {
     renewable: `Find 100% renewable electricity plans from top green energy providers. Compare rates for wind and solar power. Go green without paying premium prices.`
   };
   
-  return descriptions[page] || `Compare electricity rates and plans with ElectricScouts. Free service across 12 states.`;
+  return descriptions[page] || `Compare electricity rates and plans with Electric Scouts. Free service across 12 states.`;
 }
 
 // Generate keyword-rich content snippets
@@ -151,7 +151,7 @@ export function getKeywordSnippet(topic) {
 // Image alt text generator
 export function generateAltText(imageType, context) {
   const templates = {
-    logo: 'ElectricScouts logo - Compare electricity rates and save on energy bills',
+    logo: 'Electric Scouts logo - Compare electricity rates and save on energy bills',
     hero: `${context} electricity rates comparison tool - Find the best energy plans`,
     provider: `${context} electricity provider logo - Compare rates and plans`,
     state: `${context} electricity rate map - Compare power providers by city`,
@@ -159,7 +159,7 @@ export function generateAltText(imageType, context) {
     icon: `${context} icon representing electricity savings and rate comparison`
   };
   
-  return templates[imageType] || `${context} - ElectricScouts electricity comparison`;
+  return templates[imageType] || `${context} - Electric Scouts electricity comparison`;
 }
 
 // Internal linking suggestions
@@ -210,7 +210,7 @@ export function generateBreadcrumbs(path) {
 export function generateOGData(page, customData = {}) {
   const baseData = {
     type: 'website',
-    siteName: 'ElectricScouts',
+    siteName: 'Electric Scouts',
     locale: 'en_US',
     image: '/images/og-image.png',
     imageWidth: 1200,

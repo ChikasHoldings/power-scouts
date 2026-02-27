@@ -60,7 +60,7 @@ export default function Landing() {
   return (
     <>
     <SEOHead
-      title="ElectricScouts | Compare Electricity Rates & Save Up to $800/Year"
+      title="Electric Scouts | Your Shortcut to Lower Electricity Bills"
       description="Compare electricity rates from 40+ providers across deregulated states. Find the best energy plans, save up to $800/year. Free, fast, and unbiased."
       canonical="/"
       keywords="compare electricity rates, electricity providers, energy plans, save on electricity, deregulated electricity"
@@ -95,12 +95,12 @@ export default function Landing() {
 
             {/* Main Headline */}
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-              Compare Electricity Rates & Save Up to $800/Year
+              Your Shortcut to a Lower Electricity Bill
             </h1>
 
             {/* Subheadline */}
             <p className="text-lg md:text-xl text-blue-100 mb-6">
-              Find the lowest electricity rates from 40+ trusted providers in under 2 minutes. Free, fast, and no obligations.
+              Enter your ZIP code and see every electricity plan available at your address. Real rates, real providers, zero obligation.
             </p>
 
             {/* Main CTA Form */}
@@ -168,7 +168,7 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Why Choose ElectricScouts
+              Why Choose Electric Scouts
             </h2>
             <p className="text-base text-gray-600">
               The fastest, easiest way to compare electricity rates and save money
@@ -289,7 +289,7 @@ export default function Landing() {
               {
                 name: "Jessica M.",
                 location: "Houston, TX",
-                text: "I was paying $180/month for electricity. After using ElectricScouts, I'm now paying $115. That's $780 saved per year!",
+                text: "I was paying $180/month for electricity. After using Electric Scouts, I'm now paying $115. That's $780 saved per year!",
                 savings: "$780/year"
               },
               {

@@ -61,7 +61,7 @@ export default function SEOHead({
     updateMetaTag('meta[property="og:title"]', 'property', title);
     updateMetaTag('meta[property="og:description"]', 'property', description);
     updateMetaTag('meta[property="og:image"]', 'property', defaultImage);
-    updateMetaTag('meta[property="og:site_name"]', 'property', "ElectricScouts");
+    updateMetaTag('meta[property="og:site_name"]', 'property', "Electric Scouts");
 
     // Update Twitter tags
     updateMetaTag('meta[name="twitter:card"]', 'name', "summary_large_image");
@@ -109,7 +109,7 @@ export default function SEOHead({
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "ElectricScouts",
+  "name": "Electric Scouts",
   "url": window.location.origin,
   "logo": `${window.location.origin}/logo.png`,
   "description": "Compare electricity rates from 40+ providers across 17 deregulated states. Save up to $800 per year on your electricity bills.",
@@ -133,7 +133,7 @@ export const getServiceSchema = (state) => ({
   "serviceType": "Electricity Rate Comparison",
   "provider": {
     "@type": "Organization",
-    "name": "ElectricScouts"
+    "name": "Electric Scouts"
   },
   "areaServed": {
     "@type": "State",
@@ -193,11 +193,11 @@ export const getArticleSchema = (article) => ({
   "dateModified": article.dateModified || article.datePublished,
   "author": {
     "@type": "Organization",
-    "name": "ElectricScouts"
+    "name": "Electric Scouts"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "ElectricScouts",
+    "name": "Electric Scouts",
     "logo": {
       "@type": "ImageObject",
       "url": `${window.location.origin}/logo.png`
@@ -221,7 +221,7 @@ export const getBreadcrumbSchema = (items) => ({
 export const getLocalBusinessSchema = (cityName, stateName, countyName) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": `ElectricScouts - ${cityName} Electricity Comparison`,
+  "name": `Electric Scouts - ${cityName} Electricity Comparison`,
   "description": `Compare electricity rates and save money in ${cityName}, ${stateName}`,
   "url": window.location.origin,
   "areaServed": {
@@ -281,7 +281,7 @@ export const getWebPageSchema = (title, description, url) => ({
   "url": url || window.location.href,
   "publisher": {
     "@type": "Organization",
-    "name": "ElectricScouts"
+    "name": "Electric Scouts"
   }
 });
 

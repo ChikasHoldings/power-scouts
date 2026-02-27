@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
       content: (
         <>
           <p className="text-gray-600 mb-4">
-            ElectricScouts collects only the information necessary to provide you with accurate electricity rate comparisons and a personalized experience. We are committed to minimizing data collection to what is essential for our service.
+            Electric Scouts collects only the information necessary to provide you with accurate electricity rate comparisons and a personalized experience. We are committed to minimizing data collection to what is essential for our service.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="bg-blue-50 rounded-lg p-4">
@@ -82,13 +82,13 @@ export default function PrivacyPolicy() {
         <>
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
             <p className="text-purple-900 font-semibold text-lg mb-1">We do not sell your personal information.</p>
-            <p className="text-purple-700 text-sm">ElectricScouts will never sell, rent, or trade your personal data to third parties for their marketing purposes.</p>
+            <p className="text-purple-700 text-sm">Electric Scouts will never sell, rent, or trade your personal data to third parties for their marketing purposes.</p>
           </div>
           <p className="text-gray-600 mb-3">We may share limited information in the following circumstances:</p>
           <ul className="space-y-2 text-gray-600">
             <li className="flex items-start gap-2"><span className="font-semibold text-gray-900">Electricity Providers:</span> When you click "Get This Plan" or request plan details, we share your ZIP code and usage information with the selected provider to facilitate enrollment.</li>
             <li className="flex items-start gap-2"><span className="font-semibold text-gray-900">Service Partners:</span> We work with trusted partners for email delivery, analytics, and hosting. These partners are contractually bound to protect your data.</li>
-            <li className="flex items-start gap-2"><span className="font-semibold text-gray-900">Legal Requirements:</span> We may disclose information when required by law, court order, or government regulation, or to protect the rights and safety of ElectricScouts and its users.</li>
+            <li className="flex items-start gap-2"><span className="font-semibold text-gray-900">Legal Requirements:</span> We may disclose information when required by law, court order, or government regulation, or to protect the rights and safety of Electric Scouts and its users.</li>
             <li className="flex items-start gap-2"><span className="font-semibold text-gray-900">Business Transfers:</span> In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of the transaction.</li>
           </ul>
         </>
@@ -126,7 +126,7 @@ export default function PrivacyPolicy() {
       content: (
         <>
           <p className="text-gray-600 mb-4">
-            You have full control over your personal information. ElectricScouts respects your privacy rights and makes it easy to exercise them.
+            You have full control over your personal information. Electric Scouts respects your privacy rights and makes it easy to exercise them.
           </p>
           <div className="space-y-3">
             {[
@@ -192,7 +192,7 @@ export default function PrivacyPolicy() {
       title: "7. Changes to This Policy",
       content: (
         <p className="text-gray-600">
-          We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. When we make material changes, we will notify you by posting the updated policy on this page with a revised "Last Updated" date. We encourage you to review this policy periodically. Your continued use of ElectricScouts after any changes constitutes your acceptance of the updated Privacy Policy.
+          We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. When we make material changes, we will notify you by posting the updated policy on this page with a revised "Last Updated" date. We encourage you to review this policy periodically. Your continued use of Electric Scouts after any changes constitutes your acceptance of the updated Privacy Policy.
         </p>
       )
     },
@@ -207,7 +207,7 @@ export default function PrivacyPolicy() {
           </p>
           <div className="space-y-2 text-sm">
             <p><span className="font-semibold text-gray-900">Email:</span> <a href="mailto:privacy@electricscouts.com" className="text-[#0A5C8C] hover:underline">privacy@electricscouts.com</a></p>
-            <p><span className="font-semibold text-gray-900">Company:</span> ElectricScouts (operated by Chikas Holdings LLC)</p>
+            <p><span className="font-semibold text-gray-900">Company:</span> Electric Scouts (operated by Chikas Holdings LLC)</p>
             <p><span className="font-semibold text-gray-900">Response Time:</span> We aim to respond to all privacy-related inquiries within 30 business days.</p>
           </div>
         </div>
@@ -228,8 +228,8 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <SEOHead
-        title="Privacy Policy - ElectricScouts | How We Protect Your Data"
-        description="ElectricScouts privacy policy. Learn how we protect your personal information and data when you compare electricity rates. We do not sell your information."
+        title="Privacy Policy - Electric Scouts | How We Protect Your Data"
+        description="Electric Scouts privacy policy. Learn how we protect your personal information and data when you compare electricity rates. We do not sell your information."
         keywords="privacy policy, data protection, electricity comparison privacy, personal information security"
         canonical="/privacy-policy"
         structuredData={breadcrumbData}
@@ -247,7 +247,7 @@ export default function PrivacyPolicy() {
             </div>
           </div>
           <p className="text-blue-100 text-lg max-w-2xl">
-            Your privacy matters to us. This policy explains how ElectricScouts collects, uses, and protects your personal information.
+            Your privacy matters to us. This policy explains how Electric Scouts collects, uses, and protects your personal information.
           </p>
           <p className="text-blue-200 text-sm mt-3">Last updated: February 26, 2026</p>
         </div>
