@@ -20,6 +20,7 @@ import {
   ChevronDown,
   Building,
   Leaf,
+  Home,
 } from "lucide-react";
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
   { label: "Quotes", path: "/admin/quotes", icon: MessageSquare },
   { label: "Users", path: "/admin/users", icon: Users },
   { label: "Affiliates", path: "/admin/affiliates", icon: Link2 },
+  { label: "Concierge", path: "/admin/concierge", icon: Home },
   { label: "Settings", path: "/admin/settings", icon: Settings },
 ];
 

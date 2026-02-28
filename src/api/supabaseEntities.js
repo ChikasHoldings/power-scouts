@@ -197,3 +197,8 @@ export const ClickTracking = createEntity('click_tracking', {
   defaultOrder: 'clicked_at',
   defaultDirection: 'desc',
 });
+
+export const ConciergeRequest = createEntity('concierge_requests', {
+  defaultOrder: 'created_at',
+  defaultDirection: 'desc',
+});

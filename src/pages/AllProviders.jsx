@@ -242,9 +242,11 @@ export default function AllProviders() {
                       Learn More
                     </Button>
                   </Link>
-                  <a href={getAffiliateUrl({ providerId: provider.id, fallbackUrl: provider.affiliate_url || provider.website_url || '#' })} target="_blank" rel="noopener noreferrer" className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm inline-flex items-center justify-center rounded-md px-4 py-2 font-medium no-underline">
-                      View Plans
-                  </a>
+                  <Link to={getProviderPageUrl(provider.name)}>
+                    <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white text-sm">
+                      View Plans <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

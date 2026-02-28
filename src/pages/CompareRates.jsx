@@ -271,10 +271,26 @@ export default function CompareRates() {
       }
       
       // Apply user preference filters
-      if (preferences.fixedRate && planType !== 'fixed') return false;
-      if (preferences.variableRate && planType !== 'variable') return false;
+      // Plan type preferences use OR logic (show fixed OR variable if both selected)
+      const hasTypePreference = preferences.fixedRate || preferences.variableRate;
+      if (hasTypePreference) {
+        const matchesFixed = preferences.fixedRate && planType === 'fixed';
+        const matchesVariable = preferences.variableRate && planType === 'variable';
+        if (!matchesFixed && !matchesVariable) return false;
+      }
+      
+      // Other preferences use AND logic
       if (preferences.renewable && (!renewablePercentage || renewablePercentage < 50)) return false;
       if (preferences.twelveMonth && contractLength !== 12) return false;
+      
+      // Apply dropdown filter preferences
+      if (preferences.contractLength && contractLength?.toString() !== preferences.contractLength) return false;
+      if (preferences.renewablePercentage && (!renewablePercentage || renewablePercentage < parseInt(preferences.renewablePercentage))) return false;
+      if (preferences.etfTolerance !== '' && preferences.etfTolerance !== null) {
+        const maxEtf = parseInt(preferences.etfTolerance);
+        const planEtf = plan.early_termination_fee || 0;
+        if (planEtf > maxEtf) return false;
+      }
       
       return true;
     });
