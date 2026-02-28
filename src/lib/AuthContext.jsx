@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
 const AuthContext = createContext();
@@ -11,15 +11,30 @@ export const AuthProvider = ({ children }) => {
   const [isLoadingPublicSettings, setIsLoadingPublicSettings] = useState(false);
   const [authError, setAuthError] = useState(null);
   const [appPublicSettings, setAppPublicSettings] = useState({});
+  const authResolved = useRef(false);
 
   useEffect(() => {
-    // Check initial session
-    checkSession();
+    let isMounted = true;
 
-    // Listen for auth state changes (login, logout, token refresh)
+    // Safety timeout — if auth hasn't resolved in 10 seconds, force loading to false
+    // This prevents the entire site from being stuck on a loading spinner
+    const safetyTimer = setTimeout(() => {
+      if (isMounted && !authResolved.current) {
+        console.warn('Auth loading safety timeout reached — forcing resolution');
+        authResolved.current = true;
+        setIsLoadingAuth(false);
+      }
+    }, 10000);
+
+    // Listen for auth state changes (login, logout, token refresh, initial session)
+    // In Supabase v2, onAuthStateChange fires INITIAL_SESSION immediately with the
+    // restored session. We rely on this instead of a separate checkSession() call
+    // to avoid race conditions between the two.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (event === 'SIGNED_IN' && session?.user) {
+        if (!isMounted) return;
+
+        if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user) {
           setUser(session.user);
           setIsAuthenticated(true);
           await fetchProfile(session.user.id);
@@ -30,42 +45,20 @@ export const AuthProvider = ({ children }) => {
         } else if (event === 'TOKEN_REFRESHED' && session?.user) {
           setUser(session.user);
         }
-        setIsLoadingAuth(false);
+
+        if (isMounted) {
+          authResolved.current = true;
+          setIsLoadingAuth(false);
+        }
       }
     );
 
     return () => {
+      isMounted = false;
+      clearTimeout(safetyTimer);
       subscription?.unsubscribe();
     };
   }, []);
-
-  const checkSession = async () => {
-    try {
-      setIsLoadingAuth(true);
-      setAuthError(null);
-
-      const { data: { session }, error } = await supabase.auth.getSession();
-
-      if (error) {
-        console.error('Session check failed:', error);
-        setAuthError({ type: 'session_error', message: error.message });
-        setIsLoadingAuth(false);
-        return;
-      }
-
-      if (session?.user) {
-        setUser(session.user);
-        setIsAuthenticated(true);
-        await fetchProfile(session.user.id);
-      }
-
-      setIsLoadingAuth(false);
-    } catch (error) {
-      console.error('Unexpected auth error:', error);
-      setAuthError({ type: 'unknown', message: error.message });
-      setIsLoadingAuth(false);
-    }
-  };
 
   const fetchProfile = async (userId) => {
     try {
@@ -165,6 +158,33 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       setAuthError({ type: 'reset_failed', message: error.message });
       throw error;
+    }
+  };
+
+  // Manually re-check the session (used by checkAppState)
+  const checkSession = async () => {
+    try {
+      setIsLoadingAuth(true);
+      setAuthError(null);
+
+      const { data: { session }, error } = await supabase.auth.getSession();
+
+      if (error) {
+        setAuthError({ type: 'session_error', message: error.message });
+        setIsLoadingAuth(false);
+        return;
+      }
+
+      if (session?.user) {
+        setUser(session.user);
+        setIsAuthenticated(true);
+        await fetchProfile(session.user.id);
+      }
+
+      setIsLoadingAuth(false);
+    } catch (error) {
+      setAuthError({ type: 'unknown', message: error.message });
+      setIsLoadingAuth(false);
     }
   };
 
