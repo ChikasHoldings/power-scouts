@@ -14,34 +14,34 @@ function getTimeAgo(daysAgo) {
   return `${Math.floor(daysAgo / 365)} year${Math.floor(daysAgo / 365) > 1 ? 's' : ''} ago`;
 }
 
-// Review Card Component — compact on mobile
+// Review Card Component
 function ReviewCard({ review }) {
   return (
-    <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group hover:-translate-y-0.5 relative overflow-hidden">
+    <div className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group hover:-translate-y-0.5 relative overflow-hidden">
       {/* Decorative gradient bar */}
       <div className="absolute top-0 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
       
       {/* Header with Profile */}
-      <div className="flex items-center gap-2 mb-1.5 sm:mb-2.5">
-        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-[9px] sm:text-xs font-bold flex-shrink-0 shadow-sm">
+      <div className="flex items-center gap-2.5 mb-2 sm:mb-2.5">
+        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-[10px] sm:text-xs font-bold flex-shrink-0 shadow-sm">
           {review.name.charAt(0)}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs sm:text-sm font-bold text-gray-900 truncate">{review.name}</p>
-          <p className="text-[10px] sm:text-xs text-gray-500">{review.location}</p>
+          <p className="text-sm font-bold text-gray-900 truncate">{review.name}</p>
+          <p className="text-xs text-gray-500">{review.location}</p>
         </div>
       </div>
 
       {/* Star Rating */}
-      <div className="flex gap-0.5 mb-1.5 sm:mb-2.5">
+      <div className="flex gap-0.5 mb-2 sm:mb-2.5">
         {[...Array(5)].map((_, i) =>
-        <Star key={i} className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-amber-400 text-amber-400" />
+        <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
         )}
-        <span className="text-[9px] sm:text-[10px] text-gray-400 ml-1">{review.displayDate}</span>
+        <span className="text-[10px] text-gray-400 ml-1">{review.displayDate}</span>
       </div>
 
       {/* Review Text */}
-      <p className="text-[11px] sm:text-sm text-gray-700 leading-relaxed line-clamp-3 sm:line-clamp-4">
+      <p className="text-sm text-gray-700 leading-relaxed line-clamp-3 sm:line-clamp-4">
         "{review.text}"
       </p>
     </div>
@@ -134,17 +134,18 @@ function computeTestimonials() {
 
 export default function TestimonialsSection() {
   const testimonials = useMemo(() => computeTestimonials(), []);
-  const [visibleCount, setVisibleCount] = useState(8);
-  const visibleTestimonials = testimonials.slice(0, visibleCount);
-  const hasMore = visibleCount < testimonials.length;
-
-  const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 4, testimonials.length));
-  };
+  // Mobile: start with 4, Desktop: start with 8
+  const [mobileVisibleCount, setMobileVisibleCount] = useState(4);
+  const [desktopVisibleCount, setDesktopVisibleCount] = useState(8);
+  
+  const mobileTestimonials = testimonials.slice(0, mobileVisibleCount);
+  const desktopTestimonials = testimonials.slice(0, desktopVisibleCount);
+  const hasMobileMore = mobileVisibleCount < testimonials.length;
+  const hasDesktopMore = desktopVisibleCount < testimonials.length;
 
   return (
-    <section className="bg-slate-50 py-8 sm:py-14 lg:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-slate-50 py-10 sm:py-14 lg:py-16">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-5 sm:mb-8">
           <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 sm:px-4 py-1.5 sm:py-2 shadow-md border border-gray-200 mb-3 sm:mb-4">
@@ -153,30 +154,46 @@ export default function TestimonialsSection() {
                 <Star key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
-            <span className="text-[10px] sm:text-xs font-bold text-gray-900">4.8</span>
+            <span className="text-xs font-bold text-gray-900">4.8</span>
             <span className="text-gray-400">|</span>
-            <span className="text-[10px] sm:text-xs text-gray-600 font-medium">2,500+ Reviews</span>
+            <span className="text-xs text-gray-600 font-medium">2,500+ Reviews</span>
           </div>
-          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-1 sm:mb-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-1 sm:mb-2">
             Real People. Real Savings.
           </h2>
-          <p className="text-xs sm:text-base text-gray-600">Every review is from a verified customer who switched through Electric Scouts.</p>
+          <p className="text-sm sm:text-base text-gray-600">Verified customers who switched through Electric Scouts.</p>
         </div>
 
-        {/* Reviews Grid — 2 columns on mobile, 2 on tablet, 4 on desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-5 sm:mb-8">
-          {visibleTestimonials.map((review, index) => (
+        {/* Mobile: single column, 4 visible */}
+        <div className="sm:hidden grid grid-cols-1 gap-3 mb-5">
+          {mobileTestimonials.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
         </div>
-
-        {/* Load More Button */}
-        {hasMore && (
-          <div className="text-center">
+        {hasMobileMore && (
+          <div className="sm:hidden text-center mb-5">
             <Button
-              onClick={loadMore}
+              onClick={() => setMobileVisibleCount(prev => Math.min(prev + 4, testimonials.length))}
               variant="outline"
-              className="px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
+              className="px-6 py-2.5 text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
+            >
+              Load More Reviews
+            </Button>
+          </div>
+        )}
+
+        {/* Desktop: 4-column grid, 8 visible */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {desktopTestimonials.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
+        </div>
+        {hasDesktopMore && (
+          <div className="hidden sm:flex justify-center">
+            <Button
+              onClick={() => setDesktopVisibleCount(prev => Math.min(prev + 4, testimonials.length))}
+              variant="outline"
+              className="px-8 py-3 text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
             >
               Load More Reviews
             </Button>

@@ -8,7 +8,7 @@ import ValidatedZipInput from "../ValidatedZipInput";
 export default function HeroSection({ zipCode, setZipCode }) {
   const [isZipValid, setIsZipValid] = useState(false);
   return (
-    <section className="bg-slate-50 pt-10 pb-8 relative overflow-hidden sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-16">
+    <section className="bg-slate-50 pt-10 pb-14 relative overflow-hidden sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-16">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -22,14 +22,14 @@ export default function HeroSection({ zipCode, setZipCode }) {
           <div className="space-y-5 sm:space-y-6 animate-fade-in-up text-center sm:text-left">
             {/* Main Headline */}
             <div>
-              <h1 className="text-[28px] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#084a6f] leading-[1.15] sm:leading-tight mb-3 sm:mb-4 tracking-tight">
+              <h1 className="text-[32px] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#084a6f] leading-[1.15] sm:leading-tight mb-3 sm:mb-4 tracking-tight">
                 <span className="sm:inline">Smarter Electricity</span>{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]">
                   <span className="hidden sm:inline">Starts With Better Rates.</span>
                   <span className="sm:hidden">Starts With{"\u00A0"}Better{"\u00A0"}Rates.</span>
                 </span>
               </h1>
-              <p className="text-[15px] sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto sm:mx-0">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto sm:mx-0">
                 Enter your ZIP code to compare plans from 40+ providers across 12 deregulated states. Free, unbiased, instant.
               </p>
             </div>
@@ -57,25 +57,25 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Social Proof — centered on mobile */}
             <div className="flex items-center gap-3 sm:gap-4 justify-center sm:justify-start">
               <div className="flex -space-x-2">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#084a6f] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">S</div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FF6B35] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">M</div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">J</div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">R</div>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-[9px] sm:text-[10px] font-bold ring-2 ring-white">+50K</div>
+                <div className="w-8 h-8 rounded-full bg-[#084a6f] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">S</div>
+                <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">M</div>
+                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">J</div>
+                <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">R</div>
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-[9px] sm:text-[10px] font-bold ring-2 ring-white">+50K</div>
               </div>
-              <div className="text-sm">
+              <div>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
                   ))}
                   <span className="text-gray-500 font-medium ml-1 text-xs">4.8/5</span>
                 </div>
-                <p className="text-gray-600 text-[11px] sm:text-xs font-medium">Joined by <span className="text-[#084a6f] font-bold">50,000+</span> households saving avg <span className="text-[#FF6B35] font-bold">$600/yr</span></p>
+                <p className="text-gray-600 text-xs sm:text-xs font-medium">Joined by <span className="text-[#084a6f] font-bold">50,000+</span> households saving avg <span className="text-[#FF6B35] font-bold">$600/yr</span></p>
               </div>
             </div>
 
             {/* Trust Indicators — centered on mobile */}
-            <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 justify-center sm:justify-start">
+            <div className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 justify-center sm:justify-start">
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                 <span className="font-medium">Instant Results</span>

@@ -76,34 +76,34 @@ export default function Home() {
             <CardContent className="p-0">
               <div className="grid md:grid-cols-2">
                 <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] p-5 sm:p-8 lg:p-10 text-white flex flex-col justify-center">
-                  <h2 className="text-lg sm:text-3xl font-bold text-white mb-2 sm:mb-4">
-                    Your Next Bill Could Be $67 Lower
+                  <h2 className="text-xl sm:text-3xl font-bold text-white mb-2 sm:mb-4">
+                    Your Next Bill Could Be<br className="sm:hidden" /> $67 Lower
                   </h2>
-                  <p className="text-xs sm:text-lg opacity-90 mb-3 sm:mb-6">
+                  <p className="text-sm sm:text-lg opacity-90 mb-3 sm:mb-6">
                     That's the average monthly savings our customers see after switching.
                   </p>
                   <ul className="space-y-2 sm:space-y-3">
                     <li className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      <span className="text-xs sm:text-base">Personalized top 10 plan matches</span>
+                      <span className="text-sm sm:text-base">Personalized top 10 plan matches</span>
                     </li>
                     <li className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      <span className="text-xs sm:text-base">Free Bill Analyzer finds hidden fees</span>
+                      <span className="text-sm sm:text-base">Free Bill Analyzer finds hidden fees</span>
                     </li>
                     <li className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      <span className="text-xs sm:text-base">Switch in 5 minutes, power stays on</span>
+                      <span className="text-sm sm:text-base">Switch in 5 minutes, power stays on</span>
                     </li>
                     <li className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                      <span className="text-xs sm:text-base">100% free — we never charge you</span>
+                      <span className="text-sm sm:text-base">100% free — we never charge you</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="bg-white p-5 sm:p-8 lg:p-10 flex flex-col justify-center">
-                  <h3 className="text-sm sm:text-xl font-bold text-gray-900 mb-3 sm:mb-6">
+                  <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-3 sm:mb-6">
                     See What You Could Save
                   </h3>
                   <div className="space-y-3 sm:space-y-4">
@@ -129,13 +129,13 @@ export default function Home() {
                     </div>
 
                     <div className="text-center">
-                      <Link to={createPageUrl("BillAnalyzer")} className="inline-flex items-center gap-1.5 text-[#0A5C8C] hover:text-[#FF6B35] text-xs sm:text-sm font-semibold transition-colors">
+                      <Link to={createPageUrl("BillAnalyzer")} className="inline-flex items-center gap-1.5 text-[#0A5C8C] hover:text-[#FF6B35] text-sm font-semibold transition-colors">
                         <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         Or upload your bill for a free analysis
                       </Link>
                     </div>
 
-                    <p className="text-[10px] sm:text-xs text-gray-500 text-center">
+                    <p className="text-xs text-gray-500 text-center">
                       No credit card required &bull; No spam &bull; Takes 60 seconds
                     </p>
                   </div>
