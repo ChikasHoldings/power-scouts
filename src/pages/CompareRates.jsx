@@ -121,26 +121,31 @@ export default function CompareRates() {
   // Load ZIP code from URL on mount and when URL changes
   useEffect(() => {
     const loadZipData = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const zipFromUrl = urlParams.get('zip');
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const zipFromUrl = urlParams.get('zip');
 
-      if (zipFromUrl && zipFromUrl.length === 5) {
-        const validation = validateZipCode(zipFromUrl);
-        if (validation.valid) {
-          setZipCode(zipFromUrl);
-          saveZip(zipFromUrl);
-          const city = getCityFromZip(zipFromUrl);
-          const providers = await getProvidersForZipCode(zipFromUrl);
-          setCityName(city);
-          setAvailableProviders(providers);
-          setStep(2);
-        } else {
-          setZipCode(zipFromUrl);
-          setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
-          setStep(1);
+        if (zipFromUrl && /^\d{5}$/.test(zipFromUrl)) {
+          const validation = validateZipCode(zipFromUrl);
+          if (validation.valid) {
+            setZipCode(zipFromUrl);
+            saveZip(zipFromUrl);
+            const city = getCityFromZip(zipFromUrl);
+            const providers = await getProvidersForZipCode(zipFromUrl);
+            setCityName(city || validation.stateName + " area");
+            setAvailableProviders(providers || []);
+            setStep(2);
+          } else {
+            setZipCode(zipFromUrl);
+            setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+            setStep(1);
+          }
+        } else if (detectedZip && !zipCode) {
+          setZipCode(detectedZip);
         }
-      } else if (detectedZip && !zipCode) {
-        setZipCode(detectedZip);
+      } catch (error) {
+        console.error("Error loading ZIP data from URL:", error);
+        setStep(1);
       }
     };
     
@@ -176,31 +181,49 @@ export default function CompareRates() {
   const handleZipSubmit = async () => {
     setZipError("");
     
-    if (zipCode.length !== 5) {
+    // Validate ZIP format
+    if (!zipCode || zipCode.length !== 5 || !/^\d{5}$/.test(zipCode)) {
       setZipError("Please enter a valid 5-digit ZIP code");
       return;
     }
 
+    // Validate ZIP is in a deregulated state
     const validation = validateZipCode(zipCode);
     if (!validation.valid) {
-      setZipError(validation.error || "This ZIP code is not in a deregulated electricity market");
+      setZipError(
+        validation.waitlist 
+          ? `Sorry, ZIP code ${zipCode} is not in a deregulated electricity market. We currently serve Texas, Ohio, Pennsylvania, New York, New Jersey, Maryland, Illinois, Connecticut, Massachusetts, Maine, New Hampshire, and Rhode Island.`
+          : (validation.error || "This ZIP code is not in a deregulated electricity market")
+      );
       return;
     }
 
-    const city = getCityFromZip(zipCode);
-    const stateCode = getStateFromZip(zipCode);
-    
-    const providers = await getProvidersForZipCode(zipCode);
-    
-    setCityName(city);
-    setAvailableProviders(providers);
-    saveZip(zipCode);
-    
-    // Update URL to reflect new ZIP
-    const newUrl = `${window.location.pathname}?zip=${zipCode}`;
-    window.history.pushState({}, '', newUrl);
-    
-    setStep(2);
+    try {
+      const city = getCityFromZip(zipCode);
+      const stateCode = getStateFromZip(zipCode);
+      
+      const providers = await getProvidersForZipCode(zipCode);
+      
+      if (!providers || providers.length === 0) {
+        // State is valid but no providers found - still proceed with state name
+        setCityName(city || validation.stateName + " area");
+        setAvailableProviders([]);
+      } else {
+        setCityName(city || validation.stateName + " area");
+        setAvailableProviders(providers);
+      }
+      
+      saveZip(zipCode);
+      
+      // Update URL to reflect new ZIP
+      const newUrl = `${window.location.pathname}?zip=${zipCode}`;
+      window.history.pushState({}, '', newUrl);
+      
+      setStep(2);
+    } catch (error) {
+      console.error("Error during ZIP submission:", error);
+      setZipError("Something went wrong while loading plans. Please try again.");
+    }
   };
 
   const handlePropertyTypeSubmit = () => {
@@ -341,7 +364,7 @@ export default function CompareRates() {
   }, [plansWithScores]);
 
   const topPlans = sortedPlans.slice(0, 3);
-  const otherPlans = sortedPlans.slice(3);
+  const remainingPlans = sortedPlans.slice(3);
 
   const calculateBill = (plan) => {
     return calculateMonthlyBill(plan, 1000);
@@ -374,7 +397,7 @@ export default function CompareRates() {
   };
 
   const getFilteredOtherPlans = () => {
-    let filtered = [...otherPlans];
+    let filtered = [...remainingPlans];
 
     if (filterRate !== "all") {
       if (filterRate === "low") {
@@ -423,7 +446,8 @@ export default function CompareRates() {
       });
     }
 
-    return filtered;
+    // Cap at 7 so total displayed = top 3 + up to 7 filtered = 10 max
+    return filtered.slice(0, 7);
   };
 
   const uniqueProviders = zipCode 
@@ -460,7 +484,7 @@ export default function CompareRates() {
               </h1>
             </div>
             <p className="text-center text-xs sm:text-sm text-blue-100 px-2">
-              {filteredPlans.length} plans available in {cityName} (ZIP: {zipCode})
+              Showing top {Math.min(sortedPlans.length, 10)} best plans in {cityName} (ZIP: {zipCode})
               {propertyType && ` • ${propertyType.charAt(0).toUpperCase() + propertyType.slice(1)}`}
             </p>
           </div>
@@ -609,11 +633,11 @@ export default function CompareRates() {
           </div>
 
           {/* All Other Plans */}
-          {otherPlans.length > 0 && (
+          {remainingPlans.length > 0 && (
             <div className="mb-8 sm:mb-10">
               <div className="mb-3 sm:mb-4">
-                <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-0.5">More Available Plans</h2>
-                <p className="text-xs sm:text-sm text-gray-600">Additional options in your area</p>
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-0.5">More Top-Rated Plans</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Additional best-value options in your area</p>
               </div>
 
               {/* Filters */}
@@ -949,24 +973,29 @@ export default function CompareRates() {
             </div>
           )}
 
-          {filteredPlans.length === 0 && topPlans.length > 0 && (
+          {sortedPlans.length === 0 && (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-gray-400" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">No plans match your preferences</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your preferences to see more options</p>
-              <Button onClick={() => { setShowResults(false); setStep(3); }} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
-                Adjust Preferences
-              </Button>
+              <p className="text-gray-600 mb-6">Try adjusting your preferences or search with a different ZIP code</p>
+              <div className="flex gap-3 justify-center">
+                <Button onClick={() => { setShowResults(false); setStep(3); }} variant="outline" className="border-[#0A5C8C] text-[#0A5C8C]">
+                  Adjust Preferences
+                </Button>
+                <Button onClick={() => { setShowResults(false); setStep(1); setZipCode(""); }} className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white">
+                  Try Another ZIP
+                </Button>
+              </div>
             </div>
           )}
 
           {/* Email Results */}
-          {(topPlans.length > 0 || filteredPlans.length > 0) && (
+          {sortedPlans.length > 0 && (
             <div className="mt-8">
               <EmailResults
-                plans={[...topPlans, ...filteredPlans].slice(0, 6)}
+                plans={[...topPlans, ...getFilteredOtherPlans()].slice(0, 10)}
                 zipCode={zipCode}
                 cityName={cityName}
                 monthlyUsage={preferences.monthlyUsage || 1000}
