@@ -19,7 +19,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Content — centered on mobile, left-aligned on desktop */}
-          <div className="space-y-5 sm:space-y-6 animate-fade-in-up text-center sm:text-left">
+          <div className="space-y-5 sm:space-y-6 animate-fade-in-up text-left">
             {/* Main Headline */}
             <div>
               <h1 className="text-[32px] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#084a6f] leading-[1.15] sm:leading-tight mb-3 sm:mb-4 tracking-tight">
@@ -29,13 +29,13 @@ export default function HeroSection({ zipCode, setZipCode }) {
                   <span className="sm:hidden">Starts With{"\u00A0"}Better{"\u00A0"}Rates.</span>
                 </span>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto sm:mx-0">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
                 Enter your ZIP code to compare plans from 40+ providers across 12 deregulated states. Free, unbiased, instant.
               </p>
             </div>
 
             {/* ZIP Code Input — centered on mobile */}
-            <div className="flex items-center gap-2 bg-white rounded-xl shadow-lg border border-gray-200 p-1 max-w-md mx-auto sm:mx-0 hover:shadow-xl transition-shadow duration-300">
+            <div className="flex items-center gap-2 bg-white rounded-xl shadow-lg border border-gray-200 p-1 max-w-md hover:shadow-xl transition-shadow duration-300">
               <div className="flex-1 px-3 py-2">
                 <ValidatedZipInput
                   value={zipCode}
@@ -55,7 +55,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
             </div>
 
             {/* Social Proof — centered on mobile */}
-            <div className="flex items-center gap-3 sm:gap-4 justify-center sm:justify-start">
+            <div className="flex items-center gap-3 sm:gap-4 justify-start">
               <div className="flex -space-x-2">
                 <div className="w-8 h-8 rounded-full bg-[#084a6f] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">S</div>
                 <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center text-white text-[10px] sm:text-xs font-bold ring-2 ring-white">M</div>
@@ -75,7 +75,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
             </div>
 
             {/* Trust Indicators — centered on mobile */}
-            <div className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 justify-center sm:justify-start">
+            <div className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 justify-start">
               <div className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                 <span className="font-medium">Instant Results</span>
