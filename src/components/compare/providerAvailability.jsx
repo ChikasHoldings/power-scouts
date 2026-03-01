@@ -238,7 +238,6 @@ export const ZIP_TO_CITY = {
   "75001": "Plano", "75023": "Plano", "75024": "Plano", "75025": "Plano", "75026": "Plano",
   "75074": "Plano", "75075": "Plano", "75086": "Plano", "75093": "Plano", "75094": "Plano",
   "77301": "Conroe", "77302": "Conroe", "77303": "Conroe", "77304": "Conroe", "77305": "Conroe",
-  "77301": "Conroe", "77302": "Conroe", "77303": "Conroe",
   "77380": "The Woodlands", "77381": "The Woodlands", "77382": "The Woodlands", "77384": "The Woodlands", "77385": "The Woodlands", "77386": "The Woodlands", "77389": "The Woodlands",
   "77401": "Bellaire", "77459": "Missouri City", "77469": "Richmond", "77478": "Sugar Land", "77479": "Sugar Land", "77489": "Missouri City", "77494": "Katy", "77449": "Katy", "77450": "Katy",
   "75040": "Garland", "75041": "Garland", "75042": "Garland", "75043": "Garland", "75044": "Garland", "75045": "Garland", "75046": "Garland",
@@ -630,7 +629,7 @@ export const ZIP_TO_CITY = {
   // Warwick
   "02886": "Warwick", "02887": "Warwick", "02888": "Warwick", "02889": "Warwick",
   // Cranston
-  "02910": "Cranston", "02920": "Cranston", "02921": "Cranston",
+  "02920": "Cranston", "02921": "Cranston",
   // Pawtucket
   "02860": "Pawtucket", "02861": "Pawtucket", "02862": "Pawtucket",
   // East Providence
