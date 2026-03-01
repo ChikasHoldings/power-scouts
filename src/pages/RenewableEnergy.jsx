@@ -23,11 +23,27 @@ export default function RenewableEnergy() {
     initialData: [],
   });
 
-  // Filter for renewable plans
-  const renewablePlans = plans
-    .filter(plan => plan.renewable_percentage >= 50)
-    .sort((a, b) => b.renewable_percentage - a.renewable_percentage)
-    .slice(0, 6);
+  // Filter for renewable plans - show cheapest first with diverse state representation
+  const allRenewablePlans = plans
+    .filter(plan => plan.renewable_percentage >= 50 && plan.customer_type === 'residential')
+    .sort((a, b) => a.rate_per_kwh - b.rate_per_kwh);
+
+  // Pick the best plan from each state first, then fill remaining slots
+  const seenStates = new Set();
+  const diversePlans = [];
+  const remainingPlans = [];
+  
+  for (const plan of allRenewablePlans) {
+    if (!seenStates.has(plan.state)) {
+      seenStates.add(plan.state);
+      diversePlans.push(plan);
+    } else {
+      remainingPlans.push(plan);
+    }
+  }
+  
+  // Combine: one per state first (sorted by rate), then remaining cheapest
+  const renewablePlans = [...diversePlans.sort((a, b) => a.rate_per_kwh - b.rate_per_kwh), ...remainingPlans].slice(0, 6);
 
   const benefits = [
     {
@@ -102,27 +118,27 @@ export default function RenewableEnergy() {
     {
       id: 1,
       question: "What does 100% renewable energy mean?",
-      answer: "When you choose a 100% renewable energy plan, your electricity provider purchases Renewable Energy Credits (RECs) equal to your usage from renewable sources like wind and solar farms. This ensures that for every kWh you use, an equivalent amount of clean energy is added to the Texas grid. While the actual electrons may be mixed, your plan financially supports renewable energy production."
+      answer: "When you choose a 100% renewable energy plan, your electricity provider purchases Renewable Energy Credits (RECs) equal to your usage from renewable sources like wind and solar farms. This ensures that for every kWh you use, an equivalent amount of clean energy is added to the grid. While the actual electrons may be mixed, your plan financially supports renewable energy production."
     },
     {
       id: 2,
       question: "Are renewable energy plans more expensive?",
-      answer: "Not necessarily! Many renewable energy plans are priced competitively with traditional plans. Thanks to Texas' abundant wind resources and growing solar capacity, renewable energy has become very cost-effective. In fact, some 100% renewable plans are among the cheapest available. The best way to know is to compare rates - you might be surprised at how affordable clean energy can be."
+      answer: "Not necessarily! Many renewable energy plans are priced competitively with traditional plans. Thanks to abundant wind and solar resources across our 12 served states, renewable energy has become very cost-effective. In fact, some 100% renewable plans are among the cheapest available. The best way to know is to compare rates - you might be surprised at how affordable clean energy can be."
     },
     {
       id: 3,
       question: "Will my power be less reliable with renewable energy?",
-      answer: "No. When you choose a renewable energy plan, your power reliability remains exactly the same. You're still connected to the same Texas grid with the same infrastructure. The difference is that your provider sources renewable energy credits equivalent to your usage. Your lights stay on 24/7 regardless of weather conditions."
+      answer: "No. When you choose a renewable energy plan, your power reliability remains exactly the same. You're still connected to the same grid with the same infrastructure. The difference is that your provider sources renewable energy credits equivalent to your usage. Your lights stay on 24/7 regardless of weather conditions."
     },
     {
       id: 4,
       question: "How does renewable energy help the environment?",
-      answer: "Renewable energy reduces greenhouse gas emissions and air pollution by displacing fossil fuel generation. An average Texas household using 100% renewable energy avoids approximately 7-10 tons of CO2 emissions per year - equivalent to planting 150+ trees or not driving 16,000 miles. Your choice directly supports the development of more wind and solar farms in Texas."
+      answer: "Renewable energy reduces greenhouse gas emissions and air pollution by displacing fossil fuel generation. An average household using 100% renewable energy avoids approximately 7-10 tons of CO2 emissions per year - equivalent to planting 150+ trees or not driving 16,000 miles. Your choice directly supports the development of more wind and solar farms across America."
     },
     {
       id: 5,
-      question: "Can I get renewable energy anywhere in Texas?",
-      answer: "Yes! If you live in a deregulated area of Texas (which covers about 85% of the state), you can choose from many 100% renewable energy plans. The deregulated areas include major cities like Houston, Dallas, Fort Worth, Austin, and San Antonio. Use our comparison tool to see renewable options in your ZIP code."
+      question: "Where can I get renewable energy plans?",
+      answer: "You can choose renewable energy plans in any of our 12 deregulated states: Texas, Ohio, Pennsylvania, New York, New Jersey, Maryland, Illinois, Connecticut, Massachusetts, Maine, New Hampshire, and Rhode Island. Major cities like Houston, Dallas, Chicago, Philadelphia, New York City, and many more are covered. Use our comparison tool to see renewable options in your ZIP code."
     }
   ];
 
@@ -346,9 +362,14 @@ export default function RenewableEnergy() {
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{plan.provider_name}</h3>
                         <p className="text-sm text-gray-600">{plan.plan_name}</p>
                       </div>
-                      <div className="bg-green-100 px-3 py-1 rounded-full flex items-center gap-1">
-                        <Leaf className="w-4 h-4 text-green-600" />
-                        <span className="text-sm font-semibold text-green-700">{plan.renewable_percentage}%</span>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="bg-green-100 px-3 py-1 rounded-full flex items-center gap-1">
+                          <Leaf className="w-4 h-4 text-green-600" />
+                          <span className="text-sm font-semibold text-green-700">{plan.renewable_percentage}%</span>
+                        </div>
+                        {plan.state && (
+                          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">{plan.state}</span>
+                        )}
                       </div>
                     </div>
 

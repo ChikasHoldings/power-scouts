@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, Zap, CheckCircle, Home, Building, Leaf, Wind, Sun } from "lucide-react";
 import ValidatedZipInput from "../components/ValidatedZipInput";
-import { getCityFromZip, getProvidersForZipCode } from "../components/compare/providerAvailability";
+import { getCityFromZip, getProvidersForZipCode, getStateFromZip } from "../components/compare/providerAvailability";
 import { validateZipCode } from "../components/compare/stateData";
 import PlanCard from "../components/compare/PlanCard";
 import BillUploadStep from "../components/compare/BillUploadStep";
@@ -123,7 +123,10 @@ export default function RenewableCompareRates() {
     setStep(4);
   };
 
-  // Filter plans for renewable energy only (>= 90% renewable)
+  // Get current state from ZIP code
+  const currentStateCode = zipCode ? getStateFromZip(zipCode) : null;
+
+  // Filter plans for renewable energy only (>= 90% renewable) with state filtering
   const renewablePlans = allPlans.filter(plan => {
     const providerName = plan.provider_name;
     const planName = (plan.plan_name || '').toLowerCase();
@@ -134,10 +137,20 @@ export default function RenewableCompareRates() {
       return false;
     }
     
+    // MANDATORY: Filter by state - only show plans for the user's state
+    if (currentStateCode && plan.state && plan.state !== currentStateCode) {
+      return false;
+    }
+    
     // Filter by provider availability for current ZIP
-    if (zipCode && availableProviders.length > 0) {
-      const provider = availableProviders.find(p => p.name === providerName);
-      if (!provider) {
+    if (zipCode) {
+      if (availableProviders.length > 0) {
+        const provider = availableProviders.find(p => p.name === providerName);
+        if (!provider) {
+          return false;
+        }
+      } else if (currentStateCode) {
+        // No providers found for this ZIP but we know the state - block all
         return false;
       }
     }
