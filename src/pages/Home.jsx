@@ -17,6 +17,7 @@ const ProvidersSection = React.lazy(() => import("../components/home/ProvidersSe
 const HowItWorksSection = React.lazy(() => import("../components/home/HowItWorksSection"));
 const TestimonialsSection = React.lazy(() => import("../components/home/TestimonialsSection"));
 const SEOContentSection = React.lazy(() => import("../components/home/SEOContentSection"));
+const RateAlertsCapture = React.lazy(() => import("../components/RateAlertsCapture"));
 
 export default function Home() {
   const [zipCode, setZipCode] = useState("");
@@ -149,6 +150,11 @@ export default function Home() {
       {/* SEO Content Section with Internal Links */}
       <React.Suspense fallback={<div className="py-16 bg-white"></div>}>
         <SEOContentSection />
+      </React.Suspense>
+
+      {/* Rate Alerts Capture — homepage only */}
+      <React.Suspense fallback={null}>
+        <RateAlertsCapture sourcePage="homepage" />
       </React.Suspense>
     </div>);
 }
