@@ -14,38 +14,34 @@ function getTimeAgo(daysAgo) {
   return `${Math.floor(daysAgo / 365)} year${Math.floor(daysAgo / 365) > 1 ? 's' : ''} ago`;
 }
 
-// Review Card Component
+// Review Card Component — compact on mobile
 function ReviewCard({ review }) {
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group hover:-translate-y-0.5 relative overflow-hidden">
+    <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 group hover:-translate-y-0.5 relative overflow-hidden">
       {/* Decorative gradient bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+      <div className="absolute top-0 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
       
-      {/* Timestamp in top right */}
-      <div className="absolute top-4 right-4">
-        <span className="text-xs text-gray-400 font-medium">{review.displayDate}</span>
-      </div>
-
       {/* Header with Profile */}
-      <div className="flex items-center gap-2.5 mb-2.5">
-        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">
+      <div className="flex items-center gap-2 mb-1.5 sm:mb-2.5">
+        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-[9px] sm:text-xs font-bold flex-shrink-0 shadow-sm">
           {review.name.charAt(0)}
         </div>
-        <div className="flex-1 min-w-0 pr-16">
-          <p className="text-sm font-bold text-gray-900">{review.name}</p>
-          <p className="text-xs text-gray-500">{review.location}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs sm:text-sm font-bold text-gray-900 truncate">{review.name}</p>
+          <p className="text-[10px] sm:text-xs text-gray-500">{review.location}</p>
         </div>
       </div>
 
       {/* Star Rating */}
-      <div className="flex gap-0.5 mb-2.5">
+      <div className="flex gap-0.5 mb-1.5 sm:mb-2.5">
         {[...Array(5)].map((_, i) =>
-        <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+        <Star key={i} className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-amber-400 text-amber-400" />
         )}
+        <span className="text-[9px] sm:text-[10px] text-gray-400 ml-1">{review.displayDate}</span>
       </div>
 
       {/* Review Text */}
-      <p className="text-sm text-gray-700 leading-relaxed line-clamp-4">
+      <p className="text-[11px] sm:text-sm text-gray-700 leading-relaxed line-clamp-3 sm:line-clamp-4">
         "{review.text}"
       </p>
     </div>
@@ -147,28 +143,28 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-10 sm:py-14 lg:py-16">
+    <section className="bg-slate-50 py-8 sm:py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-md border border-gray-200 mb-4">
+        <div className="text-center mb-5 sm:mb-8">
+          <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 sm:px-4 py-1.5 sm:py-2 shadow-md border border-gray-200 mb-3 sm:mb-4">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                <Star key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-yellow-400 text-yellow-400" />
               ))}
             </div>
-            <span className="text-xs font-bold text-gray-900">4.8</span>
+            <span className="text-[10px] sm:text-xs font-bold text-gray-900">4.8</span>
             <span className="text-gray-400">|</span>
-            <span className="text-xs text-gray-600 font-medium">2,500+ Reviews</span>
+            <span className="text-[10px] sm:text-xs text-gray-600 font-medium">2,500+ Reviews</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-1 sm:mb-2">
             Real People. Real Savings.
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">Every review is from a verified customer who switched through Electric Scouts.</p>
+          <p className="text-xs sm:text-base text-gray-600">Every review is from a verified customer who switched through Electric Scouts.</p>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
+        {/* Reviews Grid — 2 columns on mobile, 2 on tablet, 4 on desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-5 sm:mb-8">
           {visibleTestimonials.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
@@ -180,7 +176,7 @@ export default function TestimonialsSection() {
             <Button
               onClick={loadMore}
               variant="outline"
-              className="px-8 py-3 text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold hover:bg-[#0A5C8C] hover:text-white transition-colors"
             >
               Load More Reviews
             </Button>

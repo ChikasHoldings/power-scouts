@@ -29,20 +29,43 @@ const steps = [
 
 export default function HowItWorksSection() {
   return (
-    <section className="py-10 sm:py-12 lg:py-16 bg-gradient-to-b from-white to-slate-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-white to-slate-50">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2">
+        <div className="text-center mb-6 sm:mb-10 lg:mb-12">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-1.5 sm:mb-2">
             How It Works
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-lg mx-auto">
+          <p className="text-xs sm:text-base text-gray-600 max-w-lg mx-auto">
             Three steps. Under two minutes. Real savings.
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-10">
+        {/* Steps — horizontal scroll on mobile, grid on desktop */}
+        <div className="sm:hidden flex gap-3 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1 snap-x snap-mandatory">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <div key={index} className="bg-white rounded-2xl shadow-lg p-5 text-center border border-gray-100 relative flex-shrink-0 w-[75vw] snap-center">
+                <div className="mb-3">
+                  <div className={`w-12 h-12 bg-gradient-to-br ${step.color} text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                </div>
+                <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider mb-1">Step {step.number}</div>
+                <h3 className="text-sm font-bold text-gray-900 mb-1.5">
+                  {step.title}
+                </h3>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop grid */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-8 mb-10">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -53,7 +76,7 @@ export default function HowItWorksSection() {
                   </div>
                 </div>
                 <div className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider mb-1">Step {step.number}</div>
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   {step.title}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
@@ -65,12 +88,17 @@ export default function HowItWorksSection() {
         </div>
 
         {/* CTA */}
-        <div className="flex justify-center">
-          <Link to={createPageUrl("CompareRates")} className="inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-10 py-4 text-base sm:text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95">
+        <div className="flex justify-center mt-5 sm:mt-0">
+          <Link to={createPageUrl("CompareRates")} className="inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold px-8 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto max-w-sm">
             Compare Rates Now
           </Link>
         </div>
       </div>
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   );
 }

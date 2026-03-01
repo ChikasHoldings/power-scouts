@@ -70,72 +70,72 @@ export default function Home() {
       </React.Suspense>
 
       {/* CTA Section */}
-      <section className="bg-slate-50 py-10 sm:py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border-none shadow-2xl overflow-hidden rounded-3xl">
+      <section className="bg-slate-50 py-8 sm:py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+          <Card className="border-none shadow-2xl overflow-hidden rounded-2xl sm:rounded-3xl">
             <CardContent className="p-0">
               <div className="grid md:grid-cols-2">
-                <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-center">
-                  <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
+                <div className="bg-gradient-to-br from-[#0A5C8C] to-[#084a6f] p-5 sm:p-8 lg:p-10 text-white flex flex-col justify-center">
+                  <h2 className="text-lg sm:text-3xl font-bold text-white mb-2 sm:mb-4">
                     Your Next Bill Could Be $67 Lower
                   </h2>
-                  <p className="text-sm sm:text-lg opacity-90 mb-4 sm:mb-6">
+                  <p className="text-xs sm:text-lg opacity-90 mb-3 sm:mb-6">
                     That's the average monthly savings our customers see after switching.
                   </p>
-                  <ul className="space-y-2.5 sm:space-y-3">
-                    <li className="flex items-center gap-2.5 sm:gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base">Personalized top 10 plan matches</span>
+                  <ul className="space-y-2 sm:space-y-3">
+                    <li className="flex items-center gap-2 sm:gap-3">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="text-xs sm:text-base">Personalized top 10 plan matches</span>
                     </li>
-                    <li className="flex items-center gap-2.5 sm:gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base">Free Bill Analyzer finds hidden fees</span>
+                    <li className="flex items-center gap-2 sm:gap-3">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="text-xs sm:text-base">Free Bill Analyzer finds hidden fees</span>
                     </li>
-                    <li className="flex items-center gap-2.5 sm:gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base">Switch in 5 minutes, power stays on</span>
+                    <li className="flex items-center gap-2 sm:gap-3">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="text-xs sm:text-base">Switch in 5 minutes, power stays on</span>
                     </li>
-                    <li className="flex items-center gap-2.5 sm:gap-3">
-                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base">100% free — we never charge you</span>
+                    <li className="flex items-center gap-2 sm:gap-3">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="text-xs sm:text-base">100% free — we never charge you</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-white p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
-                  <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
+                <div className="bg-white p-5 sm:p-8 lg:p-10 flex flex-col justify-center">
+                  <h3 className="text-sm sm:text-xl font-bold text-gray-900 mb-3 sm:mb-6">
                     See What You Could Save
                   </h3>
-                  <div className="space-y-4">
-                    <div className="h-14 px-4 py-3 border-2 border-gray-200 rounded-xl bg-white focus-within:border-[#0A5C8C] transition-colors">
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="h-12 sm:h-14 px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-gray-200 rounded-xl bg-white focus-within:border-[#0A5C8C] transition-colors">
                       <ValidatedZipInput
                         value={zipCode}
                         onChange={handleZipChange}
                         placeholder="Enter your ZIP code"
-                        className="text-lg [&_input]:text-lg [&_input]:h-8 [&_input]:placeholder:text-gray-400"
+                        className="text-base sm:text-lg [&_input]:text-base [&_input]:sm:text-lg [&_input]:h-7 [&_input]:sm:h-8 [&_input]:placeholder:text-gray-400"
                         onValidationChange={setIsZipValid}
                       />
                     </div>
 
-                    <div className="pt-1">
+                    <div className="pt-0.5 sm:pt-1">
                       <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
                         <Button
-                          className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-13 text-base font-bold touch-manipulation rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300"
+                          className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-11 sm:h-13 text-sm sm:text-base font-bold touch-manipulation rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300"
                           disabled={!isZipValid}>
                           Show Me My Rates
-                          <ArrowRight className="w-5 h-5 ml-2" />
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                         </Button>
                       </Link>
                     </div>
 
                     <div className="text-center">
-                      <Link to={createPageUrl("BillAnalyzer")} className="inline-flex items-center gap-1.5 text-[#0A5C8C] hover:text-[#FF6B35] text-sm font-semibold transition-colors">
-                        <FileText className="w-4 h-4" />
+                      <Link to={createPageUrl("BillAnalyzer")} className="inline-flex items-center gap-1.5 text-[#0A5C8C] hover:text-[#FF6B35] text-xs sm:text-sm font-semibold transition-colors">
+                        <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         Or upload your bill for a free analysis
                       </Link>
                     </div>
 
-                    <p className="text-xs text-gray-500 text-center">
+                    <p className="text-[10px] sm:text-xs text-gray-500 text-center">
                       No credit card required &bull; No spam &bull; Takes 60 seconds
                     </p>
                   </div>
