@@ -25,6 +25,7 @@ const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'));
 const AdminBusinessPlans = lazy(() => import('@/pages/admin/AdminBusinessPlans'));
 const AdminRenewablePlans = lazy(() => import('@/pages/admin/AdminRenewablePlans'));
 const AdminConcierge = lazy(() => import('@/pages/admin/AdminConcierge'));
+const AdminLeads = lazy(() => import('@/pages/admin/AdminLeads'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -107,6 +108,11 @@ const AppRoutes = () => {
       <Route path="/admin/concierge" element={
         <Suspense fallback={<AdminLoading />}>
           <AdminRoute><AdminConcierge /></AdminRoute>
+        </Suspense>
+      } />
+      <Route path="/admin/leads" element={
+        <Suspense fallback={<AdminLoading />}>
+          <AdminRoute><AdminLeads /></AdminRoute>
         </Suspense>
       } />
 

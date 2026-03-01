@@ -35,6 +35,7 @@ const navItems = [
   { label: "Quotes", path: "/admin/quotes", icon: MessageSquare, roles: ["admin", "editor"] },
   { label: "Users", path: "/admin/users", icon: Users, roles: ["admin"] },
   { label: "Affiliates", path: "/admin/affiliates", icon: Link2, roles: ["admin"] },
+  { label: "Leads", path: "/admin/leads", icon: Users, roles: ["admin", "editor"] },
   { label: "Concierge", path: "/admin/concierge", icon: Home, roles: ["admin", "editor"] },
   { label: "Settings", path: "/admin/settings", icon: Settings, roles: ["admin", "editor", "viewer"] },
 ];
