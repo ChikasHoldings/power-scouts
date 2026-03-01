@@ -77,19 +77,19 @@ export default function HeroSection({ zipCode, setZipCode }) {
               </div>
             </div>
 
-            {/* Trust Indicators — centered on mobile */}
-            <div className="flex items-center gap-4 sm:gap-6 text-sm text-gray-600 justify-start">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                <span className="font-medium">Instant Results</span>
+            {/* Trust Indicators — icon on top on mobile, inline row on desktop */}
+            <div className="flex gap-6 sm:gap-6 text-sm text-gray-600 justify-start">
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row">
+                <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500 flex-shrink-0" />
+                <span className="font-medium text-xs sm:text-sm">Instant Results</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Shield className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                <span className="font-medium">100% Free</span>
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row">
+                <Shield className="w-5 h-5 sm:w-4 sm:h-4 text-blue-500 flex-shrink-0" />
+                <span className="font-medium text-xs sm:text-sm">100% Free</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-purple-500 flex-shrink-0" />
-                <span className="font-medium">No Hidden Fees</span>
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row">
+                <Sparkles className="w-5 h-5 sm:w-4 sm:h-4 text-purple-500 flex-shrink-0" />
+                <span className="font-medium text-xs sm:text-sm">No Hidden Fees</span>
               </div>
             </div>
           </div>
