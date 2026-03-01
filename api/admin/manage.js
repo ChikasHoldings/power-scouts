@@ -98,6 +98,73 @@ async function handleChangePassword(req, res) {
   });
 }
 
+// ─── Update User ────────────────────────────────────────────────────
+
+async function handleUpdateUser(req, res) {
+  const { user_id, full_name, role } = req.body;
+
+  if (!user_id) {
+    return res.status(400).json({ error: "User ID is required." });
+  }
+
+  const auth = await verifyAdmin(req);
+  if (auth.error) return res.status(auth.status).json({ error: auth.error });
+
+  // Validate role if provided
+  if (role && !VALID_ROLES.includes(role)) {
+    return res.status(400).json({
+      error: `Invalid role. Must be one of: ${VALID_ROLES.join(", ")}`,
+    });
+  }
+
+  // Build update object — only include fields that were provided
+  const profileUpdates = {};
+  if (full_name !== undefined) profileUpdates.full_name = full_name.trim();
+  if (role !== undefined) profileUpdates.role = role;
+  profileUpdates.updated_at = new Date().toISOString();
+
+  if (Object.keys(profileUpdates).length <= 1) {
+    return res.status(400).json({ error: "No fields to update." });
+  }
+
+  // Update profile using service role (bypasses RLS)
+  const { data: updatedProfile, error: profileError } = await supabaseAdmin
+    .from("profiles")
+    .update(profileUpdates)
+    .eq("id", user_id)
+    .select()
+    .single();
+
+  if (profileError) {
+    console.error("Profile update error:", profileError);
+    return res.status(500).json({
+      error: profileError.message || "Failed to update user profile.",
+    });
+  }
+
+  // Also update user_metadata in Supabase Auth if name or role changed
+  const metadataUpdates = {};
+  if (full_name !== undefined) metadataUpdates.full_name = full_name.trim();
+  if (role !== undefined) metadataUpdates.role = role;
+
+  if (Object.keys(metadataUpdates).length > 0) {
+    const { error: authUpdateError } = await supabaseAdmin.auth.admin.updateUserById(
+      user_id,
+      { user_metadata: metadataUpdates }
+    );
+    if (authUpdateError) {
+      console.error("Auth metadata update error:", authUpdateError);
+      // Non-fatal — profile was already updated
+    }
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "User updated successfully.",
+    user: updatedProfile,
+  });
+}
+
 // ─── Create User ────────────────────────────────────────────────────
 
 async function handleCreateUser(req, res) {
@@ -264,9 +331,11 @@ export default async function handler(req, res) {
         return await handleChangePassword(req, res);
       case "create-user":
         return await handleCreateUser(req, res);
+      case "update-user":
+        return await handleUpdateUser(req, res);
       default:
         return res.status(400).json({
-          error: "Invalid action. Use 'change-password' or 'create-user'.",
+          error: "Invalid action. Use 'change-password', 'create-user', or 'update-user'.",
         });
     }
   } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/AuthContext";
 import {
   LayoutDashboard,
@@ -23,37 +23,56 @@ import {
   Home,
 } from "lucide-react";
 
+// Each nav item has a `roles` array defining which roles can see it.
+// "admin" = full access, "editor" = content management, "viewer" = read-only dashboard
 const navItems = [
-  { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
-  { label: "Providers", path: "/admin/providers", icon: Building2 },
-  { label: "Plans", path: "/admin/plans", icon: Zap },
-  { label: "Business Plans", path: "/admin/business-plans", icon: Building },
-  { label: "Renewable Plans", path: "/admin/renewable-plans", icon: Leaf },
-  { label: "Articles", path: "/admin/articles", icon: FileText },
-  { label: "Quotes", path: "/admin/quotes", icon: MessageSquare },
-  { label: "Users", path: "/admin/users", icon: Users },
-  { label: "Affiliates", path: "/admin/affiliates", icon: Link2 },
-  { label: "Concierge", path: "/admin/concierge", icon: Home },
-  { label: "Settings", path: "/admin/settings", icon: Settings },
+  { label: "Dashboard", path: "/admin", icon: LayoutDashboard, roles: ["admin", "editor", "viewer"] },
+  { label: "Providers", path: "/admin/providers", icon: Building2, roles: ["admin", "editor"] },
+  { label: "Plans", path: "/admin/plans", icon: Zap, roles: ["admin", "editor"] },
+  { label: "Business Plans", path: "/admin/business-plans", icon: Building, roles: ["admin", "editor"] },
+  { label: "Renewable Plans", path: "/admin/renewable-plans", icon: Leaf, roles: ["admin", "editor"] },
+  { label: "Articles", path: "/admin/articles", icon: FileText, roles: ["admin", "editor"] },
+  { label: "Quotes", path: "/admin/quotes", icon: MessageSquare, roles: ["admin", "editor"] },
+  { label: "Users", path: "/admin/users", icon: Users, roles: ["admin"] },
+  { label: "Affiliates", path: "/admin/affiliates", icon: Link2, roles: ["admin"] },
+  { label: "Concierge", path: "/admin/concierge", icon: Home, roles: ["admin", "editor"] },
+  { label: "Settings", path: "/admin/settings", icon: Settings, roles: ["admin", "editor", "viewer"] },
 ];
 
 export default function AdminLayout({ children }) {
   const { user, profile, logout } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const desktopDropdownRef = useRef(null);
+  const mobileDropdownRef = useRef(null);
 
   const handleLogout = async () => {
-    await logout(false);
-    navigate("/");
+    setAvatarDropdownOpen(false);
+    // Use logout(true) which does window.location.href = '/' for a full page reload
+    // This ensures all auth state is completely cleared
+    await logout(true);
   };
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (
+        desktopDropdownRef.current && !desktopDropdownRef.current.contains(e.target) &&
+        mobileDropdownRef.current && !mobileDropdownRef.current.contains(e.target)
+      ) {
+        setAvatarDropdownOpen(false);
+      }
+      if (
+        desktopDropdownRef.current && !desktopDropdownRef.current.contains(e.target) &&
+        !mobileDropdownRef.current
+      ) {
+        setAvatarDropdownOpen(false);
+      }
+      if (
+        !desktopDropdownRef.current &&
+        mobileDropdownRef.current && !mobileDropdownRef.current.contains(e.target)
+      ) {
         setAvatarDropdownOpen(false);
       }
     };
@@ -67,11 +86,15 @@ export default function AdminLayout({ children }) {
     setSidebarOpen(false);
   }, [location.pathname]);
 
-  const currentPage = navItems.find(
+  // Filter nav items based on user role
+  const userRole = profile?.role || "viewer";
+  const filteredNavItems = navItems.filter((item) => item.roles.includes(userRole));
+
+  const currentPage = filteredNavItems.find(
     (item) =>
       location.pathname === item.path ||
       (item.path !== "/admin" && location.pathname.startsWith(item.path))
-  ) || navItems[0];
+  ) || filteredNavItems[0];
 
   const initials = (profile?.full_name || user?.email || "A")
     .split(" ")
@@ -79,6 +102,30 @@ export default function AdminLayout({ children }) {
     .join("")
     .toUpperCase()
     .slice(0, 2);
+
+  const AvatarDropdownMenu = () => (
+    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]">
+      <div className="px-4 py-3 border-b border-gray-100">
+        <p className="text-sm font-semibold text-gray-900 truncate">{profile?.full_name || "Admin"}</p>
+        <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+        <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-600 rounded-full capitalize">{userRole}</span>
+      </div>
+      <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+        <User className="w-4 h-4" /> Profile
+      </Link>
+      <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+        <Settings className="w-4 h-4" /> Settings
+      </Link>
+      <Link to="/" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+        <ExternalLink className="w-4 h-4" /> View Site
+      </Link>
+      <div className="border-t border-gray-100 mt-1 pt-1">
+        <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
+          <LogOut className="w-4 h-4" /> Sign Out
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -95,35 +142,14 @@ export default function AdminLayout({ children }) {
           <span className="font-bold text-gray-900">Admin Panel</span>
         </div>
         {/* Mobile avatar */}
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative" ref={mobileDropdownRef}>
           <button
             onClick={() => setAvatarDropdownOpen(!avatarDropdownOpen)}
             className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-xs font-bold"
           >
             {initials}
           </button>
-          {avatarDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]">
-              <div className="px-4 py-3 border-b border-gray-100">
-                <p className="text-sm font-semibold text-gray-900 truncate">{profile?.full_name || "Admin"}</p>
-                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-              </div>
-              <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                <User className="w-4 h-4" /> Profile
-              </Link>
-              <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                <Settings className="w-4 h-4" /> Settings
-              </Link>
-              <Link to="/" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                <ExternalLink className="w-4 h-4" /> View Site
-              </Link>
-              <div className="border-t border-gray-100 mt-1 pt-1">
-                <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
-                  <LogOut className="w-4 h-4" /> Sign Out
-                </button>
-              </div>
-            </div>
-          )}
+          {avatarDropdownOpen && <AvatarDropdownMenu />}
         </div>
       </div>
 
@@ -158,9 +184,9 @@ export default function AdminLayout({ children }) {
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation — filtered by role */}
         <nav className="p-4 space-y-1 flex-1 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
-          {navItems.map((item) => {
+          {filteredNavItems.map((item) => {
             const isActive =
               location.pathname === item.path ||
               (item.path !== "/admin" && location.pathname.startsWith(item.path));
@@ -207,7 +233,7 @@ export default function AdminLayout({ children }) {
             <button
               onClick={handleLogout}
               className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-              title="Logout"
+              title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -220,7 +246,7 @@ export default function AdminLayout({ children }) {
         {/* Top bar with avatar dropdown */}
         <div className="hidden lg:flex items-center justify-between bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-30">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{currentPage.label}</h1>
+            <h1 className="text-xl font-bold text-gray-900">{currentPage?.label || "Admin"}</h1>
             <p className="text-sm text-gray-500">
               Electric Scouts Administration
             </p>
@@ -234,7 +260,7 @@ export default function AdminLayout({ children }) {
               View Site
             </Link>
             {/* Profile Avatar Dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative" ref={desktopDropdownRef}>
               <button
                 onClick={() => setAvatarDropdownOpen(!avatarDropdownOpen)}
                 className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
@@ -244,32 +270,11 @@ export default function AdminLayout({ children }) {
                 </div>
                 <div className="text-left hidden xl:block">
                   <p className="text-sm font-medium text-gray-900 leading-tight">{profile?.full_name || "Admin"}</p>
-                  <p className="text-xs text-gray-500 leading-tight">{profile?.role || "admin"}</p>
+                  <p className="text-xs text-gray-500 leading-tight capitalize">{userRole}</p>
                 </div>
                 <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${avatarDropdownOpen ? "rotate-180" : ""}`} />
               </button>
-              {avatarDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-[60]">
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{profile?.full_name || "Admin"}</p>
-                    <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-                  </div>
-                  <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <User className="w-4 h-4" /> Profile
-                  </Link>
-                  <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <Settings className="w-4 h-4" /> Settings
-                  </Link>
-                  <Link to="/" className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <ExternalLink className="w-4 h-4" /> View Site
-                  </Link>
-                  <div className="border-t border-gray-100 mt-1 pt-1">
-                    <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left">
-                      <LogOut className="w-4 h-4" /> Sign Out
-                    </button>
-                  </div>
-                </div>
-              )}
+              {avatarDropdownOpen && <AvatarDropdownMenu />}
             </div>
           </div>
         </div>

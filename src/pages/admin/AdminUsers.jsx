@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Profile } from "@/api/supabaseEntities";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
@@ -107,20 +107,7 @@ export default function AdminUsers() {
     queryFn: () => Profile.list(),
   });
 
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => Profile.update(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["admin-users"]);
-      toast({ title: "User updated successfully" });
-      setEditingUser(null);
-    },
-    onError: (err) =>
-      toast({
-        title: "Error",
-        description: err.message,
-        variant: "destructive",
-      }),
-  });
+  const [updating, setUpdating] = useState(false);
 
   const openEdit = (user) => {
     setEditingUser(user);
@@ -130,9 +117,44 @@ export default function AdminUsers() {
     });
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    updateMutation.mutate({ id: editingUser.id, data: editForm });
+    setUpdating(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast({ title: "Error", description: "Session expired. Please log in again.", variant: "destructive" });
+        return;
+      }
+
+      const resp = await fetch("/api/admin/manage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          action: "update-user",
+          user_id: editingUser.id,
+          full_name: editForm.full_name,
+          role: editForm.role,
+        }),
+      });
+
+      const data = await resp.json();
+
+      if (resp.ok && data.success) {
+        queryClient.invalidateQueries(["admin-users"]);
+        toast({ title: "User updated successfully", description: data.message });
+        setEditingUser(null);
+      } else {
+        toast({ title: "Error", description: data.error || "Failed to update user.", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error", description: "Network error. Please try again.", variant: "destructive" });
+    } finally {
+      setUpdating(false);
+    }
   };
 
   // Password validation for create form
@@ -524,10 +546,10 @@ export default function AdminUsers() {
                 </Button>
                 <Button
                   type="submit"
-                  disabled={updateMutation.isPending}
+                  disabled={updating}
                   className="bg-[#0A5C8C] hover:bg-[#084a6f] text-white"
                 >
-                  {updateMutation.isPending && (
+                  {updating && (
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   )}
                   Save Changes
