@@ -167,7 +167,8 @@ export default function BusinessCompareRates() {
     }
     
     // Filter by ZIP code availability
-    if (zipCode && currentStateCode && availableProviders.length > 0) {
+    // Only apply provider filter when providers have been loaded
+    if (zipCode && availableProviders.length > 0) {
       const provider = availableProviders.find(p => p.name === providerName);
       if (!provider) {
         return false;

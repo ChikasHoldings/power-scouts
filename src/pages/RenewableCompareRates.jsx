@@ -131,26 +131,25 @@ export default function RenewableCompareRates() {
     const providerName = plan.provider_name;
     const planName = (plan.plan_name || '').toLowerCase();
     
-    // Exclude business plans
+    // Exclude business plans - use customer_type as primary, plan name as fallback
     const customerType = (plan.customer_type || '').toLowerCase();
     if (customerType === 'business' || planName.includes('business') || planName.includes('commercial')) {
       return false;
     }
     
     // MANDATORY: Filter by state - only show plans for the user's state
-    if (currentStateCode && plan.state && plan.state !== currentStateCode) {
-      return false;
+    if (currentStateCode) {
+      // Plan must have a state field and it must match
+      if (!plan.state || plan.state !== currentStateCode) {
+        return false;
+      }
     }
     
     // Filter by provider availability for current ZIP
-    if (zipCode) {
-      if (availableProviders.length > 0) {
-        const provider = availableProviders.find(p => p.name === providerName);
-        if (!provider) {
-          return false;
-        }
-      } else if (currentStateCode) {
-        // No providers found for this ZIP but we know the state - block all
+    // Only apply provider filter when providers have been loaded (not during loading)
+    if (zipCode && availableProviders.length > 0) {
+      const provider = availableProviders.find(p => p.name === providerName);
+      if (!provider) {
         return false;
       }
     }
