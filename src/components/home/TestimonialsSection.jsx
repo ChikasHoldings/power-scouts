@@ -33,7 +33,7 @@ function ReviewCard({ review }) {
       </div>
 
       {/* Review Text */}
-      <p className="text-xs text-gray-700 leading-relaxed line-clamp-4">
+      <p className="text-sm text-gray-700 leading-relaxed line-clamp-4">
         "{review.text}"
       </p>
     </div>);
@@ -168,10 +168,10 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-8 sm:py-10 lg:py-12">
+    <section className="bg-slate-50 py-10 sm:py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-5 sm:mb-6">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 sm:px-4 py-2 shadow-md border border-gray-200 mb-4">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
@@ -182,14 +182,14 @@ export default function TestimonialsSection() {
             <span className="text-gray-400">•</span>
             <span className="text-xs text-gray-600 font-medium">2,500+ Reviews</span>
           </div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#084a6f] mb-1.5 px-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084a6f] mb-2 px-4">
             Real People. Real Bills. Real Savings.
           </h2>
-          <p className="text-xs text-gray-600 px-4">Every review is from a verified customer who used Electric Scouts to lower their electricity bill.</p>
+          <p className="text-sm text-gray-600 px-4">Every review is from a verified customer who used Electric Scouts to lower their electricity bill.</p>
         </div>
 
         {/* Reviews Grid - Mobile optimized */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5 sm:mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
           {visibleTestimonials.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}

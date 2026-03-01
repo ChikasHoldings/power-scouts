@@ -114,15 +114,15 @@ export default function EmailCapture({
   if (submitted) {
     return (
       <div className={`${variant === 'slide-up' ? 'fixed bottom-0 left-0 right-0 z-50 shadow-2xl' : ''}`}>
-        <div className="bg-gradient-to-r from-emerald-500 to-green-600 py-4 px-6">
+        <div className="bg-gradient-to-r from-emerald-500 to-green-600 py-5 px-6">
           <div className="max-w-4xl mx-auto flex items-center justify-center gap-3 text-white">
             <CheckCircle className="w-6 h-6 flex-shrink-0" />
-            <p className="text-sm sm:text-base font-medium">
+            <p className="text-base font-medium">
               {name ? `Thanks, ${name.split(' ')[0]}!` : 'Thank you!'} Check your inbox for money-saving tips and exclusive deals.
             </p>
             {variant === 'slide-up' && (
               <button onClick={handleDismiss} className="ml-4 p-1 hover:bg-white/20 rounded-full transition-colors">
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             )}
           </div>
@@ -134,73 +134,78 @@ export default function EmailCapture({
   // ── Inline Variant ──
   if (variant === 'inline') {
     return (
-      <div className="bg-gradient-to-br from-[#f0f7fc] to-[#e8f4f8] border border-[#0A5C8C]/10 rounded-xl p-4 sm:p-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="inline-flex items-center gap-1.5 bg-[#0A5C8C]/10 text-[#0A5C8C] text-[10px] font-semibold px-2.5 py-1 rounded-full mb-2.5">
-            <Zap className="w-3.5 h-3.5" />
-            <span>Save Up to $800/Year</span>
-          </div>
-          
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1.5">
-            Get Personalized Savings Tips
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-600 mb-4 max-w-lg mx-auto">
-            Join thousands of homeowners saving on electricity. We'll send you the best rates for your area — no spam, just savings.
-          </p>
+      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-10">
+            {/* Left: Copy */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-3">
+                <Zap className="w-3.5 h-3.5" />
+                <span>Free Savings Alerts</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                Get the Best Rates for Your Area
+              </h3>
+              <p className="text-sm sm:text-base text-white/80">
+                Join 50,000+ homeowners who save with personalized rate alerts. No spam — just savings.
+              </p>
+            </div>
 
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-              <input
-                type="text"
-                placeholder="First name"
-                value={name}
-                onChange={(e) => { setName(e.target.value); setError(''); }}
-                className="flex-1 h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 transition-colors"
-                disabled={submitting}
-              />
-              <div className="flex-[2] relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            {/* Right: Form */}
+            <div className="w-full lg:w-auto lg:min-w-[340px]">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <input
-                  type="email"
-                  placeholder="Your email address"
-                  value={email}
-                  onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                  className="w-full h-10 pl-9 pr-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 transition-colors"
-                  required
+                  type="text"
+                  placeholder="First name"
+                  value={name}
+                  onChange={(e) => { setName(e.target.value); setError(''); }}
+                  className="w-full h-12 px-4 text-base bg-white/95 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400"
                   disabled={submitting}
                 />
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                    className="w-full h-12 pl-10 pr-4 text-base bg-white/95 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400"
+                    required
+                    disabled={submitting}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitting || !email}
+                  className="w-full h-12 bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold text-base rounded-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl active:scale-[0.98]"
+                >
+                  {submitting ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <span>Get My Savings Report</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              {error && (
+                <p className="text-red-300 text-sm mt-2 text-center">{error}</p>
+              )}
+
+              <div className="flex items-center justify-center gap-4 text-xs text-white/60 mt-3">
+                <span className="flex items-center gap-1">
+                  <Shield className="w-3.5 h-3.5" />
+                  No spam, ever
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  Unsubscribe anytime
+                </span>
               </div>
-              <button
-                type="submit"
-                disabled={submitting || !email}
-                className="h-10 px-5 bg-[#0A5C8C] hover:bg-[#084a6f] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-              >
-                {submitting ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                  <>
-                    <span>Get Savings</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
             </div>
-
-            {error && (
-              <p className="text-red-600 text-sm mt-2">{error}</p>
-            )}
-
-            <div className="flex items-center justify-center gap-4 text-xs text-gray-500 mt-3">
-              <span className="flex items-center gap-1">
-                <Shield className="w-3.5 h-3.5 text-green-500" />
-                No spam, ever
-              </span>
-              <span className="flex items-center gap-1">
-                <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                Unsubscribe anytime
-              </span>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     );
@@ -235,7 +240,7 @@ export default function EmailCapture({
                 placeholder="First name"
                 value={name}
                 onChange={(e) => { setName(e.target.value); setError(''); }}
-                className="h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] sm:w-32"
+                className="h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 sm:w-36"
                 disabled={submitting}
               />
               <input
@@ -243,7 +248,7 @@ export default function EmailCapture({
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                className="flex-1 h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C]"
+                className="flex-1 h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20"
                 required
                 disabled={submitting}
               />
@@ -252,13 +257,13 @@ export default function EmailCapture({
                 placeholder="ZIP code"
                 value={zip}
                 onChange={(e) => { setZip(e.target.value.replace(/\D/g, '').slice(0, 5)); setError(''); }}
-                className="h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] sm:w-24"
+                className="h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 sm:w-28"
                 disabled={submitting}
               />
               <button
                 type="submit"
                 disabled={submitting || !email}
-                className="h-10 px-5 bg-[#FF6B35] hover:bg-[#e55a28] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 whitespace-nowrap"
+                className="h-11 px-6 bg-[#FF6B35] hover:bg-[#e55a28] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 whitespace-nowrap shadow-md"
               >
                 {submitting ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -274,15 +279,15 @@ export default function EmailCapture({
               className="absolute top-2 right-2 sm:relative sm:top-auto sm:right-auto p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
               aria-label="Dismiss"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
           {error && (
-            <p className="text-red-600 text-xs mt-2 text-center sm:text-left sm:ml-14">{error}</p>
+            <p className="text-red-600 text-sm mt-2 text-center sm:text-left sm:ml-14">{error}</p>
           )}
 
-          <p className="text-[10px] text-gray-400 mt-2 text-center sm:text-left sm:ml-14">
+          <p className="text-[11px] text-gray-400 mt-2 text-center sm:text-left sm:ml-14">
             No spam. Unsubscribe anytime. We respect your privacy.
           </p>
         </div>
