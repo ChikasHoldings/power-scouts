@@ -4,15 +4,11 @@ import { Zap, Mail, CheckCircle, X, ArrowRight, Shield } from "lucide-react";
 /**
  * Non-Intrusive Email Capture Component
  * 
- * A polished, subtle email capture that appears as:
- * - Inline banner (default) — sits naturally in page flow
- * - Slide-up bar — appears after scroll engagement
- * 
- * Tagged by source for admin panel tracking.
- * Captures name, email, and ZIP for personalized follow-ups.
+ * - Inline banner — sits naturally in page flow
+ * - Slide-up bar — compact, single-line bar at bottom (not covering content)
  */
 export default function EmailCapture({ 
-  variant = 'inline', // 'inline' | 'slide-up'
+  variant = 'inline',
   source = 'newsletter',
   sourcePage = 'homepage',
   zipCode = '',
@@ -28,27 +24,25 @@ export default function EmailCapture({
   const [visible, setVisible] = useState(variant === 'inline');
   const [dismissed, setDismissed] = useState(false);
 
-  // For slide-up variant: show after user scrolls 60% of page
+  // For slide-up variant: show after user scrolls 70% of page
   useEffect(() => {
     if (variant !== 'slide-up') return;
     
-    // Check if already dismissed in this session
     const wasDismissed = sessionStorage.getItem('es_capture_dismissed');
     const wasSubmitted = localStorage.getItem('es_lead_captured');
     if (wasDismissed || wasSubmitted) return;
 
     const handleScroll = () => {
       const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      if (scrollPercent > 60) {
+      if (scrollPercent > 70) {
         setVisible(true);
         window.removeEventListener('scroll', handleScroll);
       }
     };
 
-    // Delay adding scroll listener to avoid showing immediately
     const timer = setTimeout(() => {
       window.addEventListener('scroll', handleScroll, { passive: true });
-    }, 5000);
+    }, 8000); // Wait 8 seconds before even listening
 
     return () => {
       clearTimeout(timer);
@@ -106,26 +100,31 @@ export default function EmailCapture({
     }
   };
 
-  // Don't render if dismissed or already captured
   if (dismissed || !visible) return null;
   if (localStorage.getItem('es_lead_captured') && variant === 'slide-up') return null;
 
   // ── Success State ──
   if (submitted) {
-    return (
-      <div className={`${variant === 'slide-up' ? 'fixed bottom-0 left-0 right-0 z-50 shadow-2xl' : ''}`}>
-        <div className="bg-gradient-to-r from-emerald-500 to-green-600 py-5 px-6">
-          <div className="max-w-4xl mx-auto flex items-center justify-center gap-3 text-white">
-            <CheckCircle className="w-6 h-6 flex-shrink-0" />
-            <p className="text-base font-medium">
-              {name ? `Thanks, ${name.split(' ')[0]}!` : 'Thank you!'} Check your inbox for money-saving tips and exclusive deals.
-            </p>
-            {variant === 'slide-up' && (
-              <button onClick={handleDismiss} className="ml-4 p-1 hover:bg-white/20 rounded-full transition-colors">
-                <X className="w-5 h-5" />
+    if (variant === 'slide-up') {
+      return (
+        <div className="fixed bottom-0 left-0 right-0 z-50">
+          <div className="bg-emerald-600 py-3 px-4">
+            <div className="max-w-4xl mx-auto flex items-center justify-center gap-2 text-white text-sm">
+              <CheckCircle className="w-4 h-4" />
+              <span className="font-medium">{name ? `Thanks, ${name.split(' ')[0]}!` : 'Thank you!'} We'll send you the best rates.</span>
+              <button onClick={handleDismiss} className="ml-3 p-1 hover:bg-white/20 rounded-full">
+                <X className="w-4 h-4" />
               </button>
-            )}
+            </div>
           </div>
+        </div>
+      );
+    }
+    return (
+      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+        <div className="flex items-center justify-center gap-2 text-emerald-700 text-sm font-medium">
+          <CheckCircle className="w-4 h-4" />
+          <span>{name ? `Thanks, ${name.split(' ')[0]}!` : 'Thank you!'} Check your inbox for savings tips.</span>
         </div>
       </div>
     );
@@ -134,162 +133,107 @@ export default function EmailCapture({
   // ── Inline Variant ──
   if (variant === 'inline') {
     return (
-      <div className="bg-gradient-to-r from-[#0A5C8C] to-[#084a6f] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-10">
-            {/* Left: Copy */}
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-1.5 bg-white/15 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-3">
-                <Zap className="w-3.5 h-3.5" />
-                <span>Free Savings Alerts</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                Get the Best Rates for Your Area
-              </h3>
-              <p className="text-sm sm:text-base text-white/80">
-                Join 50,000+ homeowners who save with personalized rate alerts. No spam — just savings.
-              </p>
-            </div>
-
-            {/* Right: Form */}
-            <div className="w-full lg:w-auto lg:min-w-[340px]">
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="First name"
-                  value={name}
-                  onChange={(e) => { setName(e.target.value); setError(''); }}
-                  className="w-full h-12 px-4 text-base bg-white/95 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400"
-                  disabled={submitting}
-                />
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                    className="w-full h-12 pl-10 pr-4 text-base bg-white/95 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400"
-                    required
-                    disabled={submitting}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={submitting || !email}
-                  className="w-full h-12 bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold text-base rounded-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl active:scale-[0.98]"
-                >
-                  {submitting ? (
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <span>Get My Savings Report</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </form>
-
-              {error && (
-                <p className="text-red-300 text-sm mt-2 text-center">{error}</p>
-              )}
-
-              <div className="flex items-center justify-center gap-4 text-xs text-white/60 mt-3">
-                <span className="flex items-center gap-1">
-                  <Shield className="w-3.5 h-3.5" />
-                  No spam, ever
-                </span>
-                <span className="flex items-center gap-1">
-                  <CheckCircle className="w-3.5 h-3.5" />
-                  Unsubscribe anytime
-                </span>
-              </div>
-            </div>
+      <div className="bg-[#084a6f] rounded-xl p-5 sm:p-6">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          {/* Left: Copy */}
+          <div className="flex-1 text-center sm:text-left">
+            <h3 className="text-lg font-bold text-white mb-1">
+              Get Rate Alerts for Your Area
+            </h3>
+            <p className="text-sm text-white/70">
+              Join 50,000+ homeowners saving with personalized alerts. No spam.
+            </p>
           </div>
+
+          {/* Right: Form — single row on desktop */}
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <input
+              type="text"
+              placeholder="First name"
+              value={name}
+              onChange={(e) => { setName(e.target.value); setError(''); }}
+              className="h-10 px-3 text-sm bg-white/95 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400 sm:w-32"
+              disabled={submitting}
+            />
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setError(''); }}
+              className="h-10 px-3 text-sm bg-white/95 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 placeholder:text-gray-400 sm:w-48"
+              required
+              disabled={submitting}
+            />
+            <button
+              type="submit"
+              disabled={submitting || !email}
+              className="h-10 px-5 bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 whitespace-nowrap"
+            >
+              {submitting ? (
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <>Subscribe</>
+              )}
+            </button>
+          </form>
         </div>
+        {error && (
+          <p className="text-red-300 text-xs mt-2 text-center">{error}</p>
+        )}
       </div>
     );
   }
 
-  // ── Slide-Up Bar Variant ──
+  // ── Slide-Up Bar Variant — compact, non-intrusive ──
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 transform transition-transform duration-500 ease-out"
          style={{ transform: visible ? 'translateY(0)' : 'translateY(100%)' }}>
-      <div className="bg-white border-t-2 border-[#0A5C8C] shadow-2xl">
-        <div className="max-w-6xl mx-auto px-4 py-4 sm:py-5">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            {/* Left: Message */}
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="w-10 h-10 bg-[#0A5C8C]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                <Zap className="w-5 h-5 text-[#0A5C8C]" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-sm font-bold text-gray-900">
-                  Don't miss out on savings!
-                </p>
-                <p className="text-xs text-gray-500 hidden sm:block">
-                  Get the best electricity rates delivered to your inbox
-                </p>
-              </div>
+      <div className="bg-white border-t border-gray-200 shadow-lg">
+        <div className="max-w-5xl mx-auto px-4 py-2.5">
+          <div className="flex items-center gap-3">
+            {/* Message */}
+            <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+              <Zap className="w-4 h-4 text-[#FF6B35]" />
+              <span className="text-sm font-semibold text-gray-800">Get rate alerts</span>
             </div>
 
-            {/* Center: Form */}
-            <form onSubmit={handleSubmit} className="flex-1 flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-              <input
-                type="text"
-                placeholder="First name"
-                value={name}
-                onChange={(e) => { setName(e.target.value); setError(''); }}
-                className="h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 sm:w-36"
-                disabled={submitting}
-              />
+            {/* Form — inline */}
+            <form onSubmit={handleSubmit} className="flex-1 flex gap-2">
               <input
                 type="email"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                className="flex-1 h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20"
+                className="flex-1 h-9 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C]"
                 required
-                disabled={submitting}
-              />
-              <input
-                type="text"
-                placeholder="ZIP code"
-                value={zip}
-                onChange={(e) => { setZip(e.target.value.replace(/\D/g, '').slice(0, 5)); setError(''); }}
-                className="h-11 px-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#0A5C8C] focus:ring-2 focus:ring-[#0A5C8C]/20 sm:w-28"
                 disabled={submitting}
               />
               <button
                 type="submit"
                 disabled={submitting || !email}
-                className="h-11 px-6 bg-[#FF6B35] hover:bg-[#e55a28] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 whitespace-nowrap shadow-md"
+                className="h-9 px-4 bg-[#FF6B35] hover:bg-[#e55a28] text-white font-semibold text-sm rounded-lg transition-colors flex items-center gap-1 disabled:opacity-50 whitespace-nowrap"
               >
                 {submitting ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                  <>Get Rates</>
+                  <>Subscribe</>
                 )}
               </button>
             </form>
 
-            {/* Right: Dismiss */}
+            {/* Dismiss */}
             <button 
               onClick={handleDismiss}
-              className="absolute top-2 right-2 sm:relative sm:top-auto sm:right-auto p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
+              className="p-1 text-gray-400 hover:text-gray-600 rounded-full transition-colors flex-shrink-0"
               aria-label="Dismiss"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
 
           {error && (
-            <p className="text-red-600 text-sm mt-2 text-center sm:text-left sm:ml-14">{error}</p>
+            <p className="text-red-600 text-xs mt-1">{error}</p>
           )}
-
-          <p className="text-[11px] text-gray-400 mt-2 text-center sm:text-left sm:ml-14">
-            No spam. Unsubscribe anytime. We respect your privacy.
-          </p>
         </div>
       </div>
     </div>

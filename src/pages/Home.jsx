@@ -106,25 +106,27 @@ export default function Home() {
                   <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
                     See What You Could Save
                   </h3>
-                  <div className="space-y-5">
-                    <div className="h-16 px-4 py-4 border-2 rounded-xl bg-white">
+                  <div className="space-y-4">
+                    <div className="h-14 px-4 py-3 border-2 border-gray-200 rounded-xl bg-white focus-within:border-[#0A5C8C] transition-colors">
                       <ValidatedZipInput
                         value={zipCode}
                         onChange={handleZipChange}
                         placeholder="Enter your ZIP code"
-                        className="text-xl [&_input]:text-xl [&_input]:h-8 [&_input]:placeholder:text-gray-400"
+                        className="text-lg [&_input]:text-lg [&_input]:h-8 [&_input]:placeholder:text-gray-400"
                         onValidationChange={setIsZipValid}
                       />
                     </div>
 
-                    <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
-                      <Button
-                        className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-14 text-base font-bold touch-manipulation rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300"
-                        disabled={!isZipValid}>
-                        Show Me My Rates
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </Button>
-                    </Link>
+                    <div className="pt-1">
+                      <Link to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')}>
+                        <Button
+                          className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white h-13 text-base font-bold touch-manipulation rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300"
+                          disabled={!isZipValid}>
+                          Show Me My Rates
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                      </Link>
+                    </div>
 
                     <div className="text-center">
                       <Link to={createPageUrl("BillAnalyzer")} className="inline-flex items-center gap-1.5 text-[#0A5C8C] hover:text-[#FF6B35] text-sm font-semibold transition-colors">
