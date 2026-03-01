@@ -23,10 +23,9 @@ export default function HeroSection({ zipCode, setZipCode }) {
             {/* Main Headline */}
             <div>
               <h1 className="text-[32px] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#084a6f] leading-[1.15] sm:leading-tight mb-3 sm:mb-4 tracking-tight">
-                <span className="sm:inline">Smarter Electricity</span>{" "}
+                Cut Your{"\u00A0"}Electric{"\u00A0"}Bill.{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]">
-                  <span className="hidden sm:inline">Starts With Better Rates.</span>
-                  <span className="sm:hidden">Starts With{"\u00A0"}Better{"\u00A0"}Rates.</span>
+                  Keep{"\u00A0"}the{"\u00A0"}Lights{"\u00A0"}On.
                 </span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
