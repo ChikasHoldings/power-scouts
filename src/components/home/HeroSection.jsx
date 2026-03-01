@@ -34,22 +34,23 @@ export default function HeroSection({ zipCode, setZipCode }) {
             </div>
 
             {/* ZIP Code Input — centered on mobile */}
-            <div className="flex items-center gap-2 bg-white rounded-xl shadow-lg border border-gray-200 p-1 max-w-md hover:shadow-xl transition-shadow duration-300">
-              <div className="flex-1 px-3 py-2">
+            {/* Stacked on mobile, inline on desktop */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-2 max-w-md">
+              <div className="flex-1 bg-white rounded-xl shadow-lg border border-gray-200 px-4 py-3 sm:p-1 hover:shadow-xl transition-shadow duration-300">
                 <ValidatedZipInput
                   value={zipCode}
                   onChange={setZipCode}
                   placeholder="Enter your ZIP code"
-                  className="text-base sm:text-xl [&_input]:text-base [&_input]:sm:text-xl [&_input]:h-8 [&_input]:placeholder:text-gray-400"
+                  className="text-lg sm:text-xl [&_input]:text-lg [&_input]:sm:text-xl [&_input]:h-9 [&_input]:sm:h-8 [&_input]:placeholder:text-gray-400"
                   onValidationChange={setIsZipValid}
                 />
               </div>
               <Link 
                 to={createPageUrl("CompareRates") + (zipCode ? `?zip=${zipCode}` : '')} 
-                className={`inline-flex items-center justify-center px-5 sm:px-6 py-3 text-sm sm:text-base font-bold rounded-lg bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-md hover:shadow-lg transition-all duration-300 whitespace-nowrap ${!isZipValid ? 'opacity-50 pointer-events-none' : ''}`}
+                className={`inline-flex items-center justify-center w-full sm:w-auto px-6 py-3.5 sm:py-3 text-base sm:text-base font-bold rounded-xl sm:rounded-lg bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A] hover:from-[#e55a2b] hover:to-[#e6703f] text-white shadow-md hover:shadow-lg transition-all duration-300 whitespace-nowrap ${!isZipValid ? 'opacity-50 pointer-events-none' : ''}`}
                 onClick={(e) => { if (!isZipValid) e.preventDefault(); }}
               >
-                See My Rates <ArrowRight className="w-4 h-4 ml-1" />
+                See My Rates <ArrowRight className="w-4 h-4 ml-1.5" />
               </Link>
             </div>
 
