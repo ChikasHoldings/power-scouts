@@ -21,7 +21,7 @@ export default function TexasElectricity() {
   const { data: allPlans, isLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   // Fetch providers for this state
@@ -33,7 +33,7 @@ export default function TexasElectricity() {
         (p.supported_states || []).includes('TX')
       );
     },
-    initialData: [],
+    placeholderData: [],
   });
 
   const stateData = {

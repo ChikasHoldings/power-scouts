@@ -193,13 +193,13 @@ export default function BillAnalyzer() {
   const { data: plans } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   // ─── File validation helper ────────────────────────────────

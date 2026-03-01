@@ -19,13 +19,13 @@ export default function AllProviders() {
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { data: plans = [] } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const providersWithStats = providers.map(provider => {

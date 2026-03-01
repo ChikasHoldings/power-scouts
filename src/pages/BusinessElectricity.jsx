@@ -23,7 +23,7 @@ export default function BusinessElectricity() {
   const { data: plans } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const states = [

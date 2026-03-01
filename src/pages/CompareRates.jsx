@@ -390,7 +390,7 @@ export default function CompareRates() {
       }
       return result || [];
     },
-    initialData: [],
+    placeholderData: [],
   });
 
   const { getAffiliateUrl } = useAffiliateLinks();

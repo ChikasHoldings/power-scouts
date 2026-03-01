@@ -34,13 +34,13 @@ export default function RenewableCompareRates() {
   const { data: allPlans = [], isLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { getAffiliateUrl } = useAffiliateLinks();
@@ -128,9 +128,6 @@ export default function RenewableCompareRates() {
 
   // Get current state from ZIP code
   const currentStateCode = zipCode ? getStateFromZip(zipCode) : null;
-
-  // Debug logging
-  console.log('[RENEWABLE DEBUG] allPlans count:', allPlans.length, 'currentStateCode:', currentStateCode, 'availableProviders:', availableProviders.length, availableProviders.map(p => p.name));
 
   // Filter plans for renewable energy only (>= 90% renewable) with state filtering
   const renewablePlans = allPlans.filter(plan => {

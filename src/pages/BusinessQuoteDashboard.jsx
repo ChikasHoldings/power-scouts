@@ -17,7 +17,7 @@ export default function BusinessQuoteDashboard() {
     queryKey: ['businessQuotes', user?.email],
     queryFn: () => CustomBusinessQuote.filter({ email: user?.email }, '-created_date'),
     enabled: !!user?.email,
-    initialData: [],
+    placeholderData: [],
   });
 
   const getStatusColor = (status) => {

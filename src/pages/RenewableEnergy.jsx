@@ -20,7 +20,7 @@ export default function RenewableEnergy() {
   const { data: plans, isLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   // Filter for renewable plans - show cheapest first with diverse state representation

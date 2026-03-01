@@ -52,7 +52,7 @@ export default function Layout({ children, currentPageName }) {
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 5);
     },
-    initialData: [],
+    placeholderData: [],
   });
 
   // Google Analytics & SEO Meta Tags

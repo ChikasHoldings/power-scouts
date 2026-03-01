@@ -282,7 +282,7 @@ export default function ArticleDetail() {
         return [];
       }
     },
-    initialData: [],
+    placeholderData: [],
     staleTime: 10 * 60 * 1000,
     cacheTime: 15 * 60 * 1000,
   });

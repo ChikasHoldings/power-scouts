@@ -14,7 +14,7 @@ export default function PlanCard({ plan, usage, estimatedMonthlyCost, isSaved, o
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   const provider = providers.find(p => p.name === plan.provider_name);

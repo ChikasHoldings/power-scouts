@@ -22,13 +22,13 @@ export default function ProviderDetails() {
   const { data: allPlans } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { getAffiliateUrl } = useAffiliateLinks();

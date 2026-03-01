@@ -10,7 +10,7 @@ export default function SitemapXML() {
   const { data: articles } = useQuery({
     queryKey: ['articles-sitemap'],
     queryFn: () => Article.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   useEffect(() => {

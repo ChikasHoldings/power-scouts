@@ -38,13 +38,13 @@ export default function BusinessCompareRates() {
   const { data: allPlans = [], isLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: () => ElectricityPlan.list(),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { data: providers = [] } = useQuery({
     queryKey: ['providers'],
     queryFn: () => ElectricityProvider.filter({ is_active: true }),
-    initialData: [],
+    placeholderData: [],
   });
 
   const { getAffiliateUrl } = useAffiliateLinks();
