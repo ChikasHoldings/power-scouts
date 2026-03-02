@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useParams } from "react-router-dom";
+import { parseCityUrl, getCityUrl, STATE_CODES, STATE_DISPLAY_NAMES } from "@/utils/cityUrls";
 import { ElectricityPlan } from "@/api/supabaseEntities";
 import { useQuery } from "@tanstack/react-query";
 import { createPageUrl } from "@/utils";
@@ -1092,23 +1093,31 @@ function CityRatesInner() {
   const [cityName, setCityName] = useState("");
   const [openFaq, setOpenFaq] = useState(null);
   const [isZipValid, setIsZipValid] = useState(false);
+  // Support both clean URLs (/electricity-rates/texas/houston) and legacy query params (?city=Houston&state=TX)
+  const { stateSlug, citySlug } = useParams();
   const [searchParams] = useSearchParams();
   const cityParam = searchParams.get('city');
-  const stateParam = searchParams.get('state');;
+  const stateParam = searchParams.get('state');
 
   // Get city and state from URL - update when URL changes
   useEffect(() => {
-    if (cityParam && stateParam) {
+    if (stateSlug && citySlug) {
+      // Clean URL: /electricity-rates/texas/houston
+      const parsed = parseCityUrl(stateSlug, citySlug);
+      if (parsed.stateCode) {
+        setCityName(`${parsed.city}-${parsed.stateCode}`);
+      } else {
+        setCityName('Houston-TX');
+      }
+    } else if (cityParam && stateParam) {
       const cityKey = `${cityParam}-${stateParam}`;
       setCityName(cityKey);
     } else if (cityParam) {
-      // Handle city-only param (backwards compatibility)
       setCityName(cityParam);
     } else {
-      // Only default if no params at all
       setCityName('Houston-TX');
     }
-  }, [cityParam, stateParam]);
+  }, [stateSlug, citySlug, cityParam, stateParam]);
 
   // Always prioritize the full city-state key, generate generic data if city doesn't exist
   const cityKey = cityName;

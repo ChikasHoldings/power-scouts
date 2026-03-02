@@ -40,7 +40,7 @@ export default function Layout({ children, currentPageName }) {
   const [isZipValid, setIsZipValid] = useState(false);
   
   // Auto-notify search engines on route changes (new articles published)
-  useAutoSitemapNotify(location.pathname.includes('ArticleDetail'), 5000);
+  useAutoSitemapNotify(location.pathname.includes('ArticleDetail') || location.pathname.startsWith('/learn/'), 5000);
 
   // Fetch affiliate providers for footer
   const { data: affiliateProviders = [] } = useQuery({
@@ -188,16 +188,21 @@ export default function Layout({ children, currentPageName }) {
                           <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wide">Cities</h3>
                         </div>
                         <div className="space-y-0.5">
-                          {topCities.map((city, index) => (
+                          {topCities.map((city, index) => {
+                            const stateSlugMap = { TX: 'texas', IL: 'illinois', OH: 'ohio', PA: 'pennsylvania', NY: 'new-york', NJ: 'new-jersey' };
+                            const citySlug = city.name.toLowerCase().replace(/\s+/g, '-');
+                            const stateSlug = stateSlugMap[city.state] || city.state.toLowerCase();
+                            return (
                             <Link 
                               key={index}
-                              to={createPageUrl("CityRates") + `?city=${city.name}&state=${city.state}`} 
+                              to={`/electricity-rates/${stateSlug}/${citySlug}`} 
                               className="block px-3 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 hover:text-[#0A5C8C] rounded-lg transition-all font-medium"
                               onClick={() => setServiceAreaOpen(false)}
                             >
                               {city.name}
                             </Link>
-                          ))}
+                            );
+                          })}
                         </div>
                         <Link 
                           to={createPageUrl("AllCities")} 
@@ -484,22 +489,22 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h3 className="font-semibold mb-3 text-sm uppercase tracking-wider">Popular Cities</h3>
               <div className="space-y-2">
-                <Link to={createPageUrl("CityRates") + "?city=New York&state=NY"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/new-york/new-york-city" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   New York City
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Houston&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/texas/houston" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Houston
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Chicago&state=IL"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/illinois/chicago" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Chicago
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Dallas&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/texas/dallas" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Dallas
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=Philadelphia&state=PA"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/pennsylvania/philadelphia" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   Philadelphia
                 </Link>
-                <Link to={createPageUrl("CityRates") + "?city=San Antonio&state=TX"} className="block text-gray-400 hover:text-white text-sm transition-colors">
+                <Link to="/electricity-rates/texas/san-antonio" className="block text-gray-400 hover:text-white text-sm transition-colors">
                   San Antonio
                 </Link>
                 <Link to={createPageUrl("AllCities")} className="block text-[#FF6B35] hover:text-[#FF8C5A] text-sm transition-colors font-medium">

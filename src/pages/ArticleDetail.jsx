@@ -266,9 +266,11 @@ const colorClasses = {
 export default function ArticleDetail() {
   const location = window.location;
   
-  // Get article ID from URL
+  // Support both clean URLs (/learn/:slug) and legacy query params (?id=6)
+  const pathParts = location.pathname.split('/');
+  const isCleanUrl = pathParts[1] === 'learn' && pathParts[2];
   const urlParams = new URLSearchParams(location.search);
-  const articleId = urlParams.get('id');
+  const articleId = isCleanUrl ? decodeURIComponent(pathParts[2]) : urlParams.get('id');
 
   // Fetch articles from database
   const { data: dbArticles, isLoading } = useQuery({
@@ -425,9 +427,9 @@ export default function ArticleDetail() {
   });
 
   const breadcrumbData = getBreadcrumbSchema([
-    { name: "Home", url: "/app/Home" },
-    { name: "Learning Center", url: "/app/LearningCenter" },
-    { name: article.title, url: `/app/ArticleDetail?id=${article.id}` }
+    { name: "Home", url: "/" },
+    { name: "Learning Center", url: "/learning-center" },
+    { name: article.title, url: `/learn/${article.id}` }
   ]);
 
   return (
@@ -436,7 +438,7 @@ export default function ArticleDetail() {
         title={optimizedTitle}
         description={optimizedDescription}
         keywords={optimizedKeywords}
-        canonical={`/app/ArticleDetail?id=${article.id}`}
+        canonical={`/learn/${article.id}`}
         image={article.image}
         type="article"
         structuredData={[articleSchema, breadcrumbData]}

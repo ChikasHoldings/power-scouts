@@ -636,7 +636,7 @@ export default function LearningCenter() {
                   const Icon = featured.icon;
                   const colors = colorClasses[featured.color];
                   return (
-                    <Link to={createPageUrl("ArticleDetail") + `?id=${featured.id}`}>
+                    <Link to={`/learn/${featured.id}`}>
                       <Card 
                         className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group"
                       >
@@ -686,7 +686,7 @@ export default function LearningCenter() {
                     const Icon = article.icon;
                     const colors = colorClasses[article.color];
                     return (
-                      <Link key={article.id} to={createPageUrl("ArticleDetail") + `?id=${article.id}`}>
+                      <Link key={article.id} to={`/learn/${article.id}`}>
                         <Card 
                           className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#0A5C8C] cursor-pointer group h-full flex flex-col"
                         >

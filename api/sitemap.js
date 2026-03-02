@@ -2,6 +2,18 @@ import { createClient } from '@supabase/supabase-js';
 
 const SITE_URL = 'https://electricscouts.com';
 
+// State code to slug mapping for clean URLs
+const STATE_SLUGS = {
+  TX: 'texas', IL: 'illinois', OH: 'ohio', PA: 'pennsylvania',
+  NY: 'new-york', NJ: 'new-jersey', MD: 'maryland', MA: 'massachusetts',
+  ME: 'maine', NH: 'new-hampshire', RI: 'rhode-island', CT: 'connecticut'
+};
+
+// Helper: convert city name to URL slug
+function cityToSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+}
+
 // All cities with their state codes for programmatic city pages
 const CITY_PAGES = [
   // Texas
@@ -93,36 +105,19 @@ export default async function handler(req, res) {
     { url: '/business-compare-rates', priority: '0.8', changefreq: 'weekly' },
     { url: '/renewable-compare-rates', priority: '0.8', changefreq: 'weekly' },
 
-    // Learning Center Articles (SEO-optimized)
-    { url: '/article-detail?id=6', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=7', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=8', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=9', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=10', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=11', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=12', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=13', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=14', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=15', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=1', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=2', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=3', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=4', priority: '0.8', changefreq: 'monthly' },
-    { url: '/article-detail?id=5', priority: '0.8', changefreq: 'monthly' },
-
     // Legal
     { url: '/privacy-policy', priority: '0.3', changefreq: 'yearly' },
     { url: '/terms-of-service', priority: '0.3', changefreq: 'yearly' },
   ];
 
-  // Generate city page URLs programmatically
+  // Generate city page URLs with clean SEO-friendly paths
   const cityPages = CITY_PAGES.map(({ city, state }) => ({
-    url: `/city-rates?city=${encodeURIComponent(city)}&state=${state}`,
+    url: `/electricity-rates/${STATE_SLUGS[state]}/${cityToSlug(city)}`,
     priority: '0.8',
     changefreq: 'weekly',
   }));
 
-  // Fetch dynamic content - articles
+  // Fetch dynamic content - articles (use clean /learn/ URLs)
   let articlePages = [];
   try {
     const { data: articles } = await supabase
@@ -133,7 +128,7 @@ export default async function handler(req, res) {
 
     if (articles && articles.length > 0) {
       articlePages = articles.map(article => ({
-        url: `/article-detail?id=${article.slug || article.id}`,
+        url: `/learn/${article.slug || article.id}`,
         priority: '0.7',
         changefreq: 'weekly',
         lastmod: (article.updated_at || article.created_at || '').split('T')[0] || lastmod,
@@ -155,7 +150,7 @@ export default async function handler(req, res) {
       providerPages = providers.map(provider => {
         const slug = provider.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         return {
-          url: `/provider/${slug}`,
+          url: `/providers/${slug}`,
           priority: '0.8',
           changefreq: 'weekly',
           lastmod: (provider.updated_at || '').split('T')[0] || lastmod,

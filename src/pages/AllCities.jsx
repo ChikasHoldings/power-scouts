@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { getCityUrl } from "@/utils/cityUrls";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Users, Zap, ArrowRight, CheckCircle, TrendingDown } from "lucide-react";
@@ -573,7 +574,7 @@ export default function AllCities() {
                 </div>
 
                 {/* CTA Button */}
-                <Link to={createPageUrl("CityRates") + `?city=${city.name}&state=${city.state}`}>
+                <Link to={getCityUrl(city.name, city.state)}>
                   <Button className="w-full bg-[#FF6B35] hover:bg-[#e55a2b] text-white group-hover:shadow-lg transition-all">
                     View Rates in {city.name}
                     <ArrowRight className="w-4 h-4 ml-2" />

@@ -17,7 +17,7 @@ export default function SEOHead({
 
     const siteUrl = window.location.origin;
     const fullUrl = canonical ? `${siteUrl}${canonical}` : window.location.href;
-    const defaultImage = image || `${siteUrl}/og-image.png`;
+    const defaultImage = image || `${siteUrl}/images/og-default.png`;
     
     // Add preconnect for performance
     const addPreconnect = (href) => {

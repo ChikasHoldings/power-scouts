@@ -26,6 +26,14 @@ const AdminRenewablePlans = lazy(() => import('@/pages/admin/AdminRenewablePlans
 const AdminConcierge = lazy(() => import('@/pages/admin/AdminConcierge'));
 const AdminLeads = lazy(() => import('@/pages/admin/AdminLeads'));
 
+// Lazy-loaded SEO redirect components
+const CityRatesRedirect = lazy(() => import('@/components/CityRatesRedirect'));
+const ArticleRedirect = lazy(() => import('@/components/ArticleRedirect'));
+
+// Lazy-loaded CityRates and ArticleDetail for clean URL routes
+const CityRatesPage = lazy(() => import('@/pages/CityRates'));
+const ArticleDetailPage = lazy(() => import('@/pages/ArticleDetail'));
+
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
@@ -130,12 +138,45 @@ const AppRoutes = () => {
           <ProviderDetailsPage />
         </LayoutWrapper>
       } />
+
+      {/* ── Clean URL: City Pages (/electricity-rates/:state/:city) ── */}
+      <Route path="/electricity-rates/:stateSlug/:citySlug" element={
+        <LayoutWrapper currentPageName="CityRates">
+          <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-gray-200 border-t-[#0A5C8C] rounded-full animate-spin" /></div>}>
+            <CityRatesPage />
+          </Suspense>
+        </LayoutWrapper>
+      } />
+
+      {/* ── Clean URL: Article Pages (/learn/:slug) ── */}
+      <Route path="/learn/:articleSlug" element={
+        <LayoutWrapper currentPageName="ArticleDetail">
+          <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center"><div className="w-8 h-8 border-4 border-gray-200 border-t-[#0A5C8C] rounded-full animate-spin" /></div>}>
+            <ArticleDetailPage />
+          </Suspense>
+        </LayoutWrapper>
+      } />
+
+      {/* ── Legacy Redirects: Old query-param URLs → Clean URLs ── */}
+      <Route path="/city-rates" element={
+        <Suspense fallback={null}>
+          <CityRatesRedirect />
+        </Suspense>
+      } />
+      <Route path="/article-detail" element={
+        <Suspense fallback={null}>
+          <ArticleRedirect />
+        </Suspense>
+      } />
+
       <Route path="/" element={
         <LayoutWrapper currentPageName={mainPageKey}>
           <MainPage />
         </LayoutWrapper>
       } />
       {Object.entries(Pages).map(([pageName, Page]) => {
+        // Skip CityRates and ArticleDetail — they now have clean URL routes above
+        if (pageName === 'CityRates' || pageName === 'ArticleDetail') return null;
         const seoPath = createPageUrl(pageName);
         return (
           <Route
@@ -152,6 +193,7 @@ const AppRoutes = () => {
 
       {/* Legacy PascalCase and lowercase redirects for backward compatibility */}
       {Object.keys(Pages).map((pageName) => {
+        if (pageName === 'CityRates' || pageName === 'ArticleDetail') return null;
         const seoPath = createPageUrl(pageName);
         const legacyPascal = `/${pageName}`;
         const legacyLower = `/${pageName.toLowerCase()}`;
