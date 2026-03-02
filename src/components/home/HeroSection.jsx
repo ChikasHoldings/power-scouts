@@ -96,15 +96,18 @@ export default function HeroSection({ zipCode, setZipCode }) {
 
           {/* Right Illustration — hidden on mobile and tablet */}
           <div className="relative hidden lg:block">
-            <img
-              src="https://iwguavsojnbzveutwzpw.supabase.co/storage/v1/object/public/content/homepage/hero-smart-home.png"
-              alt="Smart home energy comparison dashboard"
-              className="w-full h-auto max-w-lg mx-auto"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              width="800"
-              height="800" />
+            <picture>
+              <source srcSet="/images/homepage/hero-smart-home.webp" type="image/webp" />
+              <img
+                src="/images/homepage/hero-smart-home.jpg"
+                alt="Smart home energy comparison dashboard"
+                className="w-full h-auto max-w-lg mx-auto"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+                width="500"
+                height="500" />
+            </picture>
           </div>
         </div>
       </div>

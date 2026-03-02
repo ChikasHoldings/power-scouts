@@ -22,14 +22,17 @@ export default function AboutSection() {
           {/* Image — compact on mobile */}
           <div className="order-2 lg:order-1">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full min-h-[220px] sm:min-h-[420px]">
-              <img
-                src="https://iwguavsojnbzveutwzpw.supabase.co/storage/v1/object/public/content/homepage/about-couple-savings.png"
-                alt="Happy couple reviewing electricity savings on tablet"
-                className="w-full h-full object-cover absolute inset-0"
-                loading="lazy"
-                width="800"
-                height="600"
-              />
+              <picture>
+                <source srcSet="/images/homepage/about-couple-savings.webp" type="image/webp" />
+                <img
+                  src="/images/homepage/about-couple-savings.jpg"
+                  alt="Happy couple reviewing electricity savings on tablet"
+                  className="w-full h-full object-cover absolute inset-0"
+                  loading="lazy"
+                  width="800"
+                  height="446"
+                />
+              </picture>
             </div>
           </div>
 
