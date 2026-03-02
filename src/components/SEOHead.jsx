@@ -7,7 +7,19 @@ export default function SEOHead({
   keywords,
   image,
   type = "website",
-  structuredData 
+  structuredData,
+  // New social-specific props
+  imageWidth,
+  imageHeight,
+  imageAlt,
+  locale = "en_US",
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
+  articleSection,
+  articleTags,
+  twitterCreator,
+  noindex = false
 }) {
   useEffect(() => {
     // Update title
@@ -17,7 +29,24 @@ export default function SEOHead({
 
     const siteUrl = window.location.origin;
     const fullUrl = canonical ? `${siteUrl}${canonical}` : window.location.href;
-    const defaultImage = image || `${siteUrl}/images/og-default.png`;
+    
+    // Page-specific OG image mapping
+    const getPageSpecificImage = () => {
+      if (image) return image;
+      const path = window.location.pathname;
+      if (path.includes('/compare-rates')) return `${siteUrl}/images/og-compare.png`;
+      if (path.includes('/bill-analyzer')) return `${siteUrl}/images/og-bill-analyzer.png`;
+      if (path.includes('/providers')) return `${siteUrl}/images/og-providers.png`;
+      if (path.includes('/business-rates')) return `${siteUrl}/images/og-business.png`;
+      if (path.includes('/learning-center') || path.includes('/learn/')) return `${siteUrl}/images/og-learn.png`;
+      if (path.includes('/electricity-rates') || path.includes('/service-areas')) return `${siteUrl}/images/og-service-areas.png`;
+      return `${siteUrl}/images/og-default.png`;
+    };
+    
+    const defaultImage = getPageSpecificImage();
+    const ogImageWidth = imageWidth || "1200";
+    const ogImageHeight = imageHeight || "630";
+    const ogImageAlt = imageAlt || title || "Electric Scouts - Compare Electricity Rates";
     
     // Add preconnect for performance
     const addPreconnect = (href) => {
@@ -34,6 +63,7 @@ export default function SEOHead({
 
     // Helper function to update or create meta tag
     const updateMetaTag = (selector, attribute, content) => {
+      if (!content) return;
       let element = document.querySelector(selector);
       if (!element) {
         element = document.createElement('meta');
@@ -54,21 +84,55 @@ export default function SEOHead({
     if (keywords) {
       updateMetaTag('meta[name="keywords"]', 'name', keywords);
     }
+    
+    // Robots meta tag
+    if (noindex) {
+      updateMetaTag('meta[name="robots"]', 'name', 'noindex, nofollow');
+    } else {
+      updateMetaTag('meta[name="robots"]', 'name', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    }
 
-    // Update Open Graph tags
+    // Open Graph tags — comprehensive
     updateMetaTag('meta[property="og:type"]', 'property', type);
     updateMetaTag('meta[property="og:url"]', 'property', fullUrl);
     updateMetaTag('meta[property="og:title"]', 'property', title);
     updateMetaTag('meta[property="og:description"]', 'property', description);
     updateMetaTag('meta[property="og:image"]', 'property', defaultImage);
+    updateMetaTag('meta[property="og:image:width"]', 'property', ogImageWidth);
+    updateMetaTag('meta[property="og:image:height"]', 'property', ogImageHeight);
+    updateMetaTag('meta[property="og:image:alt"]', 'property', ogImageAlt);
+    updateMetaTag('meta[property="og:image:type"]', 'property', 'image/png');
     updateMetaTag('meta[property="og:site_name"]', 'property', "Electric Scouts");
+    updateMetaTag('meta[property="og:locale"]', 'property', locale);
+    
+    // Article-specific OG tags (for blog posts/articles)
+    if (type === 'article') {
+      updateMetaTag('meta[property="article:published_time"]', 'property', articlePublishedTime);
+      updateMetaTag('meta[property="article:modified_time"]', 'property', articleModifiedTime);
+      updateMetaTag('meta[property="article:author"]', 'property', articleAuthor || 'Electric Scouts');
+      updateMetaTag('meta[property="article:section"]', 'property', articleSection);
+      if (articleTags && articleTags.length > 0) {
+        articleTags.forEach((tag, i) => {
+          updateMetaTag(`meta[property="article:tag:${i}"]`, 'property', tag);
+        });
+      }
+    }
 
-    // Update Twitter tags
+    // Twitter Card tags — comprehensive
     updateMetaTag('meta[name="twitter:card"]', 'name', "summary_large_image");
+    updateMetaTag('meta[name="twitter:site"]', 'name', "@electricscouts");
+    updateMetaTag('meta[name="twitter:creator"]', 'name', twitterCreator || "@electricscouts");
     updateMetaTag('meta[name="twitter:url"]', 'name', fullUrl);
     updateMetaTag('meta[name="twitter:title"]', 'name', title);
     updateMetaTag('meta[name="twitter:description"]', 'name', description);
     updateMetaTag('meta[name="twitter:image"]', 'name', defaultImage);
+    updateMetaTag('meta[name="twitter:image:alt"]', 'name', ogImageAlt);
+    
+    // Additional SEO meta tags
+    updateMetaTag('meta[name="author"]', 'name', 'Electric Scouts');
+    updateMetaTag('meta[name="geo.region"]', 'name', 'US');
+    updateMetaTag('meta[name="geo.placename"]', 'name', 'United States');
+    updateMetaTag('meta[name="rating"]', 'name', 'general');
 
     // Update canonical link
     let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -94,13 +158,13 @@ export default function SEOHead({
 
     // Cleanup function
     return () => {
-      // Optional: clean up structured data when component unmounts
+      // Clean up structured data when component unmounts
       const script = document.getElementById('structured-data-script');
       if (script) {
         script.remove();
       }
     };
-  }, [title, description, canonical, keywords, image, type, structuredData]);
+  }, [title, description, canonical, keywords, image, type, structuredData, imageWidth, imageHeight, imageAlt, locale, articlePublishedTime, articleModifiedTime, articleAuthor, articleSection, articleTags, twitterCreator, noindex]);
 
   return null;
 }
@@ -112,7 +176,7 @@ export const getOrganizationSchema = () => ({
   "name": "Electric Scouts",
   "url": window.location.origin,
   "logo": `${window.location.origin}/logo.png`,
-  "description": "Compare electricity rates from 40+ providers across 17 deregulated states. Save up to $800 per year on your electricity bills.",
+  "description": "Compare electricity rates from 40+ providers across 13 deregulated states. Save up to $800 per year on your electricity bills.",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
@@ -122,7 +186,9 @@ export const getOrganizationSchema = () => ({
   },
   "sameAs": [
     "https://facebook.com/electricscouts",
-    "https://twitter.com/electricscouts"
+    "https://twitter.com/electricscouts",
+    "https://linkedin.com/company/electricscouts",
+    "https://instagram.com/electricscouts"
   ]
 });
 
@@ -193,15 +259,22 @@ export const getArticleSchema = (article) => ({
   "dateModified": article.dateModified || article.datePublished,
   "author": {
     "@type": "Organization",
-    "name": "Electric Scouts"
+    "name": "Electric Scouts",
+    "url": window.location.origin
   },
   "publisher": {
     "@type": "Organization",
     "name": "Electric Scouts",
     "logo": {
       "@type": "ImageObject",
-      "url": `${window.location.origin}/logo.png`
+      "url": `${window.location.origin}/logo.png`,
+      "width": 200,
+      "height": 60
     }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": article.url || window.location.href
   }
 });
 
@@ -317,9 +390,29 @@ export const getSearchActionSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "url": window.location.origin,
+  "name": "Electric Scouts",
+  "description": "Compare electricity rates from 40+ providers across 13 deregulated states",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": `${window.location.origin}/compare-rates?zip={search_term_string}`,
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${window.location.origin}/compare-rates?zip={search_term_string}`
+    },
     "query-input": "required name=search_term_string"
   }
+});
+
+// Helper function to generate SoftwareApplication schema (for the comparison tool)
+export const getSoftwareApplicationSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Electric Scouts Rate Comparison Tool",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free electricity rate comparison tool covering 40+ providers across 13 deregulated US states"
 });

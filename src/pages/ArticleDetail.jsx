@@ -16,6 +16,7 @@ import ArticleSuggestions from "../components/learning/ArticleSuggestions";
 import { trackDailyReading } from "../components/learning/ReadingAnalytics";
 import { fixArticleLinks } from "../components/learning/fixArticleLinks";
 import InArticleCTA from "../components/learning/InArticleCTA";
+import SocialShareBar from "../components/SocialShareBar";
 
 // Fallback articles
 const fallbackArticles = [
@@ -1195,6 +1196,14 @@ export default function ArticleDetail() {
             </div>
           </div>
 
+          {/* Social Share Bar - Top */}
+          <div className="px-6 sm:px-10 lg:px-12 pt-4">
+            <SocialShareBar 
+              title={article.title} 
+              description={article.description}
+              compact={true}
+            />
+          </div>
           {/* Article Body */}
           <div className="p-6 sm:p-10 lg:p-12">
             {fullArticle ? (
@@ -1270,6 +1279,13 @@ export default function ArticleDetail() {
                   <span className="font-medium text-gray-900">FAQs</span>
                 </Link>
               </div>
+            </div>
+            {/* Social Share Bar - Bottom */}
+            <div className="px-6 sm:px-10 lg:px-12 pb-6">
+              <SocialShareBar 
+                title={article.title} 
+                description={article.description}
+              />
             </div>
           </div>
         </article>
