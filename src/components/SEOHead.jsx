@@ -59,7 +59,6 @@ export default function SEOHead({
     };
     
     addPreconnect('https://iwguavsojnbzveutwzpw.supabase.co');
-    addPreconnect('https://images.unsplash.com');
 
     // Helper function to update or create meta tag
     const updateMetaTag = (selector, attribute, content) => {

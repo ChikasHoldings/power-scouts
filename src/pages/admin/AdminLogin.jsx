@@ -482,11 +482,16 @@ export default function AdminLogin() {
       <Card className="w-full max-w-md shadow-2xl border-0">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto mb-4">
-            <img
-              src="/images/logo-header.png"
-              alt="Electric Scouts"
-              className="h-10 w-auto mx-auto"
-            />
+            <picture>
+              <source srcSet="/images/logo-header.webp" type="image/webp" />
+              <img
+                src="/images/logo-header.png"
+                alt="Electric Scouts"
+                className="h-10 w-auto mx-auto"
+                width="193"
+                height="40"
+              />
+            </picture>
           </div>
           <div className="flex items-center justify-center gap-2 mb-2">
             <Shield className="w-5 h-5 text-orange-500" />

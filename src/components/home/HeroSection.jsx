@@ -102,6 +102,7 @@ export default function HeroSection({ zipCode, setZipCode }) {
               className="w-full h-auto max-w-lg mx-auto"
               loading="eager"
               decoding="async"
+              fetchpriority="high"
               width="800"
               height="800" />
           </div>

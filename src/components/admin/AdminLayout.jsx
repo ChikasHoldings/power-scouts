@@ -155,11 +155,16 @@ export default function AdminLayout({ children }) {
         {/* Logo area */}
         <div className="px-5 py-5 border-b border-white/10 flex-shrink-0">
           <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src="/images/logo-footer.png"
-              alt="Electric Scouts"
-              className="h-8 w-auto"
-            />
+            <picture>
+              <source srcSet="/images/logo-footer.webp" type="image/webp" />
+              <img
+                src="/images/logo-footer.png"
+                alt="Electric Scouts"
+                className="h-8 w-auto"
+                width="155"
+                height="32"
+              />
+            </picture>
           </Link>
           <div className="mt-2 flex items-center gap-2">
             <Shield className="w-3.5 h-3.5 text-orange-400" />

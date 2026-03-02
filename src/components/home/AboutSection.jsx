@@ -27,6 +27,8 @@ export default function AboutSection() {
                 alt="Happy couple reviewing electricity savings on tablet"
                 className="w-full h-full object-cover absolute inset-0"
                 loading="lazy"
+                width="800"
+                height="600"
               />
             </div>
           </div>

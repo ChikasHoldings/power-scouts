@@ -123,12 +123,18 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center">
-              <img 
-                src="/images/logo-header.png"
-                alt="Electric Scouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
-                className="h-9 sm:h-9 lg:h-10"
-                loading="eager"
-              />
+              <picture>
+                <source srcSet="/images/logo-header.webp" type="image/webp" />
+                <img 
+                  src="/images/logo-header.png"
+                  alt="Electric Scouts Logo - Compare Electricity Rates and Save on Your Energy Bill in 12 Deregulated States"
+                  className="h-9 sm:h-9 lg:h-10"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="193"
+                  height="40"
+                />
+              </picture>
             </Link>
 
             {/* Desktop Navigation */}
@@ -300,11 +306,17 @@ export default function Layout({ children, currentPageName }) {
           >
             {/* Menu Header */}
             <div className="flex items-center justify-between p-5 border-b border-gray-200 bg-gradient-to-r from-[#0A5C8C] to-[#084a6f]">
-              <img 
-                src="/images/logo-footer.png"
-                alt="Electric Scouts - Mobile Menu Logo for Electricity Rate Comparison Service"
-                className="h-10"
-              loading="lazy" />
+              <picture>
+                <source srcSet="/images/logo-footer.webp" type="image/webp" />
+                <img 
+                  src="/images/logo-footer.png"
+                  alt="Electric Scouts - Mobile Menu Logo for Electricity Rate Comparison Service"
+                  className="h-10"
+                  loading="lazy"
+                  width="193"
+                  height="40"
+                />
+              </picture>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 rounded-lg hover:bg-white/10 transition-colors"
@@ -460,11 +472,17 @@ export default function Layout({ children, currentPageName }) {
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-1">
               <Link to="/" className="inline-block mb-4">
-                <img 
-                  src="/images/logo-footer.png"
-                  alt="Electric Scouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
-                  className="h-9 sm:h-10"
-                loading="lazy" />
+                <picture>
+                  <source srcSet="/images/logo-footer.webp" type="image/webp" />
+                  <img 
+                    src="/images/logo-footer.png"
+                    alt="Electric Scouts Footer Logo - Trusted Electricity Comparison Platform Serving TX, PA, NY, OH, IL, NJ, MD, MA, ME, NH, RI, CT"
+                    className="h-9 sm:h-10"
+                    loading="lazy"
+                    width="193"
+                    height="40"
+                  />
+                </picture>
               </Link>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 Compare electricity rates from 40+ providers nationwide. Save up to $800/year.

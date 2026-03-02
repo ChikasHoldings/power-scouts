@@ -39,6 +39,8 @@ export default function ProvidersSection() {
                 alt={logo.alt}
                 className="h-10 lg:h-12 w-auto max-w-[120px] object-contain grayscale hover:grayscale-0 transition-all duration-300"
                 loading="lazy"
+                width="120"
+                height="48"
               />
             </motion.div>
           ))}
@@ -60,6 +62,8 @@ export default function ProvidersSection() {
                 alt={logo.alt}
                 className="h-7 w-auto max-w-[100px] object-contain opacity-60"
                 loading="lazy"
+                width="100"
+                height="28"
               />
             </motion.div>
           ))}

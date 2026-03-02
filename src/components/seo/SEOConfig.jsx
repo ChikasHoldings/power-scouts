@@ -246,7 +246,7 @@ export function getRobotsTag(pageType) {
 // Core Web Vitals optimization hints
 export const PERFORMANCE_HINTS = {
   lazyLoadImages: true,
-  preconnectDomains: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
+  preconnectDomains: ['https://iwguavsojnbzveutwzpw.supabase.co'],
   prefetchPages: ['/compare-rates', '/business-electricity', '/faq'],
   criticalCSS: true,
   deferNonCriticalJS: true
