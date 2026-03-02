@@ -90,6 +90,11 @@ export default function CompareRates() {
 
   const [step, setStep] = useState(1);
   const hasInitializedRef = useRef(false);
+
+  // Scroll to top on every step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [step]);
   const [zipCode, setZipCode] = useState("");
   const [zipError, setZipError] = useState("");
   const [propertyType, setPropertyType] = useState("");

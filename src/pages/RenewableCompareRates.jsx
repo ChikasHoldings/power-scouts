@@ -80,11 +80,9 @@ export default function RenewableCompareRates() {
     loadZipData();
   }, []);
 
-  // Scroll to top when results are shown
+  // Scroll to top on every step change
   useEffect(() => {
-    if (step === 4) {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [step]);
 
   const handleZipSubmit = async () => {

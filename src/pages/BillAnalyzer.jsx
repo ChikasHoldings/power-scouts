@@ -108,6 +108,13 @@ export default function BillAnalyzer() {
   const [error, setError] = useState(null);
   const [showResults, setShowResults] = useState(sessionData?.showResults || false);
   const [showManualInput, setShowManualInput] = useState(false);
+
+  // Scroll to top when results are shown
+  useEffect(() => {
+    if (showResults) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [showResults]);
   const [isDragOver, setIsDragOver] = useState(false);
   const { getAffiliateUrl } = useAffiliateLinks();
   const [manualForm, setManualForm] = useState({

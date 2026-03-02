@@ -21,6 +21,11 @@ export default function HomeConcierge() {
   const [openFaq, setOpenFaq] = useState(null);
   const [step, setStep] = useState(0); // 0 = landing, 1-4 = form steps, 5 = confirmation
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Scroll to top on every step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [step]);
   
   const [formData, setFormData] = useState({
     full_name: "",

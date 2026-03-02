@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,13 @@ export default function SavingsCalculator() {
   const [monthlyUsage, setMonthlyUsage] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [results, setResults] = useState(null);
+
+  // Scroll to top when results are shown
+  useEffect(() => {
+    if (results) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [results]);
 
   const calculateSavings = () => {
     if (!currentRate || !monthlyUsage || !zipCode || zipCode.length !== 5) return;
