@@ -17,6 +17,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { SITE_URL } from './site.js';
+
+/** The host a crawler requests unless a caller says otherwise. */
+const CANONICAL_HOST = new URL(SITE_URL).host;
+
 /* ------------------------------------------------------------------ *
  * HTML extraction
  * ------------------------------------------------------------------ */
@@ -152,6 +157,24 @@ function sourceToRegExp(source) {
 }
 
 /**
+ * Substitute a matched source's captures into a destination template.
+ *
+ * Vercel interpolates `:path*` and `:name` in the destination; a model that
+ * returned the template verbatim would report the redirect target as
+ * "https://electricscouts.com/:path*" and could not tell a correct redirect
+ * from one pointing at the wrong page.
+ */
+function fillParams(destination, groups) {
+  if (!groups) return destination;
+  let out = destination;
+  for (const [name, value] of Object.entries(groups)) {
+    // The starred form first: ":path*" contains ":path".
+    out = out.split(`:${name}*`).join(value ?? '').split(`:${name}`).join(value ?? '');
+  }
+  return out;
+}
+
+/**
  * Resolve a path the way the deployment does: redirects first, then the
  * filesystem, then rewrites, then the 404 page.
  *
@@ -159,12 +182,33 @@ function sourceToRegExp(source) {
  * a prerendered file that never gets served because a rewrite wins) is exactly
  * the class of bug that makes a page look fine locally and blank to Googlebot.
  */
-export function createResolver({ distDir, vercelConfig }) {
-  const redirects = (vercelConfig.redirects || []).map((r) => ({
+export function createResolver({ distDir, vercelConfig, host = CANONICAL_HOST }) {
+  /**
+   * Whether a rule applies to the host being resolved.
+   *
+   * A Vercel rule can carry `has` conditions, and one of them is the request
+   * host. The site uses that to send its .vercel.app aliases — which serve a
+   * second, indexable copy of every page — to the canonical origin. Those rules
+   * use `source: "/:path*"`, so a model that reads `source` and ignores `has`
+   * concludes that every URL on the canonical host is a redirect, and every
+   * check built on it becomes nonsense.
+   *
+   * Only host conditions are modelled. A rule gated on anything else (a cookie,
+   * a query parameter, a header) is treated as not applying to a plain crawler
+   * request, which is what it is.
+   */
+  function appliesToHost(rule) {
+    const conditions = [...(rule.has || []), ...(rule.missing || [])];
+    if (!conditions.length) return true;
+    return (rule.has || []).every((c) => c.type === 'host' && c.value === host)
+      && (rule.missing || []).every((c) => c.type === 'host' && c.value !== host);
+  }
+
+  const redirects = (vercelConfig.redirects || []).filter(appliesToHost).map((r) => ({
     ...r,
     re: sourceToRegExp(r.source),
   }));
-  const rewrites = (vercelConfig.rewrites || []).map((r) => ({
+  const rewrites = (vercelConfig.rewrites || []).filter(appliesToHost).map((r) => ({
     ...r,
     re: sourceToRegExp(r.source),
   }));
@@ -186,11 +230,12 @@ export function createResolver({ distDir, vercelConfig }) {
     const pathname = String(rawPath).split('#')[0].split('?')[0] || '/';
 
     for (const redirect of redirects) {
-      if (redirect.re.test(pathname)) {
+      const match = pathname.match(redirect.re);
+      if (match) {
         return {
           path: pathname,
           status: redirect.permanent === false ? 302 : 301,
-          location: redirect.destination,
+          location: fillParams(redirect.destination, match.groups),
           kind: 'redirect',
         };
       }

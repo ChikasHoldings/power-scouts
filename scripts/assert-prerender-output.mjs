@@ -175,6 +175,37 @@ async function assertVercelContract(failures) {
     failures.add(scope, 'trailingSlash must stay false — canonicals are emitted without one');
   }
 
+  /**
+   * The hosts that serve a second, indexable copy of the whole site.
+   *
+   * A Vercel project answers on its short .vercel.app aliases as well as on the
+   * custom domain, and those aliases are production rather than previews — so
+   * Vercel does NOT stamp them `x-robots-tag: noindex` the way it does a
+   * deployment URL. Left alone, electric-scouts.vercel.app served all 335 pages
+   * at 200 with `<meta name="robots" content="index, follow">`: a complete
+   * duplicate of the site on a host nobody meant to publish.
+   *
+   * The canonical on those copies already points at the apex, but a canonical
+   * is a hint. When Google finds the same 335 pages on two hosts it makes its
+   * own choice, and "Duplicate, Google chose different canonical than user" is
+   * what that choice looks like in Search Console.
+   *
+   * Named hosts rather than a pattern over .vercel.app, deliberately: the
+   * deployment-specific preview URLs must keep answering 200, because the
+   * post-deploy verification workflow reads them.
+   */
+  const DUPLICATE_HOSTS = ['electric-scouts.vercel.app', 'power-scouts.vercel.app'];
+  const redirectedHosts = new Set(
+    (config.redirects || [])
+      .filter((r) => /^https:\/\/electricscouts\.com\//.test(String(r.destination || '')))
+      .flatMap((r) => (r.has || []).filter((h) => h.type === 'host').map((h) => h.value))
+  );
+  for (const host of DUPLICATE_HOSTS) {
+    if (!redirectedHosts.has(host)) {
+      failures.add(scope, `${host} serves the whole site and is indexable — it needs a host redirect to the canonical origin`);
+    }
+  }
+
   // A public catch-all rewrite is the single change that silently undoes every
   // prerendered file at once: the files stay on disk and stop being reachable.
   for (const rewrite of config.rewrites || []) {
@@ -437,7 +468,7 @@ async function main() {
   for (const route of indexable) {
     const page = pages.get(route.path);
     if (!page) continue;
-    const pairKey = `${page.title} ${page.h1}`;
+    const pairKey = `${page.title}\u0000${page.h1}`;
     const previousPair = byTitleAndH1.get(pairKey);
     if (previousPair) {
       failures.add(servedPathFor(route.path), `duplicate title+H1 pair, shared with ${previousPair}`);

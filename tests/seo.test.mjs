@@ -1457,6 +1457,38 @@ describe('invalid dynamic URLs do not masquerade as pages', { skip: !distExists 
     '/this-page-does-not-exist',
   ];
 
+  /**
+   * The .vercel.app aliases serve a second, indexable copy of all 335 pages.
+   *
+   * Vercel stamps `x-robots-tag: noindex` on a deployment URL but not on a
+   * project's short production aliases, so electric-scouts.vercel.app answered
+   * 200 with `robots: index, follow` for every route. The canonical on those
+   * copies points at the apex, but a canonical is a hint — when Google finds
+   * the same pages on two hosts it makes its own choice, and "Duplicate, Google
+   * chose different canonical than user" is what that choice looks like.
+   *
+   * The guard is a host-conditional redirect. Its `source` is `/:path*`, which
+   * is the most dangerous pattern there is if the host condition is ever
+   * dropped, so this asserts both halves: the alias redirects, and the
+   * canonical host does not.
+   */
+  for (const alias of ['electric-scouts.vercel.app', 'power-scouts.vercel.app']) {
+    test(`${alias} redirects to the canonical origin`, () => {
+      const onAlias = createResolver({ distDir: DIST, vercelConfig: config, host: alias });
+      const result = onAlias('/compare-rates');
+      assert.equal(result.status, 301, `${alias}/compare-rates should redirect, got ${result.status}`);
+      assert.equal(result.location, 'https://electricscouts.com/compare-rates');
+    });
+  }
+
+  test('the host redirect does not fire on the canonical host', () => {
+    // The same rule seen from the apex: /:path* must not swallow the site.
+    for (const url of ['/', '/compare-rates', '/texas-electricity']) {
+      const result = resolve(url);
+      assert.equal(result.status, 200, `${url} must serve, not redirect (got ${result.status})`);
+    }
+  });
+
   for (const url of invalid) {
     test(`${url} returns 404`, () => {
       const result = resolve(url);
