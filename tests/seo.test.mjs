@@ -128,6 +128,83 @@ describe('canonical host and URL normalization', () => {
 });
 
 /* ================================================================== *
+ * Tracking-parameter URLs
+ *
+ * Search Console reports https://electricscouts.com/?ref=steemhunt and
+ * /?ref=producthunt under "Alternate page with proper canonical tag", and
+ * every validation requested against that report comes back "Some fixes
+ * failed". Both of those facts are the system working.
+ *
+ * That status is not an error. It is Google saying it crawled the URL, read
+ * the canonical, and folded the page into the homepage — the outcome the
+ * canonical exists to produce. Search Console only clears a URL out of that
+ * bucket once it stops being an alternate: once it 404s, redirects, or serves
+ * noindex. None of those will ever be true here, because the URLs are live
+ * partner backlinks that real people click. So the report stays open for as
+ * long as the links exist, and re-requesting validation cannot close it.
+ *
+ * The trap is the obvious fix. An edge redirect that strips the parameter
+ * would close the report and take the site's campaign attribution with it:
+ * captureAttribution() in components/compare/engine/attribution.js reads the
+ * UTM keys off the FIRST landing URL and snapshots them into sessionStorage,
+ * and those values ride through to lead records (api/leads.js) and out to the
+ * lead buyers who are billed against them (api/_lib/comparison.js).
+ * isCommissionCapable() in lib/commissionCapable.js reads `ref` the same way.
+ * A 301 resolves before any script runs, so the parameter would be gone
+ * before anything could read it — a cosmetic Search Console row traded for
+ * real revenue data.
+ *
+ * The correct handling is the one already in place: serve 200, emit a
+ * canonical with no query string, and let Google consolidate. These tests are
+ * here to stop a future reader from "fixing" that Search Console row.
+ * ================================================================== */
+
+describe('tracking-parameter URLs stay crawlable and self-consolidating', () => {
+  const TRACKING_PARAMS = [
+    'ref',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'fbclid',
+    'gclid',
+    'msclkid',
+  ];
+
+  test('a tracking parameter never reaches the canonical URL', () => {
+    for (const key of TRACKING_PARAMS) {
+      assert.equal(absoluteUrl(`/?${key}=partner`), `${CANONICAL_HOST}/`);
+      assert.equal(
+        absoluteUrl(`/texas-electricity?${key}=partner`),
+        `${CANONICAL_HOST}/texas-electricity`,
+      );
+    }
+
+    // The URLs named in the Search Console report, verbatim.
+    assert.equal(absoluteUrl('/?ref=steemhunt'), `${CANONICAL_HOST}/`);
+    assert.equal(absoluteUrl('/?ref=producthunt'), `${CANONICAL_HOST}/`);
+  });
+
+  test('no redirect is gated on a tracking parameter', () => {
+    const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+
+    for (const rule of config.redirects || []) {
+      for (const condition of [...(rule.has || []), ...(rule.missing || [])]) {
+        if (condition.type !== 'query') continue;
+        assert.ok(
+          !TRACKING_PARAMS.includes(String(condition.key).toLowerCase()),
+          `redirect "${rule.source}" is gated on the tracking parameter `
+            + `"${condition.key}". Stripping it server-side closes a Search Console `
+            + 'row that is not an error and breaks campaign attribution — see the '
+            + 'comment above this block.',
+        );
+      }
+    }
+  });
+});
+
+/* ================================================================== *
  * robots.txt
  * ================================================================== */
 
