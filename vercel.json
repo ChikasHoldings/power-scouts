@@ -8,6 +8,18 @@
   "cleanUrls": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "electric-scouts.vercel.app" }],
+      "destination": "https://electricscouts.com/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "power-scouts.vercel.app" }],
+      "destination": "https://electricscouts.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "electric-scouts.vercel.app" }],
       "destination": "https://electricscouts.com/:path*",
