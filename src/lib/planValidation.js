@@ -247,6 +247,75 @@ export function pricingCompleteness(plan) {
  * @returns {{active: number, complete: number, incomplete: number, percent: number}}
  */
 /**
+ * The three things that have to be true before this site can do its job, each
+ * of which is currently false and none of which anything was watching.
+ *
+ * They are all configuration rather than code, which is exactly why they went
+ * unnoticed: every screen reads as healthy because every screen is working. The
+ * catalog page lists providers, the leads page lists leads, the revenue page
+ * adds up. What none of them says is that the answers are empty.
+ *
+ *  · deliveryConfigured — no utility_territories row means no plan resolves a
+ *    delivery charge, so nothing publishes a monthly bill or a savings figure.
+ *  · buyersConfigured — no lead_buyers row means the router has nobody to route
+ *    to, so every captured lead is stored and goes nowhere. Leads already in
+ *    the table make that worse, not better: they are the ones that went nowhere.
+ *  · catalogFresh — the public pages are prerendered from a market snapshot
+ *    taken at build time, while the comparison engine queries the live table.
+ *    When they disagree the site advertises a catalog it cannot deliver: a
+ *    visitor reads a plan count on a state page, runs a comparison, and gets a
+ *    fraction of it. Nothing compares the two, because each is internally
+ *    consistent.
+ *
+ * `snapshotPlans` is MARKET_TOTALS.activePlans, a build-time constant, so this
+ * comparison costs one number and no extra query.
+ *
+ * @param {object} [input]
+ * @param {object[]} [input.plans]        rows from electricity_plans
+ * @param {object[]} [input.territories]  rows from utility_territories
+ * @param {object[]} [input.buyers]       rows from lead_buyers
+ * @param {number} [input.leads]          how many leads have been captured
+ * @param {number} [input.snapshotPlans]  active plans the published pages claim
+ */
+export function launchReadiness({
+  plans = [],
+  territories = [],
+  buyers = [],
+  leads = 0,
+  snapshotPlans = 0,
+} = {}) {
+  const readiness = pricingReadiness(plans, territories);
+  const buyerRows = Array.isArray(buyers) ? buyers : [];
+  const activeBuyers = buyerRows.filter((b) => b?.is_active).length;
+  const livePlans = readiness.active;
+
+  // A tolerance rather than an equality: the snapshot is rebuilt on deploy and
+  // the catalog moves between deploys, so small drift is normal and only a gap
+  // wide enough to make the published numbers misleading is worth reporting.
+  const drift = snapshotPlans > 0 ? Math.abs(snapshotPlans - livePlans) / snapshotPlans : 0;
+
+  const blockers = [];
+  if (readiness.incomplete > 0 && readiness.activeTerritories === 0) blockers.push('delivery');
+  if (activeBuyers === 0) blockers.push('buyers');
+  if (drift > 0.25) blockers.push('catalog');
+
+  return {
+    ...readiness,
+    buyers: buyerRows.length,
+    activeBuyers,
+    leads,
+    livePlans,
+    snapshotPlans,
+    catalogDrift: drift,
+    deliveryConfigured: readiness.activeTerritories > 0,
+    buyersConfigured: activeBuyers > 0,
+    catalogFresh: drift <= 0.25,
+    blockers,
+    launchReady: blockers.length === 0,
+  };
+}
+
+/**
  * Catalog pricing readiness, including the lever that fixes it.
  *
  * catalogPricingCoverage answers "how many plans can be priced" and stops
