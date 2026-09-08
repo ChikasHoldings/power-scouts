@@ -65,6 +65,33 @@ export const SITE_URL = normalizeOrigin(readNodeEnv('SEO_SITE_URL') || DEFAULT_S
 export const SITE_NAME = 'Electric Scouts';
 
 /**
+ * Hosts that must never serve the site — only redirect to it.
+ *
+ * www is the load-bearing one, and it is invisible from inside this repository:
+ * it is a Vercel domain setting, not a vercel.json rule, so nothing in the
+ * build can prove it still redirects. The whole canonical strategy rests on it.
+ * Every canonical, og:url, JSON-LD @id and sitemap entry names the apex; if www
+ * ever answered 200 instead of 308, the site would have a second complete copy
+ * on a host Google already knows well — the same failure the .vercel.app
+ * aliases had, on the host with the most history behind it.
+ *
+ * It also carries the migration. Until 2026-08-22 this file said www, so the
+ * sitemap listed 335 www URLs and that is the host Google's crawl history is
+ * attached to. A different host is a different URL, so the apex URLs entered
+ * discovery as new pages. The www redirect is what tells Google they are the
+ * same pages moved rather than 335 unrelated ones, which is the difference
+ * between recrawling a known site and queueing an unknown one.
+ *
+ * Derived from SITE_URL rather than written out, so it stays correct if the
+ * canonical host ever moves. Empty when the canonical host is itself a www
+ * host, because then there is nothing to redirect away.
+ */
+export const REDIRECT_ONLY_HOSTS = (() => {
+  const { hostname } = new URL(SITE_URL);
+  return hostname.startsWith('www.') ? [] : [`www.${hostname}`];
+})();
+
+/**
  * Normalize a pathname into its single canonical representation:
  * leading slash, lower case, no query string, no hash, no trailing slash
  * (except the root), no duplicate slashes.

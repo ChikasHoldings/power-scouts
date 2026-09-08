@@ -317,6 +317,65 @@ export function meanSimilarity(texts, { sample = 40, size = 5 } = {}) {
   return pairs ? total / pairs : 0;
 }
 
+/**
+ * Similarity thresholds, in 7-word shingles over <main> text.
+ *
+ * Exported so scripts/seo-audit.mjs and scripts/seo-url-audit.mjs cannot drift
+ * apart, which they had: one gated a family mean at 0.55, the other gated pairs
+ * at 0.60, and neither number was reachable. The highest family mean this site
+ * can produce is 0.221 and its worst pair is 0.458, so both audits reported
+ * clean because their gates sat above anything the site could generate rather
+ * than because the pages were distinct.
+ *
+ * Set from the measured distribution instead: worst pair 0.458 (Gaithersburg
+ * and Rockville, two Maryland cities sharing a utility, a supplier list and a
+ * rate table), highest p95 0.374 (utilities). Close enough to bite when a new
+ * page lands on top of an existing one, with enough headroom that today's
+ * pages pass.
+ */
+export const SIMILARITY_PAIR_WARN = 0.50;
+export const SIMILARITY_PAIR_FAIL = 0.65;
+export const SIMILARITY_P95_WARN = 0.45;
+
+/**
+ * Pairwise similarity across a family: mean, p95, max, and the worst pair.
+ *
+ * meanSimilarity answers a different question and cannot answer this one. It
+ * averages every pair and samples 40 texts, so duplication that is concentrated
+ * rather than spread is invisible to it twice over. The city family is the
+ * case: 144 pages whose mean is 0.14, containing a Gaithersburg/Rockville pair
+ * at 0.46 because two neighbouring Maryland cities share a utility, a supplier
+ * list and a rate table. An average cannot see one hot pair in ten thousand,
+ * and sampling every fourth page can drop the pair from the comparison set
+ * entirely. Google drops the page, not the average.
+ *
+ * So this reports the tail: no sampling, every pair, and the worst one named so
+ * a finding says which two pages to look at.
+ */
+export function similarityProfile(entries, { size = 7 } = {}) {
+  const sets = entries.map((entry) => ({ id: entry.id, set: shingles(entry.text, size) }));
+  const scores = [];
+  let worst = { score: 0, a: null, b: null };
+
+  for (let i = 0; i < sets.length; i += 1) {
+    for (let j = i + 1; j < sets.length; j += 1) {
+      const score = jaccard(sets[i].set, sets[j].set);
+      scores.push(score);
+      if (score > worst.score) worst = { score, a: sets[i].id, b: sets[j].id };
+    }
+  }
+
+  if (!scores.length) return { pairs: 0, mean: 0, p95: 0, max: 0, worst };
+  scores.sort((a, b) => a - b);
+  return {
+    pairs: scores.length,
+    mean: scores.reduce((sum, value) => sum + value, 0) / scores.length,
+    p95: scores[Math.floor((scores.length - 1) * 0.95)],
+    max: scores[scores.length - 1],
+    worst,
+  };
+}
+
 /** Group values by a key, returning only the groups with more than one member. */
 export function duplicateGroups(entries, keyFn) {
   const groups = new Map();

@@ -1,0 +1,63 @@
+# Everything that decides whether this site stays indexable, run before merge.
+#
+# Until this file existed, none of it ran anywhere. The only workflow in the
+# repository checked a URL after a deploy, so `npm test`, `npm run build` and
+# both SEO audits were commands a person had to remember. The site shipped a
+# canonical host pointing at a redirect, an alias serving a duplicate copy of
+# every page, and two similarity gates set above anything the site could
+# produce — and each was found from a Search Console email weeks later rather
+# than from a red check minutes after the push.
+#
+# The audits deliberately run WITHOUT --strict. P0 fails the build: identical
+# bodies on two URLs, a missing canonical, a soft 404, a near-duplicate pair at
+# or above the fail threshold. P1 is reported and does not block, because the
+# repository currently carries two of them (the thinnest comparison pages) and
+# a gate that is red on arrival gets switched off rather than fixed.
+
+name: SEO checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # Builds dist/ and runs assert-prerender-output.mjs, which is what proves
+      # every route has its own prerendered HTML rather than an empty shell.
+      # Everything below reads dist/, so it has to come first.
+      - name: Build and verify prerender output
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: SEO audit
+        run: npm run audit
+
+      - name: SEO URL audit
+        run: npm run audit:urls

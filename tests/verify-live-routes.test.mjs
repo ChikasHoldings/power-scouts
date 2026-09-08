@@ -34,7 +34,7 @@ import {
   readVercelConfig,
   resolveVerificationMode,
 } from '../scripts/verify-live-routes.mjs';
-import { SITE_URL } from '../src/seo/site.js';
+import { REDIRECT_ONLY_HOSTS, SITE_URL } from '../src/seo/site.js';
 
 const CANONICAL = canonicalHostname(SITE_URL);
 const PRODUCTION_URL = `https://${CANONICAL}`;
@@ -289,6 +289,28 @@ describe('alias response policy', () => {
     assert.match(verdict.reason, /x-vercel-cache: HIT/);
   });
 
+  test('a declared redirect-only host must actually redirect, not merely 404', () => {
+    // www is a domain deliberately pointed at this site, and it holds the crawl
+    // history the apex URLs were migrated away from. A 404 there is not "serves
+    // nothing, therefore harmless" — it means the redirect carrying that
+    // history is gone and every inbound www link dead-ends.
+    const verdict = evaluateAliasResponse({ status: 404, expectedLocation, mustRedirect: true });
+    assert.equal(verdict.ok, false);
+    assert.match(verdict.reason, /must actually redirect/);
+  });
+
+  test('a declared host still passes when it does redirect', () => {
+    assert.equal(
+      evaluateAliasResponse({
+        status: 308,
+        location: `${SITE_URL}/`,
+        expectedLocation,
+        mustRedirect: true,
+      }).ok,
+      true,
+    );
+  });
+
   test('a host with no deployment behind it passes', () => {
     // power-scouts.vercel.app answers 404 DEPLOYMENT_NOT_FOUND. It serves
     // nothing, so there is nothing to index — the requirement is "no second
@@ -330,7 +352,7 @@ describe('duplicate host discovery', () => {
           destination: `${SITE_URL}/:path*`,
         },
       ],
-    });
+    }, SITE_URL, []);
     assert.deepEqual(hosts, ['electric-scouts.vercel.app']);
   });
 
@@ -339,7 +361,7 @@ describe('duplicate host discovery', () => {
     // alias would send the verifier fetching https://undefined/.
     const hosts = aliasHostsFromConfig({
       redirects: [{ source: '/home', destination: '/' }],
-    });
+    }, SITE_URL, []);
     assert.deepEqual(hosts, []);
   });
 
@@ -352,7 +374,7 @@ describe('duplicate host discovery', () => {
           destination: 'https://someone-elses-site.example/:path*',
         },
       ],
-    });
+    }, SITE_URL, []);
     assert.deepEqual(hosts, []);
   });
 
@@ -363,15 +385,15 @@ describe('duplicate host discovery', () => {
       destination: `${SITE_URL}/`,
     });
     assert.deepEqual(
-      aliasHostsFromConfig({ redirects: [rule('/:path*'), rule('/')] }),
+      aliasHostsFromConfig({ redirects: [rule('/:path*'), rule('/')] }, SITE_URL, []),
       ['electric-scouts.vercel.app'],
     );
   });
 
   test('an empty or unreadable config yields no hosts rather than throwing', () => {
-    assert.deepEqual(aliasHostsFromConfig({}), []);
-    assert.deepEqual(aliasHostsFromConfig(null), []);
-    assert.deepEqual(aliasHostsFromConfig(readVercelConfig('/no/such/directory')), []);
+    assert.deepEqual(aliasHostsFromConfig({}, SITE_URL, []), []);
+    assert.deepEqual(aliasHostsFromConfig(null, SITE_URL, []), []);
+    assert.deepEqual(aliasHostsFromConfig(readVercelConfig('/no/such/directory'), SITE_URL, []), []);
   });
 
   test('the real vercel.json still redirects both .vercel.app aliases', () => {
@@ -382,6 +404,33 @@ describe('duplicate host discovery', () => {
     const hosts = aliasHostsFromConfig(readVercelConfig());
     assert.ok(hosts.includes('electric-scouts.vercel.app'), `missing electric-scouts.vercel.app, got ${hosts.join(', ') || 'none'}`);
     assert.ok(hosts.includes('power-scouts.vercel.app'), `missing power-scouts.vercel.app, got ${hosts.join(', ') || 'none'}`);
+  });
+
+  /**
+   * www is not a vercel.json rule — it is a Vercel domain setting no build step
+   * can see — so it reaches the verifier through REDIRECT_ONLY_HOSTS instead.
+   * It is also the host carrying the site's crawl history: the sitemap listed
+   * 335 www URLs until 2026-08-22, and the redirect is what tells Google the
+   * apex URLs are those pages moved rather than 335 new ones.
+   */
+  test('www is verified even though vercel.json never mentions it', () => {
+    assert.deepEqual(REDIRECT_ONLY_HOSTS, ['www.electricscouts.com']);
+
+    const fromEmptyConfig = aliasHostsFromConfig({});
+    assert.deepEqual(fromEmptyConfig, ['www.electricscouts.com']);
+
+    assert.ok(
+      aliasHostsFromConfig(readVercelConfig()).includes('www.electricscouts.com'),
+      'www must be checked alongside the .vercel.app aliases',
+    );
+  });
+
+  test('a canonical host that is already www adds nothing to redirect away', () => {
+    // Guards the derivation rather than the current value: if SITE_URL ever
+    // moved back to www, appending another "www." would send the verifier
+    // fetching www.www.electricscouts.com and failing on a host that does not
+    // exist.
+    assert.deepEqual(aliasHostsFromConfig({}, 'https://www.example.com', []), []);
   });
 });
 

@@ -34,6 +34,14 @@
 name: Verify deployment routes
 
 on:
+  # A daily check of the live site, because the faults this catches are silent.
+  # The .vercel.app alias served an indexable copy of the homepage for days
+  # before Search Console surfaced it, and a canonical host, a www redirect or a
+  # CDN entry can drift long after the deploy that was verified. 06:40 UTC is
+  # off the hour so it does not queue behind the rush of jobs scheduled at :00.
+  schedule:
+    - cron: "40 6 * * *"
+
   workflow_dispatch:
     inputs:
       base_url:
@@ -68,6 +76,7 @@ jobs:
     # gated on a successful deployment that actually published a URL.
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
       (github.event.deployment_status.state == 'success' &&
        github.event.deployment_status.environment_url != '')
     runs-on: ubuntu-latest
@@ -85,10 +94,23 @@ jobs:
           DISPATCH_MODE: ${{ github.event.inputs.verification_mode }}
           DEPLOYMENT_URL: ${{ github.event.deployment_status.environment_url }}
           DEPLOYMENT_SHA: ${{ github.event.deployment.sha }}
+          # The scheduled run verifies the live site at the default branch, which
+          # is what production is built from.
+          CANONICAL_URL: https://electricscouts.com
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
 
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+          if [ "$EVENT_NAME" = "schedule" ]; then
+            # The live site, checked as production. This is the only path that
+            # exercises the redirect-only host checks (www and the .vercel.app
+            # aliases): they are skipped in preview mode, and a deployment_status
+            # run targets the deployment URL, which is a preview hostname. So
+            # without this the checks would exist and never run.
+            BASE_URL="$CANONICAL_URL"
+            GIT_REF="${DEFAULT_BRANCH}"
+            MODE="production"
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             BASE_URL="${DISPATCH_URL:-}"
             GIT_REF="${DISPATCH_REF:-}"
             MODE="${DISPATCH_MODE:-auto}"

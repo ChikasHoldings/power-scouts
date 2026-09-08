@@ -36,7 +36,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { absoluteUrl, canonicalPath, SITE_URL } from '../src/seo/site.js';
+import { absoluteUrl, canonicalPath, REDIRECT_ONLY_HOSTS, SITE_URL } from '../src/seo/site.js';
 
 /** The routes whose regression costs money, in the order they are reported. */
 const CONTENT_ROUTES = ['/', '/compare-rates', '/bill-analyzer'];
@@ -557,10 +557,15 @@ export function readVercelConfig(root = ROOT) {
  * vercel.json puts it under live verification in the same change. A rule counts
  * when it is gated on a host and lands on the canonical origin — exactly the
  * shape scripts/assert-prerender-output.mjs already requires of it.
+ *
+ * REDIRECT_ONLY_HOSTS joins them, because not every such host is a vercel.json
+ * rule: www is a Vercel domain setting the build cannot see, and it is the one
+ * carrying the most crawl history. A host declared there but silently serving
+ * the site would be the .vercel.app failure again on a worse host.
  */
-export function aliasHostsFromConfig(config, canonicalSiteUrl = SITE_URL) {
+export function aliasHostsFromConfig(config, canonicalSiteUrl = SITE_URL, declaredHosts = REDIRECT_ONLY_HOSTS) {
   const origin = `${canonicalSiteUrl.replace(/\/+$/, '')}/`;
-  const hosts = new Set();
+  const hosts = new Set(declaredHosts);
   for (const rule of config?.redirects || []) {
     if (!String(rule.destination || '').startsWith(origin)) continue;
     for (const condition of rule.has || []) {
@@ -587,20 +592,46 @@ export function aliasHostsFromConfig(config, canonicalSiteUrl = SITE_URL) {
  * config was right and the site was still wrong. Only a fetch catches that,
  * which is the reason this file exists at all.
  *
- * The bar is "serves nothing indexable", not "redirects": a 3xx to the canonical
- * origin passes, and so does a host that resolves to no deployment at all. Only
- * a 200 is a second copy of the site.
+ * For an alias discovered from vercel.json the bar is "serves nothing
+ * indexable", not "redirects": a 3xx to the canonical origin passes, and so
+ * does a host that resolves to no deployment at all. Only a 200 is a second
+ * copy of the site.
+ *
+ * A host from REDIRECT_ONLY_HOSTS is held to the stricter bar, because it is a
+ * domain deliberately pointed at this site rather than one that merely exists.
+ * There a 404 is its own failure: www must redirect, not merely fail to serve.
  *
  * Production only: the aliases are fixed absolute hosts with no relationship to
  * a preview deployment, so checking them while verifying a preview would report
  * on something the artefact under test cannot affect.
  */
-export function evaluateAliasResponse({ status, location = '', expectedLocation, cache = '' } = {}) {
-  // No deployment behind the host: nothing is served, so nothing can be
-  // indexed. This is what a removed alias looks like and it is a pass —
-  // demanding a redirect from a host with nothing to redirect from would fail
-  // the safest possible state.
-  if (status >= 400) return { ok: true, note: 'no deployment' };
+export function evaluateAliasResponse({
+  status,
+  location = '',
+  expectedLocation,
+  cache = '',
+  mustRedirect = false,
+} = {}) {
+  if (status >= 400) {
+    // A declared redirect-only host is a domain that is supposed to be pointed
+    // at this site. www is the case that matters: it holds the crawl history
+    // the apex URLs were migrated away from, and a 404 there does not mean
+    // "harmlessly serving nothing", it means the redirect carrying that history
+    // is gone and every link to a www URL now dead-ends.
+    if (mustRedirect) {
+      return {
+        ok: false,
+        reason: `expected a redirect to the canonical origin, got HTTP ${status}`
+          + ' — this host is declared as redirect-only and must actually redirect',
+      };
+    }
+
+    // An alias discovered from vercel.json is different: nothing is served, so
+    // nothing can be indexed. That is what a removed alias looks like, and
+    // demanding a redirect from a host with no deployment behind it would fail
+    // the safest possible state.
+    return { ok: true, note: 'no deployment' };
+  }
 
   if (status < 300) {
     return {
@@ -621,8 +652,10 @@ export function evaluateAliasResponse({ status, location = '', expectedLocation,
   return { ok: true, note: 'redirects' };
 }
 
-async function checkDuplicateHosts(hosts, report, mode) {
+async function checkDuplicateHosts(hosts, report, mode, declaredHosts = REDIRECT_ONLY_HOSTS) {
   if (mode !== 'production') return [];
+
+  const declared = new Set(declaredHosts);
 
   const rows = [];
   for (const host of hosts) {
@@ -653,6 +686,7 @@ async function checkDuplicateHosts(hosts, report, mode) {
         location: response.location || '',
         expectedLocation: absoluteUrl(routePath),
         cache: response.cache,
+        mustRedirect: declared.has(host),
       });
       if (!verdict.ok) report.fail(scope, verdict.reason);
     }

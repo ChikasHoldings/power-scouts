@@ -40,7 +40,14 @@ import { TITLE_MAX } from '../src/seo/site.js';
 import { buildSitemapEntries, buildSitemapXml } from '../src/seo/sitemap.js';
 import { getPublishableProviders, getAllProviders, MARKET_GENERATED_AT, MARKET_TOTALS, getStateMarket, providersInState, renewableProvidersInState } from '../src/seo/market.js';
 import { buildCitySections, buildStateSections, buildProviderSections, buildComparisonSections, buildUtilitySections } from '../src/seo/content.js';
-import { createResolver, parseHtml } from '../src/seo/audit.mjs';
+import {
+  createResolver,
+  parseHtml,
+  similarityProfile,
+  SIMILARITY_PAIR_WARN,
+  SIMILARITY_PAIR_FAIL,
+  SIMILARITY_P95_WARN,
+} from '../src/seo/audit.mjs';
 import { buildPageContent, renderBody } from '../src/seo/render.js';
 import { organizationSchema, standaloneOrganizationSchema } from '../src/seo/organization.js';
 import { getStates, getCities } from '../src/seo/locations.js';
@@ -1522,6 +1529,113 @@ describe('vercel.json routing', () => {
       assert.match(robots.value, /noindex/i, `${file} X-Robots-Tag must contain noindex`);
     });
   }
+});
+
+/* ================================================================== *
+ * Duplication gates
+ * ================================================================== */
+
+describe('the duplication gates can actually fire', () => {
+  /**
+   * Both similarity gates on this site passed every run for months, and neither
+   * could ever have failed.
+   *
+   * seo-url-audit.mjs compared pairs at >= 0.60. The most similar pair the site
+   * can produce is 0.458 — Gaithersburg and Rockville, two Maryland cities that
+   * share a utility, a supplier list and a rate table. seo-audit.mjs compared a
+   * family MEAN at 0.55, and the highest family mean here is 0.221; a mean over
+   * ten thousand city pairs cannot see one hot pair anyway, and it sampled 40 of
+   * the 144 pages, so it could drop that pair from the comparison entirely.
+   *
+   * A green check meant "the threshold is out of reach", which reads exactly
+   * like "the pages are distinct" and is worth nothing. So these tests assert
+   * the gates against the site's real numbers rather than asserting a number.
+   */
+
+  test('similarityProfile reports the worst pair, not an average', () => {
+    const twins = 'the quick brown fox jumps over the lazy dog again and again today';
+    const profile = similarityProfile([
+      { id: '/a', text: twins },
+      { id: '/b', text: twins },
+      { id: '/c', text: 'entirely unrelated prose sharing no phrase whatsoever with the others here' },
+      { id: '/d', text: 'another wholly separate body of text about something else altogether now' },
+    ]);
+
+    assert.equal(profile.pairs, 6, 'every pair must be compared, with no sampling');
+    assert.equal(profile.max, 1, 'two identical bodies are a perfect match');
+    assert.ok(
+      profile.mean < 0.3,
+      `the mean (${profile.mean.toFixed(3)}) stays low while max is 1 — which is why the mean is the wrong gate`,
+    );
+    assert.deepEqual([profile.worst.a, profile.worst.b], ['/a', '/b'], 'the worst pair is named');
+  });
+
+  test('the thresholds are ordered and none is trivially unreachable', () => {
+    assert.ok(SIMILARITY_PAIR_WARN < SIMILARITY_PAIR_FAIL, 'warn must come before fail');
+    assert.ok(SIMILARITY_P95_WARN < SIMILARITY_PAIR_WARN, 'a p95 gate must be tighter than a single-pair gate');
+    assert.ok(SIMILARITY_PAIR_FAIL <= 0.7, 'a fail gate above 0.7 is decoration; near-duplicates rarely score that high');
+  });
+
+  describe('against the built site', { skip: !distExists }, () => {
+    /** Every indexable route's <main> text, grouped by route family. */
+    function familyTexts() {
+      const families = new Map();
+      for (const route of getIndexableRoutes({ providers: getPublishableProviders() })) {
+        const file = path.join(DIST, distFileFor(route.path === '' ? '/' : route.path));
+        if (!fs.existsSync(file)) continue;
+        const text = parseHtml(fs.readFileSync(file, 'utf8')).mainText || '';
+        const type = route.type || 'other';
+        if (!families.has(type)) families.set(type, []);
+        families.get(type).push({ id: route.path, text });
+      }
+      return families;
+    }
+
+    test('no family exceeds the gates it is measured against', () => {
+      for (const [type, entries] of familyTexts()) {
+        if (entries.length < 2) continue;
+        const { max, p95, worst } = similarityProfile(entries);
+        assert.ok(
+          max < SIMILARITY_PAIR_FAIL,
+          `${type}: ${worst.a} and ${worst.b} are ${max.toFixed(3)} similar, at or above the ${SIMILARITY_PAIR_FAIL} fail gate`,
+        );
+        assert.ok(
+          p95 < SIMILARITY_P95_WARN,
+          `${type}: 95th percentile similarity ${p95.toFixed(3)} is at or above ${SIMILARITY_P95_WARN} — the family reads as one template`,
+        );
+      }
+    });
+
+    test('the pair gate stays within reach of what the site actually produces', () => {
+      // The test that would have caught the original bug. A gate is only a gate
+      // while the site can reach it: 0.60 against a site topping out at 0.458
+      // is an assertion that nothing is broken, not a check that anything is
+      // right. If the pages ever become distinct enough that this fails, the
+      // gate should be tightened rather than left hanging above the data.
+      let siteMax = 0;
+      let where = '';
+      for (const [type, entries] of familyTexts()) {
+        if (entries.length < 2) continue;
+        const { max, worst } = similarityProfile(entries);
+        if (max > siteMax) { siteMax = max; where = `${type}: ${worst.a} vs ${worst.b}`; }
+      }
+
+      assert.ok(siteMax > 0, 'similarity could not be measured at all');
+
+      // 0.10, and the value is load-bearing. The gate this test exists to
+      // reject was 0.60 against a worst pair of 0.458 — a gap of 0.142 — so any
+      // margin at or above that would accept the exact bug being guarded
+      // against. Calibrated the other way too: the current 0.50 gate sits 0.042
+      // above the data and must keep passing.
+      const MAX_GATE_HEADROOM = 0.10;
+      assert.ok(
+        SIMILARITY_PAIR_WARN - siteMax < MAX_GATE_HEADROOM,
+        `the warn gate is ${SIMILARITY_PAIR_WARN} but the site's worst pair is only ${siteMax.toFixed(3)} (${where}), `
+          + `a gap of ${(SIMILARITY_PAIR_WARN - siteMax).toFixed(3)} — a gate that far above the data cannot fail, `
+          + 'which is how the previous 0.60 threshold passed every run for months',
+      );
+    });
+  });
 });
 
 /* ================================================================== *

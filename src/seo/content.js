@@ -2563,7 +2563,7 @@ function providerVersusSections(comparison) {
 }
 
 function planVersusSections(comparison) {
-  const { a, b, rows, columns, unit, faqs, lede } = comparison;
+  const { a, b, rows, columns, unit, faqs, lede, insights } = comparison;
   const sections = [];
 
   const intro = [lede];
@@ -2650,6 +2650,24 @@ function planVersusSections(comparison) {
           .map((row) => [row.path, `${row.name} electricity rates`]),
       });
     }
+  }
+
+  /* The same treatment for a comparison whose metric is not countable.
+   *
+   * "Where the Balance Tips" above needs two numbers to subtract, so a
+   * comparison measured as offered/not-offered or as a price fell straight past
+   * it into the FAQs. Those three were the thinnest indexable pages on the
+   * site. The spec supplies its own reading of the state rows instead, counted
+   * from the same snapshot — which market has only one of the two terms, where
+   * renewable is not actually a premium, how wide the term range really is. */
+  if (unit !== 'plans' && insights?.length) {
+    sections.push({
+      heading: 'What the Markets Actually Offer',
+      paragraphs: [
+        `The state table is the full picture; these are the parts of it worth saying out loud (${asOf}).`,
+      ],
+      bullets: insights,
+    });
   }
 
   sections.push({ heading: 'Questions People Ask', faqs });
