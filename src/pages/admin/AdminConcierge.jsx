@@ -50,6 +50,8 @@ export default function AdminConcierge() {
   const [editStatus, setEditStatus] = useState("");
   const [editRevenue, setEditRevenue] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const { data: requests = [], isLoading } = useQuery({
     queryKey: ["concierge_requests"],
@@ -129,15 +131,36 @@ export default function AdminConcierge() {
     }
   };
 
+  /**
+   * Delete, confirmed the way every other screen in the panel confirms one.
+   *
+   * This used to gate on window.confirm. That is a real prompt in a normal tab
+   * and nothing at all where the browser suppresses dialogs — some embedded and
+   * in-app webviews return false without showing anything — in which case the
+   * guard clause returned early and the delete silently never ran. It also
+   * looked nothing like the six other screens, all of which confirm in a
+   * Dialog.
+   *
+   * The failure message now carries the server's own text; "Failed to delete."
+   * told an operator nothing they could act on.
+   */
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this request?")) return;
+    if (!id) return;
+    setIsDeleting(true);
     try {
       await ConciergeRequest.delete(id);
       queryClient.invalidateQueries({ queryKey: ["concierge_requests"] });
       toast({ title: "Deleted", description: "Request deleted." });
+      setDeleteConfirm(null);
       setShowDetailDialog(false);
     } catch (err) {
-      toast({ title: "Error", description: "Failed to delete.", variant: "destructive" });
+      toast({
+        title: "Could not delete this request",
+        description: err?.message || "The server rejected the request.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -417,7 +440,12 @@ export default function AdminConcierge() {
           )}
 
           <DialogFooter className="flex justify-between">
-            <Button variant="destructive" size="sm" onClick={() => handleDelete(selectedRequest?.id)}>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => setDeleteConfirm(selectedRequest)}
+              disabled={!selectedRequest?.id}
+            >
               <Trash2 className="w-3.5 h-3.5 mr-1" /> Delete
             </Button>
             <div className="flex gap-2">
@@ -427,6 +455,37 @@ export default function AdminConcierge() {
                 Save Changes
               </Button>
             </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete confirmation, matching the pattern the rest of the panel uses. */}
+      <Dialog open={!!deleteConfirm} onOpenChange={() => setDeleteConfirm(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete concierge request</DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-gray-600">
+            Delete the request from{" "}
+            <strong>{deleteConfirm?.name || deleteConfirm?.email || "this customer"}</strong>? This
+            cannot be undone.
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteConfirm(null)} disabled={isDeleting}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => handleDelete(deleteConfirm?.id)}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-1" />
+              ) : (
+                <Trash2 className="w-4 h-4 mr-1" />
+              )}
+              Delete
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

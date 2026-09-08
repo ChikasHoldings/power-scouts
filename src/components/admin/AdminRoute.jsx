@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/AuthContext";
-import { ADMIN_ROLES, canAccessPath, landingPathForRole, ROLE_LABELS } from "@/lib/adminNav";
+import { adminGateState, canAccessPath, landingPathForRole, ROLE_LABELS } from "@/lib/adminNav";
 import AdminLayout from "./AdminLayout";
 import AdminBoot, { AdminPageLoading } from "./AdminBoot";
 import RouteErrorBoundary from "@/components/RouteErrorBoundary";
@@ -20,26 +20,70 @@ import RouteErrorBoundary from "@/components/RouteErrorBoundary";
  * that render a screen directly.
  */
 export default function AdminRoute({ children }) {
-  const { user, profile, isAuthenticated, isLoadingAuth, isLoadingProfile } = useAuth();
+  const { user, profile, isAuthenticated, isLoadingAuth, isLoadingProfile, profileError, refreshProfile } = useAuth();
   const location = useLocation();
 
+  // The gate's states are derived in one place so they can be enumerated in a
+  // test. They used to be a chain of conditions here, and one of them held the
+  // panel on its boot screen for ever when the profile fetch failed.
+  const gate = adminGateState({
+    isLoadingAuth,
+    isAuthenticated,
+    user,
+    isLoadingProfile,
+    profile,
+    profileError,
+  });
+
   // One boot state covers the whole start-up, so nothing flashes between steps.
-  if (isLoadingAuth) return <AdminBoot />;
+  if (gate === "boot") return <AdminBoot />;
 
   // Not logged in → redirect to admin login
-  if (!isAuthenticated || !user) {
+  if (gate === "login") {
     return <Navigate to="/admin/login" replace />;
   }
 
-  // Still the same boot state: the role decides which nav items exist, so
-  // rendering the shell before the profile arrives would show an empty sidebar
-  // and then populate it — a second flash in place of the one just removed.
-  if (isLoadingProfile || (!profile && isAuthenticated)) return <AdminBoot />;
+  // The fetch finished and produced no profile. Without a role there is no
+  // panel to show, so this reports why and offers the retry — a transient
+  // failure is the common case and a reload is a heavier way to ask for one.
+  if (gate === "profile-error") {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md px-6">
+          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">Could not load your profile</h2>
+          <p className="text-gray-600 mb-2">
+            You are signed in, but the panel needs your role to know which screens to show.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">{profileError}</p>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={refreshProfile}
+              className="inline-flex items-center px-4 py-2 bg-[#0A5C8C] text-white rounded-lg hover:bg-[#084a6f] transition-colors"
+            >
+              Try again
+            </button>
+            <Link
+              to="/"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              Return to Homepage
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const userRole = profile?.role || "user";
 
   // Not an admin/editor/viewer → show access denied
-  if (!ADMIN_ROLES.includes(userRole)) {
+  if (gate === "denied") {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md px-6">

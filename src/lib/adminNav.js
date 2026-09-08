@@ -170,6 +170,44 @@ export const NAV_ALIASES = {
 };
 
 /**
+ * Which of the admin gate's states a given auth snapshot is in.
+ *
+ * Extracted from AdminRoute because it was a chain of conditions and one of
+ * them was wrong in a way nothing could see. `!profile && isAuthenticated` was
+ * treated as "the profile has not arrived yet", so it held the panel on its
+ * full-viewport boot screen — but it is equally true of a profile that is never
+ * going to arrive. A failed fetch logged to the console, set isLoadingProfile
+ * false and left profile null, and the panel waited on that spinner for ever
+ * with nothing left to change it.
+ *
+ * The distinction the states make is between waiting and having waited:
+ * `profileError` is set once the fetch has concluded without a profile, which
+ * is what ends the wait. Everything here is derived from its arguments so the
+ * states can be enumerated in a test rather than reached by driving a browser.
+ *
+ * @returns {'boot'|'login'|'profile-error'|'denied'|'ready'}
+ */
+export function adminGateState({
+  isLoadingAuth = false,
+  isAuthenticated = false,
+  user = null,
+  isLoadingProfile = false,
+  profile = null,
+  profileError = null,
+} = {}) {
+  if (isLoadingAuth) return 'boot';
+  if (!isAuthenticated || !user) return 'login';
+
+  // Still coming: keep waiting rather than flashing an empty sidebar.
+  if (isLoadingProfile || (!profile && !profileError)) return 'boot';
+
+  // Concluded without one. Never 'boot' again from here.
+  if (!profile) return 'profile-error';
+
+  return ADMIN_ROLES.includes(profile.role || 'user') ? 'ready' : 'denied';
+}
+
+/**
  * The nav entry a path belongs to, or null.
  *
  * Longest path first, so `/admin/lead-buyers` cannot be claimed by a shorter

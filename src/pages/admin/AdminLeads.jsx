@@ -157,12 +157,22 @@ export default function AdminLeads() {
   });
 
   // ─── Mutations ──────────────────────────────────────────
+  // A refused status change reverts on the next refetch, so without this the
+  // row simply snaps back and the operator is left to guess whether they
+  // mis-clicked. The other mutations on this screen already report their
+  // failures; these two were the exceptions.
   const updateStatus = useMutation({
     mutationFn: ({ id, status }) => Lead.update(id, { status }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-leads"] });
       toast({ title: "Lead status updated" });
     },
+    onError: (err) =>
+      toast({
+        title: "Could not update this lead",
+        description: err.message,
+        variant: "destructive",
+      }),
   });
 
   const deleteLead = useMutation({
@@ -172,6 +182,15 @@ export default function AdminLeads() {
       setDeleteConfirm(null);
       toast({ title: "Lead deleted" });
     },
+    // The confirmation dialog is closed by onSuccess, so a failure leaves it
+    // open — correct, but on its own it reads as an unresponsive button rather
+    // than a refusal. This says which it was.
+    onError: (err) =>
+      toast({
+        title: "Could not delete this lead",
+        description: err.message,
+        variant: "destructive",
+      }),
   });
 
   const refreshRouting = () => {
