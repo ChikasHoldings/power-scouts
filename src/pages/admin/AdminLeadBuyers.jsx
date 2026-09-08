@@ -16,6 +16,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "../../components/ui/table";
 import { Plus, Pencil, Loader2, Users, AlertTriangle } from "lucide-react";
+import { useToast } from "../../components/ui/use-toast";
 
 import { parseOptionalNumber } from "@/lib/planValidation";
 import AdminPage, { AdminPageBar } from "@/components/admin/AdminPage";
@@ -50,6 +51,7 @@ function parseList(input) {
 
 export default function AdminLeadBuyers() {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(EMPTY);
@@ -67,6 +69,14 @@ export default function AdminLeadBuyers() {
     },
   });
 
+  /*
+   * Both mutations report their outcome.
+   *
+   * Neither used to. The mutationFn throws on a Supabase error and nothing
+   * caught it, so a save refused by RLS or a constraint closed nothing, said
+   * nothing and left the operator looking at a dialog that had simply not
+   * responded — the usual next move being to press Save again.
+   */
   const save = useMutation({
     mutationFn: async ({ id, values }) => {
       const query = id
@@ -75,18 +85,40 @@ export default function AdminLeadBuyers() {
       const { error } = await query;
       if (error) throw error;
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["admin-lead-buyers"] });
       setDialogOpen(false);
+      toast({ title: variables?.id ? "Lead buyer updated" : "Lead buyer created" });
     },
+    onError: (err) =>
+      toast({
+        title: "Could not save this lead buyer",
+        description: err.message,
+        variant: "destructive",
+      }),
   });
 
+  /*
+   * Pausing a buyer is the one worth being loudest about. A failed toggle
+   * reverts on the next refetch, so the row goes back to "active" and looks
+   * like it was never clicked — while the buyer the operator meant to stop
+   * keeps being sent leads and keeps being billed for them.
+   */
   const toggleActive = useMutation({
     mutationFn: async ({ id, is_active }) => {
       const { error } = await supabase.from("lead_buyers").update({ is_active }).eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin-lead-buyers"] }),
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["admin-lead-buyers"] });
+      toast({ title: variables?.is_active ? "Buyer resumed" : "Buyer paused" });
+    },
+    onError: (err, variables) =>
+      toast({
+        title: variables?.is_active ? "Could not resume this buyer" : "Could not pause this buyer",
+        description: `${err.message} — this buyer is still ${variables?.is_active ? "paused" : "receiving leads"}.`,
+        variant: "destructive",
+      }),
   });
 
   const openNew = () => {

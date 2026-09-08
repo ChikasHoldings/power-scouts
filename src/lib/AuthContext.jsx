@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [profileError, setProfileError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
@@ -17,13 +18,29 @@ export const AuthProvider = ({ children }) => {
   // Store the userId that needs a profile fetch — triggered by a separate useEffect
   const [pendingProfileUserId, setPendingProfileUserId] = useState(null);
 
+  /**
+   * Load the signed-in user's profile.
+   *
+   * The outcome has to be recorded, not just logged. AdminRoute holds the panel
+   * on its boot screen until a profile arrives, so a fetch that finishes
+   * without one used to leave the whole admin panel on a full-viewport spinner
+   * for ever: the error was written to the console, `isLoadingProfile` went
+   * false in the finally, `profile` stayed null, and the boot condition stayed
+   * true with nothing left to change it. No error, no retry, no way out.
+   *
+   * PGRST116 is the same dead end by a different route. It means the query
+   * succeeded and matched no row — an authenticated account with no profile
+   * record — which is not a transport error but is still "no profile", so it
+   * has to end the wait rather than extend it.
+   */
   const fetchProfile = useCallback(async (userId) => {
     // Prevent duplicate concurrent fetches
     if (profileFetchInProgress.current) return;
     profileFetchInProgress.current = true;
-    
+
     try {
       setIsLoadingProfile(true);
+      setProfileError(null);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -32,6 +49,9 @@ export const AuthProvider = ({ children }) => {
 
       if (error && error.code !== 'PGRST116') {
         console.error('Profile fetch failed:', error);
+        setProfileError(error.message || 'Your profile could not be loaded.');
+      } else if (!data) {
+        setProfileError('This account has no profile record, so its role cannot be determined.');
       }
 
       if (data) {
@@ -39,11 +59,17 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       console.error('Profile fetch error:', err);
+      setProfileError(err?.message || 'Your profile could not be loaded.');
     } finally {
       setIsLoadingProfile(false);
       profileFetchInProgress.current = false;
     }
   }, []);
+
+  /** Re-run the profile fetch, for the retry offered when it failed. */
+  const refreshProfile = useCallback(() => {
+    if (user?.id) fetchProfile(user.id);
+  }, [user, fetchProfile]);
 
   // Separate useEffect to handle profile fetching — avoids deadlock with onAuthStateChange
   useEffect(() => {
@@ -170,16 +196,25 @@ export const AuthProvider = ({ children }) => {
    * leave all of it in memory for whoever sits down next.
    */
   const logout = async (shouldRedirect = true) => {
+    // Signing out locally cannot be conditional on the network call
+    // succeeding. This used to clear the session state and redirect inside the
+    // try, so a signOut that rejected — an expired refresh token, a dropped
+    // connection — left the operator on a fully populated admin panel with
+    // nothing said and nothing changed. They walk away believing they have
+    // logged out, and the session the comment above worries about stays open
+    // with the leads, buyers and customer contact details it fetched.
     try {
       await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
       setUser(null);
       setProfile(null);
+      setProfileError(null);
       setIsAuthenticated(false);
       if (shouldRedirect) {
         window.location.href = '/';
       }
-    } catch (error) {
-      console.error('Logout failed:', error);
     }
   };
 
@@ -221,6 +256,8 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated,
       isLoadingAuth,
       isLoadingProfile,
+      profileError,
+      refreshProfile,
       isLoadingPublicSettings,
       authError,
       appPublicSettings,
