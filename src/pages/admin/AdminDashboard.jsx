@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { summarizeRevenue } from "@/lib/revenue";
-import { ElectricityProvider, ElectricityPlan } from "@/api/supabaseEntities";
+import { pricingReadiness } from "@/lib/planValidation";
+import { ElectricityProvider, ElectricityPlan, UtilityTerritory } from "@/api/supabaseEntities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AdminPage, { AdminSectionHeading } from "@/components/admin/AdminPage";
@@ -16,6 +17,8 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
+  AlertTriangle,
+  Gauge,
   Link2,
   MousePointerClick,
   UserPlus,
@@ -153,6 +156,8 @@ export default function AdminDashboard() {
   // does not do is offer a way through to a screen the role cannot open.
   const linkIf = (path) => (can(path) ? path : undefined);
 
+  const readiness = pricingReadiness(plans, territories);
+
   const { data: providers = [], isLoading: loadingProviders } = useQuery({
     queryKey: ["admin-providers"],
     queryFn: () => ElectricityProvider.list(),
@@ -161,6 +166,13 @@ export default function AdminDashboard() {
   const { data: plans = [], isLoading: loadingPlans } = useQuery({
     queryKey: ["admin-plans"],
     queryFn: () => ElectricityPlan.list(),
+  });
+
+  // Delivery tariffs, because whether the catalog can be priced is a fact about
+  // these rather than about the plans. See the readiness banner below.
+  const { data: territories = [], isLoading: loadingTerritories } = useQuery({
+    queryKey: ["admin-dashboard-territories"],
+    queryFn: () => UtilityTerritory.list(),
   });
 
   /**
@@ -363,6 +375,86 @@ export default function AdminDashboard() {
           loading={loadingLeads}
         />
       </div>
+
+      {/*
+        Pricing readiness.
+
+        The plans screen already counts how many plans carry a delivery charge,
+        which is what that screen is for. It is not what someone landing here
+        needs, because nothing on this page said that the site's headline
+        promise was switched off: providers, plans, leads and revenue all read
+        as healthy while no plan anywhere could produce a monthly bill or a
+        savings comparison, and every match score was capped at 79.
+
+        The banner separates the two shapes of the problem on purpose. With no
+        territories configured the whole catalog is waiting on one job, and
+        sending an operator to edit plans one at a time is sending them the
+        wrong way — delivery belongs to the territory, so configuring the
+        territory prices every plan in it at once. With territories in place and
+        a few plans still short, the plans screen genuinely is the work queue.
+
+        It stays visible when everything is priced. This is the number that
+        quietly went to zero once already; a check you can only see when it is
+        failing is one you cannot confirm is passing.
+      */}
+      {!loadingPlans && !loadingTerritories && (
+        <div
+          className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border p-4 ${
+            readiness.incomplete > 0
+              ? "border-amber-200 bg-amber-50"
+              : "border-emerald-200 bg-emerald-50"
+          }`}
+        >
+          <div className="flex items-start gap-3">
+            {readiness.incomplete > 0 ? (
+              <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            ) : (
+              <Gauge className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            )}
+            <div className="text-sm">
+              <p className={`font-semibold ${readiness.incomplete > 0 ? "text-amber-900" : "text-emerald-900"}`}>
+                {readiness.complete} of {readiness.active} active plans can show a full monthly
+                estimate ({readiness.percent}%)
+              </p>
+              {readiness.blockedOnTerritories ? (
+                <p className="text-amber-800 mt-0.5">
+                  No delivery tariffs are configured, so every plan falls back to a supply-only
+                  subtotal. Delivery is a property of the utility territory, not of the plan —
+                  configuring a territory prices every plan in it at once.
+                </p>
+              ) : readiness.incomplete > 0 ? (
+                <p className="text-amber-800 mt-0.5">
+                  {readiness.incomplete} {readiness.incomplete === 1 ? "plan has" : "plans have"} no
+                  delivery charge from a territory or an override, so {readiness.incomplete === 1 ? "it shows" : "they show"}{" "}
+                  a supply-only subtotal and cannot be compared against a customer&apos;s bill.
+                </p>
+              ) : (
+                <p className="text-emerald-800 mt-0.5">
+                  Every active plan resolves a delivery charge, so monthly estimates and savings
+                  comparisons are available across the catalog.
+                </p>
+              )}
+            </div>
+          </div>
+          {readiness.blockedOnTerritories
+            ? linkIf("/admin/territories") && (
+                <Link
+                  to="/admin/territories"
+                  className="text-sm font-medium text-amber-900 hover:underline whitespace-nowrap"
+                >
+                  Configure delivery tariffs <ArrowRight className="w-4 h-4 inline" aria-hidden="true" />
+                </Link>
+              )
+            : readiness.incomplete > 0 && linkIf("/admin/plans") && (
+                <Link
+                  to="/admin/plans"
+                  className="text-sm font-medium text-amber-900 hover:underline whitespace-nowrap"
+                >
+                  Review unpriced plans <ArrowRight className="w-4 h-4 inline" aria-hidden="true" />
+                </Link>
+              )}
+        </div>
+      )}
 
       {/* What the catalog is producing */}
       <section>
