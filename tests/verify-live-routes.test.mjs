@@ -25,10 +25,13 @@ import assert from 'node:assert/strict';
 
 import {
   VERIFICATION_MODES,
+  aliasHostsFromConfig,
   canonicalHostname,
+  evaluateAliasResponse,
   evaluateRobotsPolicy,
   isMainModule,
   parseCliArgs,
+  readVercelConfig,
   resolveVerificationMode,
 } from '../scripts/verify-live-routes.mjs';
 import { SITE_URL } from '../src/seo/site.js';
@@ -248,6 +251,137 @@ describe('command line parsing', () => {
     });
     assert.equal(parsed.baseUrl, 'https://arg.example.com');
     assert.equal(parsed.requestedMode, 'preview');
+  });
+});
+
+describe('alias response policy', () => {
+  const expectedLocation = `${SITE_URL}/`;
+
+  test('a redirect to the canonical origin passes', () => {
+    const verdict = evaluateAliasResponse({ status: 308, location: `${SITE_URL}/`, expectedLocation });
+    assert.equal(verdict.ok, true);
+  });
+
+  test('a trailing slash difference is not a failure', () => {
+    assert.equal(
+      evaluateAliasResponse({ status: 301, location: SITE_URL, expectedLocation }).ok,
+      true,
+    );
+  });
+
+  test('a 200 fails — that is a second indexable copy of the site', () => {
+    const verdict = evaluateAliasResponse({ status: 200, expectedLocation });
+    assert.equal(verdict.ok, false);
+    assert.match(verdict.reason, /second indexable copy/);
+  });
+
+  test('a cached 200 reports the cache state, because that decides the fix', () => {
+    // The alias homepage served a stale 200 for days while every uncached path
+    // on the same host redirected correctly. "Purge the edge" and "add the
+    // redirect rule" are different jobs, and this is the line that tells them
+    // apart.
+    const verdict = evaluateAliasResponse({
+      status: 200,
+      expectedLocation,
+      cache: 'x-vercel-cache: HIT, age: 475013s',
+    });
+    assert.equal(verdict.ok, false);
+    assert.match(verdict.reason, /x-vercel-cache: HIT/);
+  });
+
+  test('a host with no deployment behind it passes', () => {
+    // power-scouts.vercel.app answers 404 DEPLOYMENT_NOT_FOUND. It serves
+    // nothing, so there is nothing to index — the requirement is "no second
+    // copy", not "a redirect".
+    const verdict = evaluateAliasResponse({ status: 404, expectedLocation });
+    assert.equal(verdict.ok, true);
+    assert.equal(verdict.note, 'no deployment');
+  });
+
+  test('a redirect to the wrong place fails', () => {
+    const verdict = evaluateAliasResponse({
+      status: 307,
+      location: 'https://electric-scouts.vercel.app/',
+      expectedLocation,
+    });
+    assert.equal(verdict.ok, false);
+    assert.match(verdict.reason, /electric-scouts\.vercel\.app/);
+  });
+
+  test('a redirect with no Location header fails and says so', () => {
+    const verdict = evaluateAliasResponse({ status: 308, location: '', expectedLocation });
+    assert.equal(verdict.ok, false);
+    assert.match(verdict.reason, /no Location header/);
+  });
+});
+
+describe('duplicate host discovery', () => {
+  /**
+   * The alias list is derived from vercel.json rather than written down twice,
+   * so a new alias comes under live verification in the change that adds it.
+   * These pin the derivation, not the current contents of the config.
+   */
+  test('a host-gated redirect to the canonical origin is an alias', () => {
+    const hosts = aliasHostsFromConfig({
+      redirects: [
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'electric-scouts.vercel.app' }],
+          destination: `${SITE_URL}/:path*`,
+        },
+      ],
+    });
+    assert.deepEqual(hosts, ['electric-scouts.vercel.app']);
+  });
+
+  test('ordinary path redirects are not aliases', () => {
+    // /home -> / is a path redirect on the canonical host. Treating it as an
+    // alias would send the verifier fetching https://undefined/.
+    const hosts = aliasHostsFromConfig({
+      redirects: [{ source: '/home', destination: '/' }],
+    });
+    assert.deepEqual(hosts, []);
+  });
+
+  test('a host redirect pointing somewhere other than the canonical origin is ignored', () => {
+    const hosts = aliasHostsFromConfig({
+      redirects: [
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'old-brand.example' }],
+          destination: 'https://someone-elses-site.example/:path*',
+        },
+      ],
+    });
+    assert.deepEqual(hosts, []);
+  });
+
+  test('a host is listed once however many rules name it', () => {
+    const rule = (source) => ({
+      source,
+      has: [{ type: 'host', value: 'electric-scouts.vercel.app' }],
+      destination: `${SITE_URL}/`,
+    });
+    assert.deepEqual(
+      aliasHostsFromConfig({ redirects: [rule('/:path*'), rule('/')] }),
+      ['electric-scouts.vercel.app'],
+    );
+  });
+
+  test('an empty or unreadable config yields no hosts rather than throwing', () => {
+    assert.deepEqual(aliasHostsFromConfig({}), []);
+    assert.deepEqual(aliasHostsFromConfig(null), []);
+    assert.deepEqual(aliasHostsFromConfig(readVercelConfig('/no/such/directory')), []);
+  });
+
+  test('the real vercel.json still redirects both .vercel.app aliases', () => {
+    // The one assertion here that reads the shipped config: if an alias is
+    // dropped from vercel.json it silently leaves live verification, and the
+    // host goes back to serving an indexable copy of the site with nothing
+    // watching it.
+    const hosts = aliasHostsFromConfig(readVercelConfig());
+    assert.ok(hosts.includes('electric-scouts.vercel.app'), `missing electric-scouts.vercel.app, got ${hosts.join(', ') || 'none'}`);
+    assert.ok(hosts.includes('power-scouts.vercel.app'), `missing power-scouts.vercel.app, got ${hosts.join(', ') || 'none'}`);
   });
 });
 

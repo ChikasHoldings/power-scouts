@@ -12,6 +12,11 @@
  *
  * So this fetches the URLs and reads what actually came back.
  *
+ * In production mode it also fetches the .vercel.app aliases, which serve a
+ * second copy of the whole site and are redirected away in vercel.json. That
+ * rule was in the config and correct, and the alias homepage still answered 200
+ * from a stale edge cache for days — a shape no config test can see.
+ *
  *   node scripts/verify-live-routes.mjs https://deployment.example.com
  *   node scripts/verify-live-routes.mjs https://… --mode production
  *   ELECTRICSCOUTS_BASE_URL=https://… npm run verify:live
@@ -27,6 +32,7 @@
  * the process entrypoint — importing it must never make a network request.
  */
 
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -269,6 +275,41 @@ async function get(baseUrl, routePath) {
   }
 }
 
+/**
+ * Fetch without following redirects, for the one question `get` cannot answer:
+ * what did this host say before any hop?
+ *
+ * `x-vercel-cache` and `age` come back with it because a stale cached 200 and a
+ * freshly served 200 are the same status code with completely different fixes —
+ * the first needs the edge purged, the second needs the redirect rule.
+ */
+async function probeRedirect(baseUrl, routePath) {
+  const url = new URL(routePath, baseUrl).toString();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+  try {
+    const response = await fetch(url, {
+      redirect: 'manual',
+      signal: controller.signal,
+      headers: { 'user-agent': 'electricscouts-verify-live-routes' },
+    });
+    const cache = response.headers.get('x-vercel-cache') || '';
+    const age = response.headers.get('age') || '';
+    return {
+      url,
+      status: response.status,
+      location: response.headers.get('location') || '',
+      robotsHeader: response.headers.get('x-robots-tag') || '',
+      cache: [cache && `x-vercel-cache: ${cache}`, age && `age: ${age}s`].filter(Boolean).join(', '),
+    };
+  } catch (error) {
+    return { url, error: error.name === 'AbortError' ? `timed out after ${TIMEOUT_MS}ms` : error.message };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /* ------------------------------------------------------------------ *
  * Checks
  * ------------------------------------------------------------------ */
@@ -495,6 +536,132 @@ async function checkRobots(response, report) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Duplicate hosts
+ * ------------------------------------------------------------------ */
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/** vercel.json, or an empty config if it cannot be read. */
+export function readVercelConfig(root = ROOT) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * The hosts vercel.json sends to the canonical origin.
+ *
+ * Read out of the config rather than listed here, so adding an alias to
+ * vercel.json puts it under live verification in the same change. A rule counts
+ * when it is gated on a host and lands on the canonical origin — exactly the
+ * shape scripts/assert-prerender-output.mjs already requires of it.
+ */
+export function aliasHostsFromConfig(config, canonicalSiteUrl = SITE_URL) {
+  const origin = `${canonicalSiteUrl.replace(/\/+$/, '')}/`;
+  const hosts = new Set();
+  for (const rule of config?.redirects || []) {
+    if (!String(rule.destination || '').startsWith(origin)) continue;
+    for (const condition of rule.has || []) {
+      if (condition.type === 'host' && condition.value) hosts.add(condition.value);
+    }
+  }
+  return [...hosts];
+}
+
+/**
+ * Every alias must answer a redirect, and `/` is the one that has to be named.
+ *
+ * A `.vercel.app` production alias is not a preview, so Vercel does not stamp it
+ * `x-robots-tag: noindex` the way it does a deployment URL. Left alone it serves
+ * a complete second copy of the site, which is what "Duplicate, Google chose
+ * different canonical than user" is made of. vercel.json redirects the whole
+ * host and assert-prerender-output.mjs proves the rule is in the config.
+ *
+ * Neither of those can see the CDN, and the CDN is where this broke. The
+ * homepage is the only URL on an alias that anything actually requests, so it
+ * is the only one that ever had a cached entry — and a 200 cached before the
+ * redirect shipped kept being served from the edge on the single most valuable
+ * path, while every uncached path on the same host redirected correctly. The
+ * config was right and the site was still wrong. Only a fetch catches that,
+ * which is the reason this file exists at all.
+ *
+ * The bar is "serves nothing indexable", not "redirects": a 3xx to the canonical
+ * origin passes, and so does a host that resolves to no deployment at all. Only
+ * a 200 is a second copy of the site.
+ *
+ * Production only: the aliases are fixed absolute hosts with no relationship to
+ * a preview deployment, so checking them while verifying a preview would report
+ * on something the artefact under test cannot affect.
+ */
+export function evaluateAliasResponse({ status, location = '', expectedLocation, cache = '' } = {}) {
+  // No deployment behind the host: nothing is served, so nothing can be
+  // indexed. This is what a removed alias looks like and it is a pass —
+  // demanding a redirect from a host with nothing to redirect from would fail
+  // the safest possible state.
+  if (status >= 400) return { ok: true, note: 'no deployment' };
+
+  if (status < 300) {
+    return {
+      ok: false,
+      reason: `expected a redirect to the canonical origin, got HTTP ${status}`
+        + (cache ? ` (${cache})` : '')
+        + ' — this host is serving a second indexable copy of the site',
+    };
+  }
+
+  if (location.replace(/\/$/, '') !== expectedLocation.replace(/\/$/, '')) {
+    return {
+      ok: false,
+      reason: `redirects to "${location || '(no Location header)'}", expected "${expectedLocation}"`,
+    };
+  }
+
+  return { ok: true, note: 'redirects' };
+}
+
+async function checkDuplicateHosts(hosts, report, mode) {
+  if (mode !== 'production') return [];
+
+  const rows = [];
+  for (const host of hosts) {
+    // `/` first and by name: it is the path that regressed, and the only one
+    // whose failure a deep-path check would miss entirely.
+    for (const routePath of ['/', '/compare-rates']) {
+      const scope = `${host}${routePath}`;
+      const response = await probeRedirect(`https://${host}`, routePath);
+      const row = {
+        route: scope,
+        status: response.status ?? '—',
+        title: '—',
+        canonical: '—',
+        h1: '—',
+        unique: '—',
+        httpRobots: response.robotsHeader || '—',
+        result: 'FAIL',
+      };
+      rows.push(row);
+
+      if (response.error) {
+        report.fail(scope, `request failed (${response.error})`);
+        continue;
+      }
+
+      const verdict = evaluateAliasResponse({
+        status: response.status,
+        location: response.location || '',
+        expectedLocation: absoluteUrl(routePath),
+        cache: response.cache,
+      });
+      if (!verdict.ok) report.fail(scope, verdict.reason);
+    }
+  }
+
+  return rows;
+}
+
+/* ------------------------------------------------------------------ *
  * Main
  * ------------------------------------------------------------------ */
 
@@ -575,6 +742,7 @@ async function main() {
   rows.push(await checkSitemap(byPath.get('/sitemap.xml'), report));
   rows.push(await checkRobots(byPath.get('/robots.txt'), report));
   rows.push(checkUnknownRoute(byPath.get(UNKNOWN_ROUTE), pages.get('/'), report));
+  rows.push(...(await checkDuplicateHosts(aliasHostsFromConfig(readVercelConfig()), report, mode)));
 
   // A row passes when nothing was reported against it. A uniqueness failure
   // names two routes, so it is attributed to both rather than to a scope no

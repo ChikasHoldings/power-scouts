@@ -58,6 +58,24 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 const CANONICAL_HOST = 'https://electricscouts.com';
 
+/**
+ * The redirect sources that actually fire on the canonical host.
+ *
+ * A rule carrying `has: [{ type: 'host', … }]` fires only on that host — it is
+ * how the .vercel.app aliases are sent to the apex. Reading `source` without
+ * checking `has` concludes that every aliased path is a redirect on
+ * electricscouts.com too, which is how a link-integrity check ends up calling
+ * the homepage a broken link. src/seo/audit.mjs models the same rule for the
+ * same reason.
+ */
+function canonicalHostRedirectSources(config) {
+  return new Set(
+    (config.redirects || [])
+      .filter((rule) => !(rule.has || []).some((condition) => condition.type === 'host'))
+      .map((rule) => rule.source),
+  );
+}
+
 const distExists = fs.existsSync(path.join(DIST, 'index.html'));
 
 function readDist(relativePath) {
@@ -124,6 +142,83 @@ describe('canonical host and URL normalization', () => {
     assert.equal(absoluteUrl('/'), `${CANONICAL_HOST}/`);
     assert.equal(absoluteUrl('/texas-electricity'), `${CANONICAL_HOST}/texas-electricity`);
     assert.equal(absoluteUrl('/faq/?utm_source=x'), `${CANONICAL_HOST}/faq`);
+  });
+});
+
+/* ================================================================== *
+ * Tracking-parameter URLs
+ *
+ * Search Console reports https://electricscouts.com/?ref=steemhunt and
+ * /?ref=producthunt under "Alternate page with proper canonical tag", and
+ * every validation requested against that report comes back "Some fixes
+ * failed". Both of those facts are the system working.
+ *
+ * That status is not an error. It is Google saying it crawled the URL, read
+ * the canonical, and folded the page into the homepage — the outcome the
+ * canonical exists to produce. Search Console only clears a URL out of that
+ * bucket once it stops being an alternate: once it 404s, redirects, or serves
+ * noindex. None of those will ever be true here, because the URLs are live
+ * partner backlinks that real people click. So the report stays open for as
+ * long as the links exist, and re-requesting validation cannot close it.
+ *
+ * The trap is the obvious fix. An edge redirect that strips the parameter
+ * would close the report and take the site's campaign attribution with it:
+ * captureAttribution() in components/compare/engine/attribution.js reads the
+ * UTM keys off the FIRST landing URL and snapshots them into sessionStorage,
+ * and those values ride through to lead records (api/leads.js) and out to the
+ * lead buyers who are billed against them (api/_lib/comparison.js).
+ * isCommissionCapable() in lib/commissionCapable.js reads `ref` the same way.
+ * A 301 resolves before any script runs, so the parameter would be gone
+ * before anything could read it — a cosmetic Search Console row traded for
+ * real revenue data.
+ *
+ * The correct handling is the one already in place: serve 200, emit a
+ * canonical with no query string, and let Google consolidate. These tests are
+ * here to stop a future reader from "fixing" that Search Console row.
+ * ================================================================== */
+
+describe('tracking-parameter URLs stay crawlable and self-consolidating', () => {
+  const TRACKING_PARAMS = [
+    'ref',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'fbclid',
+    'gclid',
+    'msclkid',
+  ];
+
+  test('a tracking parameter never reaches the canonical URL', () => {
+    for (const key of TRACKING_PARAMS) {
+      assert.equal(absoluteUrl(`/?${key}=partner`), `${CANONICAL_HOST}/`);
+      assert.equal(
+        absoluteUrl(`/texas-electricity?${key}=partner`),
+        `${CANONICAL_HOST}/texas-electricity`,
+      );
+    }
+
+    // The URLs named in the Search Console report, verbatim.
+    assert.equal(absoluteUrl('/?ref=steemhunt'), `${CANONICAL_HOST}/`);
+    assert.equal(absoluteUrl('/?ref=producthunt'), `${CANONICAL_HOST}/`);
+  });
+
+  test('no redirect is gated on a tracking parameter', () => {
+    const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+
+    for (const rule of config.redirects || []) {
+      for (const condition of [...(rule.has || []), ...(rule.missing || [])]) {
+        if (condition.type !== 'query') continue;
+        assert.ok(
+          !TRACKING_PARAMS.includes(String(condition.key).toLowerCase()),
+          `redirect "${rule.source}" is gated on the tracking parameter `
+            + `"${condition.key}". Stripping it server-side closes a Search Console `
+            + 'row that is not an error and breaks campaign attribution — see the '
+            + 'comment above this block.',
+        );
+      }
+    }
   });
 });
 
@@ -1394,9 +1489,8 @@ describe('vercel.json routing', () => {
   });
 
   test('redirects never target a URL that redirects again', () => {
-    const redirects = config.redirects || [];
-    const sources = new Set(redirects.map((r) => r.source));
-    for (const redirect of redirects) {
+    const sources = canonicalHostRedirectSources(config);
+    for (const redirect of config.redirects || []) {
       assert.ok(!sources.has(redirect.destination), `redirect chain: ${redirect.source} -> ${redirect.destination}`);
     }
   });
@@ -1478,6 +1572,29 @@ describe('invalid dynamic URLs do not masquerade as pages', { skip: !distExists 
       const result = onAlias('/compare-rates');
       assert.equal(result.status, 301, `${alias}/compare-rates should redirect, got ${result.status}`);
       assert.equal(result.location, 'https://electricscouts.com/compare-rates');
+    });
+
+    /**
+     * The root, by name.
+     *
+     * This test used to check a deep path only, and the root is the one that
+     * was actually wrong in production: electric-scouts.vercel.app/ answered
+     * 200 from the edge for days while /compare-rates, /faq, /sitemap.xml and
+     * /index.html on the same host all answered 308. It is also the only URL on
+     * an alias that anything requests often enough to cache, so it is both the
+     * likeliest to break and the most valuable to get right.
+     *
+     * `/:path*` should match the root on its own — the model here says so and
+     * so does Vercel's documentation — but the config now carries an explicit
+     * `source: "/"` rule ahead of it, because "should" was not enough to
+     * explain a homepage that was still serving a duplicate five days after the
+     * redirect shipped. This asserts the outcome, not which rule produced it.
+     */
+    test(`${alias} redirects its root, not just deep paths`, () => {
+      const onAlias = createResolver({ distDir: DIST, vercelConfig: config, host: alias });
+      const result = onAlias('/');
+      assert.equal(result.status, 301, `${alias}/ should redirect, got ${result.status} (kind=${result.kind})`);
+      assert.equal(result.location, 'https://electricscouts.com/');
     });
   }
 
@@ -1840,7 +1957,7 @@ describe('crawl paths reach every indexable page', { skip: !distExists }, () => 
 
   test('no page links to a URL that redirects', () => {
     const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
-    const redirectSources = new Set((config.redirects || []).map((r) => r.source));
+    const redirectSources = canonicalHostRedirectSources(config);
     for (const route of getAllRoutes({ providers: getPublishableProviders() })) {
       const links = internalLinks(readDist(distFileFor(route.path)));
       for (const href of links) {
@@ -1852,7 +1969,7 @@ describe('crawl paths reach every indexable page', { skip: !distExists }, () => 
   test('createPageUrl never produces a URL that redirects', async () => {
     const { createPageUrl } = await import('../src/utils/index.ts');
     const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
-    const redirectSources = new Set((config.redirects || []).map((r) => r.source));
+    const redirectSources = canonicalHostRedirectSources(config);
     for (const page of ['Home', 'CompareRates', 'AboutUs', 'FAQ', 'AllStates', 'BillAnalyzer']) {
       const url = createPageUrl(page);
       assert.ok(!redirectSources.has(url), `createPageUrl("${page}") returns ${url}, which redirects`);
