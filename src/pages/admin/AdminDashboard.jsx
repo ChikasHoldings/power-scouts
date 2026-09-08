@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/lib/AuthContext";
 import { summarizeRevenue } from "@/lib/revenue";
-import { pricingReadiness } from "@/lib/planValidation";
+import { launchReadiness } from "@/lib/planValidation";
+import { MARKET_TOTALS } from "@/seo/market";
 import { ElectricityProvider, ElectricityPlan, UtilityTerritory } from "@/api/supabaseEntities";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -128,6 +129,37 @@ function OverviewRow({ icon: Icon, label, value, tone, loading }) {
   );
 }
 
+/**
+ * One line of the launch-readiness list.
+ *
+ * Every row is shown whether it passes or not. Each of these went to zero
+ * without anyone noticing, and a check that only appears while it is failing is
+ * one nobody can confirm is passing.
+ */
+function ReadinessRow({ ok, label, okText, badText, fixPath, fixLabel, linkIf }) {
+  const href = ok ? null : linkIf(fixPath);
+  return (
+    <li className="flex items-start gap-2">
+      {ok ? (
+        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+      ) : (
+        <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+      )}
+      <span className={ok ? "text-emerald-800" : "text-amber-800"}>
+        <span className="font-medium">{label}:</span> {ok ? okText : badText}
+        {href && (
+          <>
+            {" "}
+            <Link to={href} className="font-medium underline whitespace-nowrap">
+              {fixLabel} <ArrowRight className="w-3.5 h-3.5 inline" aria-hidden="true" />
+            </Link>
+          </>
+        )}
+      </span>
+    </li>
+  );
+}
+
 export default function AdminDashboard() {
   const { profile } = useAuth();
 
@@ -156,7 +188,6 @@ export default function AdminDashboard() {
   // does not do is offer a way through to a screen the role cannot open.
   const linkIf = (path) => (can(path) ? path : undefined);
 
-  const readiness = pricingReadiness(plans, territories);
 
   const { data: providers = [], isLoading: loadingProviders } = useQuery({
     queryKey: ["admin-providers"],
@@ -174,6 +205,18 @@ export default function AdminDashboard() {
     queryKey: ["admin-dashboard-territories"],
     queryFn: () => UtilityTerritory.list(),
   });
+
+  // Who the router can hand a lead to. Zero rows means every lead captured is
+  // stored and goes nowhere, which no other tile on this page would reveal.
+  const { data: buyers = [], isLoading: loadingBuyers } = useQuery({
+    queryKey: ["admin-dashboard-buyers"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("lead_buyers").select("id, is_active");
+      if (error) throw error;
+      return data || [];
+    },
+  });
+
 
   /**
    * Lead figures, counted rather than sampled.
@@ -204,6 +247,16 @@ export default function AdminDashboard() {
         recent: recent.data || [],
       };
     },
+  });
+
+  // Computed after every query it reads, so none of them is referenced before
+  // its declaration.
+  const readiness = launchReadiness({
+    plans,
+    territories,
+    buyers,
+    leads: leadStats.total,
+    snapshotPlans: MARKET_TOTALS.activePlans,
   });
 
   // Money actually earned, so the dashboard agrees with the revenue screen
@@ -397,62 +450,58 @@ export default function AdminDashboard() {
         quietly went to zero once already; a check you can only see when it is
         failing is one you cannot confirm is passing.
       */}
-      {!loadingPlans && !loadingTerritories && (
+      {!loadingPlans && !loadingTerritories && !loadingBuyers && !loadingLeads && (
         <div
-          className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border p-4 ${
-            readiness.incomplete > 0
-              ? "border-amber-200 bg-amber-50"
-              : "border-emerald-200 bg-emerald-50"
+          className={`rounded-lg border p-4 ${
+            readiness.launchReady
+              ? "border-emerald-200 bg-emerald-50"
+              : "border-amber-200 bg-amber-50"
           }`}
         >
           <div className="flex items-start gap-3">
-            {readiness.incomplete > 0 ? (
-              <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
-            ) : (
+            {readiness.launchReady ? (
               <Gauge className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            ) : (
+              <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
             )}
-            <div className="text-sm">
-              <p className={`font-semibold ${readiness.incomplete > 0 ? "text-amber-900" : "text-emerald-900"}`}>
-                {readiness.complete} of {readiness.active} active plans can show a full monthly
-                estimate ({readiness.percent}%)
+            <div className="text-sm w-full">
+              <p className={`font-semibold ${readiness.launchReady ? "text-emerald-900" : "text-amber-900"}`}>
+                {readiness.launchReady
+                  ? "Ready to take customers"
+                  : `${readiness.blockers.length} thing${readiness.blockers.length === 1 ? "" : "s"} still stop this site doing its job`}
               </p>
-              {readiness.blockedOnTerritories ? (
-                <p className="text-amber-800 mt-0.5">
-                  No delivery tariffs are configured, so every plan falls back to a supply-only
-                  subtotal. Delivery is a property of the utility territory, not of the plan —
-                  configuring a territory prices every plan in it at once.
-                </p>
-              ) : readiness.incomplete > 0 ? (
-                <p className="text-amber-800 mt-0.5">
-                  {readiness.incomplete} {readiness.incomplete === 1 ? "plan has" : "plans have"} no
-                  delivery charge from a territory or an override, so {readiness.incomplete === 1 ? "it shows" : "they show"}{" "}
-                  a supply-only subtotal and cannot be compared against a customer&apos;s bill.
-                </p>
-              ) : (
-                <p className="text-emerald-800 mt-0.5">
-                  Every active plan resolves a delivery charge, so monthly estimates and savings
-                  comparisons are available across the catalog.
-                </p>
-              )}
+
+              <ul className="mt-2 space-y-1.5">
+                <ReadinessRow
+                  ok={readiness.deliveryConfigured}
+                  label="Delivery tariffs"
+                  okText={`${readiness.complete} of ${readiness.active} active plans can show a full monthly estimate`}
+                  badText={`No utility territory is configured, so none of the ${readiness.active} active plans can show a monthly bill or a savings comparison.`}
+                  fixPath="/admin/territories"
+                  fixLabel="Configure delivery tariffs"
+                  linkIf={linkIf}
+                />
+                <ReadinessRow
+                  ok={readiness.buyersConfigured}
+                  label="Lead buyers"
+                  okText={`${readiness.activeBuyers} active buyer${readiness.activeBuyers === 1 ? "" : "s"} can receive leads`}
+                  badText={`No lead buyer is configured, so every lead captured is stored and goes nowhere${readiness.leads ? ` — including the ${readiness.leads} already captured` : ""}.`}
+                  fixPath="/admin/lead-buyers"
+                  fixLabel="Add a lead buyer"
+                  linkIf={linkIf}
+                />
+                <ReadinessRow
+                  ok={readiness.catalogFresh}
+                  label="Published catalog"
+                  okText={`${readiness.livePlans} live plans, in step with the ${readiness.snapshotPlans} the public pages publish`}
+                  badText={`The public pages were built from a snapshot of ${readiness.snapshotPlans} plans and the catalog now holds ${readiness.livePlans}. Visitors are being shown counts the comparison engine cannot deliver; a redeploy republishes the pages from the current catalog.`}
+                  fixPath="/admin/plans"
+                  fixLabel="Review the catalog"
+                  linkIf={linkIf}
+                />
+              </ul>
             </div>
           </div>
-          {readiness.blockedOnTerritories
-            ? linkIf("/admin/territories") && (
-                <Link
-                  to="/admin/territories"
-                  className="text-sm font-medium text-amber-900 hover:underline whitespace-nowrap"
-                >
-                  Configure delivery tariffs <ArrowRight className="w-4 h-4 inline" aria-hidden="true" />
-                </Link>
-              )
-            : readiness.incomplete > 0 && linkIf("/admin/plans") && (
-                <Link
-                  to="/admin/plans"
-                  className="text-sm font-medium text-amber-900 hover:underline whitespace-nowrap"
-                >
-                  Review unpriced plans <ArrowRight className="w-4 h-4 inline" aria-hidden="true" />
-                </Link>
-              )}
         </div>
       )}
 
