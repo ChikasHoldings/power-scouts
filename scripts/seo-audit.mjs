@@ -28,7 +28,10 @@ import {
   createResolver,
   parseHtml,
   duplicateGroups,
-  meanSimilarity,
+  similarityProfile,
+  SIMILARITY_PAIR_WARN,
+  SIMILARITY_PAIR_FAIL,
+  SIMILARITY_P95_WARN,
 } from '../src/seo/audit.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -36,12 +39,38 @@ const DIST = path.join(ROOT, 'dist');
 
 /* Thresholds. Deliberately conservative: these flag pages that are genuinely
  * thin or duplicated, not pages that merely differ in style. */
-const THIN_MAIN_WORDS = 180;      // unique <main> words below this is thin
 const TITLE_MIN = 25;
 const TITLE_MAX = 70;
 const DESC_MIN = 70;
 const DESC_MAX = 165;
-const SIMILARITY_WARN = 0.55;     // mean pairwise shingle overlap within a family
+
+/**
+ * Word floors per route family, not one number for the whole site.
+ *
+ * A flat 180 was unreachable in practice. It is set below what any generated
+ * page can produce, so it only ever caught a page that was broken rather than
+ * thin — every family's 10th percentile is at least twice it. A comparison page
+ * of 352 words is genuinely thin against its own family, whose median is 627,
+ * and a flat floor could not say so. Each value sits below the family's current
+ * 10th percentile so today's pages pass, and close enough to bite if a new page
+ * lands well under its peers.
+ *
+ * static covers the legal pages, which are 188 and 190 words and correctly so:
+ * a privacy policy is not improved by padding.
+ */
+const THIN_MAIN_WORDS = {
+  article: 700,
+  city: 520,
+  comparison: 380,
+  provider: 380,
+  state: 520,
+  utility: 600,
+  static: 150,
+  home: 500,
+};
+const THIN_MAIN_WORDS_DEFAULT = 300;
+
+// Similarity thresholds live in src/seo/audit.mjs so both audits share them.
 
 const args = process.argv.slice(2);
 const STRICT = args.includes('--strict');
@@ -188,8 +217,10 @@ async function main() {
       if (!page.canonical) flag('P0', 'missing-canonical', page.path, 'no canonical link');
       if (!page.h1s || page.h1s.length === 0) flag('P0', 'missing-h1', page.path, 'no <h1>');
       if (page.h1s && page.h1s.length > 1) flag('P1', 'multiple-h1', page.path, `${page.h1s.length} <h1> elements`);
-      if (page.mainWords < THIN_MAIN_WORDS && !page.isAlias) {
-        flag('P1', 'thin-content', page.path, `${page.mainWords} unique words in <main>`);
+      const family = registryByPath.get(page.path)?.type || 'other';
+      const thinFloor = THIN_MAIN_WORDS[family] ?? THIN_MAIN_WORDS_DEFAULT;
+      if (page.mainWords < thinFloor && !page.isAlias) {
+        flag('P1', 'thin-content', page.path, `${page.mainWords} unique words in <main>, under the ${family} floor of ${thinFloor}`);
       }
       if (!page.inSitemap && page.inRegistry && !page.isAlias) {
         flag('P1', 'indexable-not-in-sitemap', page.path, 'indexable but absent from sitemap');
@@ -299,10 +330,29 @@ async function main() {
   const similarity = {};
   for (const [type, members] of families) {
     if (members.length < 2) continue;
-    const score = meanSimilarity(members.map((m) => m.mainText));
-    similarity[type] = { pages: members.length, meanSimilarity: Number(score.toFixed(3)) };
-    if (score > SIMILARITY_WARN) {
-      flag('P1', 'template-similarity', type, `mean pairwise similarity ${score.toFixed(3)} across ${members.length} pages`);
+    const profile = similarityProfile(members.map((m) => ({ id: m.path, text: m.mainText })));
+    similarity[type] = {
+      pages: members.length,
+      mean: Number(profile.mean.toFixed(3)),
+      p95: Number(profile.p95.toFixed(3)),
+      max: Number(profile.max.toFixed(3)),
+      worstPair: profile.worst.a ? `${profile.worst.a} | ${profile.worst.b}` : null,
+    };
+
+    // The worst pair, not the average. Two pages that read as the same page are
+    // a problem for those two pages however unremarkable the family average is.
+    const pair = `${profile.worst.a} | ${profile.worst.b}`;
+    if (profile.max >= SIMILARITY_PAIR_FAIL) {
+      flag('P0', 'near-duplicate-pair', pair, `${type} pages ${profile.max.toFixed(3)} similar`);
+    } else if (profile.max >= SIMILARITY_PAIR_WARN) {
+      flag('P1', 'near-duplicate-pair', pair, `${type} pages ${profile.max.toFixed(3)} similar`);
+    }
+
+    // p95 catches the other shape: no single alarming pair, but a family where
+    // the top tail is broadly alike — the point at which pages stop being worth
+    // publishing separately.
+    if (profile.p95 >= SIMILARITY_P95_WARN) {
+      flag('P1', 'templated-family', type, `95th percentile pair similarity ${profile.p95.toFixed(3)} across ${members.length} pages`);
     }
   }
 
@@ -355,7 +405,8 @@ async function main() {
   console.log(`sitemap URLs   : ${summary.sitemapUrls}`);
   console.log('\n-- pages by route family --');
   for (const [type, n] of Object.entries(byType).sort((a, b) => b[1] - a[1])) {
-    const sim = similarity[type] ? ` (mean similarity ${similarity[type].meanSimilarity})` : '';
+    const s2 = similarity[type];
+    const sim = s2 ? `  similarity mean ${s2.mean.toFixed(3)} p95 ${s2.p95.toFixed(3)} max ${s2.max.toFixed(3)}` : '';
     console.log(`  ${type.padEnd(10)} ${String(n).padStart(4)}${sim}`);
   }
 
@@ -372,7 +423,7 @@ async function main() {
     ['canonical mismatch', summary.canonicalMismatch],
     ['orphan pages', summary.orphanPages],
     ['unreachable from /', summary.unreachablePages],
-    ['thin pages (<' + THIN_MAIN_WORDS + ' words)', summary.thinPages],
+    ['thin pages (below family floor)', summary.thinPages],
     ['pages without SSR HTML', summary.pagesWithoutSsrHtml],
     ['soft 404s', summary.softFourOhFours],
     ['internal links to redirects', summary.linksToRedirects],

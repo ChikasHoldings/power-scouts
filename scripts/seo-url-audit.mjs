@@ -42,7 +42,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE_URL, absoluteUrl, canonicalPath } from '../src/seo/site.js';
 import { getAllRoutes, getIndexableRoutes } from '../src/seo/routes.js';
 import { loadSeoData } from '../src/seo/data.mjs';
-import { createResolver, parseHtml, shingles, jaccard } from '../src/seo/audit.mjs';
+import { createResolver, parseHtml, shingles, jaccard, SIMILARITY_PAIR_WARN, SIMILARITY_PAIR_FAIL } from '../src/seo/audit.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -445,8 +445,14 @@ async function main() {
     const sets = members.map((m) => ({ url: m.url, set: shingles(m.mainText, 7) }));
     for (let i = 0; i < sets.length; i += 1) {
       for (let j = i + 1; j < sets.length; j += 1) {
+        // 0.6 was above the 0.458 this site's worst pair can reach, so this
+        // gate reported clean without ever being able to fail. The thresholds
+        // now come from src/seo/audit.mjs, set from the measured distribution.
         const score = jaccard(sets[i].set, sets[j].set);
-        if (score >= 0.6) {
+        if (score >= SIMILARITY_PAIR_FAIL) {
+          flag('P0', 'near-duplicate-content', `${sets[i].url} | ${sets[j].url}`,
+            `${family} pages ${score.toFixed(2)} similar after chrome removal`);
+        } else if (score >= SIMILARITY_PAIR_WARN) {
           flag('P1', 'near-duplicate-content', `${sets[i].url} | ${sets[j].url}`,
             `${family} pages ${score.toFixed(2)} similar after chrome removal`);
         }
