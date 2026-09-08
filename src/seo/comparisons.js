@@ -211,6 +211,139 @@ export const PROVIDER_MATCHUPS = [
  * `metric` picks the per-state numbers for the comparison table; returning null
  * for a state leaves that state out rather than printing a blank row.
  */
+
+/* ------------------------------------------------------------------ *
+ * Insights for the plan-shape comparisons
+ *
+ * A comparison whose metric is countable ("279 fixed against 97 variable")
+ * earns a "Where the Balance Tips" section off those counts. The three whose
+ * metric is not countable — a term is offered or it is not, a renewable rate is
+ * a price rather than a tally — fell through that branch and got nothing, which
+ * is the whole reason they are the thinnest indexable pages on the site at 352
+ * and 358 words against a family median of 627.
+ *
+ * So they get the same treatment from the data they do have. Everything below
+ * is counted from the market snapshot: no claim here is written by hand, and a
+ * market missing the field it needs drops out of its own sentence rather than
+ * being guessed at.
+ * ------------------------------------------------------------------ */
+
+/** States whose market satisfies `predicate`, by name. */
+function statesWhere(rows, predicate) {
+  return rows.filter((row) => row.market && predicate(row.market)).map((row) => row.name);
+}
+
+/** Contract lengths, in months, offered anywhere in the covered markets. */
+function termSpread(rows) {
+  const all = new Set();
+  for (const row of rows) for (const term of row.market?.terms || []) all.add(term);
+  return [...all].sort((x, y) => x - y);
+}
+
+function termInsights(rows) {
+  const bullets = [];
+  const has = (n) => statesWhere(rows, (m) => (m.terms || []).includes(n));
+  const twelve = has(12);
+  const twentyFour = has(24);
+  const both = statesWhere(rows, (m) => (m.terms || []).includes(12) && (m.terms || []).includes(24));
+
+  if (twelve.length || twentyFour.length) {
+    bullets.push(
+      `A 12-month term is sold in ${twelve.length} of the ${rows.length} markets we cover and a ` +
+        `24-month term in ${twentyFour.length}. Where a state appears below with only one of them, ` +
+        `the choice is not yours to make.`
+    );
+  }
+  if (both.length) {
+    bullets.push(
+      `${both.length} ${both.length === 1 ? 'market carries' : 'markets carry'} both terms, so the ` +
+        `comparison is a real one in ${joinNames(both, 4)}${both.length > 4 ? ', among others' : ''}.`
+    );
+  }
+  const only12 = twelve.filter((name) => !both.includes(name));
+  if (only12.length) {
+    bullets.push(
+      `${joinNames(only12, 4)} ${only12.length === 1 ? 'offers' : 'offer'} 12 months without a ` +
+        `24-month counterpart, so the longer guarantee is simply unavailable there.`
+    );
+  }
+  const spread = termSpread(rows);
+  if (spread.length > 2) {
+    bullets.push(
+      `The full range on offer runs from ${spread[0]} to ${spread[spread.length - 1]} months, so ` +
+        `12 and 24 are two points on a longer scale rather than the only two choices.`
+    );
+  }
+  return bullets;
+}
+
+function renewableInsights(rows) {
+  const bullets = [];
+  const priced = rows.filter(
+    (row) => row.market?.minRenewableRate != null && row.market?.minRate != null
+  );
+  if (!priced.length) return bullets;
+
+  const withGap = priced
+    .map((row) => ({ name: row.name, path: row.path, gap: row.market.minRenewableRate - row.market.minRate }))
+    .sort((x, y) => y.gap - x.gap);
+
+  const noPremium = withGap.filter((row) => row.gap <= 0);
+  if (noPremium.length) {
+    bullets.push(
+      `In ${noPremium.length} of the ${priced.length} markets we priced, the cheapest 100% renewable ` +
+        `plan is also the cheapest plan of any kind — ${joinNames(noPremium.map((r) => r.name), 4)}. ` +
+        `There the premium people expect does not exist.`
+    );
+  }
+  const worst = withGap[0];
+  if (worst && worst.gap > 0) {
+    bullets.push(
+      `The widest gap is in ${worst.name}, where going renewable costs ${worst.gap.toFixed(1)}¢ per ` +
+        `kWh more at the cheapest end of the market.`
+    );
+  }
+  const totalRenewable = priced.reduce((sum, row) => sum + (row.market.renewablePlans || 0), 0);
+  const totalPlans = priced.reduce((sum, row) => sum + (row.market.plans || 0), 0);
+  if (totalRenewable && totalPlans) {
+    bullets.push(
+      `${totalRenewable} of the ${totalPlans} plans in our catalog are 100% renewable, so this is a ` +
+        `choice you will meet in most markets rather than a niche one.`
+    );
+  }
+  return bullets;
+}
+
+function monthToMonthInsights(rows) {
+  const bullets = [];
+  const rolling = statesWhere(rows, (m) => m.monthToMonth);
+  if (rolling.length) {
+    bullets.push(
+      `Month-to-month supply is sold in ${rolling.length} of the ${rows.length} markets we cover, ` +
+        `so in most of them staying flexible is an option rather than a compromise.`
+    );
+  }
+  const noEtf = rows
+    .filter((row) => (row.market?.noEtfPlans || 0) > 0)
+    .sort((x, y) => y.market.noEtfPlans - x.market.noEtfPlans);
+  if (noEtf.length) {
+    const total = noEtf.reduce((sum, row) => sum + row.market.noEtfPlans, 0);
+    bullets.push(
+      `${total} plans across ${noEtf.length} markets carry no early termination fee, ${noEtf[0].name} ` +
+        `most of all with ${noEtf[0].market.noEtfPlans}. A fixed term without an exit fee is the ` +
+        `middle ground between these two shapes.`
+    );
+  }
+  const spread = termSpread(rows);
+  if (spread.length) {
+    bullets.push(
+      `Fixed terms on offer run from ${spread[0]} to ${spread[spread.length - 1]} months, so ` +
+        `"fixed term" covers a commitment of one season or of three years.`
+    );
+  }
+  return bullets;
+}
+
 export const PLAN_COMPARISONS = [
   {
     slug: 'fixed-vs-variable-electricity-plans',
@@ -262,6 +395,7 @@ export const PLAN_COMPARISONS = [
       return { a: has12 ? 'Offered' : 'Not offered', b: has24 ? 'Offered' : 'Not offered' };
     },
     unit: null,
+    insights: termInsights,
     columns: ['12-month term', '24-month term'],
     faqs: [
       {
@@ -278,6 +412,16 @@ export const PLAN_COMPARISONS = [
         question: 'Does a longer contract always cost less per kWh?',
         answer:
           'No. Longer terms sometimes price above shorter ones, because the supplier is pricing forward risk into the rate. Compare the actual rates for both terms at your ZIP code rather than assuming.',
+      },
+      {
+        question: 'Can I leave a 24-month plan early?',
+        answer:
+          'You can, and the contract sets the price of doing so. Early termination fees are commonly a flat sum or a charge per remaining month, and on a 24-month plan you are exposed to it for twice as long. Some plans carry no exit fee at all; the contract document states which, and it is the number to check before signing rather than after.',
+      },
+      {
+        question: 'What happens to my contract if I move?',
+        answer:
+          'A supply contract is tied to the service address, not to you. Most suppliers will move the plan to a new address inside the same utility territory, and most waive the termination fee if you are leaving their service area entirely. Neither is automatic, so tell the supplier before you move rather than after the final bill.',
       },
     ],
   },
@@ -297,6 +441,7 @@ export const PLAN_COMPARISONS = [
       return { a: formatRate(market.minRenewableRate), b: formatRate(market.minRate) };
     },
     unit: null,
+    insights: renewableInsights,
     columns: ['Cheapest renewable plan', 'Cheapest plan of any kind'],
     faqs: [
       {
@@ -313,6 +458,16 @@ export const PLAN_COMPARISONS = [
         question: 'What counts as a renewable plan here?',
         answer:
           'Only plans backed by 100% renewable energy. Partial-renewable plans are counted as standard plans, so the comparison is not flattered by plans that are half green.',
+      },
+      {
+        question: 'What is a renewable energy certificate?',
+        answer:
+          'One certificate represents one megawatt-hour generated from a renewable source and delivered to the grid. A supplier selling a 100% renewable plan buys certificates matching what you use, which is what makes the claim true on paper and why the power reaching your meter is unchanged. It is an accounting instrument, not a separate wire.',
+      },
+      {
+        question: 'Does choosing a renewable plan add capacity to the grid?',
+        answer:
+          'Indirectly at best. Certificate demand supports the economics of existing renewable generation rather than commissioning new plant, and most retail plans do not commit the supplier to building anything. If additionality matters to you, community solar or an on-site system is the stronger lever than a retail supply plan.',
       },
     ],
   },
@@ -332,6 +487,7 @@ export const PLAN_COMPARISONS = [
       return { a: market.monthToMonth ? 'Available' : 'Not in our catalog', b: terms || 'None tracked' };
     },
     unit: null,
+    insights: monthToMonthInsights,
     columns: ['Month-to-month', 'Fixed terms offered'],
     faqs: [
       {
@@ -769,6 +925,7 @@ export function buildPlanComparison(spec) {
     columns: spec.columns,
     unit: spec.unit,
     rows,
+    insights: typeof spec.insights === 'function' ? spec.insights(rows) : [],
     faqs: spec.faqs,
   };
 }
