@@ -246,6 +246,42 @@ export function pricingCompleteness(plan) {
  *
  * @returns {{active: number, complete: number, incomplete: number, percent: number}}
  */
+/**
+ * Catalog pricing readiness, including the lever that fixes it.
+ *
+ * catalogPricingCoverage answers "how many plans can be priced" and stops
+ * there, which is the right answer for the plans screen because that screen is
+ * a per-plan work queue. It is the wrong answer for someone deciding what to do
+ * about it, and acting on it alone leads to the expensive mistake: editing a
+ * delivery charge onto every plan one at a time.
+ *
+ * Delivery is a fact about a utility's service territory, not about a plan —
+ * every retailer selling into Oncor bills the same Oncor delivery charge — so
+ * the fix for a catalog with no delivery data is to configure the territories
+ * once, not to copy a number across every plan in each of them. That is why
+ * migration 016 moved the tariff out of the plan row in the first place.
+ *
+ * `blockedOnTerritories` is the distinction that matters: unpriced plans while
+ * no territory exists at all is a different problem from a few plans missing an
+ * override in a market that is otherwise configured. The first is one job the
+ * whole catalog is waiting on; the second is a handful of edits.
+ *
+ * @param {object[]} plans
+ * @param {object[]} territories  rows from utility_territories
+ */
+export function pricingReadiness(plans, territories) {
+  const coverage = catalogPricingCoverage(plans);
+  const rows = Array.isArray(territories) ? territories : [];
+  const activeTerritories = rows.filter((t) => t?.is_active).length;
+
+  return {
+    ...coverage,
+    territories: rows.length,
+    activeTerritories,
+    blockedOnTerritories: coverage.incomplete > 0 && activeTerritories === 0,
+  };
+}
+
 export function catalogPricingCoverage(plans) {
   const active = (Array.isArray(plans) ? plans : []).filter((p) => p?.is_active);
   const complete = active.filter((p) => pricingCompleteness(p).complete).length;
